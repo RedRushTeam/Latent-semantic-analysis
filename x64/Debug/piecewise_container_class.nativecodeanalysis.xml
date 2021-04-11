@@ -109,24 +109,7 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>A:\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-      <FILENAME>container_class_interface.h</FILENAME>
-      <LINE>7</LINE>
-      <COLUMN>1</COLUMN>
-    </SFA>
-    <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "container_class_interface::count_of_collocations" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
-    <FUNCTION>container_class_interface::{ctor}</FUNCTION>
-    <DECORATED>??0container_class_interface@@QEAA@XZ</DECORATED>
-    <FUNCLINE>7</FUNCLINE>
-    <ADDITIONALINFO>
-      <targetSymbol>container_class_interface::count_of_collocations</targetSymbol>
-    </ADDITIONALINFO>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>A:\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\Strelkov\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>container_class_interface.h</FILENAME>
       <LINE>7</LINE>
       <COLUMN>1</COLUMN>
@@ -138,6 +121,23 @@
     <FUNCLINE>7</FUNCLINE>
     <ADDITIONALINFO>
       <targetSymbol>container_class_interface::k</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Strelkov\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>container_class_interface.h</FILENAME>
+      <LINE>7</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "container_class_interface::count_of_collocations" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>container_class_interface::{ctor}</FUNCTION>
+    <DECORATED>??0container_class_interface@@QEAA@XZ</DECORATED>
+    <FUNCLINE>7</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>container_class_interface::count_of_collocations</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT>

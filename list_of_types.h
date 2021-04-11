@@ -38,11 +38,18 @@
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/regex.hpp>
 
+//HDF5 includes
+#include "H5cpp.h"
+
 //namespaces
 namespace fs = std::filesystem;
 using namespace std;
+
 //SVD namespace
 using namespace Eigen;
+
+//HDF namespace
+using namespace H5;
 
 //usings
 using now_type = float;
