@@ -78,14 +78,14 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\local\boost_1_75_0;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\local\boost_1_75_0\lib64-msvc-14.2;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\RGD\SVD MATH\eigen-3.3.8\Eigen;C:\HDF5\1.12.0\include;C:\local\boost_1_75_0;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\HDF5\1.12.0\lib;C:\local\boost_1_75_0\lib64-msvc-14.2;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\local\boost_1_75_0;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\local\boost_1_75_0\lib64-msvc-14.2;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\RGD\SVD MATH\eigen-3.3.8\Eigen;C:\HDF5\1.12.0\include;C:\local\boost_1_75_0;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\HDF5\1.12.0\lib;C:\local\boost_1_75_0\lib64-msvc-14.2;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -130,7 +130,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\HDF5\lib;C:\local\boost_1_75_0\lib64-msvc-14.2;C:\RGD\RussianGrammaticalDictionary\lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>lemmatizator.lib;Solarix_Grammar_Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lemmatizator.lib;Solarix_Grammar_Engine.lib;szip.lib;zlib.lib;hdf5.lib;hdf5_cpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -145,6 +145,7 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <OpenMPSupport>true</OpenMPSupport>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
