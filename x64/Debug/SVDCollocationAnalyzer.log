@@ -1,0 +1,19 @@
+﻿  analyzer.cpp
+  container_class_interface.cpp
+  list_of_functions.cpp
+  main.cpp
+  parser.cpp
+  piecewise_container_class.cpp
+  SVDCollocationAnalyzer.vcxproj -> A:\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.exe
+C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\arch\SSE\Complex.h(20): warning C26495: Переменная "Eigen::internal::Packet2cf::v" не инициализирована. Всегда инициализируйте переменную-член (type.6).
+C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\arch\SSE\Complex.h(251): warning C26495: Переменная "Eigen::internal::Packet1cd::v" не инициализирована. Всегда инициализируйте переменную-член (type.6).
+C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\arch\CUDA\Half.h(388): warning C26450: Арифметическое переполнение: операция "<<" переполнение во время компиляции. Используйте более широкий тип для хранения операндов (io.1).
+C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\products\GeneralBlockPanelKernel.h(55): warning C26812: Тип перечисления "Eigen::Action" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\IterativeLinearSolvers\BasicPreconditioners.h(221): warning C26812: Тип перечисления "Eigen::ComputationInfo" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\local\boost_1_75_0\boost\smart_ptr\detail\local_counted_base.hpp(45): warning C26812: Тип перечисления "boost::detail::local_counted_base::count_type" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\local\boost_1_75_0\boost\function\function_base.hpp(603): warning C26495: Переменная "boost::function_base::functor" не инициализирована. Всегда инициализируйте переменную-член (type.6).
+A:\SVDCollocationAnalyzer\SVDCollocationAnalyzer\container_class_interface.h(7): warning C26495: Переменная "container_class_interface::count_of_collocations" не инициализирована. Всегда инициализируйте переменную-член (type.6).
+A:\SVDCollocationAnalyzer\SVDCollocationAnalyzer\parser.h(20): warning C6262: Функция использует "18160" байт в стеке:  это превышает значение /analyze:stacksize"16384".. Это выделение было предназначено для созданного компилятором временного имени для "class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > [454]" в строке 20. Попробуйте переместить некоторые данные в кучу.
+A:\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.h(10): warning C26495: Переменная "analyzer::k" не инициализирована. Всегда инициализируйте переменную-член (type.6).
+C:\local\boost_1_75_0\boost\regex\v4\regex_format.hpp(296): warning C26819: Неаннотированная передача управления между метками switch (es.78).
+C:\local\boost_1_75_0\boost\regex\v4\regex_format.hpp(369): warning C26819: Неаннотированная передача управления между метками switch (es.78).
