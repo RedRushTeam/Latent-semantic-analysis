@@ -15,6 +15,11 @@ void parser::set_filename(fs::path filename)
 	this->_filename = filename;
 }
 
+fs::path parser::get_filename() const
+{
+	return this->_filename;
+}
+
 void parser::print_all_words(string text)
 {
 	cout << endl << text << endl;

@@ -14,8 +14,6 @@
 #include <stdio.h>
 #include <string>
 #include <stdlib.h>
-#include <lemmatizator_engine.h>
-#include <windows.h>
 #include <string>
 #include <vector>
 #include <windows.h>
@@ -29,6 +27,12 @@
 #include <thread>
 #include <filesystem>
 #include <regex>
+
+//lemmatizator include
+#include <lemmatizator_engine.h>
+
+//windows.h include
+#include <windows.h>
 
 //Eigen lib include
 #include <Eigen>
@@ -55,7 +59,7 @@ using namespace H5;
 using now_type = float;
 
 //my defines
-#define GAP 3
+#define COLLOC_DIST 3
 #define STOP_WORD 0 
 
 #define LEMADR "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db"
