@@ -3,6 +3,7 @@
 
 class parser
 {
+public:
 	parser() {}
 	parser(fs::path filename) : _filename(filename) {}
 	shared_ptr<list<string>> parse();
@@ -10,10 +11,7 @@ class parser
 	fs::path get_filename() const;
 	void print_all_words(string text);
 	shared_ptr<list<string>> delete_trash();
-	~parser() {
-		stop_words.clear();
-		_filename.clear();
-	}
+	~parser() {}
 
 private:
 	fs::path _filename;

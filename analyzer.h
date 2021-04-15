@@ -24,6 +24,7 @@ public:
 
 	//methods
 	void create_lemmatizer();
+	void calculate_counter_of_tokenizer();
 	void analyze_vec_of_tokens();
 	list<string>::iterator move_list_iterator(list<string>::iterator _it, int mover);
 
@@ -36,7 +37,11 @@ public:
 	void set_container_class(shared_ptr<container_class_interface> _container_class);
 
 	//destr
-	~analyzer() {}
+	~analyzer() {
+		sol_DeleteLemmatizator(lemmas_engine);
+	}
+
+	static inline int counter_of_tokenizer;
 
 private:
 	//private methods
@@ -44,10 +49,10 @@ private:
 
 	HLEM lemmas_engine;
 	shared_ptr<container_class_interface> _container_class;
+	static inline int counter = 0;
 	static inline short k;
-	static inline int counter_of_tokenizer;
 	shared_ptr<list<string>> list_of_all_lemmatized_text;
 	shared_ptr<list<string>> list_of_all_parsed_text;
-	static inline map<string, int> map_of_tokens_WORD_TOKEN;
-	static inline map<int, string> map_of_tokens_TOKEN_WORD;
+	static inline unordered_map<string, int> map_of_tokens_WORD_TOKEN;
+	static inline unordered_map<int, string> map_of_tokens_TOKEN_WORD;
 };

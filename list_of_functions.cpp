@@ -5,8 +5,8 @@ void list_of_functions::print_info_about_sysyem()
 	MEMORYSTATUSEX statex;
 	statex.dwLength = sizeof(statex);
 	GlobalMemoryStatusEx(&statex);
-	cout << "This system have " << statex.ullTotalPhys / 1024 << " KB of physical memory." << endl << endl;
-	cout << "This system have " << statex.ullTotalPageFile / 1024 << " KB of paging file." << endl;
+	cout << "This system have " << statex.ullTotalPhys / 1024 / 1024 << " MB of physical memory." << endl << endl;
+	cout << "This system have " << statex.ullTotalPageFile / 1024 / 1024 << " MB of paging file." << endl;
 }
 
 shared_ptr<vector<fs::path>> list_of_functions::get_input_texts()

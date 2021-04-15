@@ -27,6 +27,10 @@
 #include <thread>
 #include <filesystem>
 #include <regex>
+#include <cstring>
+
+//Multithreading include
+#include "omp.h"
 
 //lemmatizator include
 #include <lemmatizator_engine.h>
@@ -41,6 +45,7 @@
 #include <boost/any.hpp>
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/regex.hpp>
+#include <boost/algorithm/string.hpp>
 
 //HDF5 includes
 #include "H5cpp.h"
@@ -63,4 +68,5 @@ using now_type = float;
 #define STOP_WORD 0 
 
 #define LEMADR "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db"
-#define TEXTS_PATH "C:\\txts"
+//#define TEXTS_PATH "A:\\rasp_puhl"
+#define TEXTS_PATH "G:\\rasp_puhl"

@@ -125,6 +125,12 @@
       <AdditionalIncludeDirectories>C:\HDF5\include;C:\local\boost_1_75_0\boost;C:\RGD\SVD MATH\eigen-3.3.8\Eigen;C:\RGD\RussianGrammaticalDictionary\include\lem\solarix;C:\RGD\RussianGrammaticalDictionary\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <OpenMPSupport>true</OpenMPSupport>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,6 +167,7 @@
     <ClCompile Include="container_class_interface.cpp" />
     <ClCompile Include="list_of_functions.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="math_core.cpp" />
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="piecewise_container_class.cpp" />
   </ItemGroup>
@@ -169,6 +176,7 @@
     <ClInclude Include="container_class_interface.h" />
     <ClInclude Include="list_of_functions.h" />
     <ClInclude Include="list_of_types.h" />
+    <ClInclude Include="math_core.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="piecewise_container_class.h" />
   </ItemGroup>

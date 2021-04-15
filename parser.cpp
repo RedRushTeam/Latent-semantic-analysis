@@ -63,18 +63,7 @@ shared_ptr<list<string>> parser::delete_trash()
 	string substring_word;
 	shared_ptr<list<string>> terms = make_shared<list<string>>();
 
-
-	char* c_text = new char[text.size()];
-	strcpy(c_text, text.c_str());
-	char* pch = strtok(c_text, " ");
-	while (pch != NULL)                         // пока есть лексемы
-	{
-		terms->push_back((string)pch);
-		pch = strtok(NULL, " ");
-	}
-
-	delete[] c_text;
-	delete[] pch;
+	boost::algorithm::split(*terms, text, boost::is_any_of(" "));
 
 	return terms;
 }
