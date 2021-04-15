@@ -5,7 +5,9 @@ class math_core
 {
 public:
 	//constr
-	math_core(shared_ptr<vector<fs::path>> vec_of_filepaths) : vec_of_filepaths(vec_of_filepaths) {}
+	math_core(shared_ptr<vector<fs::path>> vec_of_filepaths) : vec_of_filepaths(vec_of_filepaths) {
+		vec_of_container_classes.reserve(vec_of_filepaths->size());
+	}
 
 	//public methods
 
@@ -19,6 +21,8 @@ public:
 	MatrixXf get_colloc_singular_V_matrix();
 	MatrixXf get_colloc_singular_U_matrix();
 	vector<pair<int, int>>* get_helper_vec();
+
+	void calculate_all_texts_stats();
 
 	void calculate_max_cont_size();	//first
 	void calculate_sample_mean();	//second

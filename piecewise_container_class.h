@@ -61,6 +61,9 @@ public:
 private:
     unordered_map<three_coordinate_structure, now_type> downloaded_map;
     set<int> number_of_downloaded_slice;
+
+    // ”наследовано через container_class_interface
+    virtual void operator/=(now_type _num) override;
     //путь к бд кокретно этого файла
 };
 

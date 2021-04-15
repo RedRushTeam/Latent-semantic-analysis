@@ -27,7 +27,6 @@
 #include <thread>
 #include <filesystem>
 #include <regex>
-#include <cstring>
 
 //Multithreading include
 #include "omp.h"

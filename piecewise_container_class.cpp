@@ -89,3 +89,7 @@ shared_ptr<container_class_interface> piecewise_container_class::operator/(now_t
 {
 	return shared_ptr<container_class_interface>();
 }
+
+void piecewise_container_class::operator/=(now_type _num)
+{
+}

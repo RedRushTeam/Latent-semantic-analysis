@@ -18,6 +18,8 @@ int main(int argc, char* argv[])
 
 	cout << endl << endl << "Размер словаря: " << _math_core.get_max_cont_size() << " слов." << endl;
 
+	_math_core.calculate_all_texts_stats();
+
 	auto finish = clock();
 	cout << endl << endl << ">>> " << finish - start << "ms <<<" << endl;
 	system("pause");
