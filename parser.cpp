@@ -51,7 +51,6 @@ shared_ptr<list<string>> parser::delete_trash()
 	string temp = boost::regex_replace(untext, no_letters, replacement);
 	string text = boost::regex_replace(temp, spaces, replacement);
 
-
 	transform(text.begin(), text.end(), text.begin(), ::tolower);
 
 	if (text[0] == ' ')
@@ -60,7 +59,6 @@ shared_ptr<list<string>> parser::delete_trash()
 	if (text[text.size() - 1] != ' ')
 		text.push_back(' ');
 
-	string substring_word;
 	shared_ptr<list<string>> terms = make_shared<list<string>>();
 
 	boost::algorithm::split(*terms, text, boost::is_any_of(" "));

@@ -1,8 +1,6 @@
 #pragma once
 
 //lib defines
-#define H5_BUILT_AS_DYNAMIC_LIB
-#define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING
 #define _CRT_SECURE_NO_WARNINGS
 #define BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE
 #define BOOST_HAS_THREADS
@@ -46,8 +44,8 @@
 #include <boost/algorithm/string/regex.hpp>
 #include <boost/algorithm/string.hpp>
 
-//HDF5 includes
-#include "H5cpp.h"
+//SQLite include
+#include <sqlite3.h> 
 
 //namespaces
 namespace fs = std::filesystem;
@@ -55,9 +53,6 @@ using namespace std;
 
 //SVD namespace
 using namespace Eigen;
-
-//HDF namespace
-using namespace H5;
 
 //usings
 using now_type = float;
@@ -67,5 +62,5 @@ using now_type = float;
 #define STOP_WORD 0 
 
 #define LEMADR "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db"
-//#define TEXTS_PATH "A:\\rasp_puhl"
-#define TEXTS_PATH "G:\\rasp_puhl"
+#define TEXTS_PATH "A:\\rasp_puhl"
+//#define TEXTS_PATH "G:\\rasp_puhl"

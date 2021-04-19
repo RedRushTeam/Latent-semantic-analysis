@@ -7,4 +7,6 @@ public:
 	static void print_info_about_sysyem();
 
 	static shared_ptr<vector<fs::path>> get_input_texts();
+
+	static void test_of_sqlite();
 };

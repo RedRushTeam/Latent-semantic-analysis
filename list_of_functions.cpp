@@ -19,3 +19,19 @@ shared_ptr<vector<fs::path>> list_of_functions::get_input_texts()
 		return fs::is_regular_file(path) && (path.extension() == ".txt" || path.extension() == ".TXT"); });
 	return txtFiles;
 }
+
+void list_of_functions::test_of_sqlite()
+{
+	sqlite3* db;
+	char* zErrMsg = 0;
+	int rc;
+
+	rc = sqlite3_open("test.db", &db);
+
+	if (rc)
+		cout << "Can't open database: %s\n" << sqlite3_errmsg(db) << endl;
+	else 
+		cout << "Opened database successfully\n" << endl;
+
+	sqlite3_close(db);
+}
