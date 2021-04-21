@@ -1,6 +1,7 @@
 #pragma once
 
 //lib defines
+#define BOOST_IOSTREAMS_NO_LIB
 #define _CRT_SECURE_NO_WARNINGS
 #define BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE
 #define BOOST_HAS_THREADS
@@ -24,6 +25,7 @@
 #include <ctime>
 #include <thread>
 #include <filesystem>
+#include <random>
 #include <regex>
 
 //Multithreading include
@@ -43,9 +45,16 @@
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/regex.hpp>
 #include <boost/algorithm/string.hpp>
+/*#include <boost/iostreams/filtering_streambuf.hpp>
+#include <boost/iostreams/copy.hpp>
+#include <boost/iostreams/filter/bzip2.hpp>
+#include <boost/iostreams/device/file.hpp> */
 
 //SQLite include
 #include <sqlite3.h> 
+
+//SQLiteCpp SQL wrapper include
+#include <SQLiteCpp/SQLiteCpp.h>
 
 //namespaces
 namespace fs = std::filesystem;

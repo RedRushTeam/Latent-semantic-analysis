@@ -20,11 +20,22 @@ shared_ptr<vector<fs::path>> list_of_functions::get_input_texts()
 	return txtFiles;
 }
 
+static int callback(void* NotUsed, int argc, char** argv, char** azColName) {
+	int i;
+	for (i = 0; i < argc; i++) {
+		printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+	}
+	printf("\n");
+	return 0;
+}
+
 void list_of_functions::test_of_sqlite()
 {
 	sqlite3* db;
 	char* zErrMsg = 0;
 	int rc;
+	const char* sql;
+	const char* data = "Callback function called";
 
 	rc = sqlite3_open("test.db", &db);
 
@@ -33,5 +44,91 @@ void list_of_functions::test_of_sqlite()
 	else 
 		cout << "Opened database successfully\n" << endl;
 
+	/* Create SQL statement */
+	sql = "CREATE TABLE SHIT("  \
+		"ID INT PRIMARY KEY     NOT NULL," \
+		"CHISLO           REAL    NOT NULL );";
+
+	/* Execute SQL statement */
+	rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+
+	if (rc != SQLITE_OK) {
+		fprintf(stderr, "SQL error: %s\n", zErrMsg);
+		sqlite3_free(zErrMsg);
+	}
+	else {
+		fprintf(stdout, "Table created successfully\n");
+	}
+
+	std::mt19937 gen(time(NULL));
+	std::uniform_real_distribution<float> uid1(0.0, 1.0);
+
+	/* Create SQL statement */
+	for (int i = 0; i < 100000; ++i) {
+		string shit = "INSERT INTO SHIT (ID,CHISLO) "  \
+			"VALUES (" + to_string(i) + ", " + to_string(uid1(gen)) + " ); ";
+
+		sql = shit.c_str();
+
+		rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+	}
+
+	/* Create SQL statement */
+	sql = "SELECT * from SHIT";
+
+	/* Execute SQL statement */
+	rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
+
+	if (rc != SQLITE_OK) {
+		fprintf(stderr, "SQL error: %s\n", zErrMsg);
+		sqlite3_free(zErrMsg);
+	}
+	else {
+		fprintf(stdout, "Operation done successfully\n");
+	}
+
+	/* Create merged SQL statement */
+	sql = "UPDATE SHIT set CHISLO = 25000.00 where ID=1; " \
+		"SELECT * from SHIT";
+
+	/* Execute SQL statement */
+	rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
+
+	if (rc != SQLITE_OK) {
+		fprintf(stderr, "SQL error: %s\n", zErrMsg);
+		sqlite3_free(zErrMsg);
+	}
+	else {
+		fprintf(stdout, "Operation done successfully\n");
+	}
+
+	/* Create merged SQL statement */
+	sql = "DELETE from SHIT where ID=1; " \
+		"SELECT * from SHIT";
+
+	/* Execute SQL statement */
+	rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
+
+	if (rc != SQLITE_OK) {
+		fprintf(stderr, "SQL error: %s\n", zErrMsg);
+		sqlite3_free(zErrMsg);
+	}
+	else {
+		fprintf(stdout, "Operation done successfully\n");
+	}
+
 	sqlite3_close(db);
+}
+
+void list_of_functions::test_of_bzip2(std::string file)
+{
+	/*boost::iostreams::filtering_ostreambuf out;
+	out.push(boost::iostreams::bzip2_compressor());
+	out.push(boost::iostreams::file_sink("data.bin", std::ios::binary));
+	boost::iostreams::copy(boost::iostreams::file_source("data.bz2", std::ios::binary), out);
+	
+		boost::iostreams::filtering_istreambuf in;
+	in.push(boost::iostreams::bzip2_decompressor());
+	in.push(boost::iostreams::file_source("data.bz2", std::ios::binary));
+	boost::iostreams::copy(in, boost::iostreams::file_sink("data.bin", std::ios::binary));*/
 }

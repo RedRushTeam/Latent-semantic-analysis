@@ -9,4 +9,6 @@ public:
 	static shared_ptr<vector<fs::path>> get_input_texts();
 
 	static void test_of_sqlite();
+
+	static void test_of_bzip2(std::string file);
 };
