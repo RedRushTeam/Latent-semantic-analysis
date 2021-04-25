@@ -6,21 +6,30 @@ int main(int argc, char* argv[])
 	auto start = clock();
 	setlocale(LC_ALL, "Russian");
 
-	list_of_functions::test_of_sqlite();
+	//list_of_functions::test_of_sqlite();
 
 	list_of_functions::print_info_about_sysyem();
 
-	auto texts = list_of_functions::get_input_texts();
+	//auto texts = list_of_functions::get_input_texts();
 
-	cout << endl << endl << "Всего обнаружено " << texts->size() << " текстов." << endl;
+	piecewise_container_class xxx(8, 1000);
+	//cout <<  xxx.get_count_of_concret_collocation(1,2,0) << endl;
+	//xxx.increment(1, 2, 0);cout << xxx.get_count_of_concret_collocation(1, 2, 0) << endl;
 
-	math_core _math_core(texts);
+	xxx.load_slice(2);
+
+	xxx.clear_map();
 	
-	_math_core.calculate_max_cont_size();
 
-	cout << endl << endl << "Размер словаря: " << _math_core.get_max_cont_size() << " слов." << endl;
+	//cout << endl << endl << "Всего обнаружено " << texts->size() << " текстов." << endl;
 
-	_math_core.calculate_all_texts_stats();
+	//math_core _math_core(texts);
+	
+	//_math_core.calculate_max_cont_size();
+
+	//cout << endl << endl << "Размер словаря: " << _math_core.get_max_cont_size() << " слов." << endl;
+
+	//_math_core.calculate_all_texts_stats();
 
 	auto finish = clock();
 	cout << endl << endl << ">>> " << finish - start << "ms <<<" << endl;

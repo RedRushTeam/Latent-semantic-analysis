@@ -5,6 +5,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 #define BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE
 #define BOOST_HAS_THREADS
+//#define _ITERATOR_DEBUG_LEVEL 0
+#define SQLITE_ENABLE_COLUMN_METADATA
+#define SQLITE_OPEN_READWRITE
 
 //C++ includes
 #include <iostream>
@@ -45,6 +48,7 @@
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/regex.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/lexical_cast.hpp>
 /*#include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/iostreams/copy.hpp>
 #include <boost/iostreams/filter/bzip2.hpp>

@@ -107,4 +107,18 @@
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\local\boost_1_75_0\boost\numeric\conversion\</FILEPATH>
+      <FILENAME>converter_policies.hpp</FILENAME>
+      <LINE>160</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "boost::numeric::range_check_result" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>boost::numeric::def_overflow_handler::()</FUNCTION>
+    <DECORATED>??Rdef_overflow_handler@numeric@boost@@QEAAXW4range_check_result@12@@Z</DECORATED>
+    <FUNCLINE>160</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
 </DEFECTS>

@@ -109,7 +109,38 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Strelkov\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\local\boost_1_75_0\boost\numeric\conversion\</FILEPATH>
+      <FILENAME>converter_policies.hpp</FILENAME>
+      <LINE>160</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "boost::numeric::range_check_result" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>boost::numeric::def_overflow_handler::()</FUNCTION>
+    <DECORATED>??Rdef_overflow_handler@numeric@boost@@QEAAXW4range_check_result@12@@Z</DECORATED>
+    <FUNCLINE>160</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>container_class_interface.h</FILENAME>
+      <LINE>7</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "container_class_interface::count_of_collocations" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>container_class_interface::{ctor}</FUNCTION>
+    <DECORATED>??0container_class_interface@@QEAA@XZ</DECORATED>
+    <FUNCLINE>7</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>container_class_interface::count_of_collocations</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>container_class_interface.h</FILENAME>
       <LINE>7</LINE>
       <COLUMN>1</COLUMN>
@@ -126,18 +157,18 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Strelkov\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-      <FILENAME>container_class_interface.h</FILENAME>
-      <LINE>7</LINE>
-      <COLUMN>1</COLUMN>
+      <FILEPATH>C:\local\boost_1_75_0\boost\lexical_cast\detail\</FILEPATH>
+      <FILENAME>converter_lexical_streams.hpp</FILENAME>
+      <LINE>162</LINE>
+      <COLUMN>12</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "container_class_interface::count_of_collocations" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
-    <FUNCTION>container_class_interface::{ctor}</FUNCTION>
-    <DECORATED>??0container_class_interface@@QEAA@XZ</DECORATED>
-    <FUNCLINE>7</FUNCLINE>
+    <DESCRIPTION>Переменная "boost::detail::lexical_istream_limited_src&lt;char,std::char_traits&lt;char&gt;,1,21&gt;::buffer" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>boost::detail::lexical_istream_limited_src&lt;char,std::char_traits&lt;char&gt;,1,21&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$lexical_istream_limited_src@DU?$char_traits@D@std@@$00$0BF@@detail@boost@@QEAA@XZ</DECORATED>
+    <FUNCLINE>162</FUNCLINE>
     <ADDITIONALINFO>
-      <targetSymbol>container_class_interface::count_of_collocations</targetSymbol>
+      <targetSymbol>boost::detail::lexical_istream_limited_src&lt;char,std::char_traits&lt;char&gt;,1,21&gt;::buffer</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT>

@@ -24,14 +24,59 @@ namespace std
     };
 }
 
+inline bool operator== (three_coordinate_structure lefty, three_coordinate_structure righty)
+{
+    if ((lefty.number_of_first_collocation == righty.number_of_first_collocation) && (lefty.number_of_second_collocation == righty.number_of_second_collocation) && (lefty.k_ == righty.k_))
+        return true;
+    return false;
+};
+
+static int text_counter = 0;
+
+
 class piecewise_container_class :
     public container_class_interface
 {
 public:
     //constr
-    piecewise_container_class(short k, int count_of_collocations) : container_class_interface(k, count_of_collocations) {}
+    piecewise_container_class(short k, int count_of_collocations) : container_class_interface(k, count_of_collocations) 
+    {
+        sqlite3* db;
+
+        string textname = "text" + to_string(text_counter) + ".db";
+        sqlite3_open(textname.c_str(), &db);
+        text_counter++;
+
+        this->_filename = textname;
+
+        string sql = "CREATE TABLE TEXT("  \
+            "ID STRING PRIMARY KEY NOT NULL," \
+            "CHISLO REAL NOT NULL);";
+
+        int rc = sqlite3_exec(db, sql.c_str(), 0, 0, 0);
+
+        string ins = "";
+        char* zErrMsg = 0;
+
+        for (int i=0; i<count_of_collocations; ++i)
+            for(int j=0; j<count_of_collocations; ++j)
+                for (int l = 0; l < k; ++l)
+                {
+                   ins += "INSERT or IGNORE INTO TEXT(ID, CHISLO) VALUES (\"" + to_string(i) + "!" + to_string(j) + "!" + to_string(l) + "\", 7.3); ";
+                    
+                }
+        sqlite3_exec(db, ins.c_str(), 0, 0, &zErrMsg);
+        sqlite3_close(db);
+
+        fs::permissions(this->_filename, fs::perms::owner_all | fs::perms::group_all, fs::perm_options::add);
+        
+        //need to call db correct;
+    }
 
     //methods
+    void load_slice(int first_dimesion);
+    void clear_map();
+    bool is_slice_loaded(int first_dimension);
 
 
     // ”наследовано через container_class_interface
@@ -64,6 +109,8 @@ private:
 
     // ”наследовано через container_class_interface
     virtual void operator/=(now_type _num) override;
-    //путь к бд кокретно этого файла
+    string _filename;
+
+    string bufer;
 };
 

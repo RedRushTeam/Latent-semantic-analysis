@@ -109,24 +109,21 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Strelkov\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-      <FILENAME>container_class_interface.h</FILENAME>
-      <LINE>7</LINE>
-      <COLUMN>1</COLUMN>
+      <FILEPATH>C:\local\boost_1_75_0\boost\numeric\conversion\</FILEPATH>
+      <FILENAME>converter_policies.hpp</FILENAME>
+      <LINE>160</LINE>
+      <COLUMN>7</COLUMN>
     </SFA>
-    <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "container_class_interface::k" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
-    <FUNCTION>container_class_interface::{ctor}</FUNCTION>
-    <DECORATED>??0container_class_interface@@QEAA@XZ</DECORATED>
-    <FUNCLINE>7</FUNCLINE>
-    <ADDITIONALINFO>
-      <targetSymbol>container_class_interface::k</targetSymbol>
-    </ADDITIONALINFO>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "boost::numeric::range_check_result" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>boost::numeric::def_overflow_handler::()</FUNCTION>
+    <DECORATED>??Rdef_overflow_handler@numeric@boost@@QEAAXW4range_check_result@12@@Z</DECORATED>
+    <FUNCLINE>160</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Strelkov\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>container_class_interface.h</FILENAME>
       <LINE>7</LINE>
       <COLUMN>1</COLUMN>
@@ -138,6 +135,23 @@
     <FUNCLINE>7</FUNCLINE>
     <ADDITIONALINFO>
       <targetSymbol>container_class_interface::count_of_collocations</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>container_class_interface.h</FILENAME>
+      <LINE>7</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "container_class_interface::k" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>container_class_interface::{ctor}</FUNCTION>
+    <DECORATED>??0container_class_interface@@QEAA@XZ</DECORATED>
+    <FUNCLINE>7</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>container_class_interface::k</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT>
