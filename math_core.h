@@ -24,6 +24,7 @@ public:
 
 	void calculate_all_texts_stats();
 
+	void calculate_max_cont_size_without_rare_words();
 	void calculate_max_cont_size();	//first
 	void calculate_sample_mean();	//second
 	void calculate_mat_ozidanie();	//third

@@ -52,6 +52,35 @@ void analyzer::calculate_counter_of_tokenizer()
 	}
 }
 
+void analyzer::calculate_counter_of_tokenizer_without_rare_words()
+{
+	this->lemmatize_all_words();
+
+	//критическая секция
+	for (auto& obj : *this->list_of_all_lemmatized_text) {	//обращение к критическому ресурсу
+		#pragma omp critical (maps_into_analyzer)
+		{
+			word_and_number_of_appearances_structure _key{ obj, 1 };
+
+			auto iter = this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key);
+
+			if (iter == this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+				this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.insert(make_pair(_key, this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.size()));
+			else {
+				word_and_number_of_appearances_structure _key{ obj, iter->first.number_of_appearances_of_this_word + 1 };
+				int tmp_token = iter->second;
+				this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.erase(_key);
+				this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.insert(make_pair(_key, tmp_token));
+			}
+		}
+	}
+
+	/*#pragma omp critical (maps_into_analyzer)
+	{
+		this->counter_of_tokenizer_without_rare_words = this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.size();
+	}*/
+}
+
 void analyzer::analyze_vec_of_tokens()
 {
 	this->lemmatize_all_words();
@@ -134,6 +163,17 @@ int analyzer::get_k()
 int analyzer::get_counter_of_tokenizer()
 {
 	return this->counter_of_tokenizer;
+}
+
+int analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff(int cutoff)
+{
+	int counter_without_rare_words = 0;
+
+	for (auto& obj : this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_)
+		if (obj.first.number_of_appearances_of_this_word > cutoff)
+			++counter_of_tokenizer_without_rare_words;
+		
+	return counter_without_rare_words;
 }
 
 void analyzer::set_list_of_all_parsed_text(shared_ptr<list<string>> list_of_all_parsed_text)

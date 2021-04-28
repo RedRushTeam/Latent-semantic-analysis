@@ -71,9 +71,10 @@ using namespace Eigen;
 using now_type = float;
 
 //my defines
-#define COLLOC_DIST 3
-#define STOP_WORD 0 
+constexpr auto COLLOC_DIST = 3;
+constexpr auto STOP_WORD = 0 ;
+constexpr auto CUTOFF = 2;
 
-#define LEMADR "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db"
-#define TEXTS_PATH "A:\\rasp_puhl"
-//#define TEXTS_PATH "G:\\rasp_puhl"
+constexpr auto LEMADR = "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db";
+constexpr auto TEXTS_PATH = "A:\\rasp_puhl";
+//constexpr auto TEXTS_PATH = "G:\\rasp_puhl";

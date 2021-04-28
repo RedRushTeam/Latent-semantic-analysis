@@ -25,6 +25,27 @@ void math_core::calculate_all_texts_stats()
 	}
 }
 
+void math_core::calculate_max_cont_size_without_rare_words()
+{
+	#pragma omp parallel 
+	{
+		#pragma omp for schedule(static)
+		for (int i = 0; i < this->vec_of_filepaths->size(); ++i) {
+			parser _parser((*this->vec_of_filepaths)[i]);	//tut peredaetsa kopiya
+			auto result_of_parse = _parser.parse();
+
+			analyzer _analyzer(result_of_parse);
+			_analyzer.calculate_counter_of_tokenizer_without_rare_words();
+		}
+	}
+
+	analyzer _analyzer;
+
+	this->max_cont_size = _analyzer.get_counter_of_tokenizer_without_rare_words_with_cutoff(CUTOFF);
+
+	cout << "Максимальный размер словаря, отбросив термы с " << CUTOFF << " двумя и менее появлениями: " << this->max_cont_size;
+}
+
 void math_core::calculate_max_cont_size()
 {
 	#pragma omp parallel 

@@ -10,21 +10,22 @@ int main(int argc, char* argv[])
 
 	list_of_functions::print_info_about_sysyem();
 
-	//auto texts = list_of_functions::get_input_texts();
+	auto texts = list_of_functions::get_input_texts();
 
-	piecewise_container_class xxx(8, 1000);
+	//piecewise_container_class xxx(8, 1000);
 	//cout <<  xxx.get_count_of_concret_collocation(1,2,0) << endl;
 	//xxx.increment(1, 2, 0);cout << xxx.get_count_of_concret_collocation(1, 2, 0) << endl;
 
-	xxx.load_slice(2);
+	//xxx.load_slice(2);
 
-	xxx.clear_map();
+	//xxx.clear_map();
 	
 
 	//cout << endl << endl << "Всего обнаружено " << texts->size() << " текстов." << endl;
 
-	//math_core _math_core(texts);
+	math_core _math_core(texts);
 	
+	_math_core.calculate_max_cont_size_without_rare_words();
 	//_math_core.calculate_max_cont_size();
 
 	//cout << endl << endl << "Размер словаря: " << _math_core.get_max_cont_size() << " слов." << endl;
