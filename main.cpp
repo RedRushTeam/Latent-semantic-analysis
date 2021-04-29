@@ -24,11 +24,16 @@ int main(int argc, char* argv[])
 	//cout << endl << endl << "Всего обнаружено " << texts->size() << " текстов." << endl;
 
 	math_core _math_core(texts);
-	
-	_math_core.calculate_max_cont_size_without_rare_words();
-	//_math_core.calculate_max_cont_size();
 
-	//cout << endl << endl << "Размер словаря: " << _math_core.get_max_cont_size() << " слов." << endl;
+	_math_core.calculate_max_cont_size();
+
+	int size_for_wichout_rare_words_in_texts = _math_core.calculate_max_cont_size_without_rare_words_and_frequency_in_texts();
+	int size_for_CONST_SIZE = _math_core.get_max_cont_size();
+	int size_for_wichout_rare_words = _math_core.calculate_max_cont_size_without_rare_words();
+
+	cout << endl << endl << "Размер словаря без очисток: " << size_for_CONST_SIZE << endl;
+	cout << endl << "Максимальный размер словаря, отбросив термы с " << CUTOFF << " и менее появлениями: " << size_for_wichout_rare_words;
+	cout << endl << "Максимальный размер словаря, отбросив термы с появлениями в " << CUTOFF_FR_IN_TEXTS << " и менее текстах, а так же, отбросив термы с " << CUTOFF << " и менее появлениями: " << size_for_wichout_rare_words_in_texts;
 
 	//_math_core.calculate_all_texts_stats();
 

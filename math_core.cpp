@@ -25,7 +25,7 @@ void math_core::calculate_all_texts_stats()
 	}
 }
 
-void math_core::calculate_max_cont_size_without_rare_words()
+int math_core::calculate_max_cont_size_without_rare_words()
 {
 	#pragma omp parallel 
 	{
@@ -41,9 +41,26 @@ void math_core::calculate_max_cont_size_without_rare_words()
 
 	analyzer _analyzer;
 
-	this->max_cont_size = _analyzer.get_counter_of_tokenizer_without_rare_words_with_cutoff(CUTOFF);
+	return _analyzer.get_counter_of_tokenizer_without_rare_words_with_cutoff(CUTOFF);
+}
 
-	cout << "Максимальный размер словаря, отбросив термы с " << CUTOFF << " двумя и менее появлениями: " << this->max_cont_size;
+int math_core::calculate_max_cont_size_without_rare_words_and_frequency_in_texts()
+{
+	#pragma omp parallel 
+	{
+		#pragma omp for schedule(static)
+		for (int i = 0; i < this->vec_of_filepaths->size(); ++i) {
+			parser _parser((*this->vec_of_filepaths)[i]);	//tut peredaetsa kopiya
+			auto result_of_parse = _parser.parse();
+
+			analyzer _analyzer(result_of_parse);
+			_analyzer.calculate_counter_of_tokenizer_without_rare_words();
+		}
+	}
+
+	analyzer _analyzer;
+
+	return _analyzer.get_counter_of_tokenizer_without_rare_words_with_cutoff_of_text(CUTOFF, CUTOFF_FR_IN_TEXTS);
 }
 
 void math_core::calculate_max_cont_size()
@@ -143,10 +160,17 @@ void math_core::find_fluctuations()
 	chart1.clear();*/
 }
 
-/*shared_ptr<container_class_interface> math_core::calculate_parametr_to_one_term(shared_ptr<container_class_interface> _parametr)
+shared_ptr<container_class_interface> math_core::calculate_parametr_to_one_term(shared_ptr<container_class_interface> _parametr)
 {
-	return shared_ptr<container_class_interface>();
-}*/
+	auto one_term_matrix = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size);
+
+	for (auto q = 0; q < _parametr->get_count_of_collocations(); ++q)
+		for (auto j = 0; j < _parametr->get_count_of_collocations(); ++j)
+			for (auto p = -COLLOC_DIST - 1; p <= COLLOC_DIST; ++p)
+					one_term_matrix->set_count_of_concret_collocation(q, q, p, one_term_matrix->get_count_of_concret_collocation(q, q, p) + _parametr->get_count_of_concret_collocation(q, j, p));
+
+	return one_term_matrix;
+}
 
 int math_core::get_max_cont_size() const
 {

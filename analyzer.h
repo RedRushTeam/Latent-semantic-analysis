@@ -4,6 +4,7 @@
 struct word_and_number_of_appearances_structure {
 	string word;
 	int number_of_appearances_of_this_word;
+	int number_of_texts_in_which_term_occurs;
 };
 
 namespace std
@@ -59,6 +60,7 @@ public:
 	int get_k();
 	int get_counter_of_tokenizer();
 	int get_counter_of_tokenizer_without_rare_words_with_cutoff(int cutoff);
+	int get_counter_of_tokenizer_without_rare_words_with_cutoff_of_text(int cutoff, int cutoff_of_texts);
 	void set_list_of_all_parsed_text(shared_ptr<list<string>> list_of_all_parsed_text);
 	void set_k(short _k);
 	shared_ptr<container_class_interface> get_container_class();

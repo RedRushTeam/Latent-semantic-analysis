@@ -182,3 +182,8 @@ shared_ptr<container_class_interface> piecewise_container_class::operator/(now_t
 void piecewise_container_class::operator/=(now_type _num)
 {
 }
+
+now_type piecewise_container_class::set_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension, now_type perem)
+{
+	return now_type();
+}

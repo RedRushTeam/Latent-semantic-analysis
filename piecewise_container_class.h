@@ -41,10 +41,11 @@ public:
     //constr
     piecewise_container_class(short k, int count_of_collocations) : container_class_interface(k, count_of_collocations) 
     {
-        sqlite3* db;
+        /*sqlite3* db;
 
         string textname = "text" + to_string(text_counter) + ".db";
         sqlite3_open(textname.c_str(), &db);
+        now_counter = text_counter;
         text_counter++;
 
         this->_filename = textname;
@@ -68,9 +69,16 @@ public:
         sqlite3_exec(db, ins.c_str(), 0, 0, &zErrMsg);
         sqlite3_close(db);
 
-        fs::permissions(this->_filename, fs::perms::owner_all | fs::perms::group_all, fs::perm_options::add);
+        fs::permissions(this->_filename, fs::perms::owner_all | fs::perms::group_all, fs::perm_options::add);*/
         
         //need to call db correct;
+    }
+
+    int now_counter;
+
+    //destr
+    ~piecewise_container_class() {
+        //fs::remove("C:\\Users\\beerR2600\\YandexDisk\\SVDCollocationAnalyzer\\SVDCollocationAnalyzer\\text" + to_string(now_counter) + ".db");
     }
 
     //methods
@@ -83,6 +91,7 @@ public:
     virtual void increment(int first_dimension, int second_dimension, int third_dimension) override;
     virtual void decrement(int first_dimension, int second_dimension, int third_dimension) override;
     virtual now_type get_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension) override;
+    virtual now_type set_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension, now_type perem) override;
     virtual shared_ptr<container_class_interface> pow_all(int stepen) override;
     virtual shared_ptr<container_class_interface> sqrt_all() override;
 

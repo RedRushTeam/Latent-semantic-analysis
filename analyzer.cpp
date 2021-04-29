@@ -56,19 +56,30 @@ void analyzer::calculate_counter_of_tokenizer_without_rare_words()
 {
 	this->lemmatize_all_words();
 
+	unordered_set<int> set_of_words_in_this_text;
+
 	//критическая секция
 	for (auto& obj : *this->list_of_all_lemmatized_text) {	//обращение к критическому ресурсу
 		#pragma omp critical (maps_into_analyzer)
 		{
-			word_and_number_of_appearances_structure _key{ obj, 1 };
+			word_and_number_of_appearances_structure _key{ obj, 1, 1 };
 
 			auto iter = this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key);
 
-			if (iter == this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+			if (iter == this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end()) {
+				set_of_words_in_this_text.insert(this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.size());
 				this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.insert(make_pair(_key, this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.size()));
+				
+			}
 			else {
-				word_and_number_of_appearances_structure _key{ obj, iter->first.number_of_appearances_of_this_word + 1 };
 				int tmp_token = iter->second;
+				if (set_of_words_in_this_text.find(tmp_token) == set_of_words_in_this_text.end()) {
+					word_and_number_of_appearances_structure _key{ obj, iter->first.number_of_appearances_of_this_word + 1, iter->first.number_of_texts_in_which_term_occurs + 1 };
+					set_of_words_in_this_text.insert(tmp_token);
+				}
+				else
+					word_and_number_of_appearances_structure _key{ obj, iter->first.number_of_appearances_of_this_word + 1, iter->first.number_of_texts_in_which_term_occurs };
+
 				this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.erase(_key);
 				this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.insert(make_pair(_key, tmp_token));
 			}
@@ -171,8 +182,19 @@ int analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff(int cutoff
 
 	for (auto& obj : this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_)
 		if (obj.first.number_of_appearances_of_this_word > cutoff)
-			++counter_of_tokenizer_without_rare_words;
+			++counter_without_rare_words;
 		
+	return counter_without_rare_words;
+}
+
+int analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff_of_text(int cutoff, int cutoff_of_texts)
+{
+	int counter_without_rare_words = 0;
+
+	for (auto& obj : this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_)
+		if (obj.first.number_of_appearances_of_this_word > cutoff && (obj.first.number_of_texts_in_which_term_occurs > cutoff_of_texts))
+			++counter_without_rare_words;
+
 	return counter_without_rare_words;
 }
 
