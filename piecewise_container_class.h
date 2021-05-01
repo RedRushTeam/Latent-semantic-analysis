@@ -41,11 +41,10 @@ public:
     //constr
     piecewise_container_class(short k, int count_of_collocations) : container_class_interface(k, count_of_collocations) 
     {
-        /*sqlite3* db;
+        sqlite3* db;
 
-        string textname = "text" + to_string(text_counter) + ".db";
+        string textname = "G:\\TEST_db\\text" + to_string(text_counter) + ".db";
         sqlite3_open(textname.c_str(), &db);
-        now_counter = text_counter;
         text_counter++;
 
         this->_filename = textname;
@@ -56,21 +55,45 @@ public:
 
         int rc = sqlite3_exec(db, sql.c_str(), 0, 0, 0);
 
-        string ins = "";
-        char* zErrMsg = 0;
-
-        for (int i=0; i<count_of_collocations; ++i)
-            for(int j=0; j<count_of_collocations; ++j)
-                for (int l = 0; l < k; ++l)
-                {
-                   ins += "INSERT or IGNORE INTO TEXT(ID, CHISLO) VALUES (\"" + to_string(i) + "!" + to_string(j) + "!" + to_string(l) + "\", 7.3); ";
-                    
-                }
-        sqlite3_exec(db, ins.c_str(), 0, 0, &zErrMsg);
         sqlite3_close(db);
 
-        fs::permissions(this->_filename, fs::perms::owner_all | fs::perms::group_all, fs::perm_options::add);*/
-        
+        SQLite::Database db1(this->_filename, SQLite::OPEN_READWRITE);
+
+        string ins = "";
+
+        std::cout << "Maximum size of a string is " << ins.max_size()
+            << " (pointer size: " << CHAR_BIT * sizeof(void*)
+            << " bits)\n";
+
+        ins.reserve((int)(100 * 100 * count_of_collocations * k));
+        ins.reserve((int)(100 * 100 * count_of_collocations * k));
+        ins.reserve((int)(100 * 100 * count_of_collocations * k));
+        ins.reserve((int)(100 * 100 * count_of_collocations * k));
+        ins.reserve((int)(100 * 100 * count_of_collocations * k));
+        ins.reserve((int)(100 * 100 * count_of_collocations * k));
+        ins.reserve((int)(100 * 100 * count_of_collocations * k));
+
+        std::cout << endl << "Size of a string is " << ins.capacity() << endl;
+        int shit = 0;
+        for (int i = 0; i < count_of_collocations; ++i)
+            for (int j = 0; j < count_of_collocations; ++j)
+                for (int l = 0; l < k; ++l)
+                {
+                    if (((shit + i) % 700) > 698) {
+                        SQLite::Transaction transaction(db1);
+                        db1.exec(ins);
+                        transaction.commit();
+                        ins.clear();
+                        shit = i;
+                    }
+
+                    ins += "INSERT or IGNORE INTO TEXT(ID, CHISLO) VALUES (\"" + to_string(i) + "!" + to_string(j) + "!" + to_string(l) + "\", 7.3); ";
+                }
+
+
+
+        fs::permissions(this->_filename, fs::perms::owner_all | fs::perms::group_all, fs::perm_options::add);
+
         //need to call db correct;
     }
 

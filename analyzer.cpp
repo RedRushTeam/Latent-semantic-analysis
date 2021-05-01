@@ -73,23 +73,24 @@ void analyzer::calculate_counter_of_tokenizer_without_rare_words()
 			}
 			else {
 				int tmp_token = iter->second;
+				word_and_number_of_appearances_structure __key;
 				if (set_of_words_in_this_text.find(tmp_token) == set_of_words_in_this_text.end()) {
-					word_and_number_of_appearances_structure _key{ obj, iter->first.number_of_appearances_of_this_word + 1, iter->first.number_of_texts_in_which_term_occurs + 1 };
+					__key = { obj, iter->first.number_of_appearances_of_this_word + 1, iter->first.number_of_texts_in_which_term_occurs + 1 };
 					set_of_words_in_this_text.insert(tmp_token);
 				}
 				else
-					word_and_number_of_appearances_structure _key{ obj, iter->first.number_of_appearances_of_this_word + 1, iter->first.number_of_texts_in_which_term_occurs };
+					__key = { obj, iter->first.number_of_appearances_of_this_word + 1, iter->first.number_of_texts_in_which_term_occurs };
 
-				this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.erase(_key);
-				this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.insert(make_pair(_key, tmp_token));
+				this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.erase(__key);
+				this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.insert(make_pair(__key, tmp_token));
 			}
 		}
 	}
 
-	/*#pragma omp critical (maps_into_analyzer)
+	#pragma omp critical (maps_into_analyzer)
 	{
-		this->counter_of_tokenizer_without_rare_words = this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.size();
-	}*/
+		this->counter_of_tokenizer = this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.size();
+	}
 }
 
 void analyzer::analyze_vec_of_tokens()

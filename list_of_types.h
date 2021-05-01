@@ -73,8 +73,8 @@ using now_type = float;
 //my defines
 constexpr auto COLLOC_DIST = 3;
 constexpr auto STOP_WORD = 0 ;
-constexpr auto CUTOFF = 5;
-constexpr auto CUTOFF_FR_IN_TEXTS = 5;
+constexpr auto CUTOFF = 6;
+constexpr auto CUTOFF_FR_IN_TEXTS = 6;
 
 constexpr auto LEMADR = "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db";
 //constexpr auto TEXTS_PATH = "A:\\rasp_puhl";

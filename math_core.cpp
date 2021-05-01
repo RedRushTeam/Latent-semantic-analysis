@@ -27,7 +27,7 @@ void math_core::calculate_all_texts_stats()
 
 int math_core::calculate_max_cont_size_without_rare_words()
 {
-	#pragma omp parallel 
+	/*#pragma omp parallel 
 	{
 		#pragma omp for schedule(static)
 		for (int i = 0; i < this->vec_of_filepaths->size(); ++i) {
@@ -37,7 +37,7 @@ int math_core::calculate_max_cont_size_without_rare_words()
 			analyzer _analyzer(result_of_parse);
 			_analyzer.calculate_counter_of_tokenizer_without_rare_words();
 		}
-	}
+	}*/
 
 	analyzer _analyzer;
 
@@ -46,7 +46,7 @@ int math_core::calculate_max_cont_size_without_rare_words()
 
 int math_core::calculate_max_cont_size_without_rare_words_and_frequency_in_texts()
 {
-	#pragma omp parallel 
+	/*#pragma omp parallel 
 	{
 		#pragma omp for schedule(static)
 		for (int i = 0; i < this->vec_of_filepaths->size(); ++i) {
@@ -56,7 +56,7 @@ int math_core::calculate_max_cont_size_without_rare_words_and_frequency_in_texts
 			analyzer _analyzer(result_of_parse);
 			_analyzer.calculate_counter_of_tokenizer_without_rare_words();
 		}
-	}
+	}*/
 
 	analyzer _analyzer;
 
@@ -73,7 +73,7 @@ void math_core::calculate_max_cont_size()
 			auto result_of_parse = _parser.parse();
 
 			analyzer _analyzer(result_of_parse);
-			_analyzer.calculate_counter_of_tokenizer();
+			_analyzer.calculate_counter_of_tokenizer_without_rare_words();
 		}
 	}
 
