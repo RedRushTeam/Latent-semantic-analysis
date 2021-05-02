@@ -41,7 +41,7 @@ public:
     //constr
     piecewise_container_class(short k, int count_of_collocations) : container_class_interface(k, count_of_collocations) 
     {
-        sqlite3* db;
+        /*sqlite3* db;
 
         string textname = "G:\\TEST_db\\text" + to_string(text_counter) + ".db";
         sqlite3_open(textname.c_str(), &db);
@@ -93,7 +93,7 @@ public:
 
 
         fs::permissions(this->_filename, fs::perms::owner_all | fs::perms::group_all, fs::perm_options::add);
-
+        */
         //need to call db correct;
     }
 

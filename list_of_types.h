@@ -49,10 +49,6 @@
 #include <boost/algorithm/string/regex.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
-/*#include <boost/iostreams/filtering_streambuf.hpp>
-#include <boost/iostreams/copy.hpp>
-#include <boost/iostreams/filter/bzip2.hpp>
-#include <boost/iostreams/device/file.hpp> */
 
 //SQLite include
 #include <sqlite3.h> 
@@ -60,12 +56,19 @@
 //SQLiteCpp SQL wrapper include
 #include <SQLiteCpp/SQLiteCpp.h>
 
-//namespaces
+//7zip Wrapper include
+#include "bitextractor.hpp"
+#include "bitcompressor.hpp"
+
+//c++ namespaces
 namespace fs = std::filesystem;
 using namespace std;
 
 //SVD namespace
 using namespace Eigen;
+
+//7z namespace
+using namespace bit7z;
 
 //usings
 using now_type = float;

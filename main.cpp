@@ -12,7 +12,9 @@ int main(int argc, char* argv[])
 
 	auto texts = list_of_functions::get_input_texts();
 
-	piecewise_container_class xxx(8, 10000);
+	list_of_functions::test_of_bit7z("11234");
+
+	//piecewise_container_class xxx(8, 10000);
 	//cout <<  xxx.get_count_of_concret_collocation(1,2,0) << endl;
 	//xxx.increment(1, 2, 0);cout << xxx.get_count_of_concret_collocation(1, 2, 0) << endl;
 
@@ -22,6 +24,7 @@ int main(int argc, char* argv[])
 	
 
 	//cout << endl << endl << "Всего обнаружено " << texts->size() << " текстов." << endl;
+
 
 	math_core _math_core(texts);
 

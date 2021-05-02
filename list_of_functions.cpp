@@ -120,15 +120,21 @@ void list_of_functions::test_of_sqlite()
 	sqlite3_close(db);
 }
 
-void list_of_functions::test_of_bzip2(std::string file)
+void list_of_functions::test_of_bit7z(std::string file)
 {
-	/*boost::iostreams::filtering_ostreambuf out;
-	out.push(boost::iostreams::bzip2_compressor());
-	out.push(boost::iostreams::file_sink("data.bin", std::ios::binary));
-	boost::iostreams::copy(boost::iostreams::file_source("data.bz2", std::ios::binary), out);
 	
-		boost::iostreams::filtering_istreambuf in;
-	in.push(boost::iostreams::bzip2_decompressor());
-	in.push(boost::iostreams::file_source("data.bz2", std::ios::binary));
-	boost::iostreams::copy(in, boost::iostreams::file_sink("data.bin", std::ios::binary));*/
+	Bit7zLibrary lib{ L"7z.dll" };
+	BitCompressor compressor{ lib, BitFormat::Tar };
+
+	std::vector< std::wstring > files = { L"G:/TEST_db/text0.db"};
+
+	compressor.compress(files, L"G:/output_archive1.zip"); //creating a simple zip archive
+
+	//Bit7zLibrary lib{ L"7za.dll" };
+	//BitExtractor extractor{ lib, BitFormat::Zip };
+
+	//extractor.extract(L"G:/output_archive1.zip", L"G:/1"); //extracting a simple archive
+	//extractor.extract(L"G:/output_archive1.zip"); //extracting a simple archive
+
+	//extractor.extract(L"path/to/another/archive.7z", L"out/dir/");
 }
