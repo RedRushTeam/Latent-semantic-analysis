@@ -129,6 +129,23 @@
       <COLUMN>1</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "container_class_interface::k" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>container_class_interface::{ctor}</FUNCTION>
+    <DECORATED>??0container_class_interface@@QEAA@XZ</DECORATED>
+    <FUNCLINE>7</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>container_class_interface::k</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>container_class_interface.h</FILENAME>
+      <LINE>7</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
     <DESCRIPTION>Переменная "container_class_interface::count_of_collocations" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
     <FUNCTION>container_class_interface::{ctor}</FUNCTION>
     <DECORATED>??0container_class_interface@@QEAA@XZ</DECORATED>
@@ -141,17 +158,17 @@
   <DEFECT>
     <SFA>
       <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
-      <FILENAME>container_class_interface.h</FILENAME>
-      <LINE>7</LINE>
-      <COLUMN>1</COLUMN>
+      <FILENAME>piecewise_container_class.h</FILENAME>
+      <LINE>42</LINE>
+      <COLUMN>4</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "container_class_interface::k" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
-    <FUNCTION>container_class_interface::{ctor}</FUNCTION>
-    <DECORATED>??0container_class_interface@@QEAA@XZ</DECORATED>
-    <FUNCLINE>7</FUNCLINE>
+    <DESCRIPTION>Переменная "piecewise_container_class::now_counter" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>piecewise_container_class::{ctor}</FUNCTION>
+    <DECORATED>??0piecewise_container_class@@QEAA@FH@Z</DECORATED>
+    <FUNCLINE>42</FUNCLINE>
     <ADDITIONALINFO>
-      <targetSymbol>container_class_interface::k</targetSymbol>
+      <targetSymbol>piecewise_container_class::now_counter</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT>
@@ -25671,12 +25688,12 @@
       <COLUMN>1</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "math_core::possible_collocs" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <DESCRIPTION>Переменная "math_core::m_colloc_matrix" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
     <FUNCTION>math_core::{ctor}</FUNCTION>
     <DECORATED>??0math_core@@QEAA@V?$shared_ptr@V?$vector@Vpath@filesystem@std@@V?$allocator@Vpath@filesystem@std@@@3@@std@@@std@@@Z</DECORATED>
     <FUNCLINE>8</FUNCLINE>
     <ADDITIONALINFO>
-      <targetSymbol>math_core::possible_collocs</targetSymbol>
+      <targetSymbol>math_core::m_colloc_matrix</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT>
@@ -25705,12 +25722,12 @@
       <COLUMN>1</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "math_core::m_colloc_matrix" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <DESCRIPTION>Переменная "math_core::possible_collocs" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
     <FUNCTION>math_core::{ctor}</FUNCTION>
     <DECORATED>??0math_core@@QEAA@V?$shared_ptr@V?$vector@Vpath@filesystem@std@@V?$allocator@Vpath@filesystem@std@@@3@@std@@@std@@@Z</DECORATED>
     <FUNCLINE>8</FUNCLINE>
     <ADDITIONALINFO>
-      <targetSymbol>math_core::m_colloc_matrix</targetSymbol>
+      <targetSymbol>math_core::possible_collocs</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT>

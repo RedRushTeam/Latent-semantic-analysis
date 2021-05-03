@@ -184,30 +184,6 @@
         {
           "ruleId": "C26495",
           "message": {
-            "text": "Переменная \"container_class_interface::count_of_collocations\" не инициализирована. Всегда инициализируйте переменную-член (type.6)."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/container_class_interface.h"
-                },
-                "region": {
-                  "startLine": 7,
-                  "startColumn": 2,
-                  "endLine": 7,
-                  "endColumn": 2
-                }
-              }
-            }
-          ],
-          "properties": {
-            "targetSymbol": "container_class_interface::count_of_collocations"
-          }
-        },
-        {
-          "ruleId": "C26495",
-          "message": {
             "text": "Переменная \"container_class_interface::k\" не инициализирована. Всегда инициализируйте переменную-член (type.6)."
           },
           "locations": [
@@ -232,25 +208,49 @@
         {
           "ruleId": "C26495",
           "message": {
-            "text": "Переменная \"boost::detail::lexical_istream_limited_src<char,std::char_traits<char>,1,21>::buffer\" не инициализирована. Всегда инициализируйте переменную-член (type.6)."
+            "text": "Переменная \"container_class_interface::count_of_collocations\" не инициализирована. Всегда инициализируйте переменную-член (type.6)."
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///C:/local/boost_1_75_0/boost/lexical_cast/detail/converter_lexical_streams.hpp"
+                  "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/container_class_interface.h"
                 },
                 "region": {
-                  "startLine": 162,
-                  "startColumn": 13,
-                  "endLine": 162,
-                  "endColumn": 13
+                  "startLine": 7,
+                  "startColumn": 2,
+                  "endLine": 7,
+                  "endColumn": 2
                 }
               }
             }
           ],
           "properties": {
-            "targetSymbol": "boost::detail::lexical_istream_limited_src<char,std::char_traits<char>,1,21>::buffer"
+            "targetSymbol": "container_class_interface::count_of_collocations"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "Переменная \"piecewise_container_class::now_counter\" не инициализирована. Всегда инициализируйте переменную-член (type.6)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/piecewise_container_class.h"
+                },
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 5,
+                  "endLine": 42,
+                  "endColumn": 5
+                }
+              }
+            }
+          ],
+          "properties": {
+            "targetSymbol": "piecewise_container_class::now_counter"
           }
         }
       ],
@@ -263,7 +263,7 @@
       },
       "invocations": [
         {
-          "commandLine": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.26.28801\\bin\\HostX86\\x64\\c1xx.dll\" -ACf{1F7B090C-16DB-4822-966A-A93D26ED4681} -ACpmspft140.dll -Alint -D_PREFAST_ -D_AST_FE_ -Analyze -zm0x00D47190 -il C:\\Users\\Dmitry\\AppData\\Local\\Temp\\_CL_04d79460ast -typedil -f piecewise_container_class.cpp -Ze -D_MSC_EXTENSIONS -Zp16 -pc \\:/ -D_MSC_VER=1926 -D_MSC_FULL_VER=192628805 -D_MSC_BUILD=0 -D_M_AMD64=100 -ZILP448 -D_M_X64=100 -D_WIN64 -D_WIN32 -GR -D_CPPRTTI -I C:\\SQLiteCPP\\include -I C:\\SQLite -I C:\\local\\boost_1_75_0\\boost -I C:\\RGD\\SVD MATH\\eigen-3.3.8\\Eigen -I C:\\RGD\\RussianGrammaticalDictionary\\include\\lem\\solarix -I C:\\RGD\\RussianGrammaticalDictionary\\include -nologo -W 3 -diagnostics:column -D_GUARDOVERFLOW_CRT_ALLOCATORS=1 -Ot -DCODE_ANALYSIS -D_DEBUG -D_CONSOLE -D_UNICODE -DUNICODE -EHs -D_CPPUNWIND -EHc -MTd -clrNoPureCRT -D_DEBUG -D_MT -GS -D_M_FP_PRECISE -permissive- -Zc:wchar_t -Zc:forScope -omp -D_OPENMP=200203 -std:c++17 -Fox64\\Debug\\piecewise_container_class.obj -Fdx64\\Debug\\vc142.pdb -Gd -analyze:projectdirectory C:\\Users\\Dmitry\\Documents\\SVDCollocationAnalyzer\\ -analyze:rulesetdirectory ;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\\\Rule Sets; -analyze:ruleset C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\Rule Sets\\NativeRecommendedRules.ruleset -analyze:quiet -analyze:plugin C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.26.28801\\bin\\HostX86\\x86\\EspXEngine.dll -FC -errorreport:prompt -I C:\\SQLiteCPP\\include -I C:\\RGD\\SVD MATH\\eigen-3.3.8\\Eigen -I C:\\local\\boost_1_75_0 -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.26.28801\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.26.28801\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\cppwinrt -I C:\\Users\\Dmitry\\Documents\\SVDCollocationAnalyzer\\Include\\um",
+          "commandLine": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.26.28801\\bin\\HostX86\\x64\\c1xx.dll\" -ACf{1F7B090C-16DB-4822-966A-A93D26ED4681} -ACpmspft140.dll -Alint -D_PREFAST_ -D_AST_FE_ -Analyze -zm0x00727190 -il C:\\Users\\Dmitry\\AppData\\Local\\Temp\\_CL_f44d51eaast -typedil -f piecewise_container_class.cpp -Ze -D_MSC_EXTENSIONS -Zp16 -pc \\:/ -D_MSC_VER=1926 -D_MSC_FULL_VER=192628805 -D_MSC_BUILD=0 -D_M_AMD64=100 -ZILP448 -D_M_X64=100 -D_WIN64 -D_WIN32 -GR -D_CPPRTTI -I C:\\SQLite -I C:\\SQLiteCPP\\include -I C:\\local\\boost_1_75_0\\boost -I C:\\RGD\\SVD MATH\\eigen-3.3.8\\Eigen -I C:\\RGD\\RussianGrammaticalDictionary\\include\\lem\\solarix -I C:\\RGD\\RussianGrammaticalDictionary\\include -nologo -W 3 -diagnostics:column -D_GUARDOVERFLOW_CRT_ALLOCATORS=1 -Ot -DCODE_ANALYSIS -D_DEBUG -D_CONSOLE -D_UNICODE -DUNICODE -EHs -D_CPPUNWIND -EHc -D__MSVC_RUNTIME_CHECKS -RTCs -RTCu -MTd -clrNoPureCRT -D_DEBUG -D_MT -GS -D_M_FP_PRECISE -permissive- -Zc:wchar_t -Zc:forScope -omp -D_OPENMP=200203 -std:c++17 -Fox64\\Debug\\piecewise_container_class.obj -Fdx64\\Debug\\vc142.pdb -Gd -analyze:projectdirectory C:\\Users\\Dmitry\\Documents\\SVDCollocationAnalyzer\\ -analyze:rulesetdirectory ;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\\\Rule Sets; -analyze:ruleset C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\Rule Sets\\NativeRecommendedRules.ruleset -analyze:quiet -analyze:plugin C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.26.28801\\bin\\HostX86\\x86\\EspXEngine.dll -FC -errorreport:prompt -I C:\\SQLite -I C:\\SQLiteCPP\\include -I C:\\RGD\\SVD MATH\\eigen-3.3.8\\Eigen -I C:\\local\\boost_1_75_0 -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.26.28801\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.26.28801\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\cppwinrt -I C:\\Users\\Dmitry\\Documents\\SVDCollocationAnalyzer\\Include\\um -MPdiagMutex 00000000000001A8",
           "executionSuccessful": true,
           "ruleConfigurationOverrides": [
             {

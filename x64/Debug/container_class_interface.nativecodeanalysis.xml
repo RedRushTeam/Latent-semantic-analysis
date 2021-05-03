@@ -129,12 +129,12 @@
       <COLUMN>1</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "container_class_interface::count_of_collocations" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <DESCRIPTION>Переменная "container_class_interface::k" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
     <FUNCTION>container_class_interface::{ctor}</FUNCTION>
     <DECORATED>??0container_class_interface@@QEAA@XZ</DECORATED>
     <FUNCLINE>7</FUNCLINE>
     <ADDITIONALINFO>
-      <targetSymbol>container_class_interface::count_of_collocations</targetSymbol>
+      <targetSymbol>container_class_interface::k</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT>
@@ -146,12 +146,12 @@
       <COLUMN>1</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "container_class_interface::k" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <DESCRIPTION>Переменная "container_class_interface::count_of_collocations" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
     <FUNCTION>container_class_interface::{ctor}</FUNCTION>
     <DECORATED>??0container_class_interface@@QEAA@XZ</DECORATED>
     <FUNCLINE>7</FUNCLINE>
     <ADDITIONALINFO>
-      <targetSymbol>container_class_interface::k</targetSymbol>
+      <targetSymbol>container_class_interface::count_of_collocations</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT>

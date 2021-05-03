@@ -10,7 +10,7 @@ bool piecewise_container_class::is_slice_loaded(int first_dimension)
 
 void piecewise_container_class::load_slice(int first_dimension)
 {
-	if (is_slice_loaded(first_dimension))
+	/*if (is_slice_loaded(first_dimension))
 		return;
 
 	SQLite::Database db(this->_filename, SQLite::OPEN_READWRITE);
@@ -21,24 +21,24 @@ void piecewise_container_class::load_slice(int first_dimension)
 			downloaded_map.insert(make_pair(_key, this->get_count_of_concret_collocation(first_dimension, j, l)));
 			
 		}
-	number_of_downloaded_slice.insert(first_dimension);
+	number_of_downloaded_slice.insert(first_dimension);*/
 }
 
 void piecewise_container_class::clear_map()
 {
-	for (auto i : number_of_downloaded_slice)
+	/*for (auto i : number_of_downloaded_slice)
 		for (int j = 0; j < this->get_count_of_collocations(); ++j)
 			for (int l = 0; l < this->get_k(); ++l)
 			{
 				three_coordinate_structure _key{ i, j, l };
 				//need to call db correct;
 			}
-
+*/
 }
 
 void piecewise_container_class::increment(int first_dimension, int second_dimension, int third_dimension)
 {
-	if (is_slice_loaded(first_dimension))
+	/*if (is_slice_loaded(first_dimension))
 	{ 
 		three_coordinate_structure _key{ first_dimension, second_dimension, third_dimension };
 		++(downloaded_map.find(_key)->second);
@@ -55,12 +55,12 @@ void piecewise_container_class::increment(int first_dimension, int second_dimens
 		SQLite::Transaction transaction(db);
 		db.exec(sql);
 		transaction.commit();
-	}
+	}*/
 }
 
 void piecewise_container_class::decrement(int first_dimension, int second_dimension, int third_dimension)
 {
-	if (is_slice_loaded(first_dimension))
+	/*if (is_slice_loaded(first_dimension))
 	{
 		three_coordinate_structure _key{ first_dimension, second_dimension, third_dimension };
 		--(downloaded_map.find(_key)->second);
@@ -77,12 +77,12 @@ void piecewise_container_class::decrement(int first_dimension, int second_dimens
 		SQLite::Transaction transaction(db);
 		db.exec(sql);
 		transaction.commit();
-	}
+	}*/
 }
 
 now_type piecewise_container_class::get_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension)
 {
-	if (is_slice_loaded(first_dimension))
+	/*if (is_slice_loaded(first_dimension))
 	{
 		three_coordinate_structure _key{ first_dimension, second_dimension, third_dimension };
 		return downloaded_map.find(_key)->second;
@@ -101,7 +101,8 @@ now_type piecewise_container_class::get_count_of_concret_collocation(int first_d
 		}
 
 		return ret_value;
-	}
+	}*/
+	return 0;
 }
 
 shared_ptr<container_class_interface> piecewise_container_class::pow_all(int stepen)
