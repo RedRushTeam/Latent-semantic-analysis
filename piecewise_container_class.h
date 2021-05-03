@@ -41,6 +41,7 @@ public:
     //constr
     piecewise_container_class(short k, int count_of_collocations) : container_class_interface(k, count_of_collocations) 
     {
+
         int number_of_terms_in_one_db = 500 / 0.000045 / k / count_of_collocations; //20000=20 GB database size; 0.000045 is statistic multiplier(size of one cell)
         int number_of_full_db = round(count_of_collocations / number_of_terms_in_one_db); // how many full 20 GB databases text includes without tail
 
@@ -53,70 +54,59 @@ public:
             int left_term = number_of_terms_in_one_db * i;
             int right_term = number_of_terms_in_one_db * (i + 1);
 
-            //(tail / number_of_terms_in_one_db > 0.33) ? right_term = number_of_terms_in_one_db * (i + 1) : right_term = count_of_collocations;
             if ((i == number_of_full_db-1) && (tail / number_of_terms_in_one_db < 0.33))
                 right_term = count_of_collocations;
 
             string textname = "text" + to_string(text_counter) + " terms " + to_string(left_term) + "-" + to_string(right_term) + ".db";
+
+            if (fs::exists(textname))
+                fs::remove(textname);//debug
+
             sqlite3_open(textname.c_str(), &db);
-            //text_counter++;
 
             this->_filenames.insert(make_pair(textname, make_pair(left_term, right_term)));
 
-            string sql = "CREATE TABLE TEXT("  \
-                "ID STRING PRIMARY KEY NOT NULL," \
+            string sql = 
+                "CREATE TABLE TEXT("  \
+                "ID INTEGER PRIMARY KEY AUTOINCREMENT," \
+                "WORDS STRING NOT NULL," \
                 "CHISLO REAL NOT NULL);";
 
             int rc = sqlite3_exec(db, sql.c_str(), 0, 0, 0);
 
+            
             sqlite3_close(db);
 
             SQLite::Database db1(textname, SQLite::OPEN_READWRITE);
-            string pragma = "PRAGMA synchronous=OFF";
+            
+            string pragma = "PRAGMA synchronous=OFF; PRAGMA temp_store = DEFAULT; PRAGMA journal_mode = OFF;";
             db1.exec(pragma);
             
+            string ins = "INSERT or IGNORE INTO TEXT(WORDS, CHISLO) VALUES ";
 
-            int x = clock();
-            //string ins = "";
-            string ins = "INSERT or IGNORE INTO TEXT(ID, CHISLO) VALUES ";
 
-            std::cout << "Maximum size of a string is " << ins.max_size()
-                << " (pointer size: " << CHAR_BIT * sizeof(void*)
-                << " bits)\n";
+            auto reserve_size = 7000;
+            ins.reserve(reserve_size);
 
-            ins.reserve(1000000);
-            //ins.reserve((int)(100 * 100 * count_of_collocations * k));
-            //ins.reserve((int)(100 * 100 * count_of_collocations * k));
-            //ins.reserve((int)(100 * 100 * count_of_collocations * k));
-            //ins.reserve((int)(100 * 100 * count_of_collocations * k));
-            //ins.reserve((int)(100 * 100 * count_of_collocations * k));
-            //ins.reserve((int)(100 * 100 * count_of_collocations * k));
-
-            //std::cout << endl << "Size of a string is " << ins.capacity() << endl;
             int shit = 0;
             for (int i = left_term; i < right_term; ++i)
                 for (int j = 0; j < count_of_collocations; ++j)
                     for (int l = 0; l < k; ++l)
                     {
-                        if (ins.size() < 999950)
-                            //ins += "UPDATE TEXT set CHISLO = 2.5 WHERE ID=" + to_string(i) + "!" + to_string(j) + "!" + to_string(l) + "\";";
-                            ins += "(\"" + to_string(i) + "!" + to_string(j) + "!" + to_string(l) + "\", 7.3),";//last one will crash because of , ???
+                        if (ins.size() < reserve_size - 50) {
+                            ins += "(\"" + boost::lexical_cast<string>(i) + "!" + boost::lexical_cast<string>(j) + "!" + boost::lexical_cast<string>(l) + "\", 7.3),";
+                        }
                         else
                         {
                             ins.back() = ';';
-                            //shit = i;
-                            //if (((shit + i) % 100) > 98) {//что то придумать
-                            try {
-                                SQLite::Transaction transaction(db1);
-                                db1.exec(ins);
-                                transaction.commit();
-                            }
-                            catch (std::exception& e)
-                            {
-                                std::cout << "exception: " << e.what() << std::endl;
-                            }
+                            SQLite::Transaction transaction(db1);
+                            db1.exec(ins);
+                            transaction.commit();
+
                             ins.clear();
-                            ins = "INSERT or IGNORE INTO TEXT(ID, CHISLO) VALUES (\"" + to_string(i) + "!" + to_string(j) + "!" + to_string(l) + "\", 7.3),";
+
+                            ins = "INSERT or IGNORE INTO TEXT(WORDS, CHISLO) VALUES (\"" + boost::lexical_cast<string>(i) + "!" + boost::lexical_cast<string>(j) + "!" + boost::lexical_cast<string>(l) + "\", 7.3),";
+                            
                         }
                     }
             ins.back() = ';';
@@ -125,22 +115,20 @@ public:
             transaction.commit();
             ins.clear();
 
-            int y = clock();
-            auto time = y - x;
-
-            fs::permissions(textname, fs::perms::owner_all | fs::perms::group_all, fs::perm_options::add); //mostly likely unneeded
         }
         if (tail / number_of_terms_in_one_db > 0.33)
         {
             sqlite3* db;
-            string textname = "text" + to_string(text_counter) + " terms " + to_string(count_of_collocations-tail) + "-" + to_string(count_of_collocations) + ".db";
+            string textname = "text" + boost::lexical_cast<string>(text_counter) + " terms " + boost::lexical_cast<string>(count_of_collocations-tail) + "-" + boost::lexical_cast<string>(count_of_collocations) + ".db";
             sqlite3_open(textname.c_str(), &db);
             //text_counter++;
 
             this->_filenames.insert(make_pair(textname, make_pair(count_of_collocations - tail, count_of_collocations)));
 
-            string sql = "CREATE TABLE TEXT("  \
-                "ID STRING PRIMARY KEY NOT NULL," \
+            string sql = 
+                "CREATE TABLE TEXT("  \
+                "ID INTEGER PRIMARY KEY AUTOINCREMENT," \
+                "WORDS STRING NOT NULL," \
                 "CHISLO REAL NOT NULL);";
 
             int rc = sqlite3_exec(db, sql.c_str(), 0, 0, 0);
@@ -148,23 +136,29 @@ public:
             sqlite3_close(db);
 
             SQLite::Database db1(textname, SQLite::OPEN_READWRITE);
-            string ins = "INSERT or IGNORE INTO TEXT(ID, CHISLO) VALUES ";
+            string pragma = "PRAGMA synchronous=OFF; PRAGMA temp_store = DEFAULT; PRAGMA journal_mode = OFF;";
+
+            db1.exec(pragma);
+
+            string ins = "INSERT or IGNORE INTO TEXT(WORDS, CHISLO) VALUES ";
+
+            auto reserve_size = 7000;
+            ins.reserve(reserve_size);
+
             for (int i = number_of_terms_in_one_db * number_of_full_db; i < count_of_collocations; ++i)
                 for (int j = 0; j < count_of_collocations; ++j)
                     for (int l = 0; l < k; ++l)
                     {
-                        if (ins.size() < 999950)
-                            ins += "(\"" + to_string(i) + "!" + to_string(j) + "!" + to_string(l) + "\", 7.3),";//last one will crash because of , ???
+                        if (ins.size() < reserve_size-50)
+                            ins += "(\"" + to_string(i) + "!" + to_string(j) + "!" + to_string(l) + "\", 7.3),";
                         else
                         {
                             ins.back() = ';';
-                            //shit = i;
-                            //if (((shit + i) % 100) > 98) {//что то придумать
                             SQLite::Transaction transaction(db1);
                             db1.exec(ins);
                             transaction.commit();
                             ins.clear();
-                            ins = "INSERT or IGNORE INTO TEXT(ID, CHISLO) VALUES ";
+                            ins = "INSERT or IGNORE INTO TEXT(WORDS, CHISLO) VALUES ";
                         }
                     }
             ins.back() = ';';
