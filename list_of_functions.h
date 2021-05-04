@@ -11,4 +11,6 @@ public:
 	static void test_of_sqlite();
 
 	static void test_of_bit7z(std::string file);
+
+	static void test_of_libmdbx();
 };

@@ -62,9 +62,15 @@
 #include "bitextractor.hpp"
 #include "bitcompressor.hpp"
 
+//libmdbx include
+#include "mdbx.h++"
+
 //c++ namespaces
 namespace fs = std::filesystem;
 using namespace std;
+
+//libmdbx namespace
+//using namespace mdbx;	(use mdbx::)!!!
 
 //SVD namespace
 using namespace Eigen;
