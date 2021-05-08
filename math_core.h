@@ -6,6 +6,8 @@ class math_core
 public:
 	//constr
 	math_core(shared_ptr<vector<fs::path>> vec_of_filepaths) : vec_of_filepaths(vec_of_filepaths) {
+		this->number_of_texts = vec_of_filepaths->size();
+		analyzer::set_number_of_texts(this->number_of_texts);
 		vec_of_container_classes.reserve(vec_of_filepaths->size());
 	}
 
@@ -23,10 +25,10 @@ public:
 	vector<pair<int, int>>* get_helper_vec();
 
 	void calculate_all_texts_stats();
-
+	void calculate_max_cont_size();	//first
 	int calculate_max_cont_size_without_rare_words();
 	int calculate_max_cont_size_without_rare_words_and_frequency_in_texts();
-	void calculate_max_cont_size();	//first
+	int calculate_max_cont_size_without_rare_words_and_frequency_in_texts_and_SVD();
 	void calculate_sample_mean();	//second
 	void calculate_mat_ozidanie();	//third
 	void calculate_mat_disperse();	//4
@@ -78,6 +80,7 @@ private:
 	shared_ptr<container_class_interface> mat_disperse;
 	shared_ptr<container_class_interface> mat_ozidanie;
 	vector<shared_ptr<container_class_interface>> vec_of_container_classes;
+	int number_of_texts;
 	int max_cont_size = 0;
 };
 

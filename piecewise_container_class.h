@@ -41,8 +41,23 @@ public:
     //constr
     piecewise_container_class(short k, int count_of_collocations) : container_class_interface(k, count_of_collocations) 
     {
+        mdbx::env::geometry db_geometry;
 
-        int number_of_terms_in_one_db = 500 / 0.000045 / k / count_of_collocations; //20000=20 GB database size; 0.000045 is statistic multiplier(size of one cell)
+        mdbx::env_managed::create_parameters create_param;
+        create_param.geometry = db_geometry;
+
+
+        mdbx::env::operate_parameters operator_param;
+
+        std::string&& db_file_path = "./my-db";
+
+       // mdbx::env_managed env1 = mdbx::env_managed(db_file_path, create_param, operator_param);
+
+
+        //env1.close();
+
+
+        /*int number_of_terms_in_one_db = 500 / 0.000045 / k / count_of_collocations; //20000=20 GB database size; 0.000045 is statistic multiplier(size of one cell)
         int number_of_full_db = round(count_of_collocations / number_of_terms_in_one_db); // how many full 20 GB databases text includes without tail
 
         int tail = count_of_collocations - number_of_terms_in_one_db * number_of_full_db;
@@ -169,7 +184,7 @@ public:
         }
 
 
-        text_counter++;
+        text_counter++;*/
     }
 
     int now_counter;
