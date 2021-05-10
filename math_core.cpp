@@ -23,30 +23,25 @@ void math_core::calculate_all_texts_stats()
 			_analyzer.analyze_vec_of_tokens();
 		}
 	}
+
+	//this->max_cont_size = analyzer::get_counter_of_tokenizer();
 }
 
 int math_core::calculate_max_cont_size_without_rare_words()
 {
-	/*#pragma omp parallel 
-	{
-		#pragma omp for schedule(static)
-		for (int i = 0; i < this->vec_of_filepaths->size(); ++i) {
-			parser _parser((*this->vec_of_filepaths)[i]);	//tut peredaetsa kopiya
-			auto result_of_parse = _parser.parse();
-
-			analyzer _analyzer(result_of_parse);
-			_analyzer.calculate_counter_of_tokenizer_without_rare_words();
-		}
-	}*/
-
-	analyzer _analyzer;
-
-	return _analyzer.get_counter_of_tokenizer_without_rare_words_with_cutoff(CUTOFF);
+	return analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff(CUTOFF);
 }
 
 int math_core::calculate_max_cont_size_without_rare_words_and_frequency_in_texts()
 {
-	/*#pragma omp parallel 
+	return analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff_of_text(CUTOFF, CUTOFF_FR_IN_TEXTS);
+}
+
+int math_core::calculate_max_cont_size_without_rare_words_and_frequency_in_texts_and_SVD()
+{
+	analyzer::initialize_matrix_for_SVD();
+
+	#pragma omp parallel
 	{
 		#pragma omp for schedule(static)
 		for (int i = 0; i < this->vec_of_filepaths->size(); ++i) {
@@ -54,13 +49,11 @@ int math_core::calculate_max_cont_size_without_rare_words_and_frequency_in_texts
 			auto result_of_parse = _parser.parse();
 
 			analyzer _analyzer(result_of_parse);
-			_analyzer.calculate_counter_of_tokenizer_without_rare_words();
+			_analyzer.calculate_counter_of_tokenizer_SVD_words();
 		}
-	}*/
+	}
 
-	analyzer _analyzer;
-
-	return _analyzer.get_counter_of_tokenizer_without_rare_words_with_cutoff_of_text(CUTOFF, CUTOFF_FR_IN_TEXTS);
+	return analyzer::get_counter_of_tokenizer_without_rare_words_SVD();
 }
 
 void math_core::calculate_max_cont_size()
@@ -77,7 +70,7 @@ void math_core::calculate_max_cont_size()
 		}
 	}
 
-	this->max_cont_size = analyzer::counter_of_tokenizer;
+	this->max_cont_size = analyzer::get_counter_of_tokenizer();
 }
 
 void math_core::calculate_sample_mean()
