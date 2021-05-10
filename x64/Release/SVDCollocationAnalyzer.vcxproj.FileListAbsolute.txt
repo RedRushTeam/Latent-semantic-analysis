@@ -1,1 +1,2 @@
 C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\x64\Release\SVDCollocationAnalyzer.exe
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Release\SVDCollocationAnalyzer.exe

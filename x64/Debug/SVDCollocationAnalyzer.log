@@ -3,71 +3,56 @@
   math_core.cpp
   parser.cpp
   piecewise_container_class.cpp
-C:\SQLite\sqlite3.h(555,1): warning C4005: SQLITE_OPEN_READWRITE: изменение макроопределения (компилируется исходный файл math_core.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\list_of_types.h(10): message : см. предыдущее определение "SQLITE_OPEN_READWRITE" (компилируется исходный файл math_core.cpp)
-C:\SQLite\sqlite3.h(555,1): warning C4005: SQLITE_OPEN_READWRITE: изменение макроопределения (компилируется исходный файл piecewise_container_class.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\list_of_types.h(10): message : см. предыдущее определение "SQLITE_OPEN_READWRITE" (компилируется исходный файл piecewise_container_class.cpp)
-C:\SQLite\sqlite3.h(555,1): warning C4005: SQLITE_OPEN_READWRITE: изменение макроопределения (компилируется исходный файл analyzer.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\list_of_types.h(10): message : см. предыдущее определение "SQLITE_OPEN_READWRITE" (компилируется исходный файл analyzer.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\piecewise_container_class.h(44,39): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных (компилируется исходный файл math_core.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\piecewise_container_class.h(45,31): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных (компилируется исходный файл math_core.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\piecewise_container_class.h(44,39): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных (компилируется исходный файл piecewise_container_class.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\piecewise_container_class.h(45,31): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных (компилируется исходный файл piecewise_container_class.cpp)
-C:\SQLite\sqlite3.h(555,1): warning C4005: SQLITE_OPEN_READWRITE: изменение макроопределения (компилируется исходный файл main.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\list_of_types.h(10): message : см. предыдущее определение "SQLITE_OPEN_READWRITE" (компилируется исходный файл main.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\piecewise_container_class.h(44,39): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных (компилируется исходный файл analyzer.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\piecewise_container_class.h(45,31): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных (компилируется исходный файл analyzer.cpp)
-C:\SQLite\sqlite3.h(555,1): warning C4005: SQLITE_OPEN_READWRITE: изменение макроопределения (компилируется исходный файл parser.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\list_of_types.h(10): message : см. предыдущее определение "SQLITE_OPEN_READWRITE" (компилируется исходный файл parser.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\piecewise_container_class.h(44,39): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных (компилируется исходный файл main.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\piecewise_container_class.h(45,31): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных (компилируется исходный файл main.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\math_core.cpp(8,9): warning C4244: return: преобразование "int" в "now_type", возможна потеря данных
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\math_core.cpp(100,110): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\math_core.cpp(110,110): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\math_core.cpp(123,99): warning C4244: аргумент: преобразование "unsigned __int64" в "now_type", возможна потеря данных
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\analyzer.cpp(25,11): warning C4477: "printf": в строке форматирования "%s" требуется аргумент типа "char *", но вариативный аргумент "1" имеет тип "int"
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\analyzer.cpp(25,11): warning C4313: printf: конфликт "%s" в строке формата с аргументом 1 типа "int"
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\analyzer.cpp(51,69): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\piecewise_container_class.h(44,39): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных (компилируется исходный файл parser.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\piecewise_container_class.h(45,31): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных (компилируется исходный файл parser.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\analyzer.cpp(70,109): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\analyzer.cpp(92,103): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\utility(208,1): warning C4267: инициализация: преобразование из "size_t" в "_Ty2"; возможна потеря данных
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\piecewise_container_class.h(125,49): warning C4244: =: преобразование "double" в "float", возможна потеря данных (компилируется исходный файл analyzer.cpp)
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\piecewise_container_class.h(125,49): warning C4244: =: преобразование "double" в "float", возможна потеря данных (компилируется исходный файл parser.cpp)
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\piecewise_container_class.h(125,49): warning C4244: =: преобразование "double" в "float", возможна потеря данных (компилируется исходный файл piecewise_container_class.cpp)
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\piecewise_container_class.h(125,49): warning C4244: =: преобразование "double" в "float", возможна потеря данных (компилируется исходный файл main.cpp)
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\piecewise_container_class.h(125,49): warning C4244: =: преобразование "double" в "float", возможна потеря данных (компилируется исходный файл math_core.cpp)
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(25,11): warning C4477: "printf": в строке форматирования "%s" требуется аргумент типа "char *", но вариативный аргумент "1" имеет тип "int"
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(25,11): warning C4313: printf: конфликт "%s" в строке формата с аргументом 1 типа "int"
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(51,69): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(70,109): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(92,103): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\math_core.cpp(8,9): warning C4244: return: преобразование "int" в "now_type", возможна потеря данных
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\math_core.cpp(100,110): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\math_core.cpp(110,110): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\math_core.cpp(123,99): warning C4244: аргумент: преобразование "unsigned __int64" в "now_type", возможна потеря данных
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\include\utility(249,55): warning C4267: инициализация: преобразование из "size_t" в "_Ty2"; возможна потеря данных
           with
           [
               _Ty2=int
           ] (компилируется исходный файл analyzer.cpp)
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\xmemory(670): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<const std::string,int>::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64,0>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64> &&) noexcept" (компилируется исходный файл analyzer.cpp)
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\xmemory(671): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<const std::string,int>::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64,0>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64> &&) noexcept" (компилируется исходный файл analyzer.cpp)
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\list(585): message : выполняется компиляция ссылки на экземпляр шаблон функции "void std::_Default_allocator_traits<_Alloc>::construct<_Ty,std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>>(_Alloc &,_Objty *const ,std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64> &&)"
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\include\xmemory(695): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<const std::string,int>::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64,0>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64> &&) noexcept" (компилируется исходный файл analyzer.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\include\xmemory(696): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<const std::string,int>::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64,0>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64> &&) noexcept" (компилируется исходный файл analyzer.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\include\list(585): message : выполняется компиляция ссылки на экземпляр шаблон функции "void std::_Default_allocator_traits<_Alloc>::construct<_Ty,std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>>(_Alloc &,_Objty *const ,std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64> &&)"
           with
           [
               _Alloc=std::allocator<std::_List_node<std::pair<const std::string,int>,std::_Default_allocator_traits<std::allocator<std::pair<const std::string,int>>>::void_pointer>>,
               _Ty=std::pair<const std::string,int>,
               _Objty=std::pair<const std::string,int>
           ] (компилируется исходный файл analyzer.cpp)
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\list(587): message : выполняется компиляция ссылки на экземпляр шаблон функции "void std::_Default_allocator_traits<_Alloc>::construct<_Ty,std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>>(_Alloc &,_Objty *const ,std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64> &&)"
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\include\list(587): message : выполняется компиляция ссылки на экземпляр шаблон функции "void std::_Default_allocator_traits<_Alloc>::construct<_Ty,std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>>(_Alloc &,_Objty *const ,std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64> &&)"
           with
           [
               _Alloc=std::allocator<std::_List_node<std::pair<const std::string,int>,std::_Default_allocator_traits<std::allocator<std::pair<const std::string,int>>>::void_pointer>>,
               _Ty=std::pair<const std::string,int>,
               _Objty=std::pair<const std::string,int>
           ] (компилируется исходный файл analyzer.cpp)
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\xhash(594): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::_List_node_emplace_op2<std::allocator<std::_List_node<std::pair<const std::string,int>,std::_Default_allocator_traits<_Alloc>::void_pointer>>>::_List_node_emplace_op2<_Ty>(_Alnode &,_Ty &&)"
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\include\xhash(592): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::_List_node_emplace_op2<std::allocator<std::_List_node<std::pair<const std::string,int>,std::_Default_allocator_traits<_Alloc>::void_pointer>>>::_List_node_emplace_op2<_Ty>(_Alnode &,_Ty &&)"
           with
           [
               _Alloc=std::allocator<std::pair<const std::string,int>>,
               _Ty=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>,
               _Alnode=std::allocator<std::_List_node<std::pair<const std::string,int>,std::_Default_allocator_traits<std::allocator<std::pair<const std::string,int>>>::void_pointer>>
           ] (компилируется исходный файл analyzer.cpp)
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\xhash(618): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::_List_node_emplace_op2<std::allocator<std::_List_node<std::pair<const std::string,int>,std::_Default_allocator_traits<_Alloc>::void_pointer>>>::_List_node_emplace_op2<_Ty>(_Alnode &,_Ty &&)"
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\include\xhash(616): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::_List_node_emplace_op2<std::allocator<std::_List_node<std::pair<const std::string,int>,std::_Default_allocator_traits<_Alloc>::void_pointer>>>::_List_node_emplace_op2<_Ty>(_Alnode &,_Ty &&)"
           with
           [
               _Alloc=std::allocator<std::pair<const std::string,int>>,
               _Ty=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>,
               _Alnode=std::allocator<std::_List_node<std::pair<const std::string,int>,std::_Default_allocator_traits<std::allocator<std::pair<const std::string,int>>>::void_pointer>>
           ] (компилируется исходный файл analyzer.cpp)
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\unordered_map(222): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<std::_List_iterator<std::_List_val<std::_List_simple_types<_Ty>>>,bool> std::_Hash<std::_Umap_traits<_Kty,int,std::_Uhash_compare<_Kty,_Hasher,_Keyeq>,_Alloc,false>>::emplace<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64> &&)"
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\include\unordered_map(222): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<std::_List_iterator<std::_List_val<std::_List_simple_types<_Ty>>>,bool> std::_Hash<std::_Umap_traits<_Kty,int,std::_Uhash_compare<_Kty,_Hasher,_Keyeq>,_Alloc,false>>::emplace<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64> &&)"
           with
           [
               _Ty=std::pair<const std::string,int>,
@@ -76,7 +61,7 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
               _Keyeq=std::equal_to<std::string>,
               _Alloc=std::allocator<std::pair<const std::string,int>>
           ] (компилируется исходный файл analyzer.cpp)
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\unordered_map(222): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<std::_List_iterator<std::_List_val<std::_List_simple_types<_Ty>>>,bool> std::_Hash<std::_Umap_traits<_Kty,int,std::_Uhash_compare<_Kty,_Hasher,_Keyeq>,_Alloc,false>>::emplace<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64> &&)"
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\include\unordered_map(222): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<std::_List_iterator<std::_List_val<std::_List_simple_types<_Ty>>>,bool> std::_Hash<std::_Umap_traits<_Kty,int,std::_Uhash_compare<_Kty,_Hasher,_Keyeq>,_Alloc,false>>::emplace<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64> &&)"
           with
           [
               _Ty=std::pair<const std::string,int>,
@@ -85,19 +70,32 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
               _Keyeq=std::equal_to<std::string>,
               _Alloc=std::allocator<std::pair<const std::string,int>>
           ] (компилируется исходный файл analyzer.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\analyzer.cpp(45): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<std::_List_iterator<std::_List_val<std::_List_simple_types<_Ty>>>,bool> std::unordered_map<std::string,int,std::hash<std::string>,std::equal_to<std::string>,std::allocator<_Ty>>::insert<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>,0>(_Valty &&)"
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(45): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<std::_List_iterator<std::_List_val<std::_List_simple_types<_Ty>>>,bool> std::unordered_map<std::string,int,std::hash<std::string>,std::equal_to<std::string>,std::allocator<_Ty>>::insert<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>,0>(_Valty &&)"
           with
           [
               _Ty=std::pair<const std::string,int>,
               _Valty=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>
           ]
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\analyzer.cpp(45): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<std::_List_iterator<std::_List_val<std::_List_simple_types<_Ty>>>,bool> std::unordered_map<std::string,int,std::hash<std::string>,std::equal_to<std::string>,std::allocator<_Ty>>::insert<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>,0>(_Valty &&)"
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(45): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<std::_List_iterator<std::_List_val<std::_List_simple_types<_Ty>>>,bool> std::unordered_map<std::string,int,std::hash<std::string>,std::equal_to<std::string>,std::allocator<_Ty>>::insert<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>,0>(_Valty &&)"
           with
           [
               _Ty=std::pair<const std::string,int>,
               _Valty=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>
           ]
-  SVDCollocationAnalyzer.vcxproj -> C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.exe
+  mdbx-static.lib(core.obj) : найден .netmodule MSIL или модуль, откомпилированный с параметром /GL; перезапускается компоновка с параметром /LTCG; добавьте /LTCG в командную строку компоновки для повышения производительности компоновщика
+LINK : warning LNK4075: не учитывается "/INCREMENTAL" из-за спецификации "/LTCG"
+     Создается библиотека C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.lib и объект C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.exp
+LINK : warning LNK4098: библиотека по умолчанию "MSVCRTD" конфликтует с использованием других библиотек; используйте /NODEFAULTLIB:library
+  Создание кода
+  Создание кода завершено
+LINK : warning LNK4286: Символ "__stdio_common_vsprintf", определенный в "libucrtd.lib(output.obj)", импортирован "mdbx-static.lib(core.obj)".
+LINK : warning LNK4286: Символ "strncmp", определенный в "libucrtd.lib(strncmp.obj)", импортирован "mdbx-static.lib(core.obj)".
+LINK : warning LNK4286: Символ "mbstowcs", определенный в "libucrtd.lib(mbstowcs.obj)", импортирован "mdbx-static.lib(core.obj)".
+LINK : warning LNK4286: Символ "_wcsnicmp", определенный в "libucrtd.lib(wcsnicmp.obj)", импортирован "mdbx-static.lib(osal.obj)".
+mdbx-static.lib(core.obj) : warning LNK4099: "mdbx-static.pdb" PDB не найден с "mdbx-static.lib(core.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\mdbx-static.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+mdbx-static.lib(osal.obj) : warning LNK4099: "mdbx-static.pdb" PDB не найден с "mdbx-static.lib(osal.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\mdbx-static.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+mdbx-static.lib(lck-windows.obj) : warning LNK4099: "mdbx-static.pdb" PDB не найден с "mdbx-static.lib(lck-windows.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\mdbx-static.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+  SVDCollocationAnalyzer.vcxproj -> C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.exe
 C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\arch\SSE\Complex.h(20): warning C26495: Переменная "Eigen::internal::Packet2cf::v" не инициализирована. Всегда инициализируйте переменную-член (type.6).
 C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\arch\SSE\Complex.h(251): warning C26495: Переменная "Eigen::internal::Packet1cd::v" не инициализирована. Всегда инициализируйте переменную-член (type.6).
 C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\arch\CUDA\Half.h(388): warning C26450: Арифметическое переполнение: операция "<<" переполнение во время компиляции. Используйте более широкий тип для хранения операндов (io.1).
@@ -106,12 +104,28 @@ C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\IterativeLinearSolvers\BasicPreconditioner
 C:\local\boost_1_75_0\boost\smart_ptr\detail\local_counted_base.hpp(45): warning C26812: Тип перечисления "boost::detail::local_counted_base::count_type" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
 C:\local\boost_1_75_0\boost\function\function_base.hpp(603): warning C26495: Переменная "boost::function_base::functor" не инициализирована. Всегда инициализируйте переменную-член (type.6).
 C:\local\boost_1_75_0\boost\numeric\conversion\converter_policies.hpp(160): warning C26812: Тип перечисления "boost::numeric::range_check_result" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\container_class_interface.h(7): warning C26495: Переменная "container_class_interface::k" не инициализирована. Всегда инициализируйте переменную-член (type.6).
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\piecewise_container_class.h(42): warning C26495: Переменная "piecewise_container_class::now_counter" не инициализирована. Всегда инициализируйте переменную-член (type.6).
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\parser.h(18): warning C6262: Функция использует "18160" байт в стеке:  это превышает значение /analyze:stacksize"16384".. Это выделение было предназначено для созданного компилятором временного имени для "class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > [454]" в строке 18. Попробуйте переместить некоторые данные в кучу.
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\analyzer.cpp(5): warning C6993: При анализе кода структуры OpenMP игнорируются; анализируется код одного потока.
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\analyzer.cpp(25): warning C6067: Параметр _Param_(2) при вызове "printf" должен быть адресом строки. Фактический тип: "int".
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\analyzer.h(8): warning C26495: Переменная "word_and_number_of_appearances_structure::number_of_appearances_of_this_word" не инициализирована. Всегда инициализируйте переменную-член (type.6).
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\math_core.h(8): warning C26495: Переменная "math_core::m_colloc_matrix" не инициализирована. Всегда инициализируйте переменную-член (type.6).
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\math_core.cpp(13): warning C6993: При анализе кода структуры OpenMP игнорируются; анализируется код одного потока.
+C:\libmdbx\include\mdbx.h(816): warning C26812: Тип перечисления "MDBX_debug_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\libmdbx\include\mdbx.h(1281): warning C26812: Тип перечисления "MDBX_env_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\libmdbx\include\mdbx.h(1327): warning C26812: Тип перечисления "MDBX_txn_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\libmdbx\include\mdbx.h(1378): warning C26812: Тип перечисления "MDBX_db_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\libmdbx\include\mdbx.h(1429): warning C26812: Тип перечисления "MDBX_put_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\libmdbx\include\mdbx.h(1449): warning C26812: Тип перечисления "MDBX_copy_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\libmdbx\include\mdbx.h(3631): warning C26812: Тип перечисления "MDBX_dbi_state_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\libmdbx\include\mdbx.h++(1811): warning C26812: Тип перечисления "mdbx::env::mode" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\libmdbx\include\mdbx.h++(1812): warning C26812: Тип перечисления "mdbx::env::durability" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\libmdbx\include\mdbx.h++(2754): warning C26812: Тип перечисления "MDBX_error_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\libmdbx\include\mdbx.h++(3879): warning C26812: Тип перечисления "mdbx::put_mode" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\libmdbx\include\mdbx.h++(4075): warning C26819: Неаннотированная передача управления между метками switch (es.78).
+C:\libmdbx\include\mdbx.h++(4154): warning C26812: Тип перечисления "mdbx::cursor::move_operation" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\libmdbx\include\mdbx.h++(4691): warning C26812: Тип перечисления "MDBX_log_level_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\container_class_interface.h(7): warning C26495: Переменная "container_class_interface::k" не инициализирована. Всегда инициализируйте переменную-член (type.6).
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\piecewise_container_class.h(42): warning C26495: Переменная "piecewise_container_class::now_counter" не инициализирована. Всегда инициализируйте переменную-член (type.6).
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\parser.h(18): warning C6262: Функция использует "18160" байт в стеке:  это превышает значение /analyze:stacksize"16384".. Это выделение было предназначено для созданного компилятором временного имени для "class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > [454]" в строке 18. Попробуйте переместить некоторые данные в кучу.
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(5): warning C6993: При анализе кода структуры OpenMP игнорируются; анализируется код одного потока.
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(25): warning C6067: Параметр _Param_(2) при вызове "printf" должен быть адресом строки. Фактический тип: "int".
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.h(8): warning C26495: Переменная "word_and_number_of_appearances_structure::number_of_appearances_of_this_word" не инициализирована. Всегда инициализируйте переменную-член (type.6).
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\math_core.h(8): warning C26495: Переменная "math_core::helper_vec" не инициализирована. Всегда инициализируйте переменную-член (type.6).
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\math_core.cpp(13): warning C6993: При анализе кода структуры OpenMP игнорируются; анализируется код одного потока.
 C:\local\boost_1_75_0\boost\algorithm\string\split.hpp(148): warning C26812: Тип перечисления "boost::algorithm::token_compress_mode_type" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).
+C:\local\boost_1_75_0\boost\regex\v4\regex_format.hpp(296): warning C26819: Неаннотированная передача управления между метками switch (es.78).
+C:\local\boost_1_75_0\boost\regex\v4\regex_format.hpp(369): warning C26819: Неаннотированная передача управления между метками switch (es.78).

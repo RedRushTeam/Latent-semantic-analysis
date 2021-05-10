@@ -113,7 +113,189 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h</FILENAME>
+      <LINE>816</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_debug_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>|</FUNCTION>
+    <DECORATED>??U@YA?AW4MDBX_debug_flags_t@@W40@0@Z</DECORATED>
+    <FUNCLINE>816</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h</FILENAME>
+      <LINE>1281</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_env_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>|</FUNCTION>
+    <DECORATED>??U@YA?AW4MDBX_env_flags_t@@W40@0@Z</DECORATED>
+    <FUNCLINE>1281</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h</FILENAME>
+      <LINE>1327</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_txn_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>|</FUNCTION>
+    <DECORATED>??U@YA?AW4MDBX_txn_flags_t@@W40@0@Z</DECORATED>
+    <FUNCLINE>1327</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h</FILENAME>
+      <LINE>1378</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_db_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>|</FUNCTION>
+    <DECORATED>??U@YA?AW4MDBX_db_flags_t@@W40@0@Z</DECORATED>
+    <FUNCLINE>1378</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h</FILENAME>
+      <LINE>1429</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_put_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>|</FUNCTION>
+    <DECORATED>??U@YA?AW4MDBX_put_flags_t@@W40@0@Z</DECORATED>
+    <FUNCLINE>1429</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h</FILENAME>
+      <LINE>1449</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_copy_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>|</FUNCTION>
+    <DECORATED>??U@YA?AW4MDBX_copy_flags_t@@W40@0@Z</DECORATED>
+    <FUNCLINE>1449</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h</FILENAME>
+      <LINE>3631</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_dbi_state_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>|</FUNCTION>
+    <DECORATED>??U@YA?AW4MDBX_dbi_state_t@@W40@0@Z</DECORATED>
+    <FUNCLINE>3631</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h++</FILENAME>
+      <LINE>1811</LINE>
+      <COLUMN>19</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "mdbx::env::mode" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>mdbx::env::operate_parameters::{ctor}</FUNCTION>
+    <DECORATED>??0operate_parameters@env@mdbx@@QEAA@XZ</DECORATED>
+    <FUNCLINE>1816</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h++</FILENAME>
+      <LINE>1812</LINE>
+      <COLUMN>31</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "mdbx::env::durability" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>mdbx::env::operate_parameters::{ctor}</FUNCTION>
+    <DECORATED>??0operate_parameters@env@mdbx@@QEAA@XZ</DECORATED>
+    <FUNCLINE>1816</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h++</FILENAME>
+      <LINE>2754</LINE>
+      <COLUMN>23</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_error_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>mdbx::&lt;&lt;</FUNCTION>
+    <DECORATED>??6mdbx@@YAAEAV?$basic_ostream@DU?$char_traits@D@std@@@std@@AEAV12@AEBW4MDBX_error_t@@@Z</DECORATED>
+    <FUNCLINE>2754</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h++</FILENAME>
+      <LINE>3879</LINE>
+      <COLUMN>17</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "mdbx::put_mode" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>mdbx::txn::put</FUNCTION>
+    <DECORATED>?put@txn@mdbx@@QEAAXUmap_handle@2@AEBUslice@2@U42@W4put_mode@2@@Z</DECORATED>
+    <FUNCLINE>3879</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h++</FILENAME>
+      <LINE>4075</LINE>
+      <COLUMN>46</COLUMN>
+    </SFA>
+    <DEFECTCODE>26819</DEFECTCODE>
+    <DESCRIPTION>Неаннотированная передача управления между метками switch (es.78).</DESCRIPTION>
+    <FUNCTION>mdbx::txn::put_multiple</FUNCTION>
+    <DECORATED>?put_multiple@txn@mdbx@@QEAA_KUmap_handle@2@AEBUslice@2@_KPEBX_KW4put_mode@2@_N@Z</DECORATED>
+    <FUNCLINE>4059</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h++</FILENAME>
+      <LINE>4154</LINE>
+      <COLUMN>28</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "mdbx::cursor::move_operation" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>mdbx::cursor::move_result::{ctor}</FUNCTION>
+    <DECORATED>??0move_result@cursor@mdbx@@QEAA@AEAV12@W4move_operation@12@_N@Z</DECORATED>
+    <FUNCLINE>4154</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h++</FILENAME>
+      <LINE>4691</LINE>
+      <COLUMN>14</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_log_level_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>std::to_string</FUNCTION>
+    <DECORATED>?to_string@std@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@AEBW4MDBX_log_level_t@@@Z</DECORATED>
+    <FUNCLINE>4691</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>container_class_interface.h</FILENAME>
       <LINE>7</LINE>
       <COLUMN>1</COLUMN>
@@ -129,7 +311,7 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.h</FILENAME>
       <LINE>42</LINE>
       <COLUMN>4</COLUMN>
@@ -145,7 +327,7 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>parser.h</FILENAME>
       <LINE>18</LINE>
       <COLUMN>26</COLUMN>
@@ -158,7 +340,7 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>analyzer.cpp</FILENAME>
       <LINE>5</LINE>
       <COLUMN>9</COLUMN>
@@ -171,7 +353,7 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>analyzer.cpp</FILENAME>
       <LINE>25</LINE>
       <COLUMN>9</COLUMN>
@@ -184,7 +366,7 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>analyzer.h</FILENAME>
       <LINE>8</LINE>
       <COLUMN>0</COLUMN>
@@ -200,23 +382,23 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>math_core.h</FILENAME>
       <LINE>8</LINE>
       <COLUMN>1</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "math_core::m_colloc_matrix" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <DESCRIPTION>Переменная "math_core::helper_vec" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
     <FUNCTION>math_core::{ctor}</FUNCTION>
     <DECORATED>??0math_core@@QEAA@V?$shared_ptr@V?$vector@Vpath@filesystem@std@@V?$allocator@Vpath@filesystem@std@@@3@@std@@@std@@@Z</DECORATED>
     <FUNCLINE>8</FUNCLINE>
     <ADDITIONALINFO>
-      <targetSymbol>math_core::m_colloc_matrix</targetSymbol>
+      <targetSymbol>math_core::helper_vec</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>math_core.cpp</FILENAME>
       <LINE>13</LINE>
       <COLUMN>9</COLUMN>
@@ -232,12 +414,38 @@
       <FILEPATH>C:\local\boost_1_75_0\boost\algorithm\string\</FILEPATH>
       <FILENAME>split.hpp</FILENAME>
       <LINE>148</LINE>
-      <COLUMN>0</COLUMN>
+      <COLUMN>8</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "boost::algorithm::token_compress_mode_type" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>boost::algorithm::split</FUNCTION>
     <DECORATED>??$split@V?$list@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@AEAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$is_any_ofF@D@detail@algorithm@boost@@@algorithm@boost@@YAAEAV?$list@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@AEAV23@AEAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@U?$is_any_ofF@D@detail@01@W4token_compress_mode_type@01@@Z</DECORATED>
     <FUNCLINE>148</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\local\boost_1_75_0\boost\regex\v4\</FILEPATH>
+      <FILENAME>regex_format.hpp</FILENAME>
+      <LINE>296</LINE>
+      <COLUMN>13</COLUMN>
+    </SFA>
+    <DEFECTCODE>26819</DEFECTCODE>
+    <DESCRIPTION>Неаннотированная передача управления между метками switch (es.78).</DESCRIPTION>
+    <FUNCTION>boost::re_detail_107500::basic_regex_formatter&lt;boost::re_detail_107500::string_out_iterator&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt;,boost::match_results&lt;std::_String_const_iterator&lt;std::_String_val&lt;std::_Simple_types&lt;char&gt; &gt; &gt;,std::allocator&lt;boost::sub_match&lt;std::_String_const_iterator&lt;std::_String_val&lt;std::_Simple_types&lt;char&gt; &gt; &gt; &gt; &gt; &gt;,boost::regex_traits_wrapper&lt;boost::regex_traits&lt;char,boost::w32_regex_traits&lt;char&gt; &gt; &gt;,std::_String_const_iterator&lt;std::_String_val&lt;std::_Simple_types&lt;char&gt; &gt; &gt; &gt;::format_all</FUNCTION>
+    <DECORATED>?format_all@?$basic_regex_formatter@V?$string_out_iterator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@re_detail_107500@boost@@V?$match_results@V?$_String_const_iterator@V?$_String_val@U?$_Simple_types@D@std@@@std@@@std@@V?$allocator@U?$sub_match@V?$_String_const_iterator@V?$_String_val@U?$_Simple_types@D@std@@@std@@@std@@@boost@@@2@@3@U?$regex_traits_wrapper@U?$regex_traits@DV?$w32_regex_traits@D@boost@@@boost@@@3@V?$_String_const_iterator@V?$_String_val@U?$_Simple_types@D@std@@@std@@@std@@@re_detail_107500@boost@@AEAAXXZ</DECORATED>
+    <FUNCLINE>225</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\local\boost_1_75_0\boost\regex\v4\</FILEPATH>
+      <FILENAME>regex_format.hpp</FILENAME>
+      <LINE>369</LINE>
+      <COLUMN>24</COLUMN>
+    </SFA>
+    <DEFECTCODE>26819</DEFECTCODE>
+    <DESCRIPTION>Неаннотированная передача управления между метками switch (es.78).</DESCRIPTION>
+    <FUNCTION>boost::re_detail_107500::basic_regex_formatter&lt;boost::re_detail_107500::string_out_iterator&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt;,boost::match_results&lt;std::_String_const_iterator&lt;std::_String_val&lt;std::_Simple_types&lt;char&gt; &gt; &gt;,std::allocator&lt;boost::sub_match&lt;std::_String_const_iterator&lt;std::_String_val&lt;std::_Simple_types&lt;char&gt; &gt; &gt; &gt; &gt; &gt;,boost::regex_traits_wrapper&lt;boost::regex_traits&lt;char,boost::w32_regex_traits&lt;char&gt; &gt; &gt;,std::_String_const_iterator&lt;std::_String_val&lt;std::_Simple_types&lt;char&gt; &gt; &gt; &gt;::format_perl</FUNCTION>
+    <DECORATED>?format_perl@?$basic_regex_formatter@V?$string_out_iterator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@re_detail_107500@boost@@V?$match_results@V?$_String_const_iterator@V?$_String_val@U?$_Simple_types@D@std@@@std@@@std@@V?$allocator@U?$sub_match@V?$_String_const_iterator@V?$_String_val@U?$_Simple_types@D@std@@@std@@@std@@@boost@@@2@@3@U?$regex_traits_wrapper@U?$regex_traits@DV?$w32_regex_traits@D@boost@@@boost@@@3@V?$_String_const_iterator@V?$_String_val@U?$_Simple_types@D@std@@@std@@@std@@@re_detail_107500@boost@@AEAAXXZ</DECORATED>
+    <FUNCLINE>304</FUNCLINE>
     <PATH></PATH>
   </DEFECT></DEFECTS>

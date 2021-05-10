@@ -123,7 +123,203 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h</FILENAME>
+      <LINE>816</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_debug_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>|</FUNCTION>
+    <DECORATED>??U@YA?AW4MDBX_debug_flags_t@@W40@0@Z</DECORATED>
+    <FUNCLINE>816</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h</FILENAME>
+      <LINE>1281</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_env_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>|</FUNCTION>
+    <DECORATED>??U@YA?AW4MDBX_env_flags_t@@W40@0@Z</DECORATED>
+    <FUNCLINE>1281</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h</FILENAME>
+      <LINE>1327</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_txn_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>|</FUNCTION>
+    <DECORATED>??U@YA?AW4MDBX_txn_flags_t@@W40@0@Z</DECORATED>
+    <FUNCLINE>1327</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h</FILENAME>
+      <LINE>1378</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_db_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>|</FUNCTION>
+    <DECORATED>??U@YA?AW4MDBX_db_flags_t@@W40@0@Z</DECORATED>
+    <FUNCLINE>1378</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h</FILENAME>
+      <LINE>1429</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_put_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>|</FUNCTION>
+    <DECORATED>??U@YA?AW4MDBX_put_flags_t@@W40@0@Z</DECORATED>
+    <FUNCLINE>1429</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h</FILENAME>
+      <LINE>1449</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_copy_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>|</FUNCTION>
+    <DECORATED>??U@YA?AW4MDBX_copy_flags_t@@W40@0@Z</DECORATED>
+    <FUNCLINE>1449</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h</FILENAME>
+      <LINE>3631</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_dbi_state_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>|</FUNCTION>
+    <DECORATED>??U@YA?AW4MDBX_dbi_state_t@@W40@0@Z</DECORATED>
+    <FUNCLINE>3631</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h++</FILENAME>
+      <LINE>1811</LINE>
+      <COLUMN>19</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "mdbx::env::mode" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>mdbx::env::operate_parameters::{ctor}</FUNCTION>
+    <DECORATED>??0operate_parameters@env@mdbx@@QEAA@XZ</DECORATED>
+    <FUNCLINE>1816</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h++</FILENAME>
+      <LINE>1812</LINE>
+      <COLUMN>31</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "mdbx::env::durability" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>mdbx::env::operate_parameters::{ctor}</FUNCTION>
+    <DECORATED>??0operate_parameters@env@mdbx@@QEAA@XZ</DECORATED>
+    <FUNCLINE>1816</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h++</FILENAME>
+      <LINE>2754</LINE>
+      <COLUMN>23</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_error_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>mdbx::&lt;&lt;</FUNCTION>
+    <DECORATED>??6mdbx@@YAAEAV?$basic_ostream@DU?$char_traits@D@std@@@std@@AEAV12@AEBW4MDBX_error_t@@@Z</DECORATED>
+    <FUNCLINE>2754</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h++</FILENAME>
+      <LINE>3879</LINE>
+      <COLUMN>17</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "mdbx::put_mode" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>mdbx::txn::put</FUNCTION>
+    <DECORATED>?put@txn@mdbx@@QEAAXUmap_handle@2@AEBUslice@2@U42@W4put_mode@2@@Z</DECORATED>
+    <FUNCLINE>3879</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h++</FILENAME>
+      <LINE>4075</LINE>
+      <COLUMN>46</COLUMN>
+    </SFA>
+    <DEFECTCODE>26819</DEFECTCODE>
+    <DESCRIPTION>Неаннотированная передача управления между метками switch (es.78).</DESCRIPTION>
+    <FUNCTION>mdbx::txn::put_multiple</FUNCTION>
+    <DECORATED>?put_multiple@txn@mdbx@@QEAA_KUmap_handle@2@AEBUslice@2@_KPEBX_KW4put_mode@2@_N@Z</DECORATED>
+    <FUNCLINE>4059</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h++</FILENAME>
+      <LINE>4154</LINE>
+      <COLUMN>28</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "mdbx::cursor::move_operation" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>mdbx::cursor::move_result::{ctor}</FUNCTION>
+    <DECORATED>??0move_result@cursor@mdbx@@QEAA@AEAV12@W4move_operation@12@_N@Z</DECORATED>
+    <FUNCLINE>4154</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\libmdbx\include\</FILEPATH>
+      <FILENAME>mdbx.h++</FILENAME>
+      <LINE>4691</LINE>
+      <COLUMN>14</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "MDBX_log_level_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>std::to_string</FUNCTION>
+    <DECORATED>?to_string@std@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@AEBW4MDBX_log_level_t@@@Z</DECORATED>
+    <FUNCLINE>4691</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>container_class_interface.h</FILENAME>
       <LINE>7</LINE>
       <COLUMN>1</COLUMN>
@@ -140,7 +336,7 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>container_class_interface.h</FILENAME>
       <LINE>7</LINE>
       <COLUMN>1</COLUMN>
@@ -157,7 +353,7 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.h</FILENAME>
       <LINE>42</LINE>
       <COLUMN>4</COLUMN>
