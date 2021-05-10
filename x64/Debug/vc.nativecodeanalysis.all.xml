@@ -301,12 +301,12 @@
       <COLUMN>1</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "container_class_interface::k" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <DESCRIPTION>Переменная "container_class_interface::count_of_collocations" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
     <FUNCTION>container_class_interface::{ctor}</FUNCTION>
     <DECORATED>??0container_class_interface@@QEAA@XZ</DECORATED>
     <FUNCLINE>7</FUNCLINE>
     <ADDITIONALINFO>
-      <targetSymbol>container_class_interface::k</targetSymbol>
+      <targetSymbol>container_class_interface::count_of_collocations</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT><DEFECT>
@@ -321,6 +321,330 @@
     <FUNCTION>piecewise_container_class::{ctor}</FUNCTION>
     <DECORATED>??0piecewise_container_class@@QEAA@FH@Z</DECORATED>
     <FUNCLINE>42</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>piecewise_container_class::now_counter</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>piecewise_container_class.h</FILENAME>
+      <LINE>279</LINE>
+      <COLUMN>17</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Использование неинициализированной памяти "rc".</DESCRIPTION>
+    <FUNCTION>piecewise_container_class::{ctor}</FUNCTION>
+    <DECORATED>??0piecewise_container_class@@QEAA@FH_N@Z</DECORATED>
+    <FUNCLINE>43</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>43</LINE>
+        <COLUMN>113</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>44</LINE>
+        <COLUMN>4</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>45</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>46</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>47</LINE>
+        <COLUMN>27</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>48</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>49</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>50</LINE>
+        <COLUMN>12</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>объявление</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>Инициализация "rc" не выполнена</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>52</LINE>
+        <COLUMN>76</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>54</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>55</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>56</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>56</LINE>
+        <COLUMN>24</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>57</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>58</LINE>
+        <COLUMN>19</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>60</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>61</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>61</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>61</LINE>
+        <COLUMN>18</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>63</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>64</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>65</LINE>
+        <COLUMN>12</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>67</LINE>
+        <COLUMN>21</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>68</LINE>
+        <COLUMN>41</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>70</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>72</LINE>
+        <COLUMN>17</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>72</LINE>
+        <COLUMN>26</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>ветвь</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Пропустить этот цикл (предполагается, что "t&lt;number_of_full_db" равно false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>186</LINE>
+        <COLUMN>15</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>186</LINE>
+        <COLUMN>26</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>ветвь</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Пропустить этот цикл (предполагается, что "i&lt;count_of_collocations" равно false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>233</LINE>
+        <COLUMN>16</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>ветвь</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Пропустить эту ветвь (предполагается, что "txn!=0" равно false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>270</LINE>
+        <COLUMN>4</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>271</LINE>
+        <COLUMN>12</COLUMN>
+        <KEYEVENT>
+          <ID>5</ID>
+          <KIND>ветвь</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Пропустить эту ветвь (предполагается, что "cursor" равно false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>273</LINE>
+        <COLUMN>12</COLUMN>
+        <KEYEVENT>
+          <ID>6</ID>
+          <KIND>ветвь</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Пропустить эту ветвь (предполагается, что "txn" равно false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>275</LINE>
+        <COLUMN>12</COLUMN>
+        <KEYEVENT>
+          <ID>7</ID>
+          <KIND>ветвь</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Пропустить эту ветвь (предполагается, что "dbi" равно false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>277</LINE>
+        <COLUMN>12</COLUMN>
+        <KEYEVENT>
+          <ID>8</ID>
+          <KIND>ветвь</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Пропустить эту ветвь (предполагается, что "env" равно false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>279</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.h</FILENAME>
+        <LINE>279</LINE>
+        <COLUMN>17</COLUMN>
+        <KEYEVENT>
+          <ID>9</ID>
+          <KIND>использование</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>"rc" используется, но, возможно, не инициализировано</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>piecewise_container_class.h</FILENAME>
+      <LINE>104</LINE>
+      <COLUMN>60</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>piecewise_container_class::{ctor}</FUNCTION>
+    <DECORATED>??0piecewise_container_class@@QEAA@FH_N@Z</DECORATED>
+    <FUNCLINE>43</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>piecewise_container_class.h</FILENAME>
+      <LINE>43</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "piecewise_container_class::now_counter" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>piecewise_container_class::{ctor}</FUNCTION>
+    <DECORATED>??0piecewise_container_class@@QEAA@FH_N@Z</DECORATED>
+    <FUNCLINE>43</FUNCLINE>
     <ADDITIONALINFO>
       <targetSymbol>piecewise_container_class::now_counter</targetSymbol>
     </ADDITIONALINFO>
@@ -372,13 +696,314 @@
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "word_and_number_of_appearances_structure::number_of_appearances_of_this_word" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <DESCRIPTION>Переменная "word_and_number_of_appearances_structure::number_of_texts_in_which_term_occurs" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
     <FUNCTION>word_and_number_of_appearances_structure::{ctor}</FUNCTION>
     <DECORATED>??0word_and_number_of_appearances_structure@@QEAA@XZ</DECORATED>
     <FUNCLINE>8</FUNCLINE>
     <ADDITIONALINFO>
-      <targetSymbol>word_and_number_of_appearances_structure::number_of_appearances_of_this_word</targetSymbol>
+      <targetSymbol>word_and_number_of_appearances_structure::number_of_texts_in_which_term_occurs</targetSymbol>
     </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\</FILEPATH>
+      <FILENAME>PlainObjectBase.h</FILENAME>
+      <LINE>44</LINE>
+      <COLUMN>66</COLUMN>
+    </SFA>
+    <DEFECTCODE>26454</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: операция "-" формирует отрицательный результат без знака во время компиляции (io.5).</DESCRIPTION>
+    <FUNCTION>Eigen::internal::check_rows_cols_for_overflow&lt;-1&gt;::run</FUNCTION>
+    <DECORATED>??$run@_J@?$check_rows_cols_for_overflow@$0?0@internal@Eigen@@SAX_J0@Z</DECORATED>
+    <FUNCLINE>40</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\SVD\</FILEPATH>
+      <FILENAME>BDCSVD.h</FILENAME>
+      <LINE>293</LINE>
+      <COLUMN>34</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>Eigen::BDCSVD&lt;Eigen::Matrix&lt;float,-1,-1,0,-1,-1&gt; &gt;::compute</FUNCTION>
+    <DECORATED>?compute@?$BDCSVD@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@@Eigen@@QEAAAEAV12@AEBV?$Matrix@M$0?0$0?0$0A@$0?0$0?0@2@I@Z</DECORATED>
+    <FUNCLINE>238</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\QR\</FILEPATH>
+      <FILENAME>ColPivHouseholderQR.h</FILENAME>
+      <LINE>83</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "Eigen::ColPivHouseholderQR&lt;Eigen::Matrix&lt;float,-1,-1,0,-1,-1&gt; &gt;::m_prescribedThreshold" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>Eigen::ColPivHouseholderQR&lt;Eigen::Matrix&lt;float,-1,-1,0,-1,-1&gt; &gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$ColPivHouseholderQR@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@@Eigen@@QEAA@XZ</DECORATED>
+    <FUNCLINE>83</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>Eigen::ColPivHouseholderQR&lt;Eigen::Matrix&lt;float,-1,-1,0,-1,-1&gt; &gt;::m_prescribedThreshold</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Jacobi\</FILEPATH>
+      <FILENAME>Jacobi.h</FILENAME>
+      <LINE>40</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "Eigen::JacobiRotation&lt;float&gt;::m_c" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>Eigen::JacobiRotation&lt;float&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$JacobiRotation@M@Eigen@@QEAA@XZ</DECORATED>
+    <FUNCLINE>40</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>Eigen::JacobiRotation&lt;float&gt;::m_c</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\QR\</FILEPATH>
+      <FILENAME>ColPivHouseholderQR.h</FILENAME>
+      <LINE>100</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "Eigen::ColPivHouseholderQR&lt;Eigen::Matrix&lt;float,-1,-1,0,-1,-1&gt; &gt;::m_prescribedThreshold" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>Eigen::ColPivHouseholderQR&lt;Eigen::Matrix&lt;float,-1,-1,0,-1,-1&gt; &gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$ColPivHouseholderQR@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@@Eigen@@QEAA@_J0@Z</DECORATED>
+    <FUNCLINE>100</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>Eigen::ColPivHouseholderQR&lt;Eigen::Matrix&lt;float,-1,-1,0,-1,-1&gt; &gt;::m_prescribedThreshold</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\</FILEPATH>
+      <FILENAME>DenseStorage.h</FILENAME>
+      <LINE>107</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "Eigen::internal::plain_array&lt;float,4,0,16&gt;::array" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>Eigen::internal::plain_array&lt;float,4,0,16&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$plain_array@M$03$0A@$0BA@@internal@Eigen@@QEAA@XZ</DECORATED>
+    <FUNCLINE>107</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>Eigen::internal::plain_array&lt;float,4,0,16&gt;::array</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\products\</FILEPATH>
+      <FILENAME>Parallelizer.h</FILENAME>
+      <LINE>133</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>6255</DEFECTCODE>
+    <DESCRIPTION>Функция _alloca сообщает об ошибке, вызывая исключение переполнения стека.  Попробуйте вместо этого использовать _malloca.</DESCRIPTION>
+    <FUNCTION>Eigen::internal::parallelize_gemm</FUNCTION>
+    <DECORATED>??$parallelize_gemm@$0A@U?$gemm_functor@M_JU?$general_matrix_matrix_product@_JM$0A@$0A@M$0A@$0A@$0A@$00@internal@Eigen@@V?$Block@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@$0?0$0?0$00@3@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@3@V?$Map@V?$Matrix@M$01$0?0$0A@$01$0?0@Eigen@@$0BA@V?$Stride@$0A@$0A@@2@@3@V?$gemm_blocking_space@$0A@MM$01$0?0$0?0$00$0A@@23@@internal@Eigen@@_J@internal@Eigen@@YAXAEBU?$gemm_functor@M_JU?$general_matrix_matrix_product@_JM$0A@$0A@M$0A@$0A@$0A@$00@internal@Eigen@@V?$Block@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@$0?0$0?0$00@3@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@3@V?$Map@V?$Matrix@M$01$0?0$0A@$01$0?0@Eigen@@$0BA@V?$Stride@$0A@$0A@@2@@3@V?$gemm_blocking_space@$0A@MM$01$0?0$0?0$00$0A@@23@@01@_J11_N@Z</DECORATED>
+    <FUNCLINE>87</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\products\</FILEPATH>
+      <FILENAME>GeneralMatrixMatrix.h</FILENAME>
+      <LINE>95</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>6255</DEFECTCODE>
+    <DESCRIPTION>Функция _alloca сообщает об ошибке, вызывая исключение переполнения стека.  Попробуйте вместо этого использовать _malloca.</DESCRIPTION>
+    <FUNCTION>Eigen::internal::general_matrix_matrix_product&lt;__int64,float,0,0,float,0,0,0,1&gt;::run</FUNCTION>
+    <DECORATED>?run@?$general_matrix_matrix_product@_JM$0A@$0A@M$0A@$0A@$0A@$00@internal@Eigen@@SAX_J00PEBM010PEAM00MAEAV?$level3_blocking@MM@23@PEAU?$GemmParallelInfo@_J@23@@Z</DECORATED>
+    <FUNCLINE>61</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\products\</FILEPATH>
+      <FILENAME>GeneralMatrixMatrix.h</FILENAME>
+      <LINE>164</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>6255</DEFECTCODE>
+    <DESCRIPTION>Функция _alloca сообщает об ошибке, вызывая исключение переполнения стека.  Попробуйте вместо этого использовать _malloca.</DESCRIPTION>
+    <FUNCTION>Eigen::internal::general_matrix_matrix_product&lt;__int64,float,0,0,float,0,0,0,1&gt;::run</FUNCTION>
+    <DECORATED>?run@?$general_matrix_matrix_product@_JM$0A@$0A@M$0A@$0A@$0A@$00@internal@Eigen@@SAX_J00PEBM010PEAM00MAEAV?$level3_blocking@MM@23@PEAU?$GemmParallelInfo@_J@23@@Z</DECORATED>
+    <FUNCLINE>61</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\products\</FILEPATH>
+      <FILENAME>GeneralMatrixMatrix.h</FILENAME>
+      <LINE>165</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>6255</DEFECTCODE>
+    <DESCRIPTION>Функция _alloca сообщает об ошибке, вызывая исключение переполнения стека.  Попробуйте вместо этого использовать _malloca.</DESCRIPTION>
+    <FUNCTION>Eigen::internal::general_matrix_matrix_product&lt;__int64,float,0,0,float,0,0,0,1&gt;::run</FUNCTION>
+    <DECORATED>?run@?$general_matrix_matrix_product@_JM$0A@$0A@M$0A@$0A@$0A@$00@internal@Eigen@@SAX_J00PEBM010PEAM00MAEAV?$level3_blocking@MM@23@PEAU?$GemmParallelInfo@_J@23@@Z</DECORATED>
+    <FUNCLINE>61</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\</FILEPATH>
+      <FILENAME>GeneralProduct.h</FILENAME>
+      <LINE>258</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>6255</DEFECTCODE>
+    <DESCRIPTION>Функция _alloca сообщает об ошибке, вызывая исключение переполнения стека.  Попробуйте вместо этого использовать _malloca.</DESCRIPTION>
+    <FUNCTION>Eigen::internal::gemv_dense_selector&lt;2,0,1&gt;::run</FUNCTION>
+    <DECORATED>??$run@V?$Block@V?$Block@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@$0?0$0?0$0A@@Eigen@@$0?0$0?0$0A@@Eigen@@V?$Block@$$CBV?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@$0?0$00$0A@@2@V?$Map@V?$Matrix@M$0?0$00$0A@$0?0$00@Eigen@@$0A@V?$Stride@$0A@$0A@@2@@2@@?$gemv_dense_selector@$01$0A@$00@internal@Eigen@@SAXAEBV?$Block@V?$Block@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@$0?0$0?0$0A@@Eigen@@$0?0$0?0$0A@@2@AEBV?$Block@$$CBV?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@$0?0$00$0A@@2@AEAV?$Map@V?$Matrix@M$0?0$00$0A@$0?0$00@Eigen@@$0A@V?$Stride@$0A@$0A@@2@@2@AEBM@Z</DECORATED>
+    <FUNCLINE>204</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\</FILEPATH>
+      <FILENAME>GeneralProduct.h</FILENAME>
+      <LINE>324</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>6255</DEFECTCODE>
+    <DESCRIPTION>Функция _alloca сообщает об ошибке, вызывая исключение переполнения стека.  Попробуйте вместо этого использовать _malloca.</DESCRIPTION>
+    <FUNCTION>Eigen::internal::gemv_dense_selector&lt;2,1,1&gt;::run</FUNCTION>
+    <DECORATED>??$run@V?$Transpose@$$CBV?$Ref@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@$0A@V?$OuterStride@$0?0@2@@Eigen@@@Eigen@@V?$Transpose@V?$Ref@V?$Matrix@M$00$0?0$00$00$0?0@Eigen@@$0A@V?$InnerStride@$0?0@2@@Eigen@@@2@V?$Ref@V?$Matrix@M$0?0$00$0A@$0?0$00@Eigen@@$0A@V?$InnerStride@$00@2@@2@@?$gemv_dense_selector@$01$00$00@internal@Eigen@@SAXAEBV?$Transpose@$$CBV?$Ref@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@$0A@V?$OuterStride@$0?0@2@@Eigen@@@2@AEBV?$Transpose@V?$Ref@V?$Matrix@M$00$0?0$00$00$0?0@Eigen@@$0A@V?$InnerStride@$0?0@2@@Eigen@@@2@AEAV?$Ref@V?$Matrix@M$0?0$00$0A@$0?0$00@Eigen@@$0A@V?$InnerStride@$00@2@@2@AEBM@Z</DECORATED>
+    <FUNCLINE>298</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\products\</FILEPATH>
+      <FILENAME>TriangularMatrixMatrix.h</FILENAME>
+      <LINE>141</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>6255</DEFECTCODE>
+    <DESCRIPTION>Функция _alloca сообщает об ошибке, вызывая исключение переполнения стека.  Попробуйте вместо этого использовать _malloca.</DESCRIPTION>
+    <FUNCTION>Eigen::internal::product_triangular_matrix_matrix&lt;float,__int64,5,1,0,0,0,0,0,1,0&gt;::run</FUNCTION>
+    <DECORATED>?run@?$product_triangular_matrix_matrix@M_J$04$00$0A@$0A@$0A@$0A@$0A@$00$0A@@internal@Eigen@@SAX_J00PEBM010PEAM00AEBMAEAV?$level3_blocking@MM@23@@Z</DECORATED>
+    <FUNCLINE>111</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\products\</FILEPATH>
+      <FILENAME>TriangularMatrixMatrix.h</FILENAME>
+      <LINE>142</LINE>
+      <COLUMN>4</COLUMN>
+    </SFA>
+    <DEFECTCODE>6255</DEFECTCODE>
+    <DESCRIPTION>Функция _alloca сообщает об ошибке, вызывая исключение переполнения стека.  Попробуйте вместо этого использовать _malloca.</DESCRIPTION>
+    <FUNCTION>Eigen::internal::product_triangular_matrix_matrix&lt;float,__int64,5,1,0,0,0,0,0,1,0&gt;::run</FUNCTION>
+    <DECORATED>?run@?$product_triangular_matrix_matrix@M_J$04$00$0A@$0A@$0A@$0A@$0A@$00$0A@@internal@Eigen@@SAX_J00PEBM010PEAM00AEBMAEAV?$level3_blocking@MM@23@@Z</DECORATED>
+    <FUNCLINE>111</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\products\</FILEPATH>
+      <FILENAME>GeneralMatrixVector.h</FILENAME>
+      <LINE>134</LINE>
+      <COLUMN>38</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "Eigen::internal::general_matrix_vector_product&lt;__int64,float,Eigen::internal::const_blas_data_mapper&lt;float,__int64,0&gt;,0,0,float,Eigen::internal::const_blas_data_mapper&lt;float,__int64,1&gt;,0,0&gt;::run::__l4::&lt;unnamed-enum-AllAligned&gt;" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>Eigen::internal::general_matrix_vector_product&lt;__int64,float,Eigen::internal::const_blas_data_mapper&lt;float,__int64,0&gt;,0,0,float,Eigen::internal::const_blas_data_mapper&lt;float,__int64,1&gt;,0,0&gt;::run</FUNCTION>
+    <DECORATED>?run@?$general_matrix_vector_product@_JMV?$const_blas_data_mapper@M_J$0A@@internal@Eigen@@$0A@$0A@MV?$const_blas_data_mapper@M_J$00@23@$0A@$0A@@internal@Eigen@@SAX_J0AEBV?$const_blas_data_mapper@M_J$0A@@23@AEBV?$const_blas_data_mapper@M_J$00@23@PEAM0M@Z</DECORATED>
+    <FUNCLINE>88</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\products\</FILEPATH>
+      <FILENAME>GeneralMatrixVector.h</FILENAME>
+      <LINE>406</LINE>
+      <COLUMN>42</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "Eigen::internal::general_matrix_vector_product&lt;__int64,float,Eigen::internal::const_blas_data_mapper&lt;float,__int64,1&gt;,1,0,float,Eigen::internal::const_blas_data_mapper&lt;float,__int64,0&gt;,0,0&gt;::run::__l2::&lt;unnamed-enum-AllAligned&gt;" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>Eigen::internal::general_matrix_vector_product&lt;__int64,float,Eigen::internal::const_blas_data_mapper&lt;float,__int64,1&gt;,1,0,float,Eigen::internal::const_blas_data_mapper&lt;float,__int64,0&gt;,0,0&gt;::run</FUNCTION>
+    <DECORATED>?run@?$general_matrix_vector_product@_JMV?$const_blas_data_mapper@M_J$00@internal@Eigen@@$00$0A@MV?$const_blas_data_mapper@M_J$0A@@23@$0A@$0A@@internal@Eigen@@SAX_J0AEBV?$const_blas_data_mapper@M_J$00@23@AEBV?$const_blas_data_mapper@M_J$0A@@23@PEAM0M@Z</DECORATED>
+    <FUNCLINE>364</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\</FILEPATH>
+      <FILENAME>DenseStorage.h</FILENAME>
+      <LINE>114</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "Eigen::internal::plain_array&lt;float,256,0,16&gt;::array" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>Eigen::internal::plain_array&lt;float,256,0,16&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$plain_array@M$0BAA@$0A@$0BA@@internal@Eigen@@QEAA@Uconstructor_without_unaligned_array_assert@12@@Z</DECORATED>
+    <FUNCLINE>114</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>Eigen::internal::plain_array&lt;float,256,0,16&gt;::array</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\products\</FILEPATH>
+      <FILENAME>TriangularMatrixVector.h</FILENAME>
+      <LINE>315</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>6255</DEFECTCODE>
+    <DESCRIPTION>Функция _alloca сообщает об ошибке, вызывая исключение переполнения стека.  Попробуйте вместо этого использовать _malloca.</DESCRIPTION>
+    <FUNCTION>Eigen::internal::trmv_selector&lt;6,1&gt;::run</FUNCTION>
+    <DECORATED>??$run@V?$Transpose@$$CBV?$Block@$$CBV?$Block@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@$0?0$0?0$0A@@Eigen@@$0?0$0?0$0A@@Eigen@@@Eigen@@V?$Transpose@$$CBV?$CwiseBinaryOp@U?$scalar_product_op@MM@internal@Eigen@@$$CBV?$CwiseNullaryOp@U?$scalar_constant_op@M@internal@Eigen@@$$CBV?$Matrix@M$00$0?0$00$00$0?0@3@@3@$$CBV?$Transpose@$$CBV?$Block@$$CBV?$Block@$$CBV?$Block@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@$0?0$0?0$0A@@Eigen@@$0?0$00$00@Eigen@@$0?0$00$0A@@Eigen@@@3@@Eigen@@@2@V?$Transpose@V?$Block@V?$Block@V?$Matrix@M$0?0$0?0$00$0?0$0?0@Eigen@@$00$0?0$00@Eigen@@$00$0?0$0A@@Eigen@@@2@@?$trmv_selector@$05$00@internal@Eigen@@SAXAEBV?$Transpose@$$CBV?$Block@$$CBV?$Block@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@$0?0$0?0$0A@@Eigen@@$0?0$0?0$0A@@Eigen@@@2@AEBV?$Transpose@$$CBV?$CwiseBinaryOp@U?$scalar_product_op@MM@internal@Eigen@@$$CBV?$CwiseNullaryOp@U?$scalar_constant_op@M@internal@Eigen@@$$CBV?$Matrix@M$00$0?0$00$00$0?0@3@@3@$$CBV?$Transpose@$$CBV?$Block@$$CBV?$Block@$$CBV?$Block@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@$0?0$0?0$0A@@Eigen@@$0?0$00$00@Eigen@@$0?0$00$0A@@Eigen@@@3@@Eigen@@@2@AEAV?$Transpose@V?$Block@V?$Block@V?$Matrix@M$0?0$0?0$00$0?0$0?0@Eigen@@$00$0?0$00@Eigen@@$00$0?0$0A@@Eigen@@@2@AEBM@Z</DECORATED>
+    <FUNCLINE>290</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\products\</FILEPATH>
+      <FILENAME>GeneralBlockPanelKernel.h</FILENAME>
+      <LINE>1850</LINE>
+      <COLUMN>77</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>Eigen::internal::gemm_pack_lhs&lt;float,__int64,Eigen::internal::const_blas_data_mapper&lt;float,__int64,1&gt;,8,4,1,0,0&gt;::()</FUNCTION>
+    <DECORATED>??R?$gemm_pack_lhs@M_JV?$const_blas_data_mapper@M_J$00@internal@Eigen@@$07$03$00$0A@$0A@@internal@Eigen@@QEAAXPEAMAEBV?$const_blas_data_mapper@M_J$00@12@_J222@Z</DECORATED>
+    <FUNCLINE>1813</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\products\</FILEPATH>
+      <FILENAME>GeneralBlockPanelKernel.h</FILENAME>
+      <LINE>1852</LINE>
+      <COLUMN>29</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>Eigen::internal::gemm_pack_lhs&lt;float,__int64,Eigen::internal::const_blas_data_mapper&lt;float,__int64,1&gt;,8,4,1,0,0&gt;::()</FUNCTION>
+    <DECORATED>??R?$gemm_pack_lhs@M_JV?$const_blas_data_mapper@M_J$00@internal@Eigen@@$07$03$00$0A@$0A@@internal@Eigen@@QEAAXPEAMAEBV?$const_blas_data_mapper@M_J$00@12@_J222@Z</DECORATED>
+    <FUNCLINE>1813</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\products\</FILEPATH>
+      <FILENAME>GeneralBlockPanelKernel.h</FILENAME>
+      <LINE>1858</LINE>
+      <COLUMN>20</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "-" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "-", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>Eigen::internal::gemm_pack_lhs&lt;float,__int64,Eigen::internal::const_blas_data_mapper&lt;float,__int64,1&gt;,8,4,1,0,0&gt;::()</FUNCTION>
+    <DECORATED>??R?$gemm_pack_lhs@M_JV?$const_blas_data_mapper@M_J$00@internal@Eigen@@$07$03$00$0A@$0A@@internal@Eigen@@QEAAXPEAMAEBV?$const_blas_data_mapper@M_J$00@12@_J222@Z</DECORATED>
+    <FUNCLINE>1813</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\products\</FILEPATH>
+      <FILENAME>TriangularMatrixVector.h</FILENAME>
+      <LINE>243</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>6255</DEFECTCODE>
+    <DESCRIPTION>Функция _alloca сообщает об ошибке, вызывая исключение переполнения стека.  Попробуйте вместо этого использовать _malloca.</DESCRIPTION>
+    <FUNCTION>Eigen::internal::trmv_selector&lt;6,0&gt;::run</FUNCTION>
+    <DECORATED>??$run@V?$Transpose@$$CBV?$Block@$$CBV?$Transpose@V?$Block@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@$0?0$0?0$0A@@Eigen@@@Eigen@@$0?0$0?0$0A@@Eigen@@@Eigen@@V?$Transpose@$$CBV?$CwiseBinaryOp@U?$scalar_product_op@MM@internal@Eigen@@$$CBV?$CwiseNullaryOp@U?$scalar_constant_op@M@internal@Eigen@@$$CBV?$Matrix@M$00$0?0$00$00$0?0@3@@3@$$CBV?$Transpose@$$CBV?$Block@$$CBV?$Block@$$CBV?$Transpose@V?$Block@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@$0?0$0?0$0A@@Eigen@@@Eigen@@$0?0$00$0A@@Eigen@@$0?0$00$0A@@Eigen@@@3@@Eigen@@@2@V?$Transpose@V?$Block@V?$Block@V?$Matrix@M$0?0$0?0$00$0?0$0?0@Eigen@@$00$0?0$00@Eigen@@$00$0?0$0A@@Eigen@@@2@@?$trmv_selector@$05$0A@@internal@Eigen@@SAXAEBV?$Transpose@$$CBV?$Block@$$CBV?$Transpose@V?$Block@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@$0?0$0?0$0A@@Eigen@@@Eigen@@$0?0$0?0$0A@@Eigen@@@2@AEBV?$Transpose@$$CBV?$CwiseBinaryOp@U?$scalar_product_op@MM@internal@Eigen@@$$CBV?$CwiseNullaryOp@U?$scalar_constant_op@M@internal@Eigen@@$$CBV?$Matrix@M$00$0?0$00$00$0?0@3@@3@$$CBV?$Transpose@$$CBV?$Block@$$CBV?$Block@$$CBV?$Transpose@V?$Block@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@$0?0$0?0$0A@@Eigen@@@Eigen@@$0?0$00$0A@@Eigen@@$0?0$00$0A@@Eigen@@@3@@Eigen@@@2@AEAV?$Transpose@V?$Block@V?$Block@V?$Matrix@M$0?0$0?0$00$0?0$0?0@Eigen@@$00$0?0$00@Eigen@@$00$0?0$0A@@Eigen@@@2@AEBM@Z</DECORATED>
+    <FUNCLINE>207</FUNCLINE>
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>

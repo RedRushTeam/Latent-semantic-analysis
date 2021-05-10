@@ -628,37 +628,6 @@
         {
           "ruleId": "C26495",
           "message": {
-            "text": "Переменная \"container_class_interface::k\" не инициализирована. Всегда инициализируйте переменную-член (type.6)."
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/container_class_interface.h"
-                },
-                "region": {
-                  "startLine": 7,
-                  "startColumn": 2,
-                  "endLine": 7,
-                  "endColumn": 2
-                }
-              },
-              "logicalLocations": [
-                {
-                  "decoratedName": "??0container_class_interface@@QEAA@XZ",
-                  "kind": "function"
-                }
-              ]
-            }
-          ],
-          "suppressions": [],
-          "properties": {
-            "targetSymbol": "container_class_interface::k"
-          }
-        },
-        {
-          "ruleId": "C26495",
-          "message": {
             "text": "Переменная \"container_class_interface::count_of_collocations\" не инициализирована. Всегда инициализируйте переменную-член (type.6)."
           },
           "locations": [
@@ -690,6 +659,37 @@
         {
           "ruleId": "C26495",
           "message": {
+            "text": "Переменная \"container_class_interface::k\" не инициализирована. Всегда инициализируйте переменную-член (type.6)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/container_class_interface.h"
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 2,
+                  "endLine": 7,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0container_class_interface@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "suppressions": [],
+          "properties": {
+            "targetSymbol": "container_class_interface::k"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
             "text": "Переменная \"piecewise_container_class::now_counter\" не инициализирована. Всегда инициализируйте переменную-член (type.6)."
           },
           "locations": [
@@ -708,6 +708,675 @@
               "logicalLocations": [
                 {
                   "decoratedName": "??0piecewise_container_class@@QEAA@FH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "suppressions": [],
+          "properties": {
+            "targetSymbol": "piecewise_container_class::now_counter"
+          }
+        },
+        {
+          "ruleId": "C6001",
+          "message": {
+            "text": "Использование неинициализированной памяти \"rc\"."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                },
+                "region": {
+                  "startLine": 279,
+                  "startColumn": 18,
+                  "endLine": 279,
+                  "endColumn": 18
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0piecewise_container_class@@QEAA@FH_N@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 43,
+                            "startColumn": 114
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 44,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 45,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 46,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 47,
+                            "startColumn": 28
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 48,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 49,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 50,
+                            "startColumn": 13
+                          }
+                        },
+                        "message": {
+                          "text": "Инициализация \"rc\" не выполнена"
+                        }
+                      },
+                      "kinds": [
+                        "объявление"
+                      ],
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 52,
+                            "startColumn": 77
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 54,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 55,
+                            "startColumn": 18
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 56,
+                            "startColumn": 18
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 56,
+                            "startColumn": 25
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 57,
+                            "startColumn": 17
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 58,
+                            "startColumn": 20
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 60,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 61,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 61,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 61,
+                            "startColumn": 19
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 63,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 64,
+                            "startColumn": 15
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 65,
+                            "startColumn": 13
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 67,
+                            "startColumn": 22
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 68,
+                            "startColumn": 42
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 70,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 72,
+                            "startColumn": 18
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 72,
+                            "startColumn": 27
+                          }
+                        },
+                        "message": {
+                          "text": "Пропустить этот цикл (предполагается, что \"t<number_of_full_db\" равно false)"
+                        }
+                      },
+                      "kinds": [
+                        "ветвь"
+                      ],
+                      "importance": "important"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 186,
+                            "startColumn": 16
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 186,
+                            "startColumn": 27
+                          }
+                        },
+                        "message": {
+                          "text": "Пропустить этот цикл (предполагается, что \"i<count_of_collocations\" равно false)"
+                        }
+                      },
+                      "kinds": [
+                        "ветвь"
+                      ],
+                      "importance": "important"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 233,
+                            "startColumn": 17
+                          }
+                        },
+                        "message": {
+                          "text": "Пропустить эту ветвь (предполагается, что \"txn!=0\" равно false)"
+                        }
+                      },
+                      "kinds": [
+                        "ветвь"
+                      ],
+                      "importance": "important"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 270,
+                            "startColumn": 5
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 271,
+                            "startColumn": 13
+                          }
+                        },
+                        "message": {
+                          "text": "Пропустить эту ветвь (предполагается, что \"cursor\" равно false)"
+                        }
+                      },
+                      "kinds": [
+                        "ветвь"
+                      ],
+                      "importance": "important"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 273,
+                            "startColumn": 13
+                          }
+                        },
+                        "message": {
+                          "text": "Пропустить эту ветвь (предполагается, что \"txn\" равно false)"
+                        }
+                      },
+                      "kinds": [
+                        "ветвь"
+                      ],
+                      "importance": "important"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 275,
+                            "startColumn": 13
+                          }
+                        },
+                        "message": {
+                          "text": "Пропустить эту ветвь (предполагается, что \"dbi\" равно false)"
+                        }
+                      },
+                      "kinds": [
+                        "ветвь"
+                      ],
+                      "importance": "important"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 277,
+                            "startColumn": 13
+                          }
+                        },
+                        "message": {
+                          "text": "Пропустить эту ветвь (предполагается, что \"env\" равно false)"
+                        }
+                      },
+                      "kinds": [
+                        "ветвь"
+                      ],
+                      "importance": "important"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 279,
+                            "startColumn": 14
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                          },
+                          "region": {
+                            "startLine": 279,
+                            "startColumn": 18
+                          }
+                        },
+                        "message": {
+                          "text": "\"rc\" используется, но, возможно, не инициализировано"
+                        }
+                      },
+                      "kinds": [
+                        "использование"
+                      ],
+                      "importance": "essential"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "suppressions": []
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Арифметическое переполнение: использование оператора \"*\" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора \"*\", чтобы избежать переполнения (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                },
+                "region": {
+                  "startLine": 104,
+                  "startColumn": 60,
+                  "endLine": 104,
+                  "endColumn": 62
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0piecewise_container_class@@QEAA@FH_N@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "suppressions": []
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "Переменная \"piecewise_container_class::now_counter\" не инициализирована. Всегда инициализируйте переменную-член (type.6)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/Dmitry/Documents/SVDCollocationAnalyzer/SVDCollocationAnalyzer/piecewise_container_class.h"
+                },
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 5,
+                  "endLine": 43,
+                  "endColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0piecewise_container_class@@QEAA@FH_N@Z",
                   "kind": "function"
                 }
               ]
@@ -48185,7 +48854,7 @@
       },
       "invocations": [
         {
-          "commandLine": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX86\\x64\\c1xx.dll\" -ACf{1F7B090C-16DB-4822-966A-A93D26ED4681} -ACpmspft140.dll -Alint -D_PREFAST_ -D_AST_FE_ -Analyze -zm0x00F6B1C0 -il C:\\Users\\Dmitry\\AppData\\Local\\Temp\\_CL_c136a0e4ast -typedil -f parser.cpp -Ze -D_MSC_EXTENSIONS -Zp16 -pc \\:/ -D_MSC_VER=1928 -D_MSC_FULL_VER=192829914 -D_MSC_BUILD=0 -D_M_AMD64=100 -ZILP448 -D_M_X64=100 -D_WIN64 -D_WIN32 -GR -D_CPPRTTI -I C:\\libmdbx\\include -I C:\\bit7z\\include -I C:\\SQLite -I C:\\SQLiteCPP\\include -I C:\\local\\boost_1_75_0\\boost -I C:\\RGD\\SVD MATH\\eigen-3.3.8\\Eigen -I C:\\RGD\\RussianGrammaticalDictionary\\include\\lem\\solarix -I C:\\RGD\\RussianGrammaticalDictionary\\include -nologo -W 3 -diagnostics:column -D_GUARDOVERFLOW_CRT_ALLOCATORS=1 -Ot -DCODE_ANALYSIS -D_DEBUG -D_CONSOLE -D_UNICODE -DUNICODE -EHs -D_CPPUNWIND -EHc -D__MSVC_RUNTIME_CHECKS -RTCs -RTCu -MTd -clrNoPureCRT -D_DEBUG -D_MT -GS -D_M_FP_PRECISE -permissive- -Zc:wchar_t -Zc:forScope -omp -D_OPENMP=200203 -std:c++17 -Fox64\\Debug\\parser.obj -Fdx64\\Debug\\vc142.pdb -Gd -analyze:projectdirectory C:\\Users\\Dmitry\\Documents\\SVDCollocationAnalyzer\\SVDCollocationAnalyzer -analyze:rulesetdirectory ;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\\\Rule Sets; -analyze:ruleset C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\Rule Sets\\NativeRecommendedRules.ruleset -analyze:quiet -analyze:plugin C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX86\\x86\\EspXEngine.dll -FC -errorreport:prompt -I C:\\bit7z\\include -I C:\\SQLite -I C:\\SQLiteCPP\\include -I C:\\RGD\\SVD MATH\\eigen-3.3.8\\Eigen -I C:\\local\\boost_1_75_0 -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\cppwinrt -I C:\\Users\\Dmitry\\Documents\\SVDCollocationAnalyzer\\SVDCollocationAnalyzer\\Include\\um -MPdiagMutex 0000000000000098",
+          "commandLine": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX86\\x64\\c1xx.dll\" -ACf{1F7B090C-16DB-4822-966A-A93D26ED4681} -ACpmspft140.dll -Alint -D_PREFAST_ -D_AST_FE_ -Analyze -zm0x002DB1C0 -il C:\\Users\\Dmitry\\AppData\\Local\\Temp\\_CL_91df5d9east -typedil -f parser.cpp -Ze -D_MSC_EXTENSIONS -Zp16 -pc \\:/ -D_MSC_VER=1928 -D_MSC_FULL_VER=192829914 -D_MSC_BUILD=0 -D_M_AMD64=100 -ZILP448 -D_M_X64=100 -D_WIN64 -D_WIN32 -GR -D_CPPRTTI -I C:\\libmdbx\\include -I C:\\bit7z\\include -I C:\\SQLite -I C:\\SQLiteCPP\\include -I C:\\local\\boost_1_75_0\\boost -I C:\\RGD\\SVD MATH\\eigen-3.3.8\\Eigen -I C:\\RGD\\RussianGrammaticalDictionary\\include\\lem\\solarix -I C:\\RGD\\RussianGrammaticalDictionary\\include -nologo -W 3 -diagnostics:column -D_GUARDOVERFLOW_CRT_ALLOCATORS=1 -Ot -DCODE_ANALYSIS -D_DEBUG -D_CONSOLE -D_UNICODE -DUNICODE -EHs -D_CPPUNWIND -EHc -D__MSVC_RUNTIME_CHECKS -RTCs -RTCu -MTd -clrNoPureCRT -D_DEBUG -D_MT -GS -D_M_FP_PRECISE -permissive- -Zc:wchar_t -Zc:forScope -omp -D_OPENMP=200203 -std:c++17 -Fox64\\Debug\\parser.obj -Fdx64\\Debug\\vc142.pdb -Gd -analyze:projectdirectory C:\\Users\\Dmitry\\Documents\\SVDCollocationAnalyzer\\SVDCollocationAnalyzer -analyze:rulesetdirectory ;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\\\Rule Sets; -analyze:ruleset C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\Rule Sets\\NativeRecommendedRules.ruleset -analyze:quiet -analyze:plugin C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\bin\\HostX86\\x86\\EspXEngine.dll -FC -errorreport:prompt -I C:\\bit7z\\include -I C:\\SQLite -I C:\\SQLiteCPP\\include -I C:\\RGD\\SVD MATH\\eigen-3.3.8\\Eigen -I C:\\local\\boost_1_75_0 -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.28.29910\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.18362.0\\cppwinrt -I C:\\Users\\Dmitry\\Documents\\SVDCollocationAnalyzer\\SVDCollocationAnalyzer\\Include\\um -MPdiagMutex 00000000000001AC",
           "executionSuccessful": true
         }
       ],
@@ -48308,7 +48977,7 @@
             "resultFile"
           ],
           "hashes": {
-            "md5": "00e6d49a4869c4318e4a3fe0d9ced495"
+            "md5": "22533f5627a2c8522819de3a751863e1"
           }
         },
         {
@@ -48360,7 +49029,7 @@
             "uri": "file:///c:/users/dmitry/documents/svdcollocationanalyzer/svdcollocationanalyzer/list_of_functions.h"
           },
           "hashes": {
-            "md5": "f3a7cf4aef5afcd6e5780f8edfdd5c06"
+            "md5": "ee23e2e9bb663af0b34ce5502d889eac"
           }
         },
         {
@@ -48368,7 +49037,7 @@
             "uri": "file:///c:/users/dmitry/documents/svdcollocationanalyzer/svdcollocationanalyzer/list_of_types.h"
           },
           "hashes": {
-            "md5": "ff3e297bcb85258e61ea2e57b8ecc90c"
+            "md5": "ae4e1c7dc0f46b80a0f80335008b1854"
           }
         },
         {
