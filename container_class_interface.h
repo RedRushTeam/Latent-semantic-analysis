@@ -8,10 +8,11 @@ public:
 	container_class_interface(short k, int count_of_collocations) : k(k), count_of_collocations(count_of_collocations) {}
 
 	//functions
+	virtual void summ_for_concret_colloc(int first_dimension, int second_dimension, int third_dimension, now_type _num) = 0;
 	virtual void increment(int first_dimension, int second_dimension, int third_dimension) = 0;
 	virtual void decrement(int first_dimension, int second_dimension, int third_dimension) = 0;
 	virtual now_type get_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension) = 0;
-	virtual now_type set_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension, now_type perem) = 0;
+	virtual void set_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension, now_type perem) = 0;
 	virtual shared_ptr<container_class_interface> pow_all(int stepen) = 0;
 	virtual shared_ptr<container_class_interface> sqrt_all() = 0;
 

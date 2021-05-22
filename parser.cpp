@@ -27,18 +27,19 @@ void parser::print_all_words(string text)
 
 shared_ptr<list<string>> parser::delete_trash()
 {
-	std::ifstream _input(_filename);
-	int count = 1;
-	int helper = 1;
-	int size = 0;
+	std::ifstream _input(_filename, std::ios::binary);
 
 	boost::regex no_letters("[^à-ÿÀ-ß ]+");
 	boost::regex spaces("( {2,})+");
-
+	std::ios::sync_with_stdio(false);
 
 	string replacement = " ";
 
-	std::stringstream ss;
+	boost::iostreams::mapped_file mmap(_filename.string());
+
+	string untext(mmap.data(), mmap.size());
+
+	/*std::stringstream ss;
 	std::string untext;
 	if (_input.is_open()) {
 		ss << _input.rdbuf();
@@ -46,7 +47,7 @@ shared_ptr<list<string>> parser::delete_trash()
 		_input.close();
 	}
 	else
-		cout << "it doesn't work";
+		cout << "it doesn't work";*/
 
 	string temp = boost::regex_replace(untext, no_letters, replacement);
 	string text = boost::regex_replace(temp, spaces, replacement);

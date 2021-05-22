@@ -238,11 +238,34 @@ int analyzer::get_counter_of_tokenizer_without_rare_words_SVD()
 	return analyzer::counter_of_tokenizer_without_rare_words_SVD;
 }
 
+
+void analyzer::calculate_sample_mean_all()
+{
+	this->lemmatize_all_words();
+
+	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
+		for (int i = -COLLOC_DIST; i <= COLLOC_DIST; ++i)
+			if (i != 0) {
+				auto now_it = this->move_list_iterator(it, i);
+				if (now_it == this->list_of_all_lemmatized_text->end())
+					continue;
+				#pragma omp critical (maps_into_analyzer)
+				{
+					int first_index = (*this->map_of_tokens_WORD_TOKEN.find(*it)).second;	//обращение к критическому ресурсу		//быть может, тут не нужна потокобезопасность?
+					if (i > 0)
+						this->_sample_mean_all->summ_for_concret_colloc(first_index, this->map_of_tokens_WORD_TOKEN.find(*now_it)->second, i + (COLLOC_DIST - 1), (now_type)1.);	//обращение к критическому ресурсу
+					else
+						this->_sample_mean_all->summ_for_concret_colloc(first_index, this->map_of_tokens_WORD_TOKEN.find(*now_it)->second, i + COLLOC_DIST, (now_type)1.);	//обращение к критическому ресурсу
+				}
+			}
+	}
+}
+
 void analyzer::analyze_vec_of_tokens()
 {
 	this->lemmatize_all_words();
 
-	//критическая секция
+	/*//критическая секция
 	for (auto& obj : *this->list_of_all_lemmatized_text) { //обращение к критическому ресурсу
 		#pragma omp critical (maps_into_analyzer)
 		{
@@ -255,9 +278,10 @@ void analyzer::analyze_vec_of_tokens()
 		{
 			this->map_of_tokens_TOKEN_WORD.insert(make_pair(obj.second, obj.first));
 		}
-	}
+	}*/
 
 	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
+		//условие для "загруженности" данных в озу должно быть здесь. Быть может, стоит добавить специальные методы для контейнеров с математическими данными?
 		for (int i = -COLLOC_DIST; i <= COLLOC_DIST; ++i)
 			if (i != 0) {
 				auto now_it = this->move_list_iterator(it, i);
@@ -265,7 +289,7 @@ void analyzer::analyze_vec_of_tokens()
 					continue;
 				#pragma omp critical (maps_into_analyzer)
 				{
-					int first_index = (*this->map_of_tokens_WORD_TOKEN.find(*it)).second;	//обращение к критическому ресурсу
+					int first_index = (*this->map_of_tokens_WORD_TOKEN.find(*it)).second;	//обращение к критическому ресурсу		//быть может, тут не нужна потокобезопасность?
 					if (i > 0)
 						this->_container_class->increment(first_index, this->map_of_tokens_WORD_TOKEN.find(*now_it)->second, i + (COLLOC_DIST - 1));	//обращение к критическому ресурсу
 					else
@@ -308,8 +332,6 @@ void analyzer::lemmatize_all_words()
 		sol_GetLemmaA(this->lemmas_engine, obj.c_str(), utf8, sizeof(utf8));
 		this->list_of_all_lemmatized_text->push_back((string)(utf8));
 	}
-
-	//utf8[0] = 0;
 }
 
 int analyzer::get_k()
@@ -379,4 +401,14 @@ shared_ptr<container_class_interface> analyzer::get_container_class()
 void analyzer::set_container_class(shared_ptr<container_class_interface> _container_class)
 {
 	this->_container_class = _container_class;
+}
+
+shared_ptr<container_class_interface> analyzer::get_container_sample_mean_all()
+{
+	return analyzer::_sample_mean_all;
+}
+
+void analyzer::set_container_sample_mean_all(shared_ptr<container_class_interface> _sample_mean_all)
+{
+	analyzer::_sample_mean_all = _sample_mean_all;
 }

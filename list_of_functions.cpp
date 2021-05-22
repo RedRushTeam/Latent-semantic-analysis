@@ -7,6 +7,11 @@ void list_of_functions::print_info_about_sysyem()
 	GlobalMemoryStatusEx(&statex);
 	cout << "This system have " << statex.ullTotalPhys / 1024 / 1024 << " MB of physical memory." << endl << endl;
 	cout << "This system have " << statex.ullTotalPageFile / 1024 / 1024 << " MB of paging file." << endl;
+
+	/*if ((statex.ullTotalPhys / 1024 / 1024) < (SIZE_OF_PIECE * (SIZE_OF_PIECE * 4) * COLLOC_DIST * 4) / 1024 / 1024) {
+		cout << "You do not have enough RAM. Reduce SIZE_OF_PIECE!" << endl;
+		exit(1);
+	}*/
 }
 
 shared_ptr<vector<fs::path>> list_of_functions::get_input_texts()
@@ -29,17 +34,31 @@ static int callback(void* NotUsed, int argc, char** argv, char** azColName) {
 	return 0;
 }
 
-void list_of_functions::test_of_sqlite()
+void list_of_functions::test_of_bit7z()
 {
-}
+	auto input_path = "G:\\TEST_db";
+	fs::recursive_directory_iterator begin(input_path);
+	fs::recursive_directory_iterator end;
+	shared_ptr<std::vector<fs::path>> files_for_ar = make_shared<std::vector<fs::path>>();
+	std::copy_if(begin, end, std::back_inserter(*files_for_ar), [](const fs::path& path) {	return fs::is_regular_file(path); });
 
-void list_of_functions::test_of_libmdbx()
-{
-	int rc;
-	MDBX_env* env = NULL;
-	MDBX_txn* txn = NULL;
-	MDBX_cursor* cursor = NULL;
-	char sval[32];
+	Bit7zLibrary lib{ L"7z.dll" };
+
+	#pragma omp parallel 
+	{
+		#pragma omp for schedule(static)
+		for(int i = 0; i < files_for_ar->size(); ++i){
+			std::vector<std::wstring> files;
+			BitCompressor compressor{ lib, BitFormat::SevenZip };
+			compressor.setCompressionMethod(BitCompressionMethod::Lzma2);
+			compressor.setCompressionLevel(BitCompressionLevel::FASTEST);
+			files.push_back((*files_for_ar)[i].generic_wstring());
+			auto path = (*files_for_ar)[i].generic_wstring();
+			path.replace(path.find(L"G"), path.find(L"G") + 1, L"A");
+			compressor.compress(files, path + L".7z");
+			files.clear();
+		}
+	}
 }
 
 void list_of_functions::test_of_libmdbx(int kolichestvo_zapisey, bool random_number)

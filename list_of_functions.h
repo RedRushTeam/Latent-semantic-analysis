@@ -8,11 +8,7 @@ public:
 
 	static shared_ptr<vector<fs::path>> get_input_texts();
 
-	static void test_of_sqlite();
-
-	static void test_of_bit7z(std::string file);
-
-	static void test_of_libmdbx();
+	static void test_of_bit7z();
 
 	static void test_of_libmdbx(int kolichestvo_zapisey, bool random_numbers);
 };

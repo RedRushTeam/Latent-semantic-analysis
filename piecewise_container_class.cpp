@@ -1,108 +1,28 @@
 #pragma once 
 #include "piecewise_container_class.h"
 
-bool piecewise_container_class::is_slice_loaded(int first_dimension)
-{
-	if (number_of_downloaded_slice.find(first_dimension) != number_of_downloaded_slice.end())
-		return true;
-	return false;
-}
-
-void piecewise_container_class::load_slice(int first_dimension)
-{
-	/*if (is_slice_loaded(first_dimension))
-		return;
-
-	SQLite::Database db(this->_filename, SQLite::OPEN_READWRITE);
-	for (int j = 0; j < this->get_count_of_collocations(); ++j)
-		for (int l = 0; l < this->get_k(); ++l)
-		{
-			three_coordinate_structure _key{ first_dimension, j, l };
-			downloaded_map.insert(make_pair(_key, this->get_count_of_concret_collocation(first_dimension, j, l)));
-			
-		}
-	number_of_downloaded_slice.insert(first_dimension);*/
-}
-
-void piecewise_container_class::clear_map()
-{
-	/*for (auto i : number_of_downloaded_slice)
-		for (int j = 0; j < this->get_count_of_collocations(); ++j)
-			for (int l = 0; l < this->get_k(); ++l)
-			{
-				three_coordinate_structure _key{ i, j, l };
-				//need to call db correct;
-			}
-*/
-}
-
 void piecewise_container_class::increment(int first_dimension, int second_dimension, int third_dimension)
 {
-	/*if (is_slice_loaded(first_dimension))
-	{ 
-		three_coordinate_structure _key{ first_dimension, second_dimension, third_dimension };
-		++(downloaded_map.find(_key)->second);
-	}
-	else {
-		auto tmp = this->get_count_of_concret_collocation(first_dimension, second_dimension, third_dimension);
-		++tmp;
+	if (!is_data_for_this_colloc_downloaded(first_dimension, second_dimension, third_dimension))
+		return;
 
-		boost::regex rgx("[,]");
-		string key = "\"" + to_string(first_dimension) + "!" + to_string(second_dimension) + "!" + to_string(third_dimension) + "\"";
-		string sql = "UPDATE TEXT set CHISLO=" + boost::regex_replace(boost::lexical_cast<string>(tmp), rgx, ".") + " WHERE ID=" + key + ";";  //запятая вместо точки
-
-		SQLite::Database db(this->_filename, SQLite::OPEN_READWRITE);
-		SQLite::Transaction transaction(db);
-		db.exec(sql);
-		transaction.commit();
-	}*/
+	this->downloaded_vector[this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension)]++;
 }
 
 void piecewise_container_class::decrement(int first_dimension, int second_dimension, int third_dimension)
 {
-	/*if (is_slice_loaded(first_dimension))
-	{
-		three_coordinate_structure _key{ first_dimension, second_dimension, third_dimension };
-		--(downloaded_map.find(_key)->second);
-	}
-	else {
-		auto tmp = this->get_count_of_concret_collocation(first_dimension, second_dimension, third_dimension);
-		--tmp;
+	if (!is_data_for_this_colloc_downloaded(first_dimension, second_dimension, third_dimension))
+		return;
 
-		boost::regex rgx("[,]");
-		string key = "\"" + to_string(first_dimension) + "!" + to_string(second_dimension) + "!" + to_string(third_dimension) + "\"";
-		string sql = "UPDATE TEXT set CHISLO=" + boost::regex_replace(boost::lexical_cast<string>(tmp), rgx, ".") + " WHERE ID=" + key + ";";  //запятая вместо точки
-
-		SQLite::Database db(this->_filename, SQLite::OPEN_READWRITE);
-		SQLite::Transaction transaction(db);
-		db.exec(sql);
-		transaction.commit();
-	}*/
+	this->downloaded_vector[this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension)]--;
 }
 
 now_type piecewise_container_class::get_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension)
 {
-	/*if (is_slice_loaded(first_dimension))
-	{
-		three_coordinate_structure _key{ first_dimension, second_dimension, third_dimension };
-		return downloaded_map.find(_key)->second;
-	}
-	else {
-		string key = "\"" + to_string(first_dimension) + "!" + to_string(second_dimension) + "!" + to_string(third_dimension) + "\"";
-		SQLite::Database db(this->_filename);
-		SQLite::Statement query(db, "SELECT * FROM TEXT WHERE ID=" + key + ";");
+	if (!is_data_for_this_colloc_downloaded(first_dimension, second_dimension, third_dimension))
+		return -1.;
 
-		now_type ret_value = -1;
-
-		while (query.executeStep())
-		{
-			auto value = query.getColumn(1).getDouble();
-			ret_value = static_cast <now_type> (value);
-		}
-
-		return ret_value;
-	}*/
-	return 0;
+	return this->downloaded_vector[this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension)];
 }
 
 shared_ptr<container_class_interface> piecewise_container_class::pow_all(int stepen)
@@ -136,18 +56,27 @@ shared_ptr<container_class_interface> piecewise_container_class::operator-(now_t
 }
 void piecewise_container_class::operator+=(shared_ptr<container_class_interface> summed_class)
 {
+
 }
 
 void piecewise_container_class::operator+=(now_type _num)
 {
+
 }
 
 void piecewise_container_class::operator-=(shared_ptr<container_class_interface> summed_class)
 {
+
 }
 
 void piecewise_container_class::operator-=(now_type _koef)
 {
+
+}
+
+void piecewise_container_class::operator/=(now_type _num)
+{
+
 }
 
 bool piecewise_container_class::operator==(shared_ptr<container_class_interface> compared_class)
@@ -180,11 +109,51 @@ shared_ptr<container_class_interface> piecewise_container_class::operator/(now_t
 	return shared_ptr<container_class_interface>();
 }
 
-void piecewise_container_class::operator/=(now_type _num)
+void piecewise_container_class::clear_vec()
 {
+	this->downloaded_vector.clear();
 }
 
-now_type piecewise_container_class::set_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension, now_type perem)
+void piecewise_container_class::upload_vec()
 {
-	return now_type();
+	//method for Dima
+}
+
+bool piecewise_container_class::is_data_for_this_colloc_downloaded(int first_dimension, int second_dimension, int third_dimension)
+{
+	if(this->downloaded_range.first < first_dimension && (this->downloaded_range.second > first_dimension))
+		return true;
+
+	return false;
+}
+
+int piecewise_container_class::collect_one_coordinate_from_three(int first_dimension, int second_dimension, int third_dimension) const
+{
+	return first_dimension * this->get_count_of_collocations() * COLLOC_DIST + second_dimension * COLLOC_DIST + third_dimension;
+}
+
+void piecewise_container_class::set_downloaded_range(pair<int, int> downloaded_range)
+{
+	this->downloaded_range = downloaded_range;
+}
+
+pair<int, int> piecewise_container_class::get_downloaded_range() const
+{
+	return this->downloaded_range;
+}
+
+void piecewise_container_class::summ_for_concret_colloc(int first_dimension, int second_dimension, int third_dimension, now_type _num)
+{
+	if (!is_data_for_this_colloc_downloaded(first_dimension, second_dimension, third_dimension))
+		return;
+
+	this->downloaded_vector[this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension)] += _num;
+}
+
+void piecewise_container_class::set_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension, now_type perem)
+{
+	if (!is_data_for_this_colloc_downloaded(first_dimension, second_dimension, third_dimension))
+		return;
+
+	this->downloaded_vector[this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension)] = perem;
 }

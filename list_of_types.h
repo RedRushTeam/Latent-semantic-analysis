@@ -15,9 +15,9 @@
 #include <iostream>
 #include <memory>
 #include <fstream>
-#include <stdio.h>
+//#include <stdio.h>
 #include <string>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <string>
 #include <vector>
 #include <windows.h>
@@ -51,6 +51,9 @@
 #include <boost/algorithm/string/regex.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/iostreams/code_converter.hpp>
+#include <boost/iostreams/device/mapped_file.hpp>
+
 
 //SQLite include
 #include <sqlite3.h> 
@@ -82,6 +85,7 @@ using namespace bit7z;
 using now_type = float;
 
 //my defines
+constexpr auto SIZE_OF_PIECE = 12500;
 constexpr auto COLLOC_DIST = 3;
 constexpr auto STOP_WORD = 0 ;
 constexpr auto CUTOFF = 6;
