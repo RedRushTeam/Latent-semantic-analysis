@@ -58,6 +58,9 @@
 //SQLite include
 #include <sqlite3.h> 
 
+//RE2 include
+#include <re2.h>
+
 //SQLiteCpp SQL wrapper include
 #include <SQLiteCpp/SQLiteCpp.h>
 

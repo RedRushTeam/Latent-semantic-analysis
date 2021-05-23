@@ -63,9 +63,9 @@ int math_core::calculate_max_cont_size()
 		}
 	}
 
-	this->max_cont_size = analyzer::get_counter_of_tokenizer();
+	//this->max_cont_size = analyzer::get_counter_of_tokenizer();
 
-	this->number_of_slices = ceil(SIZE_OF_PIECE / this->max_cont_size);
+	//this->number_of_slices = ceil(SIZE_OF_PIECE / this->max_cont_size);
 
 	return this->max_cont_size;
 }
@@ -179,14 +179,15 @@ void math_core::find_fluctuations()
 
 shared_ptr<container_class_interface> math_core::calculate_parametr_to_one_term(shared_ptr<container_class_interface> _parametr)
 {
-	/*auto one_term_matrix = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "zati4ka");
+	//todo
+	auto one_term_matrix = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "zati4ka");
 
 	for (auto q = 0; q < _parametr->get_count_of_collocations(); ++q)
 		for (auto j = 0; j < _parametr->get_count_of_collocations(); ++j)
 			for (auto p = -COLLOC_DIST - 1; p <= COLLOC_DIST; ++p)
 					one_term_matrix->set_count_of_concret_collocation(q, q, p, one_term_matrix->get_count_of_concret_collocation(q, q, p) + _parametr->get_count_of_concret_collocation(q, j, p));
 
-	return one_term_matrix;*/
+	return one_term_matrix;
 }
 
 int math_core::get_max_cont_size() const

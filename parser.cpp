@@ -27,6 +27,7 @@ void parser::print_all_words(string text)
 
 shared_ptr<list<string>> parser::delete_trash()
 {
+	setlocale(LC_ALL, "Russian");
 	std::ifstream _input(_filename, std::ios::binary);
 
 	boost::regex no_letters("[^à-ÿÀ-ß ]+");
@@ -49,20 +50,23 @@ shared_ptr<list<string>> parser::delete_trash()
 	else
 		cout << "it doesn't work";*/
 
-	string temp = boost::regex_replace(untext, no_letters, replacement);
-	string text = boost::regex_replace(temp, spaces, replacement);
 
-	transform(text.begin(), text.end(), text.begin(), ::tolower);
+	re2::RE2::GlobalReplace(&untext, u8"[^à-ÿÀ-ß ]+", " ");
+	re2::RE2::GlobalReplace(&untext, u8"( {2,})+", " ");
+	//string temp = boost::regex_replace(untext, no_letters, replacement);
+	//string text = boost::regex_replace(temp, spaces, replacement);
 
-	if (text[0] == ' ')
-		text.erase(0, 1);
-	text.pop_back();
-	if (text[text.size() - 1] != ' ')
-		text.push_back(' ');
+	transform(untext.begin(), untext.end(), untext.begin(), ::tolower);
+
+	if (untext[0] == ' ')
+		untext.erase(0, 1);
+	untext.pop_back();
+	if (untext[untext.size() - 1] != ' ')
+		untext.push_back(' ');
 
 	shared_ptr<list<string>> terms = make_shared<list<string>>();
 
-	boost::algorithm::split(*terms, text, boost::is_any_of(" "));
+	boost::algorithm::split(*terms, untext, boost::is_any_of(" "));
 
 	return terms;
 }
