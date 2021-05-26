@@ -5,6 +5,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #define BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE
 #define BOOST_HAS_THREADS
+#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 //#define _ITERATOR_DEBUG_LEVEL 0
 //#define SQLITE_ENABLE_COLUMN_METADATA
 //#define SQLITE_OPEN_READWRITE
@@ -16,11 +17,11 @@
 #include <memory>
 #include <fstream>
 //#include <stdio.h>
-#include <string>
+//#include <string>
 //#include <stdlib.h>
 #include <string>
 #include <vector>
-#include <windows.h>
+//#include <windows.h>
 #include <algorithm>
 #include <list>
 #include <map>
@@ -28,10 +29,13 @@
 #include <unordered_set>
 #include <math.h>
 #include <ctime>
-#include <thread>
+//#include <thread>
 #include <filesystem>
 #include <random>
 #include <regex>
+#include <codecvt>
+//#include <ppl.h>
+//#include <concurrent_unordered_map.h>
 
 //Multithreading include
 #include "omp.h"
@@ -46,23 +50,24 @@
 #include <Eigen>
 
 //boost includes
-#include <boost/any.hpp>
+//#include <boost/any.hpp>
 #include <boost/regex.hpp>
-#include <boost/algorithm/string/regex.hpp>
+//#include <boost/algorithm/string/regex.hpp>
 #include <boost/algorithm/string.hpp>
-#include <boost/lexical_cast.hpp>
+//#include <boost/lexical_cast.hpp>
+#include <boost/locale.hpp>
 #include <boost/iostreams/code_converter.hpp>
 #include <boost/iostreams/device/mapped_file.hpp>
 
 
 //SQLite include
-#include <sqlite3.h> 
+//#include <sqlite3.h> 
 
 //RE2 include
 #include <re2.h>
 
 //SQLiteCpp SQL wrapper include
-#include <SQLiteCpp/SQLiteCpp.h>
+//#include <SQLiteCpp/SQLiteCpp.h>
 
 //7zip Wrapper include
 #include "bitextractor.hpp"
@@ -70,6 +75,8 @@
 
 //libmdbx include
 #include "mdbx.h++"
+
+//using namespace concurrency;
 
 //c++ namespaces
 namespace fs = std::filesystem;
@@ -88,7 +95,7 @@ using namespace bit7z;
 using now_type = float;
 
 //my defines
-constexpr auto SIZE_OF_PIECE = 12500;
+constexpr auto SIZE_OF_PIECE = 10000;
 constexpr auto COLLOC_DIST = 3;
 constexpr auto STOP_WORD = 0 ;
 constexpr auto CUTOFF = 6;
@@ -96,5 +103,5 @@ constexpr auto CUTOFF_FR_IN_TEXTS = 6;
 constexpr auto DELETE_THRESHOLD = 0.065;
 
 constexpr auto LEMADR = "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db";
-//constexpr auto TEXTS_PATH = "A:\\rasp_puhl";
+//constexpr auto TEXTS_PATH = "A:\\rasp_puhl1";
 constexpr auto TEXTS_PATH = "G:\\rasp_puhl";

@@ -9,10 +9,6 @@ int main(int argc, char* argv[])
 	//vector<now_type> test;
 	//test.resize(SIZE_OF_PIECE * 50000 * 3);
 
-	std::ios::sync_with_stdio(false);
-
-	//list_of_functions::test_of_sqlite();
-
 	list_of_functions::print_info_about_sysyem();
 
 	auto texts = list_of_functions::get_input_texts();
@@ -31,15 +27,14 @@ int main(int argc, char* argv[])
 
 	math_core _math_core(texts);
 
-	int size_for_CONST_SIZE = _math_core.calculate_max_cont_size();
+	_math_core.calculate_max_cont_size();
 	int size_for_wichout_rare_words = _math_core.calculate_max_cont_size_without_rare_words();
 	int size_for_wichout_rare_words_in_texts = _math_core.calculate_max_cont_size_without_rare_words_and_frequency_in_texts();
-	//int size_for_wichout_rare_words_in_texts_SVD = _math_core.calculate_max_cont_size_without_rare_words_and_frequency_in_texts_and_SVD();
 
-	cout << endl << endl << "Размер словаря без очисток: " << size_for_CONST_SIZE << endl;
 	cout << endl << "Максимальный размер словаря, отбросив термы с " << CUTOFF << " и менее появлениями: " << size_for_wichout_rare_words;
 	cout << endl << "Максимальный размер словаря, отбросив термы с появлениями в " << CUTOFF_FR_IN_TEXTS << " и менее текстах, а так же, отбросив термы с " << CUTOFF << " и менее появлениями: " << size_for_wichout_rare_words_in_texts;
 	//cout << endl << "Максимальный размер словаря, отбросив термы с косинусами, ниже " << DELETE_THRESHOLD << " равен: " << size_for_wichout_rare_words_in_texts_SVD;
+	_math_core.calculate_sample_mean();
 
 	auto finish = clock();
 	cout << endl << endl << ">>> " << finish - start << "ms <<<" << endl;

@@ -12,7 +12,7 @@ int math_core::calculate_max_cont_size_without_rare_words()
 {
 	this->max_cont_size = analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff(CUTOFF);
 
-	this->number_of_slices = ceil(SIZE_OF_PIECE / this->max_cont_size);
+	this->number_of_slices = (int)ceil((float)SIZE_OF_PIECE / (float)this->max_cont_size);
 
 	return this->max_cont_size;
 }
@@ -21,7 +21,7 @@ int math_core::calculate_max_cont_size_without_rare_words_and_frequency_in_texts
 {
 	this->max_cont_size = analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff_of_text(CUTOFF, CUTOFF_FR_IN_TEXTS);
 
-	this->number_of_slices = ceil(SIZE_OF_PIECE / this->max_cont_size);
+	this->number_of_slices = (int)ceil((float)SIZE_OF_PIECE / (float)this->max_cont_size);
 
 	return this->max_cont_size;
 }
@@ -49,15 +49,16 @@ int math_core::calculate_max_cont_size_without_rare_words_and_frequency_in_texts
 	return this->max_cont_size;
 }
 
-int math_core::calculate_max_cont_size()
+void math_core::calculate_max_cont_size()
 {
+	analyzer::create_lemmatizer();
 	#pragma omp parallel 
 	{
 		#pragma omp for schedule(static)
 		for (int i = 0; i < this->vec_of_filepaths->size(); ++i) {
 			parser _parser((*this->vec_of_filepaths)[i]);	//tut peredaetsa kopiya
 			auto result_of_parse = _parser.parse();
-
+			cout << i << " ";
 			analyzer _analyzer(result_of_parse);
 			_analyzer.calculate_counter_of_tokenizer_without_rare_words();
 		}
@@ -66,8 +67,6 @@ int math_core::calculate_max_cont_size()
 	//this->max_cont_size = analyzer::get_counter_of_tokenizer();
 
 	//this->number_of_slices = ceil(SIZE_OF_PIECE / this->max_cont_size);
-
-	return this->max_cont_size;
 }
 
 void math_core::calculate_sample_mean()

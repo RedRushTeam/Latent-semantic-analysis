@@ -22,7 +22,7 @@ public:
 	MatrixXf get_colloc_singular_U_matrix();
 	vector<pair<int, int>>* get_helper_vec();
 
-	int calculate_max_cont_size();	//first
+	void calculate_max_cont_size();	//first
 	int calculate_max_cont_size_without_rare_words();
 	int calculate_max_cont_size_without_rare_words_and_frequency_in_texts();
 	int calculate_max_cont_size_without_rare_words_and_frequency_in_texts_and_SVD();

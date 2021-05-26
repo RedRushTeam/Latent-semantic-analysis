@@ -51,22 +51,22 @@ public:
 
 	//constr
 	analyzer() {
-		this->create_lemmatizer();
+		//this->create_lemmatizer();
 	}
 
 	analyzer(shared_ptr<list<string>> list_of_all_parsed_text) : 
 		list_of_all_parsed_text(list_of_all_parsed_text) {
 		this->_container_class = make_shared<piecewise_container_class>(this->k, this->counter_of_tokenizer, "zati4ka");
-		this->create_lemmatizer();
+		//this->create_lemmatizer();
 	}
 
 	analyzer(shared_ptr<list<string>> list_of_all_parsed_text, shared_ptr<container_class_interface> _container_class) : 
 		list_of_all_parsed_text(list_of_all_parsed_text), _container_class(_container_class){
-		this->create_lemmatizer();
+		//this->create_lemmatizer();
 	}
 
 	//methods
-	void create_lemmatizer();
+	static void create_lemmatizer();
 	void calculate_counter_of_tokenizer();							//LV1
 	void calculate_counter_of_tokenizer_without_rare_words();		//LV2
 	static void initialize_matrix_for_SVD();						//LV3(1)
@@ -96,7 +96,7 @@ public:
 
 	//destr
 	~analyzer() {
-		sol_DeleteLemmatizator(lemmas_engine);
+		//sol_DeleteLemmatizator(lemmas_engine);
 	}
 
 private:
@@ -104,9 +104,8 @@ private:
 	void lemmatize_all_words();
 
 	//perems
-	HLEM lemmas_engine;
+	static inline HLEM lemmas_engine;
 	shared_ptr<container_class_interface> _container_class;
-	static inline int counter = 0;
 	static inline short k;
 	static inline int number_of_texts = 0;
 	shared_ptr<list<string>> list_of_all_lemmatized_text;
