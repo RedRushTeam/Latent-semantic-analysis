@@ -11,16 +11,16 @@ int main(int argc, char* argv[])
 
 	list_of_functions::print_info_about_sysyem();
 
-	auto texts = list_of_functions::get_input_texts();
-	//list_of_functions::test_of_bit7z();
-	//piecewise_container_class xxx(4, 20000, true);
-	//list_of_functions::test_of_libmdbx(4000000, false);
-	//cout <<  xxx.get_count_of_concret_collocation(1,2,0) << endl;
-	//xxx.increment(1, 2, 0);cout << xxx.get_count_of_concret_collocation(1, 2, 0) << endl;
+ 	auto texts = list_of_functions::get_input_texts();
+	/*list_of_functions::test_of_bit7z();
+	piecewise_container_class xxx(4, 20000, true);
+	list_of_functions::test_of_libmdbx(4000000, false);
+	cout <<  xxx.get_count_of_concret_collocation(1,2,0) << endl;
+	xxx.increment(1, 2, 0);cout << xxx.get_count_of_concret_collocation(1, 2, 0) << endl;
 
-	//xxx.load_slice(2);
+	xxx.load_slice(2);
 
-	//xxx.clear_map();
+	xxx.clear_map();*/
 	
 
 	cout << endl << endl << "Всего обнаружено " << texts->size() << " текстов." << endl;

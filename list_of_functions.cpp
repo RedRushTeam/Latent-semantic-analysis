@@ -5,13 +5,13 @@ void list_of_functions::print_info_about_sysyem()
 	MEMORYSTATUSEX statex;
 	statex.dwLength = sizeof(statex);
 	GlobalMemoryStatusEx(&statex);
-	cout << "This system have " << statex.ullTotalPhys / 1024 / 1024 << " MB of physical memory." << endl << endl;
+	cout << "This system have " << statex.ullTotalPhys / 1024 / 1024 << " MB of physical memory." << endl;
 	cout << "This system have " << statex.ullTotalPageFile / 1024 / 1024 << " MB of paging file." << endl;
 
-	/*if ((statex.ullTotalPhys / 1024 / 1024) < (SIZE_OF_PIECE * (SIZE_OF_PIECE * 4) * COLLOC_DIST * 4) / 1024 / 1024) {
+	if ((statex.ullTotalPhys / 1024 / 1024) < ((SIZE_OF_PIECE * SIZE_OF_PIECE * COLLOC_DIST * 4 * 8) / 1024 / 1024)) {
 		cout << "You do not have enough RAM. Reduce SIZE_OF_PIECE!" << endl;
 		exit(1);
-	}*/
+	}
 }
 
 shared_ptr<vector<fs::path>> list_of_functions::get_input_texts()
