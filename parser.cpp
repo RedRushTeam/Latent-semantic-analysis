@@ -27,20 +27,9 @@ void parser::print_all_words(string text)
 
 shared_ptr<list<string>> parser::delete_trash()
 {
-	setlocale(LC_ALL, "Russian");
-	std::ifstream _input(_filename, std::ios::binary);
+	ifstream _input(this->_filename);
 
-	/*boost::regex no_letters("[^à-ÿÀ-ß ]+");
-	boost::regex spaces("( {2,})+");
-	std::ios::sync_with_stdio(false);*/
-
-	string replacement = " ";
-
-	boost::iostreams::mapped_file mmap(_filename.string());
-
-	string untext(mmap.data(), mmap.size());
-
-	/*std::stringstream ss;
+	std::stringstream ss;
 	std::string untext;
 	if (_input.is_open()) {
 		ss << _input.rdbuf();
@@ -48,25 +37,24 @@ shared_ptr<list<string>> parser::delete_trash()
 		_input.close();
 	}
 	else
-		cout << "it doesn't work";*/
+		cout << "it doesn't work";
 
+	std::string wrapped_pattern_for_symbols = "[^À-ßà-ÿ ]+";
+	RE2::Options opt_for_symbols;
+	opt_for_symbols.set_log_errors(false);
+	opt_for_symbols.set_case_sensitive(false);
+	opt_for_symbols.set_encoding(re2::RE2::Options::Encoding::EncodingLatin1);
+	RE2 re2_for_symbols(wrapped_pattern_for_symbols, opt_for_symbols);
 
+	std::string wrapped_pattern_for_spaces = "( {2,})+";
+	RE2::Options opt_for_spaces;
+	opt_for_spaces.set_log_errors(false);
+	opt_for_spaces.set_case_sensitive(false);
+	opt_for_spaces.set_encoding(re2::RE2::Options::Encoding::EncodingLatin1);
+	RE2 re2_for_spaces(wrapped_pattern_for_spaces, opt_for_spaces);
 
-	auto br = untext;
-	
-	auto sh1 = re2::RE2::GlobalReplace(&untext, "[^à-ÿ]", "");
-
-	/*auto term = "àáâãäå¸æçèêëìíîïðñòóôõö÷øùúûüýþÿ";
-	auto expression = regex_builder(term);
-	auto compiled_pattern = re2::RE2::compile(expression, re2.IGNORECASE | re2.U);
-	compiled_pattern.search(untext).span();*/
-
-	//re2::RE2::GlobalReplace(&untext, u8"( {2,})+", " ");
-	//string temp = boost::regex_replace(untext, no_letters, replacement);
-	//string text = boost::regex_replace(temp, spaces, replacement);
-
-	cout << endl << untext.size() - br.size();
-	transform(untext.begin(), untext.end(), untext.begin(), ::tolower);
+	RE2::GlobalReplace(&untext, re2_for_symbols, " ");
+	RE2::GlobalReplace(&untext, re2_for_spaces, " ");
 
 	if (untext[0] == ' ')
 		untext.erase(0, 1);
