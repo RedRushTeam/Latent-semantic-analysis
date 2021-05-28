@@ -97,4 +97,5 @@ constexpr auto DELETE_THRESHOLD = 0.065;
 
 constexpr auto LEMADR = "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db";
 //constexpr auto TEXTS_PATH = "A:\\rasp_puhl";
-constexpr auto TEXTS_PATH = "G:\\rasp_puhl";
+//constexpr auto TEXTS_PATH = "G:\\rasp_puhl";
+constexpr auto TEXTS_PATH = "C:\\txts";

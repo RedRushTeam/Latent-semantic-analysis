@@ -30,9 +30,9 @@ shared_ptr<list<string>> parser::delete_trash()
 	setlocale(LC_ALL, "Russian");
 	std::ifstream _input(_filename, std::ios::binary);
 
-	boost::regex no_letters("[^à-ÿÀ-ß ]+");
+	/*boost::regex no_letters("[^à-ÿÀ-ß ]+");
 	boost::regex spaces("( {2,})+");
-	std::ios::sync_with_stdio(false);
+	std::ios::sync_with_stdio(false);*/
 
 	string replacement = " ";
 
@@ -51,11 +51,21 @@ shared_ptr<list<string>> parser::delete_trash()
 		cout << "it doesn't work";*/
 
 
-	re2::RE2::GlobalReplace(&untext, u8"[^à-ÿÀ-ß ]+", " ");
-	re2::RE2::GlobalReplace(&untext, u8"( {2,})+", " ");
+
+	auto br = untext;
+	
+	auto sh1 = re2::RE2::GlobalReplace(&untext, "[^à-ÿ]", "");
+
+	/*auto term = "àáâãäå¸æçèêëìíîïðñòóôõö÷øùúûüýþÿ";
+	auto expression = regex_builder(term);
+	auto compiled_pattern = re2::RE2::compile(expression, re2.IGNORECASE | re2.U);
+	compiled_pattern.search(untext).span();*/
+
+	//re2::RE2::GlobalReplace(&untext, u8"( {2,})+", " ");
 	//string temp = boost::regex_replace(untext, no_letters, replacement);
 	//string text = boost::regex_replace(temp, spaces, replacement);
 
+	cout << endl << untext.size() - br.size();
 	transform(untext.begin(), untext.end(), untext.begin(), ::tolower);
 
 	if (untext[0] == ' ')
