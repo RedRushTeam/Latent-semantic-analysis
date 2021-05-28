@@ -22,6 +22,28 @@ namespace std
 	};
 }
 
+struct hash_word_and_number_of_appearances_structure {
+	std::size_t operator()(const word_and_number_of_appearances_structure& e) const {
+		std::size_t seed = 0;
+		boost::hash_combine(seed, std::hash<string>{}(e.word));
+		return seed;
+	}
+
+	std::size_t operator()(int id) const {
+		std::size_t seed = 0;
+		boost::hash_combine(seed, std::hash<int>{}(id));
+		return seed;
+	}
+};
+
+struct equal_word_and_number_of_appearances_structure {
+	using is_transparent = void;
+
+	bool operator()(const word_and_number_of_appearances_structure& e1, const word_and_number_of_appearances_structure& e2) const {
+		return e1.word == e2.word;
+	}
+};
+
 namespace std
 {
 	template<> struct hash<pair<int, int>>
@@ -115,11 +137,11 @@ private:
 	static inline shared_ptr<container_class_interface> _sample_mean_all;
 
 	//dictionaries
-	static inline unordered_map<string, int> map_of_tokens_WORD_TOKEN;
-	static inline unordered_map<int, string> map_of_tokens_TOKEN_WORD;
-	static inline unordered_map<word_and_number_of_appearances_structure, int> map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_;
-	static inline unordered_map<int, word_and_number_of_appearances_structure> map_of_tokens_TOKEN_Word_and_number_of_appearances_struct_;
-	static inline unordered_map<word_and_number_of_appearances_structure, int> map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_SVD;
+	static inline tsl::hopscotch_map<string, int> map_of_tokens_WORD_TOKEN;
+	static inline tsl::hopscotch_map<int, string> map_of_tokens_TOKEN_WORD;
+	static inline tsl::hopscotch_map<word_and_number_of_appearances_structure, int, hash_word_and_number_of_appearances_structure, equal_word_and_number_of_appearances_structure, std::allocator<pair<word_and_number_of_appearances_structure, int>>, 4, true, tsl::hh::power_of_two_growth_policy<2>> map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_;
+	static inline tsl::hopscotch_map<int, word_and_number_of_appearances_structure> map_of_tokens_TOKEN_Word_and_number_of_appearances_struct_;
+	static inline tsl::hopscotch_map<word_and_number_of_appearances_structure, int> map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_SVD;
 
 	//SVD matrix for max size calculation
 	static inline shared_ptr<MatrixXf> all_matrix_for_SVD;
