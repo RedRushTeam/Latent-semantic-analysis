@@ -1,10 +1,11 @@
-﻿  parser.cpp
+﻿  main.cpp
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\math_core.h(8,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
      Создается библиотека C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Release\SVDCollocationAnalyzer.lib и объект C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Release\SVDCollocationAnalyzer.exp
 LINK : warning LNK4098: библиотека по умолчанию "MSVCRT" конфликтует с использованием других библиотек; используйте /NODEFAULTLIB:library
   Создание кода
-  3 of 2558 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  9 of 1680 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    24 functions had inline decision re-evaluated but remain unchanged
+    33 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
 LINK : warning LNK4286: Символ "__stdio_common_vsprintf", определенный в "libucrtd.lib(output.obj)", импортирован "mdbx-static.lib(core.obj)".
 LINK : warning LNK4286: Символ "strncmp", определенный в "libucrtd.lib(strncmp.obj)", импортирован "mdbx-static.lib(core.obj)".

@@ -8,6 +8,4 @@ C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyze
 C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\x64\Debug\NativeCodeAnalysis.read.1.tlog
 C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.exe
 C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.pdb
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.exe.lastcodeanalysissucceeded
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\NativeCodeAnalysis.read.1.tlog
 C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.exe

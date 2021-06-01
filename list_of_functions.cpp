@@ -75,8 +75,8 @@ void list_of_functions::test_of_libmdbx(int kolichestvo_zapisey, bool random_num
 
 	int _commit = 10000;
 	int found = 0;
-	int i, j, l;
-	string _index;
+	int i, j, l, q;
+	int _index;
 	float _value;
 	int counter = 0;
 	string _for_size = "99999!99999!4";
@@ -90,7 +90,7 @@ void list_of_functions::test_of_libmdbx(int kolichestvo_zapisey, bool random_num
 	auto start_size = (sizeof(_for_size) + sizeof(float)) * kolichestvo_zapisey; //(длина ключа + длина числа) * на количество записей
 	string textnameparam;
 	random_number ? textnameparam = "randoms" : textnameparam = "concrets";
-	string textname = "./" + to_string(kolichestvo_zapisey) + " zapisey by " + textnameparam; // ВМЕСТО ./ МОЖНО ПОДСТАВИТЬ ЛЮБОЙ АДРЕС
+	string textname = DB_PATH + to_string(kolichestvo_zapisey) + " zapisey by " + textnameparam; // ВМЕСТО ./ МОЖНО ПОДСТАВИТЬ ЛЮБОЙ АДРЕС
 
 	/*СОЗДАНИЕ ФАЙЛА БД*/
 	rc = mdbx_env_create(&env);
@@ -107,81 +107,95 @@ void list_of_functions::test_of_libmdbx(int kolichestvo_zapisey, bool random_num
 		goto bailout;
 	}
 
-	rc = mdbx_env_open(env, textname.c_str(),
-		MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM, 0664); //0664 - what is it ?
+	rc = mdbx_env_open(env, textname.c_str(), MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM, 7777); //0664 - what is it ?
 	if (rc != MDBX_SUCCESS) {
 		fprintf(stderr, "mdbx_env_open: (%d) %s\n", rc, mdbx_strerror(rc));
 		goto bailout;
 	}
 
-	
-	for (l = 0; l < kolichestvo_zapisey; ++l) {
-		if (counter == 0) {
-			rc = mdbx_txn_begin(env, NULL, MDBX_TXN_READWRITE, &txn);
-			if (rc != MDBX_SUCCESS) {
-				fprintf(stderr, "mdbx_txn_begin: (%d) %s\n", rc, mdbx_strerror(rc));
-				goto bailout;
-			}
-
-			rc = mdbx_dbi_open(txn, NULL, MDBX_DB_DEFAULTS, &dbi);
-			if (rc != MDBX_SUCCESS) {
-				fprintf(stderr, "mdbx_dbi_open: (%d) %s\n", rc, mdbx_strerror(rc));
-				goto bailout;
-			}
-		}
-		_index = to_string(uid_key(gen)) + "!" + to_string(uid_key(gen)) + "!" + to_string(uid_k(gen));
-		//_index = "999!999!2";
-		random_number ? _value = uid(gen) : _value = 0.0;
-		index.iov_len = sizeof(_index);
-		index.iov_base = &_index;
-		number.iov_len = sizeof(float);
-		number.iov_base = &_value;
-
-		//sprintf(sval, "%03x %d foo bar", 32, 3141592);
-
-
-		////////ДОБАВЛЕНИЕ ДАННЫХ В БД
-		rc = mdbx_put(txn, dbi, &index, &number, MDBX_UPSERT);
-		if (rc != MDBX_SUCCESS) {
-			fprintf(stderr, "mdbx_put: (%d) %s\n", rc, mdbx_strerror(rc));
-			goto bailout;
-		}
-
-		++counter;
-		if (counter == _commit) {
-			rc = mdbx_txn_commit(txn);
-			if (rc) {
-				fprintf(stderr, "mdbx_txn_commit: (%d) %s\n", rc, mdbx_strerror(rc));
-				goto bailout;
-			}
-			counter = 0;
-			txn = NULL;
-		}
-
+	rc = mdbx_txn_begin(env, NULL, MDBX_TXN_READWRITE, &txn);
+	if (rc != MDBX_SUCCESS) {
+		fprintf(stderr, "mdbx_txn_begin: (%d) %s\n", rc, mdbx_strerror(rc));
+		goto bailout;
 	}
 
-	if (txn != NULL) {
+	rc = mdbx_dbi_open(txn, NULL, MDBX_DB_DEFAULTS, &dbi);
+	if (rc != MDBX_SUCCESS) {
+		fprintf(stderr, "mdbx_dbi_open: (%d) %s\n", rc, mdbx_strerror(rc));
+		goto bailout;
+	}
+		//for (l = 0; l < kolichestvo_zapisey; ++l) {
+		for (i = 0; i < 20; i++)
+			for (j = 0; j < 50000; j++)
+				for (q = 0; q < 4; q++) {
+					/*if (counter == 0) {
+						rc = mdbx_txn_begin(env, NULL, MDBX_TXN_READWRITE, &txn);
+						if (rc != MDBX_SUCCESS) {
+							fprintf(stderr, "mdbx_txn_begin: (%d) %s\n", rc, mdbx_strerror(rc));
+							goto bailout;
+						}
+
+						rc = mdbx_dbi_open(txn, NULL, MDBX_DB_DEFAULTS, &dbi);
+						if (rc != MDBX_SUCCESS) {
+							fprintf(stderr, "mdbx_dbi_open: (%d) %s\n", rc, mdbx_strerror(rc));
+							goto bailout;
+						}
+					}*/
+					_index = i * 50000 * 4 + j * 4 + q;
+					//_index = "999!999!2";
+					random_number ? _value = (i + j + q) / 100.0 : _value = 0.0;
+					index.iov_len = sizeof(int);
+					index.iov_base = &_index;
+					number.iov_len = sizeof(float);
+					number.iov_base = &_value;
+
+					//cout << " value: " << *(now_type*)number.iov_base;
+					//sprintf(sval, "%03x %d foo bar", 32, 3141592);
+
+
+					////////ДОБАВЛЕНИЕ ДАННЫХ В БД
+					rc = mdbx_put(txn, dbi, &index, &number, MDBX_UPSERT);
+					if (rc != MDBX_SUCCESS) {
+						fprintf(stderr, "mdbx_put: (%d) %s\n", rc, mdbx_strerror(rc));
+						goto bailout;
+					}
+
+					++counter;
+					/*if (counter == _commit) {
+						rc = mdbx_txn_commit(txn);
+						if (rc) {
+							fprintf(stderr, "mdbx_txn_commit: (%d) %s\n", rc, mdbx_strerror(rc));
+							goto bailout;
+						}
+						counter = 0;
+						txn = NULL;
+					}*/
+
+				}
+
+		//if (txn != NULL) {
 		rc = mdbx_txn_commit(txn);
 		if (rc) {
 			fprintf(stderr, "mdbx_txn_commit: (%d) %s\n", rc, mdbx_strerror(rc));
 			goto bailout;
 		}
 		txn = NULL;
+		//}
+
+	bailout:
+		if (cursor)
+			mdbx_cursor_close(cursor);
+		if (txn)
+			mdbx_txn_abort(txn);
+		if (dbi)
+			mdbx_dbi_close(env, dbi);
+		if (env)
+			mdbx_env_close(env);
+
+		auto f = clock();
+		cout << kolichestvo_zapisey << '\t' << textnameparam << '\t' << f - s << '\n';
+		//system("pause");
+		/*if (fs::exists(textname))
+			fs::remove(textname);*/
 	}
 
-bailout:
-	if (cursor)
-		mdbx_cursor_close(cursor);
-	if (txn)
-		mdbx_txn_abort(txn);
-	if (dbi)
-		mdbx_dbi_close(env, dbi);
-	if (env)
-		mdbx_env_close(env);
-	
-	auto f = clock();
-	cout << kolichestvo_zapisey << '\t' << textnameparam << '\t' << f - s << '\n';
-	system("pause");
-	if (fs::exists(textname))
-		fs::remove(textname);
-}

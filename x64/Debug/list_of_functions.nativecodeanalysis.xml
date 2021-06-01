@@ -109,212 +109,338 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\local\boost_1_75_0\boost\numeric\conversion\</FILEPATH>
-      <FILENAME>converter_policies.hpp</FILENAME>
-      <LINE>160</LINE>
-      <COLUMN>7</COLUMN>
+      <FILEPATH>C:\local\boost_1_75_0\boost\locale\boundary\</FILEPATH>
+      <FILENAME>types.hpp</FILENAME>
+      <LINE>111</LINE>
+      <COLUMN>29</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
-    <DESCRIPTION>Тип перечисления "boost::numeric::range_check_result" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
-    <FUNCTION>boost::numeric::def_overflow_handler::()</FUNCTION>
-    <DECORATED>??Rdef_overflow_handler@numeric@boost@@QEAAXW4range_check_result@12@@Z</DECORATED>
-    <FUNCLINE>160</FUNCLINE>
+    <DESCRIPTION>Тип перечисления "boost::locale::boundary::boundary_type" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>boost::locale::boundary::boundary_rule</FUNCTION>
+    <DECORATED>?boundary_rule@boundary@locale@boost@@YAIW4boundary_type@123@@Z</DECORATED>
+    <FUNCLINE>111</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\local\boost_1_75_0\boost\locale\</FILEPATH>
+      <FILENAME>date_time_facet.hpp</FILENAME>
+      <LINE>75</LINE>
+      <COLUMN>16</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "boost::locale::period::marks::period_mark" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>boost::locale::period::period_type::{ctor}</FUNCTION>
+    <DECORATED>??0period_type@period@locale@boost@@QEAA@W4period_mark@marks@123@@Z</DECORATED>
+    <FUNCLINE>75</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\local\boost_1_75_0\boost\locale\</FILEPATH>
+      <FILENAME>encoding.hpp</FILENAME>
+      <LINE>178</LINE>
+      <COLUMN>24</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "boost::locale::conv::method_type" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>boost::locale::conv::between</FUNCTION>
+    <DECORATED>?between@conv@locale@boost@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PEBDAEBV45@1W4method_type@123@@Z</DECORATED>
+    <FUNCLINE>178</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\local\boost_1_75_0\boost\iostreams\device\</FILEPATH>
+      <FILENAME>mapped_file.hpp</FILENAME>
+      <LINE>88</LINE>
+      <COLUMN>15</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "boost::iostreams::mapped_file_base::mapmode" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>boost::iostreams::detail::mapped_file_params_base::{ctor}</FUNCTION>
+    <DECORATED>??0mapped_file_params_base@detail@iostreams@boost@@QEAA@XZ</DECORATED>
+    <FUNCLINE>87</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\re2\include\</FILEPATH>
+      <FILENAME>re2.h</FILENAME>
+      <LINE>286</LINE>
+      <COLUMN>37</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "re2::RE2::ErrorCode" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>re2::RE2::ok</FUNCTION>
+    <DECORATED>?ok@RE2@re2@@QEBA_NXZ</DECORATED>
+    <FUNCLINE>286</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\re2\include\</FILEPATH>
+      <FILENAME>re2.h</FILENAME>
+      <LINE>656</LINE>
+      <COLUMN>15</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "re2::RE2::Options::Encoding" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>re2::RE2::Options::{ctor}</FUNCTION>
+    <DECORATED>??0Options@RE2@re2@@QEAA@XZ</DECORATED>
+    <FUNCLINE>655</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\re2\include\</FILEPATH>
+      <FILENAME>re2.h</FILENAME>
+      <LINE>957</LINE>
+      <COLUMN>57</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "re2::RE2::CannedOptions" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>re2::LazyRE2::Init</FUNCTION>
+    <DECORATED>?Init@LazyRE2@re2@@CAXPEBV12@@Z</DECORATED>
+    <FUNCLINE>956</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h</FILENAME>
-      <LINE>816</LINE>
+      <LINE>825</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_debug_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>|</FUNCTION>
     <DECORATED>??U@YA?AW4MDBX_debug_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>816</FUNCLINE>
+    <FUNCLINE>825</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h</FILENAME>
-      <LINE>1281</LINE>
+      <LINE>1290</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_env_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>|</FUNCTION>
     <DECORATED>??U@YA?AW4MDBX_env_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>1281</FUNCLINE>
+    <FUNCLINE>1290</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h</FILENAME>
-      <LINE>1327</LINE>
+      <LINE>1336</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_txn_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>|</FUNCTION>
     <DECORATED>??U@YA?AW4MDBX_txn_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>1327</FUNCLINE>
+    <FUNCLINE>1336</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h</FILENAME>
-      <LINE>1378</LINE>
+      <LINE>1387</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_db_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>|</FUNCTION>
     <DECORATED>??U@YA?AW4MDBX_db_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>1378</FUNCLINE>
+    <FUNCLINE>1387</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h</FILENAME>
-      <LINE>1429</LINE>
+      <LINE>1438</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_put_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>|</FUNCTION>
     <DECORATED>??U@YA?AW4MDBX_put_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>1429</FUNCLINE>
+    <FUNCLINE>1438</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h</FILENAME>
-      <LINE>1449</LINE>
+      <LINE>1458</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_copy_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>|</FUNCTION>
     <DECORATED>??U@YA?AW4MDBX_copy_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>1449</FUNCLINE>
+    <FUNCLINE>1458</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h</FILENAME>
-      <LINE>3631</LINE>
+      <LINE>3690</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_dbi_state_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>|</FUNCTION>
     <DECORATED>??U@YA?AW4MDBX_dbi_state_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>3631</FUNCLINE>
+    <FUNCLINE>3690</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h++</FILENAME>
-      <LINE>1811</LINE>
+      <LINE>1823</LINE>
       <COLUMN>19</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "mdbx::env::mode" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>mdbx::env::operate_parameters::{ctor}</FUNCTION>
     <DECORATED>??0operate_parameters@env@mdbx@@QEAA@XZ</DECORATED>
-    <FUNCLINE>1816</FUNCLINE>
+    <FUNCLINE>1828</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h++</FILENAME>
-      <LINE>1812</LINE>
+      <LINE>1824</LINE>
       <COLUMN>31</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "mdbx::env::durability" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>mdbx::env::operate_parameters::{ctor}</FUNCTION>
     <DECORATED>??0operate_parameters@env@mdbx@@QEAA@XZ</DECORATED>
-    <FUNCLINE>1816</FUNCLINE>
+    <FUNCLINE>1828</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h++</FILENAME>
-      <LINE>2754</LINE>
+      <LINE>2772</LINE>
       <COLUMN>23</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_error_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>mdbx::&lt;&lt;</FUNCTION>
     <DECORATED>??6mdbx@@YAAEAV?$basic_ostream@DU?$char_traits@D@std@@@std@@AEAV12@AEBW4MDBX_error_t@@@Z</DECORATED>
-    <FUNCLINE>2754</FUNCLINE>
+    <FUNCLINE>2772</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h++</FILENAME>
-      <LINE>3879</LINE>
+      <LINE>3901</LINE>
       <COLUMN>17</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "mdbx::put_mode" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>mdbx::txn::put</FUNCTION>
     <DECORATED>?put@txn@mdbx@@QEAAXUmap_handle@2@AEBUslice@2@U42@W4put_mode@2@@Z</DECORATED>
-    <FUNCLINE>3879</FUNCLINE>
+    <FUNCLINE>3901</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h++</FILENAME>
-      <LINE>4075</LINE>
+      <LINE>4097</LINE>
       <COLUMN>46</COLUMN>
     </SFA>
     <DEFECTCODE>26819</DEFECTCODE>
     <DESCRIPTION>Неаннотированная передача управления между метками switch (es.78).</DESCRIPTION>
     <FUNCTION>mdbx::txn::put_multiple</FUNCTION>
     <DECORATED>?put_multiple@txn@mdbx@@QEAA_KUmap_handle@2@AEBUslice@2@_KPEBX_KW4put_mode@2@_N@Z</DECORATED>
-    <FUNCLINE>4059</FUNCLINE>
+    <FUNCLINE>4081</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h++</FILENAME>
-      <LINE>4154</LINE>
+      <LINE>4176</LINE>
       <COLUMN>28</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "mdbx::cursor::move_operation" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>mdbx::cursor::move_result::{ctor}</FUNCTION>
     <DECORATED>??0move_result@cursor@mdbx@@QEAA@AEAV12@W4move_operation@12@_N@Z</DECORATED>
-    <FUNCLINE>4154</FUNCLINE>
+    <FUNCLINE>4176</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h++</FILENAME>
-      <LINE>4691</LINE>
+      <LINE>4710</LINE>
       <COLUMN>14</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_log_level_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>std::to_string</FUNCTION>
     <DECORATED>?to_string@std@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@AEBW4MDBX_log_level_t@@@Z</DECORATED>
-    <FUNCLINE>4691</FUNCLINE>
+    <FUNCLINE>4710</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>list_of_functions.cpp</FILENAME>
+      <LINE>47</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>6993</DEFECTCODE>
+    <DESCRIPTION>При анализе кода структуры OpenMP игнорируются; анализируется код одного потока.</DESCRIPTION>
+    <FUNCTION></FUNCTION>
+    <DECORATED></DECORATED>
+    <FUNCLINE>0</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>list_of_functions.cpp</FILENAME>
+      <LINE>146</LINE>
+      <COLUMN>37</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>list_of_functions::test_of_libmdbx</FUNCTION>
+    <DECORATED>?test_of_libmdbx@list_of_functions@@SAXH_N@Z</DECORATED>
+    <FUNCLINE>64</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>list_of_functions.cpp</FILENAME>
+      <LINE>146</LINE>
+      <COLUMN>33</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>list_of_functions::test_of_libmdbx</FUNCTION>
+    <DECORATED>?test_of_libmdbx@list_of_functions@@SAXH_N@Z</DECORATED>
+    <FUNCLINE>64</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
 </DEFECTS>

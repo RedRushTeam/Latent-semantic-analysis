@@ -109,212 +109,296 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\local\boost_1_75_0\boost\numeric\conversion\</FILEPATH>
-      <FILENAME>converter_policies.hpp</FILENAME>
-      <LINE>160</LINE>
-      <COLUMN>7</COLUMN>
+      <FILEPATH>C:\local\boost_1_75_0\boost\locale\boundary\</FILEPATH>
+      <FILENAME>types.hpp</FILENAME>
+      <LINE>111</LINE>
+      <COLUMN>29</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
-    <DESCRIPTION>Тип перечисления "boost::numeric::range_check_result" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
-    <FUNCTION>boost::numeric::def_overflow_handler::()</FUNCTION>
-    <DECORATED>??Rdef_overflow_handler@numeric@boost@@QEAAXW4range_check_result@12@@Z</DECORATED>
-    <FUNCLINE>160</FUNCLINE>
+    <DESCRIPTION>Тип перечисления "boost::locale::boundary::boundary_type" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>boost::locale::boundary::boundary_rule</FUNCTION>
+    <DECORATED>?boundary_rule@boundary@locale@boost@@YAIW4boundary_type@123@@Z</DECORATED>
+    <FUNCLINE>111</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\local\boost_1_75_0\boost\locale\</FILEPATH>
+      <FILENAME>date_time_facet.hpp</FILENAME>
+      <LINE>75</LINE>
+      <COLUMN>16</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "boost::locale::period::marks::period_mark" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>boost::locale::period::period_type::{ctor}</FUNCTION>
+    <DECORATED>??0period_type@period@locale@boost@@QEAA@W4period_mark@marks@123@@Z</DECORATED>
+    <FUNCLINE>75</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\local\boost_1_75_0\boost\locale\</FILEPATH>
+      <FILENAME>encoding.hpp</FILENAME>
+      <LINE>178</LINE>
+      <COLUMN>24</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "boost::locale::conv::method_type" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>boost::locale::conv::between</FUNCTION>
+    <DECORATED>?between@conv@locale@boost@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PEBDAEBV45@1W4method_type@123@@Z</DECORATED>
+    <FUNCLINE>178</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\local\boost_1_75_0\boost\iostreams\device\</FILEPATH>
+      <FILENAME>mapped_file.hpp</FILENAME>
+      <LINE>88</LINE>
+      <COLUMN>15</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "boost::iostreams::mapped_file_base::mapmode" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>boost::iostreams::detail::mapped_file_params_base::{ctor}</FUNCTION>
+    <DECORATED>??0mapped_file_params_base@detail@iostreams@boost@@QEAA@XZ</DECORATED>
+    <FUNCLINE>87</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\re2\include\</FILEPATH>
+      <FILENAME>re2.h</FILENAME>
+      <LINE>286</LINE>
+      <COLUMN>37</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "re2::RE2::ErrorCode" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>re2::RE2::ok</FUNCTION>
+    <DECORATED>?ok@RE2@re2@@QEBA_NXZ</DECORATED>
+    <FUNCLINE>286</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\re2\include\</FILEPATH>
+      <FILENAME>re2.h</FILENAME>
+      <LINE>656</LINE>
+      <COLUMN>15</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "re2::RE2::Options::Encoding" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>re2::RE2::Options::{ctor}</FUNCTION>
+    <DECORATED>??0Options@RE2@re2@@QEAA@XZ</DECORATED>
+    <FUNCLINE>655</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\re2\include\</FILEPATH>
+      <FILENAME>re2.h</FILENAME>
+      <LINE>957</LINE>
+      <COLUMN>57</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "re2::RE2::CannedOptions" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>re2::LazyRE2::Init</FUNCTION>
+    <DECORATED>?Init@LazyRE2@re2@@CAXPEBV12@@Z</DECORATED>
+    <FUNCLINE>956</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h</FILENAME>
-      <LINE>816</LINE>
+      <LINE>825</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_debug_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>|</FUNCTION>
     <DECORATED>??U@YA?AW4MDBX_debug_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>816</FUNCLINE>
+    <FUNCLINE>825</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h</FILENAME>
-      <LINE>1281</LINE>
+      <LINE>1290</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_env_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>|</FUNCTION>
     <DECORATED>??U@YA?AW4MDBX_env_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>1281</FUNCLINE>
+    <FUNCLINE>1290</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h</FILENAME>
-      <LINE>1327</LINE>
+      <LINE>1336</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_txn_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>|</FUNCTION>
     <DECORATED>??U@YA?AW4MDBX_txn_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>1327</FUNCLINE>
+    <FUNCLINE>1336</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h</FILENAME>
-      <LINE>1378</LINE>
+      <LINE>1387</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_db_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>|</FUNCTION>
     <DECORATED>??U@YA?AW4MDBX_db_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>1378</FUNCLINE>
+    <FUNCLINE>1387</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h</FILENAME>
-      <LINE>1429</LINE>
+      <LINE>1438</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_put_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>|</FUNCTION>
     <DECORATED>??U@YA?AW4MDBX_put_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>1429</FUNCLINE>
+    <FUNCLINE>1438</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h</FILENAME>
-      <LINE>1449</LINE>
+      <LINE>1458</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_copy_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>|</FUNCTION>
     <DECORATED>??U@YA?AW4MDBX_copy_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>1449</FUNCLINE>
+    <FUNCLINE>1458</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h</FILENAME>
-      <LINE>3631</LINE>
+      <LINE>3690</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_dbi_state_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>|</FUNCTION>
     <DECORATED>??U@YA?AW4MDBX_dbi_state_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>3631</FUNCLINE>
+    <FUNCLINE>3690</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h++</FILENAME>
-      <LINE>1811</LINE>
+      <LINE>1823</LINE>
       <COLUMN>19</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "mdbx::env::mode" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>mdbx::env::operate_parameters::{ctor}</FUNCTION>
     <DECORATED>??0operate_parameters@env@mdbx@@QEAA@XZ</DECORATED>
-    <FUNCLINE>1816</FUNCLINE>
+    <FUNCLINE>1828</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h++</FILENAME>
-      <LINE>1812</LINE>
+      <LINE>1824</LINE>
       <COLUMN>31</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "mdbx::env::durability" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>mdbx::env::operate_parameters::{ctor}</FUNCTION>
     <DECORATED>??0operate_parameters@env@mdbx@@QEAA@XZ</DECORATED>
-    <FUNCLINE>1816</FUNCLINE>
+    <FUNCLINE>1828</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h++</FILENAME>
-      <LINE>2754</LINE>
+      <LINE>2772</LINE>
       <COLUMN>23</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_error_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>mdbx::&lt;&lt;</FUNCTION>
     <DECORATED>??6mdbx@@YAAEAV?$basic_ostream@DU?$char_traits@D@std@@@std@@AEAV12@AEBW4MDBX_error_t@@@Z</DECORATED>
-    <FUNCLINE>2754</FUNCLINE>
+    <FUNCLINE>2772</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h++</FILENAME>
-      <LINE>3879</LINE>
+      <LINE>3901</LINE>
       <COLUMN>17</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "mdbx::put_mode" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>mdbx::txn::put</FUNCTION>
     <DECORATED>?put@txn@mdbx@@QEAAXUmap_handle@2@AEBUslice@2@U42@W4put_mode@2@@Z</DECORATED>
-    <FUNCLINE>3879</FUNCLINE>
+    <FUNCLINE>3901</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h++</FILENAME>
-      <LINE>4075</LINE>
+      <LINE>4097</LINE>
       <COLUMN>46</COLUMN>
     </SFA>
     <DEFECTCODE>26819</DEFECTCODE>
     <DESCRIPTION>Неаннотированная передача управления между метками switch (es.78).</DESCRIPTION>
     <FUNCTION>mdbx::txn::put_multiple</FUNCTION>
     <DECORATED>?put_multiple@txn@mdbx@@QEAA_KUmap_handle@2@AEBUslice@2@_KPEBX_KW4put_mode@2@_N@Z</DECORATED>
-    <FUNCLINE>4059</FUNCLINE>
+    <FUNCLINE>4081</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h++</FILENAME>
-      <LINE>4154</LINE>
+      <LINE>4176</LINE>
       <COLUMN>28</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "mdbx::cursor::move_operation" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>mdbx::cursor::move_result::{ctor}</FUNCTION>
     <DECORATED>??0move_result@cursor@mdbx@@QEAA@AEAV12@W4move_operation@12@_N@Z</DECORATED>
-    <FUNCLINE>4154</FUNCLINE>
+    <FUNCLINE>4176</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\libmdbx\include\</FILEPATH>
       <FILENAME>mdbx.h++</FILENAME>
-      <LINE>4691</LINE>
+      <LINE>4710</LINE>
       <COLUMN>14</COLUMN>
     </SFA>
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "MDBX_log_level_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>std::to_string</FUNCTION>
     <DECORATED>?to_string@std@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@AEBW4MDBX_log_level_t@@@Z</DECORATED>
-    <FUNCLINE>4691</FUNCLINE>
+    <FUNCLINE>4710</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
@@ -355,344 +439,28 @@
     <SFA>
       <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.h</FILENAME>
-      <LINE>42</LINE>
-      <COLUMN>4</COLUMN>
-    </SFA>
-    <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "piecewise_container_class::now_counter" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
-    <FUNCTION>piecewise_container_class::{ctor}</FUNCTION>
-    <DECORATED>??0piecewise_container_class@@QEAA@FH@Z</DECORATED>
-    <FUNCLINE>42</FUNCLINE>
-    <ADDITIONALINFO>
-      <targetSymbol>piecewise_container_class::now_counter</targetSymbol>
-    </ADDITIONALINFO>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-      <FILENAME>piecewise_container_class.h</FILENAME>
-      <LINE>279</LINE>
-      <COLUMN>17</COLUMN>
-    </SFA>
-    <DEFECTCODE>6001</DEFECTCODE>
-    <DESCRIPTION>Использование неинициализированной памяти "rc".</DESCRIPTION>
-    <FUNCTION>piecewise_container_class::{ctor}</FUNCTION>
-    <DECORATED>??0piecewise_container_class@@QEAA@FH_N@Z</DECORATED>
-    <FUNCLINE>43</FUNCLINE>
-    <PROBABILITY>1</PROBABILITY>
-    <RANK>3</RANK>
-    <CATEGORY>
-      <RULECATEGORY>mspft</RULECATEGORY>
-    </CATEGORY>
-    <PATH>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>43</LINE>
-        <COLUMN>113</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>44</LINE>
-        <COLUMN>4</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>45</LINE>
-        <COLUMN>12</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>46</LINE>
-        <COLUMN>12</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>47</LINE>
-        <COLUMN>27</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>48</LINE>
-        <COLUMN>13</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>49</LINE>
-        <COLUMN>13</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>50</LINE>
-        <COLUMN>12</COLUMN>
-        <KEYEVENT>
-          <ID>1</ID>
-          <KIND>объявление</KIND>
-          <IMPORTANCE>Essential</IMPORTANCE>
-          <MESSAGE>Инициализация "rc" не выполнена</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>52</LINE>
-        <COLUMN>76</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>54</LINE>
-        <COLUMN>16</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>55</LINE>
-        <COLUMN>17</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>56</LINE>
-        <COLUMN>17</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>56</LINE>
-        <COLUMN>24</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>57</LINE>
-        <COLUMN>16</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>58</LINE>
-        <COLUMN>19</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>60</LINE>
-        <COLUMN>12</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>61</LINE>
-        <COLUMN>12</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>61</LINE>
-        <COLUMN>15</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>61</LINE>
-        <COLUMN>18</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>63</LINE>
-        <COLUMN>15</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>64</LINE>
-        <COLUMN>14</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>65</LINE>
-        <COLUMN>12</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>67</LINE>
-        <COLUMN>21</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>68</LINE>
-        <COLUMN>41</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>70</LINE>
-        <COLUMN>15</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>72</LINE>
-        <COLUMN>17</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>72</LINE>
-        <COLUMN>26</COLUMN>
-        <KEYEVENT>
-          <ID>2</ID>
-          <KIND>ветвь</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>Пропустить этот цикл (предполагается, что "t&lt;number_of_full_db" равно false)</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>186</LINE>
-        <COLUMN>15</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>186</LINE>
-        <COLUMN>26</COLUMN>
-        <KEYEVENT>
-          <ID>3</ID>
-          <KIND>ветвь</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>Пропустить этот цикл (предполагается, что "i&lt;count_of_collocations" равно false)</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>233</LINE>
-        <COLUMN>16</COLUMN>
-        <KEYEVENT>
-          <ID>4</ID>
-          <KIND>ветвь</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>Пропустить эту ветвь (предполагается, что "txn!=0" равно false)</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>270</LINE>
-        <COLUMN>4</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>271</LINE>
-        <COLUMN>12</COLUMN>
-        <KEYEVENT>
-          <ID>5</ID>
-          <KIND>ветвь</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>Пропустить эту ветвь (предполагается, что "cursor" равно false)</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>273</LINE>
-        <COLUMN>12</COLUMN>
-        <KEYEVENT>
-          <ID>6</ID>
-          <KIND>ветвь</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>Пропустить эту ветвь (предполагается, что "txn" равно false)</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>275</LINE>
-        <COLUMN>12</COLUMN>
-        <KEYEVENT>
-          <ID>7</ID>
-          <KIND>ветвь</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>Пропустить эту ветвь (предполагается, что "dbi" равно false)</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>277</LINE>
-        <COLUMN>12</COLUMN>
-        <KEYEVENT>
-          <ID>8</ID>
-          <KIND>ветвь</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>Пропустить эту ветвь (предполагается, что "env" равно false)</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>279</LINE>
-        <COLUMN>13</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.h</FILENAME>
-        <LINE>279</LINE>
-        <COLUMN>17</COLUMN>
-        <KEYEVENT>
-          <ID>9</ID>
-          <KIND>использование</KIND>
-          <IMPORTANCE>Essential</IMPORTANCE>
-          <MESSAGE>"rc" используется, но, возможно, не инициализировано</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-    </PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-      <FILENAME>piecewise_container_class.h</FILENAME>
-      <LINE>104</LINE>
-      <COLUMN>60</COLUMN>
+      <LINE>26</LINE>
+      <COLUMN>66</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
     <FUNCTION>piecewise_container_class::{ctor}</FUNCTION>
     <DECORATED>??0piecewise_container_class@@QEAA@FH_N@Z</DECORATED>
-    <FUNCLINE>43</FUNCLINE>
+    <FUNCLINE>23</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.h</FILENAME>
-      <LINE>43</LINE>
-      <COLUMN>4</COLUMN>
+      <LINE>26</LINE>
+      <COLUMN>42</COLUMN>
     </SFA>
-    <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "piecewise_container_class::now_counter" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
     <FUNCTION>piecewise_container_class::{ctor}</FUNCTION>
     <DECORATED>??0piecewise_container_class@@QEAA@FH_N@Z</DECORATED>
-    <FUNCLINE>43</FUNCLINE>
-    <ADDITIONALINFO>
-      <targetSymbol>piecewise_container_class::now_counter</targetSymbol>
-    </ADDITIONALINFO>
+    <FUNCLINE>23</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
@@ -26221,31 +25989,14 @@
     <SFA>
       <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>analyzer.cpp</FILENAME>
-      <LINE>25</LINE>
+      <LINE>23</LINE>
       <COLUMN>9</COLUMN>
     </SFA>
     <DEFECTCODE>6067</DEFECTCODE>
     <DESCRIPTION>Параметр _Param_(2) при вызове "printf" должен быть адресом строки. Фактический тип: "int".</DESCRIPTION>
     <FUNCTION>analyzer::create_lemmatizer</FUNCTION>
-    <DECORATED>?create_lemmatizer@analyzer@@QEAAXXZ</DECORATED>
+    <DECORATED>?create_lemmatizer@analyzer@@SAXXZ</DECORATED>
     <FUNCLINE>3</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-      <FILENAME>analyzer.h</FILENAME>
-      <LINE>8</LINE>
-      <COLUMN>0</COLUMN>
-    </SFA>
-    <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "word_and_number_of_appearances_structure::number_of_texts_in_which_term_occurs" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
-    <FUNCTION>word_and_number_of_appearances_structure::{ctor}</FUNCTION>
-    <DECORATED>??0word_and_number_of_appearances_structure@@QEAA@XZ</DECORATED>
-    <FUNCLINE>8</FUNCLINE>
-    <ADDITIONALINFO>
-      <targetSymbol>word_and_number_of_appearances_structure::number_of_texts_in_which_term_occurs</targetSymbol>
-    </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
@@ -26262,6 +26013,23 @@
     <FUNCLINE>8</FUNCLINE>
     <ADDITIONALINFO>
       <targetSymbol>word_and_number_of_appearances_structure::number_of_appearances_of_this_word</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>analyzer.h</FILENAME>
+      <LINE>8</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "word_and_number_of_appearances_structure::number_of_texts_in_which_term_occurs" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>word_and_number_of_appearances_structure::{ctor}</FUNCTION>
+    <DECORATED>??0word_and_number_of_appearances_structure@@QEAA@XZ</DECORATED>
+    <FUNCLINE>8</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>word_and_number_of_appearances_structure::number_of_texts_in_which_term_occurs</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT>

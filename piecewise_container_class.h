@@ -15,16 +15,20 @@ public:
             this->downloaded_vector.resize((size_t)count_of_collocations * count_of_collocations * (COLLOC_DIST + 1), NULL);
         if (count_of_collocations < SIZE_OF_PIECE)
             this->downloaded_vector.resize((size_t)SIZE_OF_PIECE * count_of_collocations * (COLLOC_DIST + 1), NULL);
+
+        this->downloaded_text = text_counter;
+        text_counter++;
     }
 
     piecewise_container_class(short k, int count_of_collocations, bool random_number) : container_class_interface(k, count_of_collocations)
     {
-        this->downloaded_vector.resize((size_t)SIZE_OF_PIECE * count_of_collocations * COLLOC_DIST, NULL);
+        //this->downloaded_vector.resize((size_t)SIZE_OF_PIECE * count_of_collocations * COLLOC_DIST, NULL);
+        this->downloaded_vector.resize(20 * count_of_collocations * (COLLOC_DIST+1), NULL);
+        
+        this->downloaded_text = text_counter;
+        text_counter++;
     }
     
-
-    int now_counter;
-
     //destr
     ~piecewise_container_class() {
         //fs::remove("C:\\Users\\beerR2600\\YandexDisk\\SVDCollocationAnalyzer\\SVDCollocationAnalyzer\\text" + to_string(now_counter) + ".db");
@@ -33,6 +37,7 @@ public:
     //methods
     void clear_vec();
     void upload_vec();
+    void download_vec(pair<int, int> frames);
     bool is_data_for_this_colloc_downloaded(int first_dimension, int second_dimension, int third_dimension);
     int collect_one_coordinate_from_three(int first_dimension, int second_dimension, int third_dimension) const;
 
@@ -66,10 +71,16 @@ public:
     virtual shared_ptr<container_class_interface> operator/(shared_ptr<container_class_interface> dividor_class) override;
     virtual shared_ptr<container_class_interface> operator/(now_type _koef) override;
 
+    //database closer instead of goto
+    void bailout(int rc, MDBX_env* env, MDBX_dbi dbi, MDBX_txn* txn, MDBX_cursor* cursor);
+
+
+
 private:
     vector<now_type> downloaded_vector;
     pair<int, int> downloaded_range;
+    int downloaded_text;
     fs::path path_to_db;
-    unordered_map<string, pair<int, int>> _filenames;
+    unordered_map<string, pair<int, int>> _filenames; // filename template: textN_termsA-B
 };
 
