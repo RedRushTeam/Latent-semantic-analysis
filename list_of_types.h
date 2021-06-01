@@ -9,6 +9,7 @@
 #define BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE
 #define BOOST_HAS_THREADS
 #define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
+#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 #define DATABASE ":memory:"
 
 
@@ -27,6 +28,10 @@
 #include <filesystem>
 #include <random>
 
+//custom maps include
+#include <hopscotch_map.h>
+#include <robin_map.h>
+
 //Multithreading include
 #include "omp.h"
 
@@ -43,6 +48,7 @@
 #include <boost/regex.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/locale.hpp>
+#include <boost/unordered_map.hpp>
 #include <boost/iostreams/code_converter.hpp>
 #include <boost/iostreams/device/mapped_file.hpp>
 

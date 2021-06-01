@@ -94,8 +94,8 @@ void analyzer::initialize_matrix_for_SVD()
 	analyzer::all_matrix_for_SVD->fill(0);
 
 	int new_index = 0;
-	for (auto& obj : analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_) {
-		obj.second = new_index;
+	for (auto it = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.begin(); it != analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end(); ++it) {
+		it.value() = new_index;
 
 		++new_index;
 	}
@@ -234,19 +234,19 @@ int analyzer::get_counter_of_tokenizer_without_rare_words_SVD()
 
 	int tokens_new = 0;
 	string zero_token;
-	for (auto& obj : analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_) {
+	for (auto it = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.begin(); it != analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end(); ++it) {
 		if (!tokens_new)
-			zero_token = obj.first.word;
+			zero_token = it.key().word;
 
-		obj.second = tokens_new;
+		it.value() = tokens_new;
 		++tokens_new;
 	}
 
 	//стоп слово А всегда имеет нулевой номер
 	word_and_number_of_appearances_structure _key = { zero_token, 1, 1 };
 	word_and_number_of_appearances_structure __key = { (string)"А", 1, 1 };
-	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)->second = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second;
-	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second = 0;
+	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key).value() = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key).value();
+	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key).value() = 0;
 
 	analyzer::counter_of_tokenizer_without_rare_words_SVD = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.size();
 
@@ -392,19 +392,19 @@ int analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff(int cutoff
 		
 	int tokens_new = 0;
 	string zero_token;
-	for (auto& obj : analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_) {
+	for (auto it = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.begin(); it != analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end(); ++it) {
 		if (!tokens_new)
-			zero_token = obj.first.word;
+			zero_token = it.key().word;
 
-		obj.second = tokens_new;
+		it.value() = tokens_new;
 		++tokens_new;
 	}
 
 	//стоп слово А всегда имеет нулевой номер
 	word_and_number_of_appearances_structure _key = { zero_token, 1, 1 };
 	word_and_number_of_appearances_structure __key = { (string)"А", 1, 1 };
-	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)->second = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second;
-	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second = 0;
+	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key).value() = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key).value();
+	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key).value() = 0;
 
 	analyzer::counter_of_tokenizer_without_rare_words = counter_without_rare_words;
 	return counter_without_rare_words;
@@ -427,19 +427,19 @@ int analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff_of_text(in
 
 	int tokens_new = 0;
 	string zero_token;
-	for (auto& obj : analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_) {
+	for (auto it = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.begin(); it != analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end(); ++it) {
 		if (!tokens_new)
-			zero_token = obj.first.word;
+			zero_token = it.key().word;
 
-		obj.second = tokens_new;
+		it.value() = tokens_new;
 		++tokens_new;
 	}
 
 	//стоп слово А всегда имеет нулевой номер
 	word_and_number_of_appearances_structure _key = { zero_token, 1, 1 };
 	word_and_number_of_appearances_structure __key = { (string)"А", 1, 1 };
-	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)->second = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second;
-	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second = 0;
+	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key).value() = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key).value();
+	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key).value() = 0;
 
 	analyzer::counter_of_tokenizer_without_rare_words_and_text = counter_without_rare_words;
 	return counter_without_rare_words;
