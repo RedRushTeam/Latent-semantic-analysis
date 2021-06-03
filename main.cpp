@@ -11,12 +11,14 @@ int main(int argc, char* argv[])
 
 	list_of_functions::print_info_about_sysyem();
 
+	list_of_functions::test_of_libmdbx(4000000, true);
+
 	auto x = piecewise_container_class(COLLOC_DIST, 50000, 0);
 	x.download_vec(make_pair(0, 20));
  	//auto texts = list_of_functions::get_input_texts();
 	/*list_of_functions::test_of_bit7z();
 	piecewise_container_class xxx(4, 20000, true);*/
-	//list_of_functions::test_of_libmdbx(4000000, true);
+	//
 	/*cout <<  xxx.get_count_of_concret_collocation(1,2,0) << endl;
 	xxx.increment(1, 2, 0);cout << xxx.get_count_of_concret_collocation(1, 2, 0) << endl;
 

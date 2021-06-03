@@ -207,7 +207,7 @@ void piecewise_container_class::upload_vec()
 
 }
 
-void piecewise_container_class::download_vec(pair<int, int> frames) 
+void piecewise_container_class::download_vec(pair<int, int> frames)
 {
 	this->downloaded_range = frames;
 
@@ -243,9 +243,9 @@ void piecewise_container_class::download_vec(pair<int, int> frames)
 		this->bailout(rc, env, dbi, txn, cursor);
 
 	//rc = mdbx_cursor_open(txn, dbi, &cursor);
-	/*rc = mdbx_dbi_open(txn, NULL, MDBX_DB_DEFAULTS, &dbi);
+	rc = mdbx_dbi_open(txn, NULL, MDBX_DB_DEFAULTS, &dbi);
 	if (rc)
-		this->bailout(rc, env, dbi, txn, cursor);*/
+		this->bailout(rc, env, dbi, txn, cursor);
 
 	rc = mdbx_cursor_open(txn, dbi, &cursor);
 	if (rc)
@@ -271,22 +271,27 @@ void piecewise_container_class::download_vec(pair<int, int> frames)
 		for (int j = 0; j < this->get_count_of_collocations(); ++j)
 			for (int l = 0; l <= this->get_k(); ++l) {
 				auto _index = i * this->get_count_of_collocations() * (this->get_k()+1) + j * (this->get_k() + 1) + l;
-				index.iov_base = &index;
+				index.iov_base = &_index;
 				index.iov_len = sizeof(int);
-				//number.iov_base = &_value;
-				//number.iov_len = sizeof(_value);
+				number.iov_base = &_value;
+				number.iov_len = sizeof(now_type);
 				//number.iov_len = sizeof(float);
 
 				
-				while ((rc = mdbx_cursor_get(cursor, &index, &number, MDBX_NEXT)==0)) {
-					
+				//rc = mdbx_cursor_get(cursor, &index, &number, MDBX_NEXT);
+				rc = mdbx_get(txn, dbi, &index, &number);
+				//cout << i << " " << j << " " << l << endl << *(int*)index.iov_base << endl;
+				//cout << *(now_type*)number.iov_base << endl;
+				if (!rc) {
 					cout << " value: " << *(now_type*)number.iov_base;
 					this->downloaded_vector[vec_idx] = *(now_type*)number.iov_base;
 					vec_idx++;
 					found += 1;
 				}
-				if (rc != MDBX_NOTFOUND || found == 0)
-					;
+				if (rc != MDBX_NOTFOUND || found == 0) {
+					auto x = rc;
+					//cout << "key/data pair not found (EOF) " << x << endl;
+				}
 				else 
 					rc = MDBX_SUCCESS;
 				

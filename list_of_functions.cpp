@@ -90,7 +90,10 @@ void list_of_functions::test_of_libmdbx(int kolichestvo_zapisey, bool random_num
 	auto start_size = (sizeof(_for_size) + sizeof(float)) * kolichestvo_zapisey; //(длина ключа + длина числа) * на количество записей
 	string textnameparam;
 	random_number ? textnameparam = "randoms" : textnameparam = "concrets";
-	string textname = DB_PATH + to_string(kolichestvo_zapisey) + " zapisey by " + textnameparam; // ВМЕСТО ./ МОЖНО ПОДСТАВИТЬ ЛЮБОЙ АДРЕС
+	string textname = (string)DB_PATH + "text0_terms0-20"; // ВМЕСТО ./ МОЖНО ПОДСТАВИТЬ ЛЮБОЙ АДРЕС
+
+	if (fs::exists(textname))
+		fs::remove(textname);
 
 	/*СОЗДАНИЕ ФАЙЛА БД*/
 	rc = mdbx_env_create(&env);
@@ -143,7 +146,7 @@ void list_of_functions::test_of_libmdbx(int kolichestvo_zapisey, bool random_num
 					}*/
 					_index = i * 50000 * 4 + j * 4 + q;
 					//_index = "999!999!2";
-					random_number ? _value = (i + j + q) / 100.0 : _value = 0.0;
+					random_number ? _value = (i + j + q) / 100.0 : _value = (i + j + q) / 100.0;
 					index.iov_len = sizeof(int);
 					index.iov_base = &_index;
 					number.iov_len = sizeof(float);
@@ -155,6 +158,8 @@ void list_of_functions::test_of_libmdbx(int kolichestvo_zapisey, bool random_num
 
 					////////ДОБАВЛЕНИЕ ДАННЫХ В БД
 					rc = mdbx_put(txn, dbi, &index, &number, MDBX_UPSERT);
+					//cout << i << " " << j << " " << q << endl << *(int*)index.iov_base << endl;
+					//cout << *(now_type*)number.iov_base << endl;
 					if (rc != MDBX_SUCCESS) {
 						fprintf(stderr, "mdbx_put: (%d) %s\n", rc, mdbx_strerror(rc));
 						goto bailout;
