@@ -13,7 +13,7 @@ public:
         container_class_interface(k, count_of_collocations), path_to_db(path_to_db), downloaded_range(downloaded_range){
         if(count_of_collocations < SIZE_OF_PIECE)
             this->downloaded_vector.resize((size_t)count_of_collocations * count_of_collocations * (COLLOC_DIST + 1), NULL);
-        if (count_of_collocations < SIZE_OF_PIECE)
+        if (count_of_collocations > SIZE_OF_PIECE)
             this->downloaded_vector.resize((size_t)SIZE_OF_PIECE * count_of_collocations * (COLLOC_DIST + 1), NULL);
 
         this->downloaded_text = text_counter;
@@ -22,9 +22,11 @@ public:
 
     piecewise_container_class(short k, int count_of_collocations, bool random_number) : container_class_interface(k, count_of_collocations)
     {
-        //this->downloaded_vector.resize((size_t)SIZE_OF_PIECE * count_of_collocations * COLLOC_DIST, NULL);
-        this->downloaded_vector.resize(20 * count_of_collocations * (COLLOC_DIST+1), NULL);
-        
+        if (count_of_collocations < SIZE_OF_PIECE)
+            this->downloaded_vector.resize((size_t)count_of_collocations * count_of_collocations * (COLLOC_DIST + 1), NULL);
+        if (count_of_collocations > SIZE_OF_PIECE)
+            this->downloaded_vector.resize((size_t)SIZE_OF_PIECE * count_of_collocations * (COLLOC_DIST + 1), NULL);
+
         this->downloaded_text = text_counter;
         text_counter++;
     }
