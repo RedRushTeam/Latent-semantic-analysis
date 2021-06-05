@@ -11,9 +11,9 @@ int main(int argc, char* argv[])
 
 	list_of_functions::print_info_about_sysyem();
 
-	list_of_functions::test_of_libmdbx(4000000, true);
+	//list_of_functions::test_of_libmdbx(4000000, true);
 
-	auto x = piecewise_container_class(COLLOC_DIST, 50000, 0);
+	//auto x = piecewise_container_class(COLLOC_DIST, 50000, 0);
 	//x.download_vec(make_pair(0, 20));
  	auto texts = list_of_functions::get_input_texts();
 	/*list_of_functions::test_of_bit7z();
