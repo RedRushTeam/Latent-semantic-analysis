@@ -2,6 +2,62 @@
 <DEFECTS>
   <DEFECT>
     <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>hopscotch_growth_policy.h</FILENAME>
+      <LINE>381</LINE>
+      <COLUMN>17</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::hh::prime_growth_policy::next_bucket_count</FUNCTION>
+    <DECORATED>?next_bucket_count@prime_growth_policy@hh@tsl@@QEBA_KXZ</DECORATED>
+    <FUNCLINE>380</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>hopscotch_growth_policy.h</FILENAME>
+      <LINE>386</LINE>
+      <COLUMN>35</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::hh::prime_growth_policy::next_bucket_count</FUNCTION>
+    <DECORATED>?next_bucket_count@prime_growth_policy@hh@tsl@@QEBA_KXZ</DECORATED>
+    <FUNCLINE>380</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_growth_policy.h</FILENAME>
+      <LINE>383</LINE>
+      <COLUMN>17</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::rh::prime_growth_policy::next_bucket_count</FUNCTION>
+    <DECORATED>?next_bucket_count@prime_growth_policy@rh@tsl@@QEBA_KXZ</DECORATED>
+    <FUNCLINE>382</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_growth_policy.h</FILENAME>
+      <LINE>388</LINE>
+      <COLUMN>35</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::rh::prime_growth_policy::next_bucket_count</FUNCTION>
+    <DECORATED>?next_bucket_count@prime_growth_policy@rh@tsl@@QEBA_KXZ</DECORATED>
+    <FUNCLINE>382</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
       <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\arch\SSE\</FILEPATH>
       <FILENAME>Complex.h</FILENAME>
       <LINE>20</LINE>
@@ -26036,6 +26092,212 @@
     <FUNCLINE>8</FUNCLINE>
     <ADDITIONALINFO>
       <targetSymbol>math_core::number_of_slices</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>1075</LINE>
+      <COLUMN>55</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::robin_hash&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt;,tsl::robin_map&lt;word_and_number_of_appearances_structure,int,std::hash&lt;word_and_number_of_appearances_structure&gt;,std::equal_to&lt;word_and_number_of_appearances_structure&gt;,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::KeySelect,tsl::robin_map&lt;word_and_number_of_appearances_structure,int,std::hash&lt;word_and_number_of_appearances_structure&gt;,std::equal_to&lt;word_and_number_of_appearances_structure&gt;,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::ValueSelect,std::hash&lt;word_and_number_of_appearances_structure&gt;,std::equal_to&lt;word_and_number_of_appearances_structure&gt;,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::max_load_factor</FUNCTION>
+    <DECORATED>?max_load_factor@?$robin_hash@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@VKeySelect@?$robin_map@Uword_and_number_of_appearances_structure@@HU?$hash@Uword_and_number_of_appearances_structure@@@std@@U?$equal_to@Uword_and_number_of_appearances_structure@@@3@V?$allocator@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@@3@$0A@V?$power_of_two_growth_policy@$01@rh@tsl@@@tsl@@VValueSelect@45@U?$hash@Uword_and_number_of_appearances_structure@@@2@U?$equal_to@Uword_and_number_of_appearances_structure@@@2@V?$allocator@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@5@@detail_robin_hash@tsl@@QEAAXM@Z</DECORATED>
+    <FUNCLINE>1072</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>1075</LINE>
+      <COLUMN>55</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::robin_hash&lt;std::pair&lt;int,word_and_number_of_appearances_structure&gt;,tsl::robin_map&lt;int,word_and_number_of_appearances_structure,std::hash&lt;int&gt;,std::equal_to&lt;int&gt;,std::allocator&lt;std::pair&lt;int,word_and_number_of_appearances_structure&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::KeySelect,tsl::robin_map&lt;int,word_and_number_of_appearances_structure,std::hash&lt;int&gt;,std::equal_to&lt;int&gt;,std::allocator&lt;std::pair&lt;int,word_and_number_of_appearances_structure&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::ValueSelect,std::hash&lt;int&gt;,std::equal_to&lt;int&gt;,std::allocator&lt;std::pair&lt;int,word_and_number_of_appearances_structure&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::max_load_factor</FUNCTION>
+    <DECORATED>?max_load_factor@?$robin_hash@U?$pair@HUword_and_number_of_appearances_structure@@@std@@VKeySelect@?$robin_map@HUword_and_number_of_appearances_structure@@U?$hash@H@std@@U?$equal_to@H@3@V?$allocator@U?$pair@HUword_and_number_of_appearances_structure@@@std@@@3@$0A@V?$power_of_two_growth_policy@$01@rh@tsl@@@tsl@@VValueSelect@45@U?$hash@H@2@U?$equal_to@H@2@V?$allocator@U?$pair@HUword_and_number_of_appearances_structure@@@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@5@@detail_robin_hash@tsl@@QEAAXM@Z</DECORATED>
+    <FUNCLINE>1072</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>1075</LINE>
+      <COLUMN>55</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::robin_hash&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt;,tsl::robin_map&lt;word_and_number_of_appearances_structure,int,hash_word_and_number_of_appearances_structure,equal_word_and_number_of_appearances_structure,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,1,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::KeySelect,tsl::robin_map&lt;word_and_number_of_appearances_structure,int,hash_word_and_number_of_appearances_structure,equal_word_and_number_of_appearances_structure,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,1,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::ValueSelect,hash_word_and_number_of_appearances_structure,equal_word_and_number_of_appearances_structure,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,1,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::max_load_factor</FUNCTION>
+    <DECORATED>?max_load_factor@?$robin_hash@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@VKeySelect@?$robin_map@Uword_and_number_of_appearances_structure@@HUhash_word_and_number_of_appearances_structure@@Uequal_word_and_number_of_appearances_structure@@V?$allocator@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@@std@@$00V?$power_of_two_growth_policy@$01@rh@tsl@@@tsl@@VValueSelect@45@Uhash_word_and_number_of_appearances_structure@@Uequal_word_and_number_of_appearances_structure@@V?$allocator@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@@2@$00V?$power_of_two_growth_policy@$01@rh@5@@detail_robin_hash@tsl@@QEAAXM@Z</DECORATED>
+    <FUNCLINE>1072</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>1075</LINE>
+      <COLUMN>55</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::robin_hash&lt;std::pair&lt;int,std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt;,tsl::robin_map&lt;int,std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,std::hash&lt;int&gt;,std::equal_to&lt;int&gt;,std::allocator&lt;std::pair&lt;int,std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::KeySelect,tsl::robin_map&lt;int,std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,std::hash&lt;int&gt;,std::equal_to&lt;int&gt;,std::allocator&lt;std::pair&lt;int,std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::ValueSelect,std::hash&lt;int&gt;,std::equal_to&lt;int&gt;,std::allocator&lt;std::pair&lt;int,std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::max_load_factor</FUNCTION>
+    <DECORATED>?max_load_factor@?$robin_hash@U?$pair@HV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@std@@VKeySelect@?$robin_map@HV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@U?$hash@H@2@U?$equal_to@H@2@V?$allocator@U?$pair@HV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@tsl@@@tsl@@VValueSelect@45@U?$hash@H@2@U?$equal_to@H@2@V?$allocator@U?$pair@HV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@5@@detail_robin_hash@tsl@@QEAAXM@Z</DECORATED>
+    <FUNCLINE>1072</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>1075</LINE>
+      <COLUMN>55</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::robin_hash&lt;std::pair&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,int&gt;,tsl::robin_map&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,int,std::hash&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt;,std::equal_to&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt;,std::allocator&lt;std::pair&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::KeySelect,tsl::robin_map&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,int,std::hash&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt;,std::equal_to&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt;,std::allocator&lt;std::pair&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::ValueSelect,std::hash&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt;,std::equal_to&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt;,std::allocator&lt;std::pair&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::max_load_factor</FUNCTION>
+    <DECORATED>?max_load_factor@?$robin_hash@U?$pair@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@H@std@@VKeySelect@?$robin_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@HU?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@U?$pair@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@H@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@tsl@@@tsl@@VValueSelect@45@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@U?$pair@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@H@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@5@@detail_robin_hash@tsl@@QEAAXM@Z</DECORATED>
+    <FUNCLINE>1072</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>181</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,word_and_number_of_appearances_structure&gt;,0&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,word_and_number_of_appearances_structure&gt;,0&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$bucket_entry@U?$pair@HUword_and_number_of_appearances_structure@@@std@@$0A@@detail_robin_hash@tsl@@QEAA@_N@Z</DECORATED>
+    <FUNCLINE>181</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,word_and_number_of_appearances_structure&gt;,0&gt;::m_value</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>181</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt;,1&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt;,1&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$bucket_entry@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@$00@detail_robin_hash@tsl@@QEAA@_N@Z</DECORATED>
+    <FUNCLINE>181</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt;,1&gt;::m_value</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>181</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt;,0&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt;,0&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$bucket_entry@U?$pair@HV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@std@@$0A@@detail_robin_hash@tsl@@QEAA@_N@Z</DECORATED>
+    <FUNCLINE>181</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt;,0&gt;::m_value</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>181</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,int&gt;,1&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,int&gt;,1&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$bucket_entry@U?$pair@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@H@std@@$00@detail_robin_hash@tsl@@QEAA@_N@Z</DECORATED>
+    <FUNCLINE>181</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,int&gt;,1&gt;::m_value</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>174</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,word_and_number_of_appearances_structure&gt;,0&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,word_and_number_of_appearances_structure&gt;,0&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$bucket_entry@U?$pair@HUword_and_number_of_appearances_structure@@@std@@$0A@@detail_robin_hash@tsl@@QEAA@XZ</DECORATED>
+    <FUNCLINE>174</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,word_and_number_of_appearances_structure&gt;,0&gt;::m_value</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>174</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt;,1&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt;,1&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$bucket_entry@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@$00@detail_robin_hash@tsl@@QEAA@XZ</DECORATED>
+    <FUNCLINE>174</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt;,1&gt;::m_value</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>174</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt;,0&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt;,0&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$bucket_entry@U?$pair@HV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@std@@$0A@@detail_robin_hash@tsl@@QEAA@XZ</DECORATED>
+    <FUNCLINE>174</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &gt;,0&gt;::m_value</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>174</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,int&gt;,1&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,int&gt;,1&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$bucket_entry@U?$pair@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@H@std@@$00@detail_robin_hash@tsl@@QEAA@XZ</DECORATED>
+    <FUNCLINE>174</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt;,int&gt;,1&gt;::m_value</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT>

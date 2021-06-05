@@ -1,5 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><DEFECTS><DEFECT>
     <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>hopscotch_growth_policy.h</FILENAME>
+      <LINE>381</LINE>
+      <COLUMN>17</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::hh::prime_growth_policy::next_bucket_count</FUNCTION>
+    <DECORATED>?next_bucket_count@prime_growth_policy@hh@tsl@@QEBA_KXZ</DECORATED>
+    <FUNCLINE>380</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>hopscotch_growth_policy.h</FILENAME>
+      <LINE>386</LINE>
+      <COLUMN>35</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::hh::prime_growth_policy::next_bucket_count</FUNCTION>
+    <DECORATED>?next_bucket_count@prime_growth_policy@hh@tsl@@QEBA_KXZ</DECORATED>
+    <FUNCLINE>380</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_growth_policy.h</FILENAME>
+      <LINE>383</LINE>
+      <COLUMN>17</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::rh::prime_growth_policy::next_bucket_count</FUNCTION>
+    <DECORATED>?next_bucket_count@prime_growth_policy@rh@tsl@@QEBA_KXZ</DECORATED>
+    <FUNCLINE>382</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_growth_policy.h</FILENAME>
+      <LINE>388</LINE>
+      <COLUMN>35</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::rh::prime_growth_policy::next_bucket_count</FUNCTION>
+    <DECORATED>?next_bucket_count@prime_growth_policy@rh@tsl@@QEBA_KXZ</DECORATED>
+    <FUNCLINE>382</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
       <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\arch\SSE\</FILEPATH>
       <FILENAME>Complex.h</FILENAME>
       <LINE>20</LINE>
@@ -460,12 +512,41 @@
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "word_and_number_of_appearances_structure::number_of_appearances_of_this_word" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <DESCRIPTION>Переменная "word_and_number_of_appearances_structure::number_of_texts_in_which_term_occurs" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
     <FUNCTION>word_and_number_of_appearances_structure::{ctor}</FUNCTION>
     <DECORATED>??0word_and_number_of_appearances_structure@@QEAA@XZ</DECORATED>
     <FUNCLINE>8</FUNCLINE>
     <ADDITIONALINFO>
-      <targetSymbol>word_and_number_of_appearances_structure::number_of_appearances_of_this_word</targetSymbol>
+      <targetSymbol>word_and_number_of_appearances_structure::number_of_texts_in_which_term_occurs</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>1075</LINE>
+      <COLUMN>55</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::robin_hash&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt;,tsl::robin_map&lt;word_and_number_of_appearances_structure,int,std::hash&lt;word_and_number_of_appearances_structure&gt;,std::equal_to&lt;word_and_number_of_appearances_structure&gt;,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::KeySelect,tsl::robin_map&lt;word_and_number_of_appearances_structure,int,std::hash&lt;word_and_number_of_appearances_structure&gt;,std::equal_to&lt;word_and_number_of_appearances_structure&gt;,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::ValueSelect,std::hash&lt;word_and_number_of_appearances_structure&gt;,std::equal_to&lt;word_and_number_of_appearances_structure&gt;,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::max_load_factor</FUNCTION>
+    <DECORATED>?max_load_factor@?$robin_hash@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@VKeySelect@?$robin_map@Uword_and_number_of_appearances_structure@@HU?$hash@Uword_and_number_of_appearances_structure@@@std@@U?$equal_to@Uword_and_number_of_appearances_structure@@@3@V?$allocator@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@@3@$0A@V?$power_of_two_growth_policy@$01@rh@tsl@@@tsl@@VValueSelect@45@U?$hash@Uword_and_number_of_appearances_structure@@@2@U?$equal_to@Uword_and_number_of_appearances_structure@@@2@V?$allocator@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@5@@detail_robin_hash@tsl@@QEAAXM@Z</DECORATED>
+    <FUNCLINE>1072</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>181</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,word_and_number_of_appearances_structure&gt;,0&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,word_and_number_of_appearances_structure&gt;,0&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$bucket_entry@U?$pair@HUword_and_number_of_appearances_structure@@@std@@$0A@@detail_robin_hash@tsl@@QEAA@_N@Z</DECORATED>
+    <FUNCLINE>181</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,word_and_number_of_appearances_structure&gt;,0&gt;::m_value</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT><DEFECT>
@@ -493,6 +574,22 @@
     <FUNCTION>Eigen::BDCSVD&lt;Eigen::Matrix&lt;float,-1,-1,0,-1,-1&gt; &gt;::compute</FUNCTION>
     <DECORATED>?compute@?$BDCSVD@V?$Matrix@M$0?0$0?0$0A@$0?0$0?0@Eigen@@@Eigen@@QEAAAEAV12@AEBV?$Matrix@M$0?0$0?0$0A@$0?0$0?0@2@I@Z</DECORATED>
     <FUNCLINE>238</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>174</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,word_and_number_of_appearances_structure&gt;,0&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,word_and_number_of_appearances_structure&gt;,0&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$bucket_entry@U?$pair@HUword_and_number_of_appearances_structure@@@std@@$0A@@detail_robin_hash@tsl@@QEAA@XZ</DECORATED>
+    <FUNCLINE>174</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,word_and_number_of_appearances_structure&gt;,0&gt;::m_value</targetSymbol>
+    </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
@@ -786,7 +883,7 @@
     <SFA>
       <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>list_of_functions.cpp</FILENAME>
-      <LINE>146</LINE>
+      <LINE>149</LINE>
       <COLUMN>37</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
@@ -799,8 +896,34 @@
     <SFA>
       <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>list_of_functions.cpp</FILENAME>
-      <LINE>146</LINE>
+      <LINE>149</LINE>
       <COLUMN>33</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>list_of_functions::test_of_libmdbx</FUNCTION>
+    <DECORATED>?test_of_libmdbx@list_of_functions@@SAXH_N@Z</DECORATED>
+    <FUNCLINE>64</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>list_of_functions.cpp</FILENAME>
+      <LINE>149</LINE>
+      <COLUMN>68</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>list_of_functions::test_of_libmdbx</FUNCTION>
+    <DECORATED>?test_of_libmdbx@list_of_functions@@SAXH_N@Z</DECORATED>
+    <FUNCLINE>64</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>list_of_functions.cpp</FILENAME>
+      <LINE>149</LINE>
+      <COLUMN>64</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>

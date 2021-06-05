@@ -2,6 +2,62 @@
 <DEFECTS>
   <DEFECT>
     <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>hopscotch_growth_policy.h</FILENAME>
+      <LINE>381</LINE>
+      <COLUMN>17</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::hh::prime_growth_policy::next_bucket_count</FUNCTION>
+    <DECORATED>?next_bucket_count@prime_growth_policy@hh@tsl@@QEBA_KXZ</DECORATED>
+    <FUNCLINE>380</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>hopscotch_growth_policy.h</FILENAME>
+      <LINE>386</LINE>
+      <COLUMN>35</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::hh::prime_growth_policy::next_bucket_count</FUNCTION>
+    <DECORATED>?next_bucket_count@prime_growth_policy@hh@tsl@@QEBA_KXZ</DECORATED>
+    <FUNCLINE>380</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_growth_policy.h</FILENAME>
+      <LINE>383</LINE>
+      <COLUMN>17</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::rh::prime_growth_policy::next_bucket_count</FUNCTION>
+    <DECORATED>?next_bucket_count@prime_growth_policy@rh@tsl@@QEBA_KXZ</DECORATED>
+    <FUNCLINE>382</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_growth_policy.h</FILENAME>
+      <LINE>388</LINE>
+      <COLUMN>35</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::rh::prime_growth_policy::next_bucket_count</FUNCTION>
+    <DECORATED>?next_bucket_count@prime_growth_policy@rh@tsl@@QEBA_KXZ</DECORATED>
+    <FUNCLINE>382</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
       <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\arch\SSE\</FILEPATH>
       <FILENAME>Complex.h</FILENAME>
       <LINE>20</LINE>
@@ -419,7 +475,7 @@
     <SFA>
       <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>list_of_functions.cpp</FILENAME>
-      <LINE>146</LINE>
+      <LINE>149</LINE>
       <COLUMN>37</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
@@ -433,8 +489,36 @@
     <SFA>
       <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>list_of_functions.cpp</FILENAME>
-      <LINE>146</LINE>
+      <LINE>149</LINE>
       <COLUMN>33</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>list_of_functions::test_of_libmdbx</FUNCTION>
+    <DECORATED>?test_of_libmdbx@list_of_functions@@SAXH_N@Z</DECORATED>
+    <FUNCLINE>64</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>list_of_functions.cpp</FILENAME>
+      <LINE>149</LINE>
+      <COLUMN>68</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>list_of_functions::test_of_libmdbx</FUNCTION>
+    <DECORATED>?test_of_libmdbx@list_of_functions@@SAXH_N@Z</DECORATED>
+    <FUNCLINE>64</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>list_of_functions.cpp</FILENAME>
+      <LINE>149</LINE>
+      <COLUMN>64</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>

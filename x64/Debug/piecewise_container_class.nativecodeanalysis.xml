@@ -2,6 +2,62 @@
 <DEFECTS>
   <DEFECT>
     <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>hopscotch_growth_policy.h</FILENAME>
+      <LINE>381</LINE>
+      <COLUMN>17</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::hh::prime_growth_policy::next_bucket_count</FUNCTION>
+    <DECORATED>?next_bucket_count@prime_growth_policy@hh@tsl@@QEBA_KXZ</DECORATED>
+    <FUNCLINE>380</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>hopscotch_growth_policy.h</FILENAME>
+      <LINE>386</LINE>
+      <COLUMN>35</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::hh::prime_growth_policy::next_bucket_count</FUNCTION>
+    <DECORATED>?next_bucket_count@prime_growth_policy@hh@tsl@@QEBA_KXZ</DECORATED>
+    <FUNCLINE>380</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_growth_policy.h</FILENAME>
+      <LINE>383</LINE>
+      <COLUMN>17</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::rh::prime_growth_policy::next_bucket_count</FUNCTION>
+    <DECORATED>?next_bucket_count@prime_growth_policy@rh@tsl@@QEBA_KXZ</DECORATED>
+    <FUNCLINE>382</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_growth_policy.h</FILENAME>
+      <LINE>388</LINE>
+      <COLUMN>35</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::rh::prime_growth_policy::next_bucket_count</FUNCTION>
+    <DECORATED>?next_bucket_count@prime_growth_policy@rh@tsl@@QEBA_KXZ</DECORATED>
+    <FUNCLINE>382</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
       <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\Core\arch\SSE\</FILEPATH>
       <FILENAME>Complex.h</FILENAME>
       <LINE>20</LINE>

@@ -119,7 +119,8 @@ void piecewise_container_class::bailout(int rc, MDBX_env* env, MDBX_dbi dbi, MDB
 		if (!dbi)
 			mdbx_dbi_close(env, dbi);
 		if (env)
-			mdbx_env_close(env);}
+			mdbx_env_close(env);
+}
 
 void piecewise_container_class::clear_vec()
 {
@@ -142,8 +143,8 @@ void piecewise_container_class::upload_vec()
 	MDBX_cursor* cursor = NULL;
 
 	auto kolichestvo_zapisey = (this->get_downloaded_range().second - this->get_downloaded_range().first) * this->get_count_of_collocations() * this->get_k();
-	string _for_size = "99999!99999!4";
-	auto start_size = (sizeof(_for_size) + sizeof(now_type)) * kolichestvo_zapisey; //(длина ключа + длина числа) * на количество записей
+	//string _for_size = "99999!99999!4";
+	auto start_size = (sizeof(int) + sizeof(now_type)) * kolichestvo_zapisey; //(длина ключа + длина числа) * на количество записей
 
 	/*СОЗДАНИЕ ФАЙЛА БД*/
 	rc = mdbx_env_create(&env);
@@ -267,7 +268,7 @@ void piecewise_container_class::download_vec(pair<int, int> frames)
 	//rc = mdbx_get(txn, dbi, &index, &number);
 	char sval[32];
 
-	for (int i = this->get_downloaded_range().first; i < this->get_downloaded_range().second; ++i)
+	for (int i = this->get_downloaded_range().first; i <= this->get_downloaded_range().second; ++i)
 		for (int j = 0; j < this->get_count_of_collocations(); ++j)
 			for (int l = 0; l <= this->get_k(); ++l) {
 				auto _index = i * this->get_count_of_collocations() * (this->get_k()+1) + j * (this->get_k() + 1) + l;
@@ -283,7 +284,7 @@ void piecewise_container_class::download_vec(pair<int, int> frames)
 				//cout << i << " " << j << " " << l << endl << *(int*)index.iov_base << endl;
 				//cout << *(now_type*)number.iov_base << endl;
 				if (!rc) {
-					cout << " value: " << *(now_type*)number.iov_base;
+					//cout << " value: " << *(now_type*)number.iov_base;
 					this->downloaded_vector[vec_idx] = *(now_type*)number.iov_base;
 					vec_idx++;
 					found += 1;
