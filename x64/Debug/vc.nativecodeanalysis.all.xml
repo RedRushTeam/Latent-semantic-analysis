@@ -442,32 +442,6 @@
   </DEFECT><DEFECT>
     <SFA>
       <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-      <FILENAME>piecewise_container_class.h</FILENAME>
-      <LINE>26</LINE>
-      <COLUMN>66</COLUMN>
-    </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
-    <FUNCTION>piecewise_container_class::{ctor}</FUNCTION>
-    <DECORATED>??0piecewise_container_class@@QEAA@FH_N@Z</DECORATED>
-    <FUNCLINE>23</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT><DEFECT>
-    <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-      <FILENAME>piecewise_container_class.h</FILENAME>
-      <LINE>26</LINE>
-      <COLUMN>42</COLUMN>
-    </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
-    <FUNCTION>piecewise_container_class::{ctor}</FUNCTION>
-    <DECORATED>??0piecewise_container_class@@QEAA@FH_N@Z</DECORATED>
-    <FUNCLINE>23</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT><DEFECT>
-    <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>parser.h</FILENAME>
       <LINE>18</LINE>
       <COLUMN>26</COLUMN>

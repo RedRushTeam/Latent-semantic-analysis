@@ -165,18 +165,26 @@ void piecewise_container_class::upload_vec()
 	if (rc)
 		this->bailout(rc, env, dbi, txn, cursor);
 
+	rc = mdbx_dbi_open(txn, NULL, MDBX_DB_DEFAULTS, &dbi);
+	if (rc)
+		this->bailout(rc, env, dbi, txn, cursor);
+
 	int vec_idx = 0;
 
 	for (int i = this->get_downloaded_range().first; i <= this->get_downloaded_range().second; ++i)
 		for (int j = 0; j < this->get_count_of_collocations(); ++j)
 			for (int l = 0; l < this->get_k(); ++l) {
-				if (!(vec_idx % 10000))
-					rc = mdbx_dbi_open(txn, NULL, MDBX_DB_DEFAULTS, &dbi);
+				if ((vec_idx) && !(vec_idx % 10000)) { //подумать что должно быть тут и что во втором таком же
+					rc = mdbx_txn_begin(env, NULL, MDBX_TXN_READWRITE, &txn);
+					if (rc)
+						this->bailout(rc, env, dbi, txn, cursor);
+					//rc = mdbx_dbi_open(txn, NULL, MDBX_DB_DEFAULTS, &dbi);
+				}
 
 				if (rc)
 					this->bailout(rc, env, dbi, txn, cursor);
 
-				auto _index = to_string(i) + "!" + to_string(j) + "!" + to_string(l);
+				auto _index = i * this->get_count_of_collocations() * (this->get_k() + 1) + j * (this->get_k() + 1) + l;
 				now_type _value = this->downloaded_vector[vec_idx];
 				vec_idx++;
 				index.iov_len = sizeof(_index);
@@ -189,7 +197,7 @@ void piecewise_container_class::upload_vec()
 				if (rc)
 					this->bailout(rc, env, dbi, txn, cursor);
 
-				if (!(vec_idx % 10000)) {
+				if ((vec_idx) && !(vec_idx % 10000)) {
 					rc = mdbx_txn_commit(txn);
 					txn = NULL;
 				}
