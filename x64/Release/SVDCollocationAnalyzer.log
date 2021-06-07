@@ -1,90 +1,10 @@
-﻿  analyzer.cpp
-  container_class_interface.cpp
-  list_of_functions.cpp
-  main.cpp
-  math_core.cpp
-  parser.cpp
-  piecewise_container_class.cpp
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\list_of_functions.cpp(11,94): warning C4307: "*": переполнение целой константы со знаком
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\list_of_functions.cpp(84,23): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\list_of_functions.cpp(149,43): warning C4244: =: преобразование "double" в "float", возможна потеря данных
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\list_of_functions.cpp(149,74): warning C4244: =: преобразование "double" в "float", возможна потеря данных
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\list_of_functions.cpp(78,12): warning C4101: l: неиспользованная локальная переменная
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\math_core.h(8,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных (компилируется исходный файл main.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\math_core.h(8,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных (компилируется исходный файл math_core.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\math_core.cpp(8,9): warning C4244: return: преобразование "int" в "now_type", возможна потеря данных
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(23,11): warning C4477: "printf": в строке форматирования "%s" требуется аргумент типа "char *", но вариативный аргумент "1" имеет тип "int"
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(23,11): warning C4313: printf: конфликт "%s" в строке формата с аргументом 1 типа "int"
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(44,77): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(64,113): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(87,126): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(251,133): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\utility(249,55): warning C4267: инициализация: преобразование из "size_t" в "_Ty2"; возможна потеря данных
-          with
-          [
-              _Ty2=int
-          ] (компилируется исходный файл analyzer.cpp)
-C:\tsl\include\robin_hash.h(790): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<Key,T>::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64,0>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64> &&) noexcept"
-          with
-          [
-              Key=std::string,
-              T=int
-          ] (компилируется исходный файл analyzer.cpp)
-C:\tsl\include\robin_hash.h(791): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<Key,T>::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64,0>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64> &&) noexcept"
-          with
-          [
-              Key=std::string,
-              T=int
-          ] (компилируется исходный файл analyzer.cpp)
-C:\tsl\include\robin_map.h(240): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<tsl::detail_robin_hash::robin_hash<std::pair<Key,T>,tsl::robin_map<Key,T,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<Key,T>>,false,tsl::rh::power_of_two_growth_policy<2>>::KeySelect,tsl::robin_map<Key,T,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<Key,T>>,false,tsl::rh::power_of_two_growth_policy<2>>::ValueSelect,Hash,KeyEqual,Allocator,false,GrowthPolicy>::robin_iterator<false>,bool> tsl::detail_robin_hash::robin_hash<std::pair<Key,T>,tsl::robin_map<Key,T,Hash,KeyEqual,Allocator,false,GrowthPolicy>::KeySelect,tsl::robin_map<Key,T,Hash,KeyEqual,Allocator,false,GrowthPolicy>::ValueSelect,Hash,KeyEqual,Allocator,false,GrowthPolicy>::emplace<_Ty>(_Ty &&)"
-          with
-          [
-              Key=std::string,
-              T=int,
-              Hash=std::hash<std::string>,
-              KeyEqual=std::equal_to<std::string>,
-              Allocator=std::allocator<std::pair<std::string,int>>,
-              GrowthPolicy=tsl::rh::power_of_two_growth_policy<2>,
-              _Ty=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>
-          ] (компилируется исходный файл analyzer.cpp)
-C:\tsl\include\robin_map.h(240): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<tsl::detail_robin_hash::robin_hash<std::pair<Key,T>,tsl::robin_map<Key,T,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<Key,T>>,false,tsl::rh::power_of_two_growth_policy<2>>::KeySelect,tsl::robin_map<Key,T,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<Key,T>>,false,tsl::rh::power_of_two_growth_policy<2>>::ValueSelect,Hash,KeyEqual,Allocator,false,GrowthPolicy>::robin_iterator<false>,bool> tsl::detail_robin_hash::robin_hash<std::pair<Key,T>,tsl::robin_map<Key,T,Hash,KeyEqual,Allocator,false,GrowthPolicy>::KeySelect,tsl::robin_map<Key,T,Hash,KeyEqual,Allocator,false,GrowthPolicy>::ValueSelect,Hash,KeyEqual,Allocator,false,GrowthPolicy>::emplace<_Ty>(_Ty &&)"
-          with
-          [
-              Key=std::string,
-              T=int,
-              Hash=std::hash<std::string>,
-              KeyEqual=std::equal_to<std::string>,
-              Allocator=std::allocator<std::pair<std::string,int>>,
-              GrowthPolicy=tsl::rh::power_of_two_growth_policy<2>,
-              _Ty=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>
-          ] (компилируется исходный файл analyzer.cpp)
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(38): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<tsl::detail_robin_hash::robin_hash<std::pair<Key,T>,tsl::robin_map<Key,T,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<Key,T>>,false,tsl::rh::power_of_two_growth_policy<2>>::KeySelect,tsl::robin_map<Key,T,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<Key,T>>,false,tsl::rh::power_of_two_growth_policy<2>>::ValueSelect,Hash,KeyEqual,Allocator,false,GrowthPolicy>::robin_iterator<false>,bool> tsl::robin_map<Key,T,Hash,KeyEqual,Allocator,false,GrowthPolicy>::insert<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>,0x0>(P &&)"
-          with
-          [
-              Key=std::string,
-              T=int,
-              Hash=std::hash<std::string>,
-              KeyEqual=std::equal_to<std::string>,
-              Allocator=std::allocator<std::pair<std::string,int>>,
-              GrowthPolicy=tsl::rh::power_of_two_growth_policy<2>,
-              P=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>
-          ]
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(38): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<tsl::detail_robin_hash::robin_hash<std::pair<Key,T>,tsl::robin_map<Key,T,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<Key,T>>,false,tsl::rh::power_of_two_growth_policy<2>>::KeySelect,tsl::robin_map<Key,T,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<Key,T>>,false,tsl::rh::power_of_two_growth_policy<2>>::ValueSelect,Hash,KeyEqual,Allocator,false,GrowthPolicy>::robin_iterator<false>,bool> tsl::robin_map<Key,T,Hash,KeyEqual,Allocator,false,GrowthPolicy>::insert<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>,0x0>(P &&)"
-          with
-          [
-              Key=std::string,
-              T=int,
-              Hash=std::hash<std::string>,
-              KeyEqual=std::equal_to<std::string>,
-              Allocator=std::allocator<std::pair<std::string,int>>,
-              GrowthPolicy=tsl::rh::power_of_two_growth_policy<2>,
-              P=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>
-          ]
+﻿  piecewise_container_class.cpp
      Создается библиотека C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Release\SVDCollocationAnalyzer.lib и объект C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Release\SVDCollocationAnalyzer.exp
 LINK : warning LNK4098: библиотека по умолчанию "MSVCRT" конфликтует с использованием других библиотек; используйте /NODEFAULTLIB:library
   Создание кода
-  Previous IPDB and IOBJ mismatch, fall back to full compilation.
-  All 429 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  0 of 429 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
 LINK : warning LNK4286: Символ "__stdio_common_vsprintf", определенный в "libucrtd.lib(output.obj)", импортирован "mdbx-static.lib(core.obj)".
 LINK : warning LNK4286: Символ "strncmp", определенный в "libucrtd.lib(strncmp.obj)", импортирован "mdbx-static.lib(core.obj)".

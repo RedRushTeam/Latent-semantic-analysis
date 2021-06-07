@@ -129,10 +129,6 @@ void piecewise_container_class::clear_vec()
 void piecewise_container_class::upload_vec()
 {
 	//method for Dima
-	string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms" + to_string(this->get_downloaded_range().first) + "-" + to_string(this->get_downloaded_range().second);
-	if (fs::exists(textname))
-		fs::remove(textname);
-
 	int rc;
 
 	MDBX_env* env = NULL;
@@ -141,87 +137,172 @@ void piecewise_container_class::upload_vec()
 	MDBX_txn* txn = NULL;
 	MDBX_cursor* cursor = NULL;
 
-	auto kolichestvo_zapisey = (this->get_downloaded_range().second - this->get_downloaded_range().first) * this->get_count_of_collocations() * this->get_k();
-	string _for_size = "99999!99999!4";
-	auto start_size = (sizeof(_for_size) + sizeof(now_type)) * kolichestvo_zapisey; //(длина ключа + длина числа) * на количество записей
+	auto zapisey_in_file = 10000000;
+	auto kolichestvo_zapisey = (this->get_downloaded_range().second - this->get_downloaded_range().first) * this->get_count_of_collocations() * (this->get_k()+1);
+	int number_of_full_files = kolichestvo_zapisey / zapisey_in_file;
+	
+	auto start_size = (sizeof(int) + sizeof(now_type)) * zapisey_in_file; //(длина ключа + длина числа) * на количество записей
+	int number_of_terms_in_one_file = zapisey_in_file / this->get_count_of_collocations() / (this->get_k() + 1);
+	int tails = number_of_full_files * number_of_terms_in_one_file; // начиная с этого значения запускается последний цикл
+	
+	for (int t = 0; t < number_of_full_files; t++)
+	{
 
-	/*СОЗДАНИЕ ФАЙЛА БД*/
-	rc = mdbx_env_create(&env);
-	if (rc)
-		this->bailout(rc, env, dbi, txn, cursor);
+		int left_term = number_of_terms_in_one_file * t;
+		int right_term = left_term + number_of_terms_in_one_file - 1;
+		string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms[" + to_string(left_term) + "-" + to_string(right_term) + "]";
+		if (fs::exists(textname))
+			fs::remove(textname);
 
-	/*ВЫДЕЛЕНИЕ ПАМЯТИ*/
-	rc = mdbx_env_set_geometry(env, start_size, -1, start_size * 4, -1, -1, -1); //место для поиска скорости
-	if (rc)
-		this->bailout(rc, env, dbi, txn, cursor);
+		/*СОЗДАНИЕ ФАЙЛА БД*/
+		rc = mdbx_env_create(&env);
+		if (rc)
+			this->bailout(rc, env, dbi, txn, cursor);
 
-	rc = mdbx_env_open(env, textname.c_str(),
-		MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM, 0664); //0664 - what is it ?
-	if (rc)
-		this->bailout(rc, env, dbi, txn, cursor);
+		/*ВЫДЕЛЕНИЕ ПАМЯТИ*/
+		rc = mdbx_env_set_geometry(env, start_size, -1, start_size * 10, -1, -1, -1); //место для поиска скорости
+		if (rc)
+			this->bailout(rc, env, dbi, txn, cursor);
+
+		rc = mdbx_env_open(env, textname.c_str(),
+			MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM | MDBX_UTTERLY_NOSYNC, 0664); //0664 - what is it ?
+		if (rc)
+			this->bailout(rc, env, dbi, txn, cursor);
 
 
-	rc = mdbx_txn_begin(env, NULL, MDBX_TXN_READWRITE, &txn);
-	if (rc)
-		this->bailout(rc, env, dbi, txn, cursor);
+		rc = mdbx_txn_begin(env, NULL, MDBX_TXN_READWRITE, &txn);
+		if (rc)
+			this->bailout(rc, env, dbi, txn, cursor);
 
-	rc = mdbx_dbi_open(txn, NULL, MDBX_DB_DEFAULTS, &dbi);
-	if (rc)
-		this->bailout(rc, env, dbi, txn, cursor);
+		rc = mdbx_dbi_open(txn, NULL, MDBX_DB_DEFAULTS, &dbi);
+		if (rc)
+			this->bailout(rc, env, dbi, txn, cursor);
 
-	int vec_idx = 0;
+		int vec_idx = t * number_of_terms_in_one_file * this->get_count_of_collocations() * (this->get_k()+1);
 
-	for (int i = this->get_downloaded_range().first; i <= this->get_downloaded_range().second; ++i)
-		for (int j = 0; j < this->get_count_of_collocations(); ++j)
-			for (int l = 0; l < this->get_k(); ++l) {
-				if ((vec_idx) && !(vec_idx % 10000)) { //подумать что должно быть тут и что во втором таком же
-					rc = mdbx_txn_begin(env, NULL, MDBX_TXN_READWRITE, &txn);
+		for (int i = left_term; i <= right_term; ++i)
+			for (int j = 0; j < this->get_count_of_collocations(); ++j)
+				for (int l = 0; l < this->get_k(); ++l) {
+					if ((vec_idx) && !(vec_idx % 100000)) {
+						rc = mdbx_txn_begin(env, NULL, MDBX_TXN_READWRITE, &txn);
+						if (rc)
+							this->bailout(rc, env, dbi, txn, cursor);
+					}
+
+					auto _index = collect_one_coordinate_from_three(i, j, l);
+					now_type _value = this->downloaded_vector[vec_idx];
+					
+
+					index.iov_len = sizeof(_index);
+					index.iov_base = &_index;
+					number.iov_len = sizeof(float);
+					number.iov_base = &_value;
+
+					rc = mdbx_put(txn, dbi, &index, &number, MDBX_UPSERT);
+
 					if (rc)
 						this->bailout(rc, env, dbi, txn, cursor);
-					//rc = mdbx_dbi_open(txn, NULL, MDBX_DB_DEFAULTS, &dbi);
+
+					vec_idx++;
+
+					if ((vec_idx) && !(vec_idx % 100000)) {
+						rc = mdbx_txn_commit(txn);
+						if (rc)
+							this->bailout(rc, env, dbi, txn, cursor);
+						txn = NULL;
+					}
+					
 				}
 
-				if (rc)
-					this->bailout(rc, env, dbi, txn, cursor);
+		if (txn != NULL)
+			rc = mdbx_txn_commit(txn);
+		if (rc)
+			this->bailout(rc, env, dbi, txn, cursor);
 
-				auto _index = i * this->get_count_of_collocations() * (this->get_k() + 1) + j * (this->get_k() + 1) + l;
-				now_type _value = this->downloaded_vector[vec_idx];
-				vec_idx++;
-				index.iov_len = sizeof(_index);
-				index.iov_base = &_index;
-				number.iov_len = sizeof(float);
-				number.iov_base = &_value;
+		_filenames[textname] = make_pair(left_term, right_term);
+	}
 
-				rc = mdbx_put(txn, dbi, &index, &number, MDBX_UPSERT);
+	if (tails <= this->downloaded_range.second) {
+		int left_term = tails;
+		int right_term = this->downloaded_range.second;
+		string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms[" + to_string(left_term) + "-" + to_string(right_term) + "]";
+		if (fs::exists(textname))
+			fs::remove(textname);
+		/*СОЗДАНИЕ ФАЙЛА БД*/
+		rc = mdbx_env_create(&env);
+		if (rc)
+			this->bailout(rc, env, dbi, txn, cursor);
 
-				if (rc)
-					this->bailout(rc, env, dbi, txn, cursor);
+		/*ВЫДЕЛЕНИЕ ПАМЯТИ*/
+		rc = mdbx_env_set_geometry(env, start_size, -1, start_size * 4, -1, -1, -1); //место для поиска скорости
+		if (rc)
+			this->bailout(rc, env, dbi, txn, cursor);
 
-				if ((vec_idx) && !(vec_idx % 10000)) {
-					rc = mdbx_txn_commit(txn);
-					txn = NULL;
+		rc = mdbx_env_open(env, textname.c_str(),
+			MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM | MDBX_UTTERLY_NOSYNC, 0664); //0664 - what is it ?
+		if (rc)
+			this->bailout(rc, env, dbi, txn, cursor);
+
+
+		rc = mdbx_txn_begin(env, NULL, MDBX_TXN_READWRITE, &txn);
+		if (rc)
+			this->bailout(rc, env, dbi, txn, cursor);
+
+		rc = mdbx_dbi_open(txn, NULL, MDBX_DB_DEFAULTS, &dbi);
+		if (rc)
+			this->bailout(rc, env, dbi, txn, cursor);
+
+		int vec_idx = number_of_full_files * number_of_terms_in_one_file * this->get_count_of_collocations() * (this->get_k() + 1);
+
+		for (int i = left_term; i <= right_term; ++i)
+			for (int j = 0; j < this->get_count_of_collocations(); ++j)
+				for (int l = 0; l < this->get_k(); ++l) {
+					if ((vec_idx) && !(vec_idx % 10000)) {
+						rc = mdbx_txn_begin(env, NULL, MDBX_TXN_READWRITE, &txn);
+						if (rc)
+							this->bailout(rc, env, dbi, txn, cursor);
+					}
+
+					auto _index = collect_one_coordinate_from_three(i, j, l);
+					now_type _value = this->downloaded_vector[vec_idx];
+					vec_idx++;
+
+					index.iov_len = sizeof(_index);
+					index.iov_base = &_index;
+					number.iov_len = sizeof(float);
+					number.iov_base = &_value;
+
+					rc = mdbx_put(txn, dbi, &index, &number, MDBX_UPSERT);
+
+					if (rc)
+						this->bailout(rc, env, dbi, txn, cursor);
+
+					if ((vec_idx) && !(vec_idx % 10000)) {
+						rc = mdbx_txn_commit(txn);
+						if (rc)
+							this->bailout(rc, env, dbi, txn, cursor);
+						txn = NULL;
+					}
 				}
 
-				if (rc)
-					this->bailout(rc, env, dbi, txn, cursor);
-			}
+		if (txn != NULL)
+			rc = mdbx_txn_commit(txn);
+		if (rc)
+			this->bailout(rc, env, dbi, txn, cursor);
 
-	if (txn != NULL)
-		rc = mdbx_txn_commit(txn);
-	if (rc)
-		this->bailout(rc, env, dbi, txn, cursor);
+		_filenames[textname] = make_pair(left_term, right_term);
+		
 
-	_filenames[textname] = this->downloaded_range;
-
+	}
 	this->downloaded_range = make_pair(-1, -1);
-	this->downloaded_vector.clear();
+	//this->downloaded_vector.clear();
 }
 
 void piecewise_container_class::download_vec(pair<int, int> frames)
 {
 	this->downloaded_range = frames;
 
-	string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms" + to_string(this->get_downloaded_range().first) + "-" + to_string(this->get_downloaded_range().second);
+	string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms[" + to_string(this->get_downloaded_range().first) + "-" + to_string(this->get_downloaded_range().second) + "]";
 	
 	if (!fs::exists(textname))
 		return;
@@ -244,7 +325,7 @@ void piecewise_container_class::download_vec(pair<int, int> frames)
 		this->bailout(rc, env, dbi, txn, cursor);
 
 	rc = mdbx_env_open(env, textname.c_str(),
-		MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM, 7777);
+		MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM | MDBX_UTTERLY_NOSYNC, 7777);
 	if (rc)
 		this->bailout(rc, env, dbi, txn, cursor);
 
@@ -265,7 +346,7 @@ void piecewise_container_class::download_vec(pair<int, int> frames)
 	for (int i = this->get_downloaded_range().first; i <= this->get_downloaded_range().second; ++i)
 		for (int j = 0; j < this->get_count_of_collocations(); ++j)
 			for (int l = 0; l <= this->get_k(); ++l) {
-				auto _index = i * this->get_count_of_collocations() * (this->get_k() + 1) + j * (this->get_k() + 1) + l;
+				auto _index = collect_one_coordinate_from_three(i, j, l);
 				index.iov_base = &_index;
 				index.iov_len = sizeof(int);
 				number.iov_base = &_value;

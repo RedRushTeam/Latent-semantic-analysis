@@ -1,4 +1,85 @@
-﻿  piecewise_container_class.cpp
+﻿  analyzer.cpp
+  container_class_interface.cpp
+  list_of_functions.cpp
+  main.cpp
+  math_core.cpp
+  parser.cpp
+  piecewise_container_class.cpp
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\list_of_functions.cpp(11,94): warning C4307: "*": переполнение целой константы со знаком
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\list_of_functions.cpp(84,23): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\list_of_functions.cpp(149,43): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\list_of_functions.cpp(149,74): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\list_of_functions.cpp(78,12): warning C4101: l: неиспользованная локальная переменная
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\math_core.h(8,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных (компилируется исходный файл math_core.cpp)
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\math_core.cpp(8,9): warning C4244: return: преобразование "int" в "now_type", возможна потеря данных
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(23,11): warning C4477: "printf": в строке форматирования "%s" требуется аргумент типа "char *", но вариативный аргумент "1" имеет тип "int"
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(23,11): warning C4313: printf: конфликт "%s" в строке формата с аргументом 1 типа "int"
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(44,77): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\math_core.h(8,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных (компилируется исходный файл main.cpp)
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(64,113): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(87,126): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(251,133): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30037\include\utility(249,55): warning C4267: инициализация: преобразование из "size_t" в "_Ty2"; возможна потеря данных
+          with
+          [
+              _Ty2=int
+          ] (компилируется исходный файл analyzer.cpp)
+C:\tsl\include\robin_hash.h(790): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<Key,T>::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64,0>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64> &&) noexcept"
+          with
+          [
+              Key=std::string,
+              T=int
+          ] (компилируется исходный файл analyzer.cpp)
+C:\tsl\include\robin_hash.h(791): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<Key,T>::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64,0>(std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64> &&) noexcept"
+          with
+          [
+              Key=std::string,
+              T=int
+          ] (компилируется исходный файл analyzer.cpp)
+C:\tsl\include\robin_map.h(240): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<tsl::detail_robin_hash::robin_hash<std::pair<Key,T>,tsl::robin_map<Key,T,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<Key,T>>,false,tsl::rh::power_of_two_growth_policy<2>>::KeySelect,tsl::robin_map<Key,T,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<Key,T>>,false,tsl::rh::power_of_two_growth_policy<2>>::ValueSelect,Hash,KeyEqual,Allocator,false,GrowthPolicy>::robin_iterator<false>,bool> tsl::detail_robin_hash::robin_hash<std::pair<Key,T>,tsl::robin_map<Key,T,Hash,KeyEqual,Allocator,false,GrowthPolicy>::KeySelect,tsl::robin_map<Key,T,Hash,KeyEqual,Allocator,false,GrowthPolicy>::ValueSelect,Hash,KeyEqual,Allocator,false,GrowthPolicy>::emplace<_Ty>(_Ty &&)"
+          with
+          [
+              Key=std::string,
+              T=int,
+              Hash=std::hash<std::string>,
+              KeyEqual=std::equal_to<std::string>,
+              Allocator=std::allocator<std::pair<std::string,int>>,
+              GrowthPolicy=tsl::rh::power_of_two_growth_policy<2>,
+              _Ty=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>
+          ] (компилируется исходный файл analyzer.cpp)
+C:\tsl\include\robin_map.h(240): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<tsl::detail_robin_hash::robin_hash<std::pair<Key,T>,tsl::robin_map<Key,T,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<Key,T>>,false,tsl::rh::power_of_two_growth_policy<2>>::KeySelect,tsl::robin_map<Key,T,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<Key,T>>,false,tsl::rh::power_of_two_growth_policy<2>>::ValueSelect,Hash,KeyEqual,Allocator,false,GrowthPolicy>::robin_iterator<false>,bool> tsl::detail_robin_hash::robin_hash<std::pair<Key,T>,tsl::robin_map<Key,T,Hash,KeyEqual,Allocator,false,GrowthPolicy>::KeySelect,tsl::robin_map<Key,T,Hash,KeyEqual,Allocator,false,GrowthPolicy>::ValueSelect,Hash,KeyEqual,Allocator,false,GrowthPolicy>::emplace<_Ty>(_Ty &&)"
+          with
+          [
+              Key=std::string,
+              T=int,
+              Hash=std::hash<std::string>,
+              KeyEqual=std::equal_to<std::string>,
+              Allocator=std::allocator<std::pair<std::string,int>>,
+              GrowthPolicy=tsl::rh::power_of_two_growth_policy<2>,
+              _Ty=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>
+          ] (компилируется исходный файл analyzer.cpp)
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(38): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<tsl::detail_robin_hash::robin_hash<std::pair<Key,T>,tsl::robin_map<Key,T,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<Key,T>>,false,tsl::rh::power_of_two_growth_policy<2>>::KeySelect,tsl::robin_map<Key,T,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<Key,T>>,false,tsl::rh::power_of_two_growth_policy<2>>::ValueSelect,Hash,KeyEqual,Allocator,false,GrowthPolicy>::robin_iterator<false>,bool> tsl::robin_map<Key,T,Hash,KeyEqual,Allocator,false,GrowthPolicy>::insert<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>,0x0>(P &&)"
+          with
+          [
+              Key=std::string,
+              T=int,
+              Hash=std::hash<std::string>,
+              KeyEqual=std::equal_to<std::string>,
+              Allocator=std::allocator<std::pair<std::string,int>>,
+              GrowthPolicy=tsl::rh::power_of_two_growth_policy<2>,
+              P=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>
+          ]
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(38): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::pair<tsl::detail_robin_hash::robin_hash<std::pair<Key,T>,tsl::robin_map<Key,T,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<Key,T>>,false,tsl::rh::power_of_two_growth_policy<2>>::KeySelect,tsl::robin_map<Key,T,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<Key,T>>,false,tsl::rh::power_of_two_growth_policy<2>>::ValueSelect,Hash,KeyEqual,Allocator,false,GrowthPolicy>::robin_iterator<false>,bool> tsl::robin_map<Key,T,Hash,KeyEqual,Allocator,false,GrowthPolicy>::insert<std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>,0x0>(P &&)"
+          with
+          [
+              Key=std::string,
+              T=int,
+              Hash=std::hash<std::string>,
+              KeyEqual=std::equal_to<std::string>,
+              Allocator=std::allocator<std::pair<std::string,int>>,
+              GrowthPolicy=tsl::rh::power_of_two_growth_policy<2>,
+              P=std::pair<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64>
+          ]
   mdbx-static.lib(core.obj) : найден .netmodule MSIL или модуль, откомпилированный с параметром /GL; перезапускается компоновка с параметром /LTCG; добавьте /LTCG в командную строку компоновки для повышения производительности компоновщика
 LINK : warning LNK4075: не учитывается "/INCREMENTAL" из-за спецификации "/LTCG"
      Создается библиотека C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.lib и объект C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.exp
@@ -16,7 +97,7 @@ re2.lib(bitstate.obj) : warning LNK4099: "re2.pdb" PDB не найден с "re2
 re2.lib(compile.obj) : warning LNK4099: "re2.pdb" PDB не найден с "re2.lib(compile.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\re2.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 re2.lib(dfa.obj) : warning LNK4099: "re2.pdb" PDB не найден с "re2.lib(dfa.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\re2.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 re2.lib(nfa.obj) : warning LNK4099: "re2.pdb" PDB не найден с "re2.lib(nfa.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\re2.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
-re2.lib(onepass.obj) : warning LNK4099: "" PDB не найден с "re2.lib(onepass.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+re2.lib(onepass.obj) : warning LNK4099: "re2.pdb" PDB не найден с "re2.lib(onepass.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\re2.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 re2.lib(parse.obj) : warning LNK4099: "re2.pdb" PDB не найден с "re2.lib(parse.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\re2.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 re2.lib(perl_groups.obj) : warning LNK4099: "re2.pdb" PDB не найден с "re2.lib(perl_groups.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\re2.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 re2.lib(prog.obj) : warning LNK4099: "re2.pdb" PDB не найден с "re2.lib(prog.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\re2.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
@@ -25,18 +106,18 @@ re2.lib(regexp.obj) : warning LNK4099: "re2.pdb" PDB не найден с "re2.l
 re2.lib(simplify.obj) : warning LNK4099: "re2.pdb" PDB не найден с "re2.lib(simplify.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\re2.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 re2.lib(stringpiece.obj) : warning LNK4099: "re2.pdb" PDB не найден с "re2.lib(stringpiece.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\re2.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 re2.lib(tostring.obj) : warning LNK4099: "re2.pdb" PDB не найден с "re2.lib(tostring.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\re2.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
-re2.lib(unicode_casefold.obj) : warning LNK4099: "" PDB не найден с "re2.lib(unicode_casefold.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+re2.lib(unicode_casefold.obj) : warning LNK4099: "re2.pdb" PDB не найден с "re2.lib(unicode_casefold.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\re2.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 re2.lib(unicode_groups.obj) : warning LNK4099: "re2.pdb" PDB не найден с "re2.lib(unicode_groups.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\re2.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 re2.lib(rune.obj) : warning LNK4099: "re2.pdb" PDB не найден с "re2.lib(rune.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\re2.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 re2.lib(strutil.obj) : warning LNK4099: "re2.pdb" PDB не найден с "re2.lib(strutil.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\re2.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
-bit7z64.lib(Alloc.obj) : warning LNK4099: "bit7z64_d.pdb" PDB не найден с "bit7z64.lib(Alloc.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\bit7z64_d.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
+bit7z64.lib(Alloc.obj) : warning LNK4099: "" PDB не найден с "bit7z64.lib(Alloc.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
 bit7z64.lib(FileDir.obj) : warning LNK4099: "bit7z64_d.pdb" PDB не найден с "bit7z64.lib(FileDir.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\bit7z64_d.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 bit7z64.lib(FileFind.obj) : warning LNK4099: "bit7z64_d.pdb" PDB не найден с "bit7z64.lib(FileFind.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\bit7z64_d.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 bit7z64.lib(FileIO.obj) : warning LNK4099: "bit7z64_d.pdb" PDB не найден с "bit7z64.lib(FileIO.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\bit7z64_d.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 bit7z64.lib(FileName.obj) : warning LNK4099: "bit7z64_d.pdb" PDB не найден с "bit7z64.lib(FileName.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\bit7z64_d.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 bit7z64.lib(FileStreams.obj) : warning LNK4099: "bit7z64_d.pdb" PDB не найден с "bit7z64.lib(FileStreams.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\bit7z64_d.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 bit7z64.lib(IntToString.obj) : warning LNK4099: "bit7z64_d.pdb" PDB не найден с "bit7z64.lib(IntToString.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\bit7z64_d.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
-bit7z64.lib(MyString.obj) : warning LNK4099: "" PDB не найден с "bit7z64.lib(MyString.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+bit7z64.lib(MyString.obj) : warning LNK4099: "bit7z64_d.pdb" PDB не найден с "bit7z64.lib(MyString.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\bit7z64_d.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 bit7z64.lib(StreamObjects.obj) : warning LNK4099: "bit7z64_d.pdb" PDB не найден с "bit7z64.lib(StreamObjects.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\bit7z64_d.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 bit7z64.lib(bit7zlibrary.obj) : warning LNK4099: "bit7z64_d.pdb" PDB не найден с "bit7z64.lib(bit7zlibrary.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\bit7z64_d.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
 bit7z64.lib(bitarchivecreator.obj) : warning LNK4099: "bit7z64_d.pdb" PDB не найден с "bit7z64.lib(bitarchivecreator.obj)" или на "C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\bit7z64_d.pdb"; компоновка объекта выполняется как при отсутствии отладочных данных
