@@ -1,4 +1,4 @@
-#pragma once 
+п»ї#pragma once 
 #include "piecewise_container_class.h"
 
 void piecewise_container_class::increment(int first_dimension, int second_dimension, int third_dimension)
@@ -111,15 +111,16 @@ shared_ptr<container_class_interface> piecewise_container_class::operator/(now_t
 
 void piecewise_container_class::bailout(int rc, MDBX_env* env, MDBX_dbi dbi, MDBX_txn* txn, MDBX_cursor* cursor)
 {
-		fprintf(stderr, "mdbx_env_open: (%d) %s\n", rc, mdbx_strerror(rc));
-		if (cursor)
-			mdbx_cursor_close(cursor);
-		if (txn)
-			mdbx_txn_abort(txn);
-		if (!dbi)
-			mdbx_dbi_close(env, dbi);
-		if (env)
-			mdbx_env_close(env);}
+	fprintf(stderr, "mdbx_env_open: (%d) %s\n", rc, mdbx_strerror(rc));
+	if (cursor)
+		mdbx_cursor_close(cursor);
+	if (txn)
+		mdbx_txn_abort(txn);
+	if (!dbi)
+		mdbx_dbi_close(env, dbi);
+	if (env)
+		mdbx_env_close(env);
+}
 
 void piecewise_container_class::clear_vec()
 {
@@ -138,34 +139,31 @@ void piecewise_container_class::upload_vec()
 	MDBX_cursor* cursor = NULL;
 
 	auto zapisey_in_file = 10000000;
-	auto kolichestvo_zapisey = (this->get_downloaded_range().second - this->get_downloaded_range().first) * this->get_count_of_collocations() * (this->get_k()+1);
-	int number_of_full_files = kolichestvo_zapisey / zapisey_in_file;
-	
-	auto start_size = (sizeof(int) + sizeof(now_type)) * zapisey_in_file; //(длина ключа + длина числа) * на количество записей
-	int number_of_terms_in_one_file = zapisey_in_file / this->get_count_of_collocations() / (this->get_k() + 1);
-	int tails = number_of_full_files * number_of_terms_in_one_file; // начиная с этого значения запускается последний цикл
-	
+	size_t kolichestvo_zapisey = ((size_t)this->get_downloaded_range().second - (size_t)this->get_downloaded_range().first) * (size_t)this->get_count_of_collocations() * ((size_t)this->get_k() + 1);
+	size_t number_of_full_files = kolichestvo_zapisey / zapisey_in_file;
+
+	size_t start_size = (sizeof(int) + sizeof(now_type)) * zapisey_in_file;
+	size_t number_of_terms_in_one_file = zapisey_in_file / this->get_count_of_collocations() / (this->get_k() + 1);
+	size_t tails = number_of_full_files * number_of_terms_in_one_file;
+
 	for (int t = 0; t < number_of_full_files; t++)
 	{
 
 		int left_term = number_of_terms_in_one_file * t;
 		int right_term = left_term + number_of_terms_in_one_file - 1;
 		string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms[" + to_string(left_term) + "-" + to_string(right_term) + "]";
-		if (fs::exists(textname))
-			fs::remove(textname);
+		list_of_functions::delete_file_for_path(textname);
 
-		/*СОЗДАНИЕ ФАЙЛА БД*/
 		rc = mdbx_env_create(&env);
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
-		/*ВЫДЕЛЕНИЕ ПАМЯТИ*/
-		rc = mdbx_env_set_geometry(env, start_size, -1, start_size * 10, -1, -1, -1); //место для поиска скорости
+		rc = mdbx_env_set_geometry(env, start_size, -1, start_size * 10, -1, -1, -1);
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
 		rc = mdbx_env_open(env, textname.c_str(),
-			MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM | MDBX_UTTERLY_NOSYNC, 0664); //0664 - what is it ?
+			MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM | MDBX_UTTERLY_NOSYNC, 0664);
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
@@ -178,7 +176,7 @@ void piecewise_container_class::upload_vec()
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
-		int vec_idx = t * number_of_terms_in_one_file * this->get_count_of_collocations() * (this->get_k()+1);
+		size_t vec_idx = t * number_of_terms_in_one_file * this->get_count_of_collocations() * ((size_t)this->get_k() + 1);
 
 		for (int i = left_term; i <= right_term; ++i)
 			for (int j = 0; j < this->get_count_of_collocations(); ++j)
@@ -191,7 +189,7 @@ void piecewise_container_class::upload_vec()
 
 					auto _index = collect_one_coordinate_from_three(i, j, l);
 					now_type _value = this->downloaded_vector[vec_idx];
-					
+
 
 					index.iov_len = sizeof(_index);
 					index.iov_base = &_index;
@@ -211,7 +209,7 @@ void piecewise_container_class::upload_vec()
 							this->bailout(rc, env, dbi, txn, cursor);
 						txn = NULL;
 					}
-					
+
 				}
 
 		if (txn != NULL)
@@ -219,30 +217,31 @@ void piecewise_container_class::upload_vec()
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
-		_filenames[textname] = make_pair(left_term, right_term);
+		this->bailout(rc, env, dbi, txn, cursor);
+		list_of_functions::compress_file_for_path(textname);
+		list_of_functions::delete_file_for_path(textname);
+
+		_filenames[textname + ".7z"] = make_pair(left_term, right_term);
 	}
 
 	if (tails <= this->downloaded_range.second) {
 		int left_term = tails;
 		int right_term = this->downloaded_range.second;
 		string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms[" + to_string(left_term) + "-" + to_string(right_term) + "]";
-		if (fs::exists(textname))
-			fs::remove(textname);
-		/*СОЗДАНИЕ ФАЙЛА БД*/
+		list_of_functions::delete_file_for_path(textname);
+
 		rc = mdbx_env_create(&env);
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
-		/*ВЫДЕЛЕНИЕ ПАМЯТИ*/
-		rc = mdbx_env_set_geometry(env, start_size, -1, start_size * 4, -1, -1, -1); //место для поиска скорости
+		rc = mdbx_env_set_geometry(env, start_size, -1, start_size * 4, -1, -1, -1);
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
 		rc = mdbx_env_open(env, textname.c_str(),
-			MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM | MDBX_UTTERLY_NOSYNC, 0664); //0664 - what is it ?
+			MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM | MDBX_UTTERLY_NOSYNC, 0664);
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
-
 
 		rc = mdbx_txn_begin(env, NULL, MDBX_TXN_READWRITE, &txn);
 		if (rc)
@@ -252,7 +251,7 @@ void piecewise_container_class::upload_vec()
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
-		int vec_idx = number_of_full_files * number_of_terms_in_one_file * this->get_count_of_collocations() * (this->get_k() + 1);
+		size_t vec_idx = number_of_full_files * number_of_terms_in_one_file * this->get_count_of_collocations() * ((size_t)this->get_k() + 1);
 
 		for (int i = left_term; i <= right_term; ++i)
 			for (int j = 0; j < this->get_count_of_collocations(); ++j)
@@ -290,26 +289,28 @@ void piecewise_container_class::upload_vec()
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
-		_filenames[textname] = make_pair(left_term, right_term);
-		
+		list_of_functions::compress_file_for_path(textname);
+		list_of_functions::delete_file_for_path(textname);
 
+		_filenames[textname + ".7z"] = make_pair(left_term, right_term);
 	}
+
 	this->downloaded_range = make_pair(-1, -1);
-	//this->downloaded_vector.clear();
 }
 
 void piecewise_container_class::download_vec(pair<int, int> frames)
-{
+{	
 	this->downloaded_range = frames;
 
 	string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms[" + to_string(this->get_downloaded_range().first) + "-" + to_string(this->get_downloaded_range().second) + "]";
-	
+
+	list_of_functions::decompress_file_for_path(textname + ".7z");
+	list_of_functions::delete_file_for_path(textname + ".7z");
+
 	if (!fs::exists(textname))
 		return;
 
 	//here must be a checking of possibility to write slice into RAM
-
-	//////////////////////////// ТРАНЗАКЦИЯ ПОЛУЧЕНИЯ ДАННЫХ ИЗ БАЗЫ
 
 	int rc;
 	float _value = 0.0;
@@ -366,7 +367,7 @@ void piecewise_container_class::download_vec(pair<int, int> frames)
 
 bool piecewise_container_class::is_data_for_this_colloc_downloaded(int first_dimension, int second_dimension, int third_dimension)
 {
-	if(this->downloaded_range.first < first_dimension && (this->downloaded_range.second > first_dimension))
+	if (this->downloaded_range.first < first_dimension && (this->downloaded_range.second > first_dimension))
 		return true;
 
 	return false;
@@ -375,6 +376,11 @@ bool piecewise_container_class::is_data_for_this_colloc_downloaded(int first_dim
 int piecewise_container_class::collect_one_coordinate_from_three(int first_dimension, int second_dimension, int third_dimension) const
 {
 	return first_dimension * this->get_count_of_collocations() * COLLOC_DIST + second_dimension * COLLOC_DIST + third_dimension;
+}
+
+void piecewise_container_class::fill_vector(now_type number_for_fill)
+{
+	fill(this->downloaded_vector.begin(), this->downloaded_vector.end(), number_for_fill);
 }
 
 void piecewise_container_class::set_downloaded_range(pair<int, int> downloaded_range)

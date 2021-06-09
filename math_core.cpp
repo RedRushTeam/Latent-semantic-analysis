@@ -93,7 +93,7 @@ void math_core::calculate_sample_mean()
 		}
 
 		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_sample_mean_all())->upload_vec();
-		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_sample_mean_all())->clear_vec();
+		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_sample_mean_all())->fill_vector((now_type)0.0);
 		//dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_sample_mean_all())->download_vec(make_pair(0, 502));
 		
 	}

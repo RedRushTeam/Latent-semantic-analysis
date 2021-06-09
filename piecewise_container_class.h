@@ -42,6 +42,7 @@ public:
     void download_vec(pair<int, int> frames);
     bool is_data_for_this_colloc_downloaded(int first_dimension, int second_dimension, int third_dimension);
     int collect_one_coordinate_from_three(int first_dimension, int second_dimension, int third_dimension) const;
+    void fill_vector(now_type number_for_fill);
 
     //setters&getters
     void set_downloaded_range(pair<int, int> downloaded_range);
@@ -73,12 +74,10 @@ public:
     virtual shared_ptr<container_class_interface> operator/(shared_ptr<container_class_interface> dividor_class) override;
     virtual shared_ptr<container_class_interface> operator/(now_type _koef) override;
 
+private:
     //database closer instead of goto
     void bailout(int rc, MDBX_env* env, MDBX_dbi dbi, MDBX_txn* txn, MDBX_cursor* cursor);
 
-
-
-private:
     vector<now_type> downloaded_vector;
     pair<int, int> downloaded_range;
     int downloaded_text;

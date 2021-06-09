@@ -178,7 +178,6 @@
   <ItemGroup>
     <ClInclude Include="analyzer.h" />
     <ClInclude Include="container_class_interface.h" />
-    <ClInclude Include="Header.h" />
     <ClInclude Include="list_of_functions.h" />
     <ClInclude Include="list_of_types.h" />
     <ClInclude Include="math_core.h" />
