@@ -66,7 +66,8 @@ void piecewise_container_class::operator+=(now_type _num)
 
 void piecewise_container_class::operator-=(shared_ptr<container_class_interface> summed_class)
 {
-
+	for (size_t i = 0; i < this->downloaded_vector.size(); ++i)
+		this->downloaded_vector[i] -= dynamic_pointer_cast<piecewise_container_class>(summed_class)->get_count_of_concret_collocation_with_one_coordinate(i);
 }
 
 void piecewise_container_class::operator-=(now_type _koef)
@@ -104,9 +105,9 @@ shared_ptr<container_class_interface> piecewise_container_class::operator/(share
 	return shared_ptr<container_class_interface>();
 }
 
-shared_ptr<container_class_interface> piecewise_container_class::operator/(now_type _koef)
+void piecewise_container_class::operator/(now_type _koef)
 {
-	return shared_ptr<container_class_interface>();
+	std::transform(this->downloaded_vector.begin(), this->downloaded_vector.end(), this->downloaded_vector.begin(), [&](now_type obj) {return obj /= _koef; });
 }
 
 void piecewise_container_class::bailout(int rc, MDBX_env* env, MDBX_dbi dbi, MDBX_txn* txn, MDBX_cursor* cursor)
@@ -125,9 +126,10 @@ void piecewise_container_class::bailout(int rc, MDBX_env* env, MDBX_dbi dbi, MDB
 void piecewise_container_class::clear_vec()
 {
 	this->downloaded_vector.clear();
+	this->downloaded_range = make_pair(-1, -1);
 }
 
-void piecewise_container_class::upload_vec()
+void piecewise_container_class::upload_vec()	//ошибки с удалением
 {
 	//method for Dima
 	int rc;
@@ -294,13 +296,11 @@ void piecewise_container_class::upload_vec()
 
 		_filenames[textname + ".7z"] = make_pair(left_term, right_term);
 	}
-
-	this->downloaded_range = make_pair(-1, -1);
 }
 
-void piecewise_container_class::download_vec(pair<int, int> frames)
+void piecewise_container_class::download_vec()
 {	
-	this->downloaded_range = frames;
+	this->downloaded_range = this->downloaded_range;
 
 	string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms[" + to_string(this->get_downloaded_range().first) + "-" + to_string(this->get_downloaded_range().second) + "]";
 
@@ -381,6 +381,21 @@ int piecewise_container_class::collect_one_coordinate_from_three(int first_dimen
 void piecewise_container_class::fill_vector(now_type number_for_fill)
 {
 	fill(this->downloaded_vector.begin(), this->downloaded_vector.end(), number_for_fill);
+}
+
+now_type piecewise_container_class::get_count_of_concret_collocation_with_one_coordinate(size_t _i)
+{
+	return this->downloaded_vector.at(_i);
+}
+
+void piecewise_container_class::set_count_of_concret_collocation_with_one_coordinate(size_t _i, now_type _perem)
+{
+	this->downloaded_vector.at(_i) = _perem;
+}
+
+size_t piecewise_container_class::get_vector_size()
+{
+	return this->downloaded_vector.size();
 }
 
 void piecewise_container_class::set_downloaded_range(pair<int, int> downloaded_range)

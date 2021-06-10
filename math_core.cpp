@@ -52,6 +52,7 @@ int math_core::calculate_max_cont_size_without_rare_words_and_frequency_in_texts
 void math_core::calculate_max_cont_size()
 {
 	analyzer::create_lemmatizer();
+	analyzer::set_number_of_texts(this->vec_of_filepaths->size());
 	#pragma omp parallel 
 	{
 		#pragma omp for schedule(static)
@@ -92,42 +93,106 @@ void math_core::calculate_sample_mean()
 			}
 		}
 
+		(*dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_sample_mean_all())) /= ((now_type)this->vec_of_filepaths->size());
+
 		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_sample_mean_all())->upload_vec();
 		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_sample_mean_all())->fill_vector((now_type)0.0);
-		//dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_sample_mean_all())->download_vec(make_pair(0, 502));
-		
 	}
 
-	*(analyzer::get_container_sample_mean_all()) /= (now_type)this->vec_of_filepaths->size();
-
-	/*this->sample_mean_all = make_shared<piecewise_container_class> (COLLOC_DIST, this->max_cont_size);
-
-	for (int i = 0; this->vec_of_container_classes.size() > i; ++i)
-		*this->sample_mean_all += (vec_of_container_classes[i]);
-
-	*this->sample_mean_all /= (now_type)this->vec_of_container_classes.size();*/
+	dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_sample_mean_all())->clear_vec();
 }
 
 void math_core::calculate_mat_ozidanie()
 {
-	/*this->mat_ozidanie = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "zati4ka");
+	this->mat_ozidanie = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "zati4ka");
+	analyzer::set_container_mat_ozidanie(this->mat_ozidanie);
 
-	for (int i = 0; this->vec_of_filepaths->size() > i; ++i)
-		*this->mat_ozidanie += this->vec_of_container_classes[i];
+	for (int i = 0; i < this->number_of_slices; ++i) {
+		if (i + 1 == this->number_of_slices)
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(i * SIZE_OF_PIECE, this->max_cont_size));
+		else
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(i * SIZE_OF_PIECE, (i + 1) * SIZE_OF_PIECE));
 
-	*this->mat_ozidanie /= (now_type)this->divider(this->vec_of_filepaths->size() * (2 + 2 * COLLOC_DIST));*/
+		#pragma omp parallel 
+		{
+			#pragma omp for schedule(static)
+			for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
+				parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
+				auto result_of_parse = _parser.parse();
+				cout << i << " ";
+				analyzer _analyzer(result_of_parse);
+				_analyzer.calculate_mat_ozidanie();
+			}
+		}
+
+		(*dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())) /= ((now_type)this->divider(this->vec_of_filepaths->size() * (2 + 2 * COLLOC_DIST)));
+
+		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->upload_vec();
+		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->fill_vector((now_type)0.0);
+	}
+
+	dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->clear_vec();
 }
 
 void math_core::calculate_mat_disperse()
 {
-	/*this->mat_disperse = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "zati4ka");
+	this->mat_disperse = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "zati4ka");
+	analyzer::set_container_mat_disperse(this->mat_disperse);
 
-	for (int i = 0; this->vec_of_filepaths->size() > i; ++i)
-		*this->mat_disperse += vec_of_container_classes[i]->pow_all(2);
+	for (int i = 0; i < this->number_of_slices; ++i) {
+		if (i + 1 == this->number_of_slices)
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->set_downloaded_range(make_pair(i * SIZE_OF_PIECE, this->max_cont_size));
+		else
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->set_downloaded_range(make_pair(i * SIZE_OF_PIECE, (i + 1) * SIZE_OF_PIECE));
 
-	*this->mat_disperse /= (now_type)this->divider(this->vec_of_filepaths->size() * (2 + 2 * COLLOC_DIST));
+		#pragma omp parallel 
+		{
+			#pragma omp for schedule(static)
+			for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
+				parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
+				auto result_of_parse = _parser.parse();
+				cout << i << " ";
+				analyzer _analyzer(result_of_parse);
+				_analyzer.calculate_mat_disperse();
+			}
+		}
 
-	*this->mat_disperse -= this->mat_ozidanie->pow_all(2);*/
+		(*dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())) /= ((now_type)this->divider(this->vec_of_filepaths->size() * (2 + 2 * COLLOC_DIST)));
+
+		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->upload_vec();
+		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->fill_vector((now_type)0.0);
+	}
+
+	dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->clear_vec();
+
+	int now_size_of_peace = SIZE_OF_PIECE / 2;	//There may be data loss due to incorrect rounding
+	size_t size_of_slices = (int)ceil((float)this->max_cont_size / (float)now_size_of_peace);
+
+	for (int j = 0; j < size_of_slices; ++j) {
+		if (j + 1 == size_of_slices) {
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(j * now_size_of_peace, this->max_cont_size));
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->set_downloaded_range(make_pair(j * now_size_of_peace, this->max_cont_size));
+		}
+		else {
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(j * now_size_of_peace, (j + 1) * now_size_of_peace));
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->set_downloaded_range(make_pair(j * now_size_of_peace, (j + 1) * now_size_of_peace));
+		}
+
+		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->download_vec();
+		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->download_vec();
+
+		for (size_t i = 0; i < dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->get_vector_size(); ++i)
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->set_count_of_concret_collocation_with_one_coordinate(i, dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->get_count_of_concret_collocation_with_one_coordinate(i) - dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->get_count_of_concret_collocation_with_one_coordinate(i) * dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->get_count_of_concret_collocation_with_one_coordinate(i));
+	
+		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->upload_vec();
+		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->upload_vec();
+
+		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->fill_vector((now_type)0.0);
+		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->fill_vector((now_type)0.0);
+	}
+
+	dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->clear_vec();
+	dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->clear_vec();
 }
 
 void math_core::calculate_sredne_kv_otklonenie()

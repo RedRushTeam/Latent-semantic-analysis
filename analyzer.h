@@ -22,6 +22,36 @@ namespace std
 	};
 }
 
+struct three_coordinate_structure {
+	int first_coord;
+	int second_coord;
+	short k;
+};
+
+namespace std
+{
+	template<> struct hash<three_coordinate_structure>
+	{
+		typedef three_coordinate_structure argument_type;
+		typedef std::size_t result_type;
+		result_type operator()(argument_type const& s) const noexcept
+		{
+			std::size_t seed = 0;
+			boost::hash_combine(seed, std::hash<int>{}(s.first_coord));
+			boost::hash_combine(seed, std::hash<int>{}(s.second_coord));
+			boost::hash_combine(seed, std::hash<short>{}(s.k));
+			return seed;
+		}
+	};
+}
+
+inline bool operator== (three_coordinate_structure lefty, three_coordinate_structure righty)
+{
+	if (lefty.first_coord == righty.first_coord && (lefty.second_coord == righty.second_coord) && (lefty.k == righty.k))
+		return true;
+	return false;
+};
+
 struct hash_word_and_number_of_appearances_structure {
 	std::size_t operator()(const word_and_number_of_appearances_structure& e) const {
 		std::size_t seed = 0;
@@ -97,6 +127,8 @@ public:
 	list<string>::iterator move_list_iterator(list<string>::iterator _it, int mover);
 	//methods for math calculate
 	void calculate_sample_mean_all();
+	void calculate_mat_ozidanie();
+	void calculate_mat_disperse();
 
 	//getters&&setters
 	static int get_k();
@@ -112,6 +144,10 @@ public:
 	//math getters and setters
 	static shared_ptr<container_class_interface> get_container_sample_mean_all();
 	static void set_container_sample_mean_all(shared_ptr<container_class_interface> _sample_mean_all);
+	static shared_ptr<container_class_interface> get_container_mat_ozidanie();
+	static void set_container_mat_ozidanie(shared_ptr<container_class_interface> _mat_ozidanie);
+	static shared_ptr<container_class_interface> get_container_mat_disperse();
+	static void set_container_mat_disperse(shared_ptr<container_class_interface> _mat_disperse);
 	//i think that now this unneded
 	shared_ptr<container_class_interface> get_container_class();
 	void set_container_class(shared_ptr<container_class_interface> _container_class);
@@ -135,6 +171,8 @@ private:
 
 	//math containers
 	static inline shared_ptr<container_class_interface> _sample_mean_all;
+	static inline shared_ptr<container_class_interface> _mat_ozidanie;
+	static inline shared_ptr<container_class_interface> _mat_disperse;
 
 	//dictionaries
 	static inline tsl::robin_map<string, int> map_of_tokens_WORD_TOKEN;
