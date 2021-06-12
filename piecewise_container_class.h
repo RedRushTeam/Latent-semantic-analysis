@@ -39,9 +39,13 @@ public:
     //methods
     void clear_vec();
     void upload_vec();
-    void download_vec(pair<int, int> frames);
+    void download_vec();
     bool is_data_for_this_colloc_downloaded(int first_dimension, int second_dimension, int third_dimension);
     int collect_one_coordinate_from_three(int first_dimension, int second_dimension, int third_dimension) const;
+    void fill_vector(now_type number_for_fill);
+    now_type get_count_of_concret_collocation_with_one_coordinate(size_t _i);
+    void set_count_of_concret_collocation_with_one_coordinate(size_t _i, now_type _perem);
+    size_t get_vector_size();
 
     //setters&getters
     void set_downloaded_range(pair<int, int> downloaded_range);
@@ -63,7 +67,7 @@ public:
     virtual shared_ptr<container_class_interface> operator-(now_type _num) override;
     virtual void operator+=(shared_ptr<container_class_interface> summed_class) override;
     virtual void operator+=(now_type _num) override;
-    virtual void operator-=(shared_ptr<container_class_interface> summed_class) override;
+    virtual void operator-=(shared_ptr<container_class_interface> deductible_class) override;
     virtual void operator/=(now_type _num) override;
     virtual void operator-=(now_type _koef) override;
     virtual bool operator==(shared_ptr<container_class_interface> compared_class) override;
@@ -71,14 +75,12 @@ public:
     virtual shared_ptr<container_class_interface> operator*(shared_ptr<container_class_interface> multipliable_class) override;
     virtual shared_ptr<container_class_interface> operator*(now_type _koef) override;
     virtual shared_ptr<container_class_interface> operator/(shared_ptr<container_class_interface> dividor_class) override;
-    virtual shared_ptr<container_class_interface> operator/(now_type _koef) override;
+    virtual void operator/(now_type _koef) override;
 
+private:
     //database closer instead of goto
     void bailout(int rc, MDBX_env* env, MDBX_dbi dbi, MDBX_txn* txn, MDBX_cursor* cursor);
 
-
-
-private:
     vector<now_type> downloaded_vector;
     pair<int, int> downloaded_range;
     int downloaded_text;

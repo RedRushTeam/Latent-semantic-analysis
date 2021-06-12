@@ -287,6 +287,92 @@ void analyzer::calculate_sample_mean_all()
 	}
 }
 
+void analyzer::calculate_mat_ozidanie()
+{
+	this->lemmatize_all_words();
+
+	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
+		#pragma omp critical (maps_into_analyzer)
+		{
+			for (int i = -COLLOC_DIST - 1; i <= COLLOC_DIST + 1; ++i)
+				if (i != 0) {
+					auto now_it = this->move_list_iterator(it, i);
+					if (now_it == this->list_of_all_lemmatized_text->end())
+						continue;
+
+					word_and_number_of_appearances_structure _key = { *it, 1, 1 };
+					word_and_number_of_appearances_structure __key = { *now_it, 1, 1 };
+
+					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+						continue;
+
+					int first_index = (*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)).second;	//обращение к критическому ресурсу		//быть может, тут не нужна потокобезопасность?
+
+					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+						continue;
+
+					if (i > 0)
+						this->_mat_ozidanie->summ_for_concret_colloc(first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, i - 1, (now_type)1.);	//обращение к критическому ресурсу
+					else
+						this->_mat_ozidanie->summ_for_concret_colloc(first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, abs(i) - 1, (now_type)1.);	//обращение к критическому ресурсу				
+				}
+		}
+	}
+}
+
+void analyzer::calculate_mat_disperse()
+{
+	this->lemmatize_all_words();
+
+	tsl::robin_map<three_coordinate_structure, int> map_of_tokens_TOKEN_DATA;
+
+	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
+		#pragma omp critical (maps_into_analyzer)
+		{
+			for (int i = -COLLOC_DIST - 1; i <= COLLOC_DIST + 1; ++i)
+				if (i != 0) {
+					auto now_it = this->move_list_iterator(it, i);
+					if (now_it == this->list_of_all_lemmatized_text->end())
+						continue;
+
+					word_and_number_of_appearances_structure _key = { *it, 1, 1 };
+					word_and_number_of_appearances_structure __key = { *now_it, 1, 1 };
+
+					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+						continue;
+
+					int first_index = (*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)).second;	//обращение к критическому ресурсу		//быть может, тут не нужна потокобезопасность?
+
+					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+						continue;
+
+					if (i > 0) {
+						three_coordinate_structure ___key = { first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, i - 1 };
+						auto iter_ = map_of_tokens_TOKEN_DATA.find(___key);
+						if (iter_ == map_of_tokens_TOKEN_DATA.end())
+							map_of_tokens_TOKEN_DATA[___key] = (now_type)1.;
+						else
+							iter_.value() = iter_.value() + 1;
+					}
+					else {			
+						three_coordinate_structure ___key = { first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, abs(i) - 1 };
+						auto iter_ = map_of_tokens_TOKEN_DATA.find(___key);
+						if (iter_ == map_of_tokens_TOKEN_DATA.end())
+							map_of_tokens_TOKEN_DATA[___key] = (now_type)1.;
+						else
+							iter_.value() = iter_.value() + 1;
+					}
+				}
+		}
+	}
+
+	#pragma omp critical (mat_disperse_container)
+	{
+		for (auto& obj : map_of_tokens_TOKEN_DATA)
+			this->_mat_disperse->summ_for_concret_colloc(obj.first.first_coord, obj.first.second_coord, obj.first.k, obj.second * obj.second);
+	}
+}
+
 void analyzer::analyze_vec_of_tokens()	//метод с ошибкой	//да и не нужен он
 {
 	this->lemmatize_all_words();
@@ -478,4 +564,24 @@ shared_ptr<container_class_interface> analyzer::get_container_sample_mean_all()
 void analyzer::set_container_sample_mean_all(shared_ptr<container_class_interface> _sample_mean_all)
 {
 	analyzer::_sample_mean_all = _sample_mean_all;
+}
+
+shared_ptr<container_class_interface> analyzer::get_container_mat_ozidanie()
+{
+	return analyzer::_mat_ozidanie;
+}
+
+void analyzer::set_container_mat_ozidanie(shared_ptr<container_class_interface> _mat_ozidanie)
+{
+	analyzer::_mat_ozidanie = _mat_ozidanie;
+}
+
+shared_ptr<container_class_interface> analyzer::get_container_mat_disperse()
+{
+	return analyzer::_mat_disperse;
+}
+
+void analyzer::set_container_mat_disperse(shared_ptr<container_class_interface> _mat_disperse)
+{
+	analyzer::_mat_disperse = _mat_disperse;
 }

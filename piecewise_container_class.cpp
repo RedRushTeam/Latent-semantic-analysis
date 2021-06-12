@@ -66,7 +66,8 @@ void piecewise_container_class::operator+=(now_type _num)
 
 void piecewise_container_class::operator-=(shared_ptr<container_class_interface> summed_class)
 {
-
+	for (size_t i = 0; i < this->downloaded_vector.size(); ++i)
+		this->downloaded_vector[i] -= dynamic_pointer_cast<piecewise_container_class>(summed_class)->get_count_of_concret_collocation_with_one_coordinate(i);
 }
 
 void piecewise_container_class::operator-=(now_type _koef)
@@ -104,9 +105,9 @@ shared_ptr<container_class_interface> piecewise_container_class::operator/(share
 	return shared_ptr<container_class_interface>();
 }
 
-shared_ptr<container_class_interface> piecewise_container_class::operator/(now_type _koef)
+void piecewise_container_class::operator/(now_type _koef)
 {
-	return shared_ptr<container_class_interface>();
+	std::transform(this->downloaded_vector.begin(), this->downloaded_vector.end(), this->downloaded_vector.begin(), [&](now_type obj) {return obj /= _koef; });
 }
 
 void piecewise_container_class::bailout(int rc, MDBX_env* env, MDBX_dbi dbi, MDBX_txn* txn, MDBX_cursor* cursor)
@@ -125,9 +126,10 @@ void piecewise_container_class::bailout(int rc, MDBX_env* env, MDBX_dbi dbi, MDB
 void piecewise_container_class::clear_vec()
 {
 	this->downloaded_vector.clear();
+	this->downloaded_range = make_pair(-1, -1);
 }
 
-void piecewise_container_class::upload_vec()
+void piecewise_container_class::upload_vec()	//ошибки с удалением
 {
 	//method for Dima
 	int rc;
@@ -139,12 +141,12 @@ void piecewise_container_class::upload_vec()
 	MDBX_cursor* cursor = NULL;
 
 	auto zapisey_in_file = 10000000;
-	size_t kolichestvo_zapisey = (this->get_downloaded_range().second - this->get_downloaded_range().first) * this->get_count_of_collocations() * (this->get_k() + 1);
+	size_t kolichestvo_zapisey = ((size_t)this->get_downloaded_range().second - (size_t)this->get_downloaded_range().first) * (size_t)this->get_count_of_collocations() * ((size_t)this->get_k() + 1);
 	size_t number_of_full_files = kolichestvo_zapisey / zapisey_in_file;
 
-	size_t start_size = (sizeof(int) + sizeof(now_type)) * zapisey_in_file; //(äëèíà êëþ÷à + äëèíà ÷èñëà) * íà êîëè÷åñòâî çàïèñåé
+	size_t start_size = (sizeof(int) + sizeof(now_type)) * zapisey_in_file;
 	size_t number_of_terms_in_one_file = zapisey_in_file / this->get_count_of_collocations() / (this->get_k() + 1);
-	size_t tails = number_of_full_files * number_of_terms_in_one_file; // íà÷èíàÿ ñ ýòîãî çíà÷åíèÿ çàïóñêàåòñÿ ïîñëåäíèé öèêë
+	size_t tails = number_of_full_files * number_of_terms_in_one_file;
 
 	for (int t = 0; t < number_of_full_files; t++)
 	{
@@ -152,21 +154,18 @@ void piecewise_container_class::upload_vec()
 		int left_term = number_of_terms_in_one_file * t;
 		int right_term = left_term + number_of_terms_in_one_file - 1;
 		string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms[" + to_string(left_term) + "-" + to_string(right_term) + "]";
-		if (fs::exists(textname))
-			fs::remove(textname);
+		list_of_functions::delete_file_for_path(textname);
 
-		/*ÑÎÇÄÀÍÈÅ ÔÀÉËÀ ÁÄ*/
 		rc = mdbx_env_create(&env);
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
-		/*ÂÛÄÅËÅÍÈÅ ÏÀÌßÒÈ*/
-		rc = mdbx_env_set_geometry(env, -1, -1, start_size*100, -1, -1, -1); //ìåñòî äëÿ ïîèñêà ñêîðîñòè
+		rc = mdbx_env_set_geometry(env, start_size, -1, start_size * 10, -1, -1, -1);
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
 		rc = mdbx_env_open(env, textname.c_str(),
-			MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM | MDBX_UTTERLY_NOSYNC, 0664); //0664 - what is it ?
+			MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM | MDBX_UTTERLY_NOSYNC, 0664);
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
@@ -179,7 +178,7 @@ void piecewise_container_class::upload_vec()
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
-		size_t vec_idx = t * number_of_terms_in_one_file * this->get_count_of_collocations() * (this->get_k() + 1);
+		size_t vec_idx = t * number_of_terms_in_one_file * this->get_count_of_collocations() * ((size_t)this->get_k() + 1);
 
 		for (int i = left_term; i <= right_term; ++i)
 			for (int j = 0; j < this->get_count_of_collocations(); ++j)
@@ -220,30 +219,31 @@ void piecewise_container_class::upload_vec()
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
-		_filenames[textname] = make_pair(left_term, right_term);
+		this->bailout(rc, env, dbi, txn, cursor);
+		list_of_functions::compress_file_for_path(textname);
+		list_of_functions::delete_file_for_path(textname);
+
+		_filenames[textname + ".7z"] = make_pair(left_term, right_term);
 	}
 
 	if (tails <= this->downloaded_range.second) {
 		int left_term = tails;
 		int right_term = this->downloaded_range.second;
 		string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms[" + to_string(left_term) + "-" + to_string(right_term) + "]";
-		if (fs::exists(textname))
-			fs::remove(textname);
-		/*ÑÎÇÄÀÍÈÅ ÔÀÉËÀ ÁÄ*/
+		list_of_functions::delete_file_for_path(textname);
+
 		rc = mdbx_env_create(&env);
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
-		/*ÂÛÄÅËÅÍÈÅ ÏÀÌßÒÈ*/
-		rc = mdbx_env_set_geometry(env, start_size, -1, start_size * 4, -1, -1, -1); //ìåñòî äëÿ ïîèñêà ñêîðîñòè
+		rc = mdbx_env_set_geometry(env, start_size, -1, start_size * 4, -1, -1, -1);
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
 		rc = mdbx_env_open(env, textname.c_str(),
-			MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM | MDBX_UTTERLY_NOSYNC, 0664); //0664 - what is it ?
+			MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM | MDBX_UTTERLY_NOSYNC, 0664);
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
-
 
 		rc = mdbx_txn_begin(env, NULL, MDBX_TXN_READWRITE, &txn);
 		if (rc)
@@ -253,7 +253,7 @@ void piecewise_container_class::upload_vec()
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
-		size_t vec_idx = number_of_full_files * number_of_terms_in_one_file * this->get_count_of_collocations() * (this->get_k() + 1);
+		size_t vec_idx = number_of_full_files * number_of_terms_in_one_file * this->get_count_of_collocations() * ((size_t)this->get_k() + 1);
 
 		for (int i = left_term; i <= right_term; ++i)
 			for (int j = 0; j < this->get_count_of_collocations(); ++j)
@@ -291,26 +291,26 @@ void piecewise_container_class::upload_vec()
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
-		_filenames[textname] = make_pair(left_term, right_term);
+		list_of_functions::compress_file_for_path(textname);
+		list_of_functions::delete_file_for_path(textname);
 
-
+		_filenames[textname + ".7z"] = make_pair(left_term, right_term);
 	}
-	this->downloaded_range = make_pair(-1, -1);
-	//this->downloaded_vector.clear();
 }
 
-void piecewise_container_class::download_vec(pair<int, int> frames)
-{
-	this->downloaded_range = frames;
+void piecewise_container_class::download_vec()
+{	
+	this->downloaded_range = this->downloaded_range;
 
 	string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms[" + to_string(this->get_downloaded_range().first) + "-" + to_string(this->get_downloaded_range().second) + "]";
+
+	list_of_functions::decompress_file_for_path(textname + ".7z");
+	list_of_functions::delete_file_for_path(textname + ".7z");
 
 	if (!fs::exists(textname))
 		return;
 
 	//here must be a checking of possibility to write slice into RAM
-
-	//////////////////////////// ÒÐÀÍÇÀÊÖÈß ÏÎËÓ×ÅÍÈß ÄÀÍÍÛÕ ÈÇ ÁÀÇÛ
 
 	int rc;
 	float _value = 0.0;
@@ -376,6 +376,26 @@ bool piecewise_container_class::is_data_for_this_colloc_downloaded(int first_dim
 int piecewise_container_class::collect_one_coordinate_from_three(int first_dimension, int second_dimension, int third_dimension) const
 {
 	return first_dimension * this->get_count_of_collocations() * COLLOC_DIST + second_dimension * COLLOC_DIST + third_dimension;
+}
+
+void piecewise_container_class::fill_vector(now_type number_for_fill)
+{
+	fill(this->downloaded_vector.begin(), this->downloaded_vector.end(), number_for_fill);
+}
+
+now_type piecewise_container_class::get_count_of_concret_collocation_with_one_coordinate(size_t _i)
+{
+	return this->downloaded_vector.at(_i);
+}
+
+void piecewise_container_class::set_count_of_concret_collocation_with_one_coordinate(size_t _i, now_type _perem)
+{
+	this->downloaded_vector.at(_i) = _perem;
+}
+
+size_t piecewise_container_class::get_vector_size()
+{
+	return this->downloaded_vector.size();
 }
 
 void piecewise_container_class::set_downloaded_range(pair<int, int> downloaded_range)

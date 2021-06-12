@@ -94,10 +94,11 @@ constexpr auto STOP_WORD = 0 ;
 constexpr auto CUTOFF = 6;
 constexpr auto CUTOFF_FR_IN_TEXTS = 6;
 constexpr auto DELETE_THRESHOLD = 0.065;
+constexpr auto BIT_COMPRESSION_LEVEL = BitCompressionLevel::FASTEST;
 constexpr int FLAGS = LEME_FASTEST;
 
 constexpr auto LEMADR = "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db";
 //constexpr auto TEXTS_PATH = "A:\\rasp_puhl1";
-//constexpr auto TEXTS_PATH = "G:\\rasp_puhl";
-constexpr auto TEXTS_PATH = "C:\\txts";
-constexpr auto DB_PATH = "C:\\databases\\";
+constexpr auto TEXTS_PATH = "G:\\rasp_puhl";
+//constexpr auto TEXTS_PATH = "C:\\txts";
+constexpr auto DB_PATH = "A:\\databases\\";
