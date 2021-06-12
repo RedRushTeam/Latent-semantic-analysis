@@ -137,7 +137,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\re2\lib;C:\libmdbx\lib;C:\bit7z\lib;C:\SQLite;C:\SQLiteCPP\lib;C:\local\boost_1_75_0\lib64-msvc-14.2;C:\RGD\RussianGrammaticalDictionary\lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>re2.lib;mdbx-static.lib;bit7z64.lib;SQLiteCpp.lib;sqlite3.lib;boost_iostreams-vc142-mt-gd-x64-1_75.lib;lemmatizator.lib;Solarix_Grammar_Engine.lib;ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>re2.lib;mdbx-static.lib;bit7z64.lib;boost_iostreams-vc142-mt-gd-x64-1_75.lib;lemmatizator.lib;Solarix_Grammar_Engine.lib;ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -163,7 +163,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\re2\Rlib;C:\libmdbx\Rlib;C:\bit7z\Rlib;C:\SQLite;C:\SQLiteCPP\Rlib;C:\RGD\RussianGrammaticalDictionary\lib64;C:\local\boost_1_75_0\lib64-msvc-14.2;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>mdbx-static.lib;bit7z64.lib;re2.lib;SQLiteCpp.lib;sqlite3.lib;boost_iostreams-vc142-mt-gd-x64-1_75.lib;lemmatizator.lib;Solarix_Grammar_Engine.lib;ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>mdbx-static.lib;bit7z64.lib;re2.lib;boost_iostreams-vc142-mt-gd-x64-1_75.lib;lemmatizator.lib;Solarix_Grammar_Engine.lib;ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

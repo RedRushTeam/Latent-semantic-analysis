@@ -1,4 +1,4 @@
-#pragma once 
+Ôªø#pragma once 
 #include "piecewise_container_class.h"
 
 void piecewise_container_class::increment(int first_dimension, int second_dimension, int third_dimension)
@@ -111,15 +111,16 @@ shared_ptr<container_class_interface> piecewise_container_class::operator/(now_t
 
 void piecewise_container_class::bailout(int rc, MDBX_env* env, MDBX_dbi dbi, MDBX_txn* txn, MDBX_cursor* cursor)
 {
-		fprintf(stderr, "mdbx_env_open: (%d) %s\n", rc, mdbx_strerror(rc));
-		if (cursor)
-			mdbx_cursor_close(cursor);
-		if (txn)
-			mdbx_txn_abort(txn);
-		if (!dbi)
-			mdbx_dbi_close(env, dbi);
-		if (env)
-			mdbx_env_close(env);}
+	fprintf(stderr, "mdbx_env_open: (%d) %s\n", rc, mdbx_strerror(rc));
+	if (cursor)
+		mdbx_cursor_close(cursor);
+	if (txn)
+		mdbx_txn_abort(txn);
+	if (!dbi)
+		mdbx_dbi_close(env, dbi);
+	if (env)
+		mdbx_env_close(env);
+}
 
 void piecewise_container_class::clear_vec()
 {
@@ -138,13 +139,13 @@ void piecewise_container_class::upload_vec()
 	MDBX_cursor* cursor = NULL;
 
 	auto zapisey_in_file = 10000000;
-	auto kolichestvo_zapisey = (this->get_downloaded_range().second - this->get_downloaded_range().first) * this->get_count_of_collocations() * (this->get_k()+1);
-	int number_of_full_files = kolichestvo_zapisey / zapisey_in_file;
-	
-	auto start_size = (sizeof(int) + sizeof(now_type)) * zapisey_in_file; //(‰ÎËÌ‡ ÍÎ˛˜‡ + ‰ÎËÌ‡ ˜ËÒÎ‡) * Ì‡ ÍÓÎË˜ÂÒÚ‚Ó Á‡ÔËÒÂÈ
-	int number_of_terms_in_one_file = zapisey_in_file / this->get_count_of_collocations() / (this->get_k() + 1);
-	int tails = number_of_full_files * number_of_terms_in_one_file; // Ì‡˜ËÌ‡ˇ Ò ˝ÚÓ„Ó ÁÌ‡˜ÂÌËˇ Á‡ÔÛÒÍ‡ÂÚÒˇ ÔÓÒÎÂ‰ÌËÈ ˆËÍÎ
-	
+	size_t kolichestvo_zapisey = (this->get_downloaded_range().second - this->get_downloaded_range().first) * this->get_count_of_collocations() * (this->get_k() + 1);
+	size_t number_of_full_files = kolichestvo_zapisey / zapisey_in_file;
+
+	size_t start_size = (sizeof(int) + sizeof(now_type)) * zapisey_in_file; //(√§√´√®√≠√† √™√´√æ√∑√† + √§√´√®√≠√† √∑√®√±√´√†) * √≠√† √™√Æ√´√®√∑√•√±√≤√¢√Æ √ß√†√Ø√®√±√•√©
+	size_t number_of_terms_in_one_file = zapisey_in_file / this->get_count_of_collocations() / (this->get_k() + 1);
+	size_t tails = number_of_full_files * number_of_terms_in_one_file; // √≠√†√∑√®√≠√†√ø √± √Ω√≤√Æ√£√Æ √ß√≠√†√∑√•√≠√®√ø √ß√†√Ø√≥√±√™√†√•√≤√±√ø √Ø√Æ√±√´√•√§√≠√®√© √∂√®√™√´
+
 	for (int t = 0; t < number_of_full_files; t++)
 	{
 
@@ -154,13 +155,13 @@ void piecewise_container_class::upload_vec()
 		if (fs::exists(textname))
 			fs::remove(textname);
 
-		/*—Œ«ƒ¿Õ»≈ ‘¿…À¿ ¡ƒ*/
+		/*√ë√é√á√Ñ√Ä√ç√à√Ö √î√Ä√â√ã√Ä √Å√Ñ*/
 		rc = mdbx_env_create(&env);
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
-		/*¬€ƒ≈À≈Õ»≈ œ¿Ãﬂ“»*/
-		rc = mdbx_env_set_geometry(env, start_size, -1, start_size * 10, -1, -1, -1); //ÏÂÒÚÓ ‰Îˇ ÔÓËÒÍ‡ ÒÍÓÓÒÚË
+		/*√Ç√õ√Ñ√Ö√ã√Ö√ç√à√Ö √è√Ä√å√ü√í√à*/
+		rc = mdbx_env_set_geometry(env, -1, -1, start_size*100, -1, -1, -1); //√¨√•√±√≤√Æ √§√´√ø √Ø√Æ√®√±√™√† √±√™√Æ√∞√Æ√±√≤√®
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
@@ -178,7 +179,7 @@ void piecewise_container_class::upload_vec()
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
-		int vec_idx = t * number_of_terms_in_one_file * this->get_count_of_collocations() * (this->get_k()+1);
+		size_t vec_idx = t * number_of_terms_in_one_file * this->get_count_of_collocations() * (this->get_k() + 1);
 
 		for (int i = left_term; i <= right_term; ++i)
 			for (int j = 0; j < this->get_count_of_collocations(); ++j)
@@ -191,7 +192,7 @@ void piecewise_container_class::upload_vec()
 
 					auto _index = collect_one_coordinate_from_three(i, j, l);
 					now_type _value = this->downloaded_vector[vec_idx];
-					
+
 
 					index.iov_len = sizeof(_index);
 					index.iov_base = &_index;
@@ -211,7 +212,7 @@ void piecewise_container_class::upload_vec()
 							this->bailout(rc, env, dbi, txn, cursor);
 						txn = NULL;
 					}
-					
+
 				}
 
 		if (txn != NULL)
@@ -228,13 +229,13 @@ void piecewise_container_class::upload_vec()
 		string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms[" + to_string(left_term) + "-" + to_string(right_term) + "]";
 		if (fs::exists(textname))
 			fs::remove(textname);
-		/*—Œ«ƒ¿Õ»≈ ‘¿…À¿ ¡ƒ*/
+		/*√ë√é√á√Ñ√Ä√ç√à√Ö √î√Ä√â√ã√Ä √Å√Ñ*/
 		rc = mdbx_env_create(&env);
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
-		/*¬€ƒ≈À≈Õ»≈ œ¿Ãﬂ“»*/
-		rc = mdbx_env_set_geometry(env, start_size, -1, start_size * 4, -1, -1, -1); //ÏÂÒÚÓ ‰Îˇ ÔÓËÒÍ‡ ÒÍÓÓÒÚË
+		/*√Ç√õ√Ñ√Ö√ã√Ö√ç√à√Ö √è√Ä√å√ü√í√à*/
+		rc = mdbx_env_set_geometry(env, start_size, -1, start_size * 4, -1, -1, -1); //√¨√•√±√≤√Æ √§√´√ø √Ø√Æ√®√±√™√† √±√™√Æ√∞√Æ√±√≤√®
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
@@ -252,7 +253,7 @@ void piecewise_container_class::upload_vec()
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
-		int vec_idx = number_of_full_files * number_of_terms_in_one_file * this->get_count_of_collocations() * (this->get_k() + 1);
+		size_t vec_idx = number_of_full_files * number_of_terms_in_one_file * this->get_count_of_collocations() * (this->get_k() + 1);
 
 		for (int i = left_term; i <= right_term; ++i)
 			for (int j = 0; j < this->get_count_of_collocations(); ++j)
@@ -291,7 +292,7 @@ void piecewise_container_class::upload_vec()
 			this->bailout(rc, env, dbi, txn, cursor);
 
 		_filenames[textname] = make_pair(left_term, right_term);
-		
+
 
 	}
 	this->downloaded_range = make_pair(-1, -1);
@@ -303,13 +304,13 @@ void piecewise_container_class::download_vec(pair<int, int> frames)
 	this->downloaded_range = frames;
 
 	string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms[" + to_string(this->get_downloaded_range().first) + "-" + to_string(this->get_downloaded_range().second) + "]";
-	
+
 	if (!fs::exists(textname))
 		return;
 
 	//here must be a checking of possibility to write slice into RAM
 
-	//////////////////////////// “–¿Õ«¿ ÷»ﬂ œŒÀ”◊≈Õ»ﬂ ƒ¿ÕÕ€’ »« ¡¿«€
+	//////////////////////////// √í√ê√Ä√ç√á√Ä√ä√ñ√à√ü √è√é√ã√ì√ó√Ö√ç√à√ü √Ñ√Ä√ç√ç√õ√ï √à√á √Å√Ä√á√õ
 
 	int rc;
 	float _value = 0.0;
@@ -366,7 +367,7 @@ void piecewise_container_class::download_vec(pair<int, int> frames)
 
 bool piecewise_container_class::is_data_for_this_colloc_downloaded(int first_dimension, int second_dimension, int third_dimension)
 {
-	if(this->downloaded_range.first < first_dimension && (this->downloaded_range.second > first_dimension))
+	if (this->downloaded_range.first < first_dimension && (this->downloaded_range.second > first_dimension))
 		return true;
 
 	return false;
