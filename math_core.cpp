@@ -72,7 +72,7 @@ void math_core::calculate_max_cont_size()
 
 void math_core::calculate_sample_mean()
 {
-	this->sample_mean_all = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "zati4ka");
+	this->sample_mean_all = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "sample_mean");
 	analyzer::set_container_sample_mean_all(this->sample_mean_all);
 	
 	for (int i = 0; i < this->number_of_slices; ++i) {
@@ -104,7 +104,7 @@ void math_core::calculate_sample_mean()
 
 void math_core::calculate_mat_ozidanie()
 {
-	this->mat_ozidanie = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "zati4ka");
+	this->mat_ozidanie = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "mat_ozidanie");
 	analyzer::set_container_mat_ozidanie(this->mat_ozidanie);
 
 	for (int i = 0; i < this->number_of_slices; ++i) {
@@ -136,7 +136,7 @@ void math_core::calculate_mat_ozidanie()
 
 void math_core::calculate_mat_disperse()
 {
-	this->mat_disperse = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "zati4ka");
+	this->mat_disperse = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "mat_disperse");
 	analyzer::set_container_mat_disperse(this->mat_disperse);
 
 	for (int i = 0; i < this->number_of_slices; ++i) {
@@ -246,7 +246,7 @@ void math_core::find_fluctuations()
 shared_ptr<container_class_interface> math_core::calculate_parametr_to_one_term(shared_ptr<container_class_interface> _parametr)
 {
 	//todo
-	auto one_term_matrix = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "zati4ka");
+	auto one_term_matrix = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "one_term_param");
 
 	for (auto q = 0; q < _parametr->get_count_of_collocations(); ++q)
 		for (auto j = 0; j < _parametr->get_count_of_collocations(); ++j)

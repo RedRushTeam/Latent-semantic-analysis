@@ -27,6 +27,7 @@ now_type piecewise_container_class::get_count_of_concret_collocation(int first_d
 
 shared_ptr<container_class_interface> piecewise_container_class::pow_all(int stepen)
 {
+
 	return shared_ptr<container_class_interface>();
 }
 
@@ -140,6 +141,9 @@ void piecewise_container_class::upload_vec()	//ошибки с удаление�
 	MDBX_txn* txn = NULL;
 	MDBX_cursor* cursor = NULL;
 
+	number.iov_len = sizeof(float); 
+	index.iov_len = sizeof(size_t);
+
 	auto zapisey_in_file = 10000000;
 	size_t kolichestvo_zapisey = ((size_t)this->get_downloaded_range().second - (size_t)this->get_downloaded_range().first) * (size_t)this->get_count_of_collocations() * ((size_t)this->get_k() + 1);
 	size_t number_of_full_files = kolichestvo_zapisey / zapisey_in_file;
@@ -153,7 +157,7 @@ void piecewise_container_class::upload_vec()	//ошибки с удаление�
 
 		int left_term = number_of_terms_in_one_file * t;
 		int right_term = left_term + number_of_terms_in_one_file - 1;
-		string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms[" + to_string(left_term) + "-" + to_string(right_term) + "]";
+		string textname = this->path_to_db.string() + "\\text" + to_string(this->downloaded_text) + "_terms[" + to_string(left_term) + "-" + to_string(right_term) + "]";
 		list_of_functions::delete_file_for_path(textname);
 
 		rc = mdbx_env_create(&env);
@@ -189,13 +193,10 @@ void piecewise_container_class::upload_vec()	//ошибки с удаление�
 							this->bailout(rc, env, dbi, txn, cursor);
 					}
 
-					auto _index = collect_one_coordinate_from_three(i, j, l);
+					size_t _index = collect_one_coordinate_from_three(i, j, l);
 					now_type _value = this->downloaded_vector[vec_idx];
 
-
-					index.iov_len = sizeof(_index);
 					index.iov_base = &_index;
-					number.iov_len = sizeof(float);
 					number.iov_base = &_value;
 
 					rc = mdbx_put(txn, dbi, &index, &number, MDBX_UPSERT);
@@ -229,7 +230,7 @@ void piecewise_container_class::upload_vec()	//ошибки с удаление�
 	if (tails <= this->downloaded_range.second) {
 		int left_term = tails;
 		int right_term = this->downloaded_range.second;
-		string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms[" + to_string(left_term) + "-" + to_string(right_term) + "]";
+		string textname = this->path_to_db.string() + "\\text" + to_string(this->downloaded_text) + "_terms[" + to_string(left_term) + " - " + to_string(right_term) + "]";
 		list_of_functions::delete_file_for_path(textname);
 
 		rc = mdbx_env_create(&env);
@@ -241,7 +242,7 @@ void piecewise_container_class::upload_vec()	//ошибки с удаление�
 			this->bailout(rc, env, dbi, txn, cursor);
 
 		rc = mdbx_env_open(env, textname.c_str(),
-			MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM | MDBX_UTTERLY_NOSYNC, 0664);
+			MDBX_NOSUBDIR | MDBX_COALESCE | MDBX_LIFORECLAIM | MDBX_UTTERLY_NOSYNC, 7777);
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
@@ -264,13 +265,11 @@ void piecewise_container_class::upload_vec()	//ошибки с удаление�
 							this->bailout(rc, env, dbi, txn, cursor);
 					}
 
-					auto _index = collect_one_coordinate_from_three(i, j, l);
+					size_t _index = collect_one_coordinate_from_three(i, j, l);
 					now_type _value = this->downloaded_vector[vec_idx];
 					vec_idx++;
 
-					index.iov_len = sizeof(_index);
 					index.iov_base = &_index;
-					number.iov_len = sizeof(float);
 					number.iov_base = &_value;
 
 					rc = mdbx_put(txn, dbi, &index, &number, MDBX_UPSERT);
@@ -291,6 +290,7 @@ void piecewise_container_class::upload_vec()	//ошибки с удаление�
 		if (rc)
 			this->bailout(rc, env, dbi, txn, cursor);
 
+		this->bailout(rc, env, dbi, txn, cursor);
 		list_of_functions::compress_file_for_path(textname);
 		list_of_functions::delete_file_for_path(textname);
 
@@ -302,7 +302,7 @@ void piecewise_container_class::download_vec()
 {	
 	this->downloaded_range = this->downloaded_range;
 
-	string textname = static_cast<string>(DB_PATH) + "text" + to_string(this->downloaded_text) + "_terms[" + to_string(this->get_downloaded_range().first) + "-" + to_string(this->get_downloaded_range().second) + "]";
+	string textname = this->path_to_db.string() + "\\text" + to_string(this->downloaded_text) + "_terms[" + to_string(this->get_downloaded_range().first) + "-" + to_string(this->get_downloaded_range().second) + "]";
 
 	list_of_functions::decompress_file_for_path(textname + ".7z");
 	list_of_functions::delete_file_for_path(textname + ".7z");
@@ -320,6 +320,9 @@ void piecewise_container_class::download_vec()
 	MDBX_val index, number;
 	MDBX_txn* txn = NULL;
 	MDBX_cursor* cursor = NULL;
+
+	index.iov_len = sizeof(size_t);
+	number.iov_len = sizeof(now_type);
 
 	rc = mdbx_env_create(&env);
 	if (rc)
@@ -342,16 +345,16 @@ void piecewise_container_class::download_vec()
 	if (rc)
 		this->bailout(rc, env, dbi, txn, cursor);
 
-	int vec_idx = 0;
+	size_t vec_idx = 0;
 
 	for (int i = this->get_downloaded_range().first; i <= this->get_downloaded_range().second; ++i)
 		for (int j = 0; j < this->get_count_of_collocations(); ++j)
 			for (int l = 0; l <= this->get_k(); ++l) {
-				auto _index = collect_one_coordinate_from_three(i, j, l);
+
+				size_t _index = collect_one_coordinate_from_three(i, j, l);
+
 				index.iov_base = &_index;
-				index.iov_len = sizeof(int);
 				number.iov_base = &_value;
-				number.iov_len = sizeof(now_type);
 
 				rc = mdbx_get(txn, dbi, &index, &number);
 
@@ -367,13 +370,13 @@ void piecewise_container_class::download_vec()
 
 bool piecewise_container_class::is_data_for_this_colloc_downloaded(int first_dimension, int second_dimension, int third_dimension)
 {
-	if (this->downloaded_range.first < first_dimension && (this->downloaded_range.second > first_dimension))
+	if (this->downloaded_range.first <= first_dimension && (this->downloaded_range.second >= first_dimension)) //CHECK SECOND CONDITION
 		return true;
 
 	return false;
 }
 
-int piecewise_container_class::collect_one_coordinate_from_three(int first_dimension, int second_dimension, int third_dimension) const
+size_t piecewise_container_class::collect_one_coordinate_from_three(int first_dimension, int second_dimension, int third_dimension) const
 {
 	return first_dimension * this->get_count_of_collocations() * COLLOC_DIST + second_dimension * COLLOC_DIST + third_dimension;
 }
@@ -421,5 +424,18 @@ void piecewise_container_class::set_count_of_concret_collocation(int first_dimen
 	if (!is_data_for_this_colloc_downloaded(first_dimension, second_dimension, third_dimension))
 		return;
 
-	this->downloaded_vector[this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension)] = perem;
+	auto number_of_pieces = this->_filenames.size();
+
+	if (!number_of_pieces)
+		return;
+
+	int counter = 0;
+	for (auto &obj : _filenames)
+	{
+		if ((first_dimension >= obj.second.first) && (first_dimension < obj.second.second))
+			break;
+		counter++;
+	}
+
+	this->downloaded_vector[this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension) - this->downloaded_vector.size()*counter] = perem;
 }

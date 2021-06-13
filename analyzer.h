@@ -108,7 +108,7 @@ public:
 
 	analyzer(shared_ptr<list<string>> list_of_all_parsed_text) : 
 		list_of_all_parsed_text(list_of_all_parsed_text) {
-		this->_container_class = make_shared<piecewise_container_class>(this->k, this->counter_of_tokenizer, "zati4ka");
+		this->_container_class = make_shared<piecewise_container_class>(this->k, this->counter_of_tokenizer, "analyser");
 		//this->create_lemmatizer();
 	}
 

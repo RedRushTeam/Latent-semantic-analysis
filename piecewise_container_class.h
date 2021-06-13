@@ -9,18 +9,39 @@ class piecewise_container_class :
 {
 public:
     //constr
-    piecewise_container_class(short k, int count_of_collocations, fs::path path_to_db, pair<int, int> downloaded_range) : 
-        container_class_interface(k, count_of_collocations), path_to_db(path_to_db), downloaded_range(downloaded_range){
-        if(count_of_collocations < SIZE_OF_PIECE)
+    piecewise_container_class(short k, int count_of_collocations, fs::path path_to_db, pair<int, int> downloaded_range) :
+        container_class_interface(k, count_of_collocations), path_to_db(path_to_db), downloaded_range(downloaded_range) {
+        if (count_of_collocations < SIZE_OF_PIECE)
             this->downloaded_vector.resize((size_t)count_of_collocations * count_of_collocations * (COLLOC_DIST + 1), NULL);
         if (count_of_collocations > SIZE_OF_PIECE)
             this->downloaded_vector.resize((size_t)SIZE_OF_PIECE * count_of_collocations * (COLLOC_DIST + 1), NULL);
 
         this->downloaded_text = text_counter;
         text_counter++;
+
+        this->path_to_db = DB_PATH;
     }
 
-    piecewise_container_class(short k, int count_of_collocations, bool random_number) : container_class_interface(k, count_of_collocations)
+    piecewise_container_class(short k, int count_of_collocations, string container_name) :
+        container_class_interface(k, count_of_collocations) {
+        if (count_of_collocations < SIZE_OF_PIECE)
+            this->downloaded_vector.resize((size_t)count_of_collocations * count_of_collocations * (COLLOC_DIST + 1), NULL);
+        if (count_of_collocations > SIZE_OF_PIECE)
+            this->downloaded_vector.resize((size_t)SIZE_OF_PIECE * count_of_collocations * (COLLOC_DIST + 1), NULL);
+
+        this->downloaded_text = -text_counter;
+        text_counter++;
+    
+        fs::path address = DB_PATH + static_cast<string>("\\") + container_name;
+        bool exist = list_of_functions::delete_file_for_path(address);
+
+        if (!exist)
+            fs::create_directory(address);
+
+        this->path_to_db = address;
+    }
+
+    piecewise_container_class(short k, int count_of_collocations) : container_class_interface(k, count_of_collocations)
     {
         if (count_of_collocations < SIZE_OF_PIECE)
             this->downloaded_vector.resize((size_t)count_of_collocations * count_of_collocations * (COLLOC_DIST + 1), NULL);
@@ -29,8 +50,12 @@ public:
 
         this->downloaded_text = text_counter;
         text_counter++;
+
+        this->path_to_db = DB_PATH;
     }
-    
+
+
+
     //destr
     ~piecewise_container_class() {
         //fs::remove("C:\\Users\\beerR2600\\YandexDisk\\SVDCollocationAnalyzer\\SVDCollocationAnalyzer\\text" + to_string(now_counter) + ".db");
@@ -41,7 +66,7 @@ public:
     void upload_vec();
     void download_vec();
     bool is_data_for_this_colloc_downloaded(int first_dimension, int second_dimension, int third_dimension);
-    int collect_one_coordinate_from_three(int first_dimension, int second_dimension, int third_dimension) const;
+    size_t collect_one_coordinate_from_three(int first_dimension, int second_dimension, int third_dimension) const;
     void fill_vector(now_type number_for_fill);
     now_type get_count_of_concret_collocation_with_one_coordinate(size_t _i);
     void set_count_of_concret_collocation_with_one_coordinate(size_t _i, now_type _perem);
@@ -87,4 +112,3 @@ private:
     fs::path path_to_db;
     unordered_map<string, pair<int, int>> _filenames; // filename template: textN_termsA-B
 };
-
