@@ -102,20 +102,13 @@ class analyzer
 public:
 
 	//constr
-	analyzer() {
-		//this->create_lemmatizer();
-	}
+	analyzer() {}
 
 	analyzer(shared_ptr<list<string>> list_of_all_parsed_text) : 
-		list_of_all_parsed_text(list_of_all_parsed_text) {
-		this->_container_class = make_shared<piecewise_container_class>(this->k, this->counter_of_tokenizer, "analyser");
-		//this->create_lemmatizer();
-	}
+		list_of_all_parsed_text(list_of_all_parsed_text) {}
 
 	analyzer(shared_ptr<list<string>> list_of_all_parsed_text, shared_ptr<container_class_interface> _container_class) : 
-		list_of_all_parsed_text(list_of_all_parsed_text), _container_class(_container_class){
-		//this->create_lemmatizer();
-	}
+		list_of_all_parsed_text(list_of_all_parsed_text) {}
 
 	//methods
 	static void create_lemmatizer();
@@ -123,8 +116,8 @@ public:
 	void calculate_counter_of_tokenizer_without_rare_words();		//LV2
 	static void initialize_matrix_for_SVD();						//LV3(1)
 	void calculate_counter_of_tokenizer_SVD_words();				//LV3(2)
-	void analyze_vec_of_tokens();
 	list<string>::iterator move_list_iterator(list<string>::iterator _it, int mover);
+	static string get_word_for_token(int token);
 	//methods for math calculate
 	void calculate_sample_mean_all();
 	void calculate_mat_ozidanie();
@@ -148,9 +141,8 @@ public:
 	static void set_container_mat_ozidanie(shared_ptr<container_class_interface> _mat_ozidanie);
 	static shared_ptr<container_class_interface> get_container_mat_disperse();
 	static void set_container_mat_disperse(shared_ptr<container_class_interface> _mat_disperse);
-	//i think that now this unneded
-	shared_ptr<container_class_interface> get_container_class();
-	void set_container_class(shared_ptr<container_class_interface> _container_class);
+	static shared_ptr<container_class_interface> get_all_texts_on_diagonal();
+	static void set_all_texts_on_diagonal(shared_ptr<container_class_interface> _all_texts_on_diagonal);
 
 	//destr
 	~analyzer() {
@@ -163,7 +155,6 @@ private:
 
 	//perems
 	static inline HLEM lemmas_engine;
-	shared_ptr<container_class_interface> _container_class;
 	static inline short k;
 	static inline int number_of_texts = 0;
 	shared_ptr<list<string>> list_of_all_lemmatized_text;
@@ -173,6 +164,7 @@ private:
 	static inline shared_ptr<container_class_interface> _sample_mean_all;
 	static inline shared_ptr<container_class_interface> _mat_ozidanie;
 	static inline shared_ptr<container_class_interface> _mat_disperse;
+	static inline shared_ptr<container_class_interface> _all_texts_on_diagonal;
 
 	//dictionaries
 	static inline tsl::robin_map<string, int> map_of_tokens_WORD_TOKEN;

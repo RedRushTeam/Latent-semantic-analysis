@@ -285,6 +285,8 @@ void analyzer::calculate_sample_mean_all()
 				}
 		}
 	}
+
+	dynamic_pointer_cast<sparce_container_class>(analyzer::get_all_texts_on_diagonal())->calculate_and_sum_parametr_to_one_term(analyzer::_sample_mean_all);
 }
 
 void analyzer::calculate_mat_ozidanie()
@@ -373,44 +375,6 @@ void analyzer::calculate_mat_disperse()
 	}
 }
 
-void analyzer::analyze_vec_of_tokens()	//метод с ошибкой	//да и не нужен он
-{
-	this->lemmatize_all_words();
-
-	/*//критическая секция
-	for (auto& obj : *this->list_of_all_lemmatized_text) { //обращение к критическому ресурсу
-		#pragma omp critical (maps_into_analyzer)
-		{
-			this->map_of_tokens_WORD_TOKEN.insert(make_pair(obj, this->map_of_tokens_WORD_TOKEN.size()));
-		}
-	}
-
-	for (auto& obj : this->map_of_tokens_WORD_TOKEN) {	//обращение к критическому ресурсу
-		#pragma omp critical (maps_into_analyzer)
-		{
-			this->map_of_tokens_TOKEN_WORD.insert(make_pair(obj.second, obj.first));
-		}
-	}*/
-
-	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
-		//условие для "загруженности" данных в озу должно быть здесь. Быть может, стоит добавить специальные методы для контейнеров с математическими данными?
-		for (int i = -COLLOC_DIST; i <= COLLOC_DIST; ++i)
-			if (i != 0) {
-				auto now_it = this->move_list_iterator(it, i);
-				if (now_it == this->list_of_all_lemmatized_text->end())
-					continue;
-				#pragma omp critical (maps_into_analyzer)
-				{
-					int first_index = (*this->map_of_tokens_WORD_TOKEN.find(*it)).second;	//обращение к критическому ресурсу		//быть может, тут не нужна потокобезопасность?
-					if (i > 0)
-						this->_container_class->increment(first_index, this->map_of_tokens_WORD_TOKEN.find(*now_it)->second, i + (COLLOC_DIST - 1));	//обращение к критическому ресурсу
-					else
-						this->_container_class->increment(first_index, this->map_of_tokens_WORD_TOKEN.find(*now_it)->second, i + COLLOC_DIST);	//обращение к критическому ресурсу
-				}
-			}
-	}
-}
-
 list<string>::iterator analyzer::move_list_iterator(list<string>::iterator _it, int mover)
 {
 	if (!mover)
@@ -432,6 +396,11 @@ list<string>::iterator analyzer::move_list_iterator(list<string>::iterator _it, 
 	}
 
 	return _it;
+}
+
+string analyzer::get_word_for_token(int token)
+{
+	return analyzer::map_of_tokens_TOKEN_Word_and_number_of_appearances_struct_.find(token).value().word;
 }
 
 void analyzer::lemmatize_all_words()
@@ -526,6 +495,9 @@ int analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff_of_text(in
 	word_and_number_of_appearances_structure __key = { (string)"А", 1, 1 };
 	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key).value() = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key).value();
 	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key).value() = 0;
+	
+	for (auto& obj : analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_)
+		map_of_tokens_TOKEN_Word_and_number_of_appearances_struct_.insert(make_pair(obj.second, obj.first));
 
 	analyzer::counter_of_tokenizer_without_rare_words_and_text = counter_without_rare_words;
 	return counter_without_rare_words;
@@ -544,16 +516,6 @@ void analyzer::set_k(short _k)
 void analyzer::set_number_of_texts(int number_of_texts)
 {
 	analyzer::number_of_texts = number_of_texts;
-}
-
-shared_ptr<container_class_interface> analyzer::get_container_class()
-{
-	return this->_container_class;
-}
-
-void analyzer::set_container_class(shared_ptr<container_class_interface> _container_class)
-{
-	this->_container_class = _container_class;
 }
 
 shared_ptr<container_class_interface> analyzer::get_container_sample_mean_all()
@@ -584,4 +546,14 @@ shared_ptr<container_class_interface> analyzer::get_container_mat_disperse()
 void analyzer::set_container_mat_disperse(shared_ptr<container_class_interface> _mat_disperse)
 {
 	analyzer::_mat_disperse = _mat_disperse;
+}
+
+shared_ptr<container_class_interface> analyzer::get_all_texts_on_diagonal()
+{
+	return analyzer::_all_texts_on_diagonal;
+}
+
+void analyzer::set_all_texts_on_diagonal(shared_ptr<container_class_interface> _all_texts_on_diagonal)
+{
+	analyzer::_all_texts_on_diagonal = _all_texts_on_diagonal;
 }

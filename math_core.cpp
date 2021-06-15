@@ -64,17 +64,16 @@ void math_core::calculate_max_cont_size()
 			_analyzer.calculate_counter_of_tokenizer_without_rare_words();
 		}
 	}
-
-	//this->max_cont_size = analyzer::get_counter_of_tokenizer();
-
-	//this->number_of_slices = ceil(SIZE_OF_PIECE / this->max_cont_size);
 }
 
 void math_core::calculate_sample_mean()
 {
 	this->sample_mean_all = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "sample_mean");
 	analyzer::set_container_sample_mean_all(this->sample_mean_all);
-	
+
+	this->_all_texts_on_diagonal = make_shared<sparce_container_class>(COLLOC_DIST, this->max_cont_size);
+	analyzer::set_all_texts_on_diagonal(this->_all_texts_on_diagonal);	//все на главной диагонали
+
 	for (int i = 0; i < this->number_of_slices; ++i) {
 		if (i + 1 == this->number_of_slices)
 			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_sample_mean_all())->set_downloaded_range(make_pair(i * SIZE_OF_PIECE, this->max_cont_size));
@@ -208,52 +207,53 @@ void math_core::calculate_sredne_kv_otklonenie_fixed()
 
 void math_core::find_fluctuations()
 {
-	/*auto sum1 = this->calculate_parametr_to_one_term(this->mat_ozidanie) + this->calculate_parametr_to_one_term(this->sredne_kv_otklonenie_fixed);
-	auto razn1 = this->calculate_parametr_to_one_term(this->mat_ozidanie) - this->calculate_parametr_to_one_term(this->sredne_kv_otklonenie_fixed);
-	hard_container_class chart1;
-	auto keks = this->max_cont_size;
-	chart1.give_space(keks, GAP);
+	shared_ptr<container_class_interface> right_boundary_of_search_fluctuations = make_shared<sparce_container_class>(COLLOC_DIST, this->max_cont_size);	//sum1
+	shared_ptr<container_class_interface> left_boundary_of_search_fluctuations = make_shared<sparce_container_class>(COLLOC_DIST, this->max_cont_size);		//razn1
+	
+	//пишем первую часть
+	for (int i = 0; i < this->number_of_slices; ++i) {
+		if (i + 1 == this->number_of_slices)
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(i * SIZE_OF_PIECE, this->max_cont_size));
+		else
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(i * SIZE_OF_PIECE, (i + 1) * SIZE_OF_PIECE));
 
-	for (int i = 0; this->vec_of_hard_container_class.size() > i; ++i) {
-		this->prepare_data_in_container_class(i);
-		for (auto q = 0; q < keks; ++q)
-			for (auto j = 0; j < keks; ++j)
-				for (auto p = -GAP - 1; p <= GAP; ++p)
-					chart1[q][q][p] = chart1[q][q][p] + this->vec_of_hard_container_class[i][q][j][p];
-		vec_of_hard_container_class[i].clear();
+		dynamic_pointer_cast<sparce_container_class>(left_boundary_of_search_fluctuations)->calculate_and_sum_parametr_to_one_term(this->mat_ozidanie);
+		dynamic_pointer_cast<sparce_container_class>(right_boundary_of_search_fluctuations)->calculate_and_sum_parametr_to_one_term(this->mat_ozidanie);
+
+		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->fill_vector((now_type)0.0);
 	}
 
+	dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->clear_vec();
 
-	auto tmp1 = chart1 / vec_of_hard_container_class.size();
-	chart1.clear();
-	chart1 = tmp1;
-	analyzer helper;
-	helper.set_map_of_tokens("dictionary.txt");
-	ofstream ff("fluctuation.txt");
-	for (int i = 1; i < chart1.get_counter_of_tokenizer(); i++)
-		for (int l = -GAP - 1; l <= GAP; ++l)
-			if ((chart1[i][i][l] > sum1[i][i][l]) || (chart1[i][i][l] < razn1[i][i][l])) {
-				for (auto q : helper.get_map_of_tokens())
-					if (q.second == i) {
-						ff << q.first << " ";
-						break;
-					}
-				break;
-			}
-	chart1.clear();*/
-}
+	//пишем вторую часть(исправленное среднеквадратическое отклонение)
+	for (int i = 0; i < this->number_of_slices; ++i) {
+		if (i + 1 == this->number_of_slices)
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->set_downloaded_range(make_pair(i * SIZE_OF_PIECE, this->max_cont_size));
+		else
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->set_downloaded_range(make_pair(i * SIZE_OF_PIECE, (i + 1) * SIZE_OF_PIECE));
 
-shared_ptr<container_class_interface> math_core::calculate_parametr_to_one_term(shared_ptr<container_class_interface> _parametr)
-{
-	//todo
-	auto one_term_matrix = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "one_term_param");
+		*this->mat_disperse *= (now_type)this->vec_of_filepaths->size() / (this->vec_of_filepaths->size() - 1);
+		this->mat_disperse->sqrt_all();
 
-	for (auto q = 0; q < _parametr->get_count_of_collocations(); ++q)
-		for (auto j = 0; j < _parametr->get_count_of_collocations(); ++j)
-			for (auto p = -COLLOC_DIST - 1; p <= COLLOC_DIST; ++p)
-					one_term_matrix->set_count_of_concret_collocation(q, q, p, one_term_matrix->get_count_of_concret_collocation(q, q, p) + _parametr->get_count_of_concret_collocation(q, j, p));
+		dynamic_pointer_cast<sparce_container_class>(left_boundary_of_search_fluctuations)->calculate_and_sum_parametr_to_one_term(this->mat_disperse);
+		dynamic_pointer_cast<sparce_container_class>(right_boundary_of_search_fluctuations)->calculate_and_sum_parametr_to_one_term(this->mat_disperse);
 
-	return one_term_matrix;
+		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->fill_vector((now_type)0.0);
+	}
+
+	dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->clear_vec();
+
+
+	*this->_all_texts_on_diagonal /= (now_type)this->vec_of_filepaths->size();
+
+	ofstream in_file_stream((string)DB_PATH + "\\fluctuation.txt");
+
+	for(int i = 0; i < this->max_cont_size; ++i)
+		for (int l = 0; l <= COLLOC_DIST; ++l)
+			if ((this->_all_texts_on_diagonal->get_count_of_concret_collocation(i, i, l) > right_boundary_of_search_fluctuations->get_count_of_concret_collocation(i, i, l)) || 
+					(this->_all_texts_on_diagonal->get_count_of_concret_collocation(i, i, l) < left_boundary_of_search_fluctuations->get_count_of_concret_collocation(i, i, l)))
+				in_file_stream << analyzer::get_word_for_token(i) << " ";
+
 }
 
 int math_core::get_max_cont_size() const

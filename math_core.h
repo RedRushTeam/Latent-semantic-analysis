@@ -46,7 +46,6 @@ public:
 	shared_ptr<container_class_interface> get_excess_ratio() const;
 	shared_ptr<container_class_interface> get_sample_mean_all() const;
 	int get_length_of_all_container_class() const;
-	shared_ptr<container_class_interface> calculate_parametr_to_one_term(shared_ptr<container_class_interface> _parametr);
 	shared_ptr<container_class_interface> calculate_parametr_to_one_colloc(shared_ptr<container_class_interface> _parametr);
 	int get_max_cont_size() const;
 
@@ -72,8 +71,7 @@ private:
 	shared_ptr<container_class_interface> sample_mean_all;
 	shared_ptr<container_class_interface> excess_ratio;
 	shared_ptr<container_class_interface> asymmetry_coefficient;
-	shared_ptr<container_class_interface> sredne_kv_otklonenie_fixed;
-	shared_ptr<container_class_interface> sredne_kv_otklonenie;
+	shared_ptr<container_class_interface> _all_texts_on_diagonal;
 	shared_ptr<container_class_interface> mat_disperse;
 	shared_ptr<container_class_interface> mat_ozidanie;
 	int number_of_texts;

@@ -31,9 +31,9 @@ shared_ptr<container_class_interface> piecewise_container_class::pow_all(int ste
 	return shared_ptr<container_class_interface>();
 }
 
-shared_ptr<container_class_interface> piecewise_container_class::sqrt_all()
+void piecewise_container_class::sqrt_all()
 {
-	return shared_ptr<container_class_interface>();
+	std::transform(this->downloaded_vector.begin(), this->downloaded_vector.end(), this->downloaded_vector.begin(), [&](now_type obj) {	return sqrt(obj); });
 }
 
 shared_ptr<container_class_interface> piecewise_container_class::operator+(shared_ptr<container_class_interface> summed_class)
@@ -101,9 +101,9 @@ shared_ptr<container_class_interface> piecewise_container_class::operator*(now_t
 	return shared_ptr<container_class_interface>();
 }
 
-shared_ptr<container_class_interface> piecewise_container_class::operator/(shared_ptr<container_class_interface> dividor_class)
+void piecewise_container_class::operator/(shared_ptr<container_class_interface> dividor_class)
 {
-	return shared_ptr<container_class_interface>();
+
 }
 
 void piecewise_container_class::operator/(now_type _koef)
@@ -122,6 +122,11 @@ void piecewise_container_class::bailout(int rc, MDBX_env* env, MDBX_dbi dbi, MDB
 		mdbx_dbi_close(env, dbi);
 	if (env)
 		mdbx_env_close(env);
+}
+
+void piecewise_container_class::operator*=(now_type _num)
+{
+	std::transform(this->downloaded_vector.begin(), this->downloaded_vector.end(), this->downloaded_vector.begin(), [&](now_type obj) {	return obj * _num; });
 }
 
 void piecewise_container_class::clear_vec()
