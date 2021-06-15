@@ -285,8 +285,6 @@ void analyzer::calculate_sample_mean_all()
 				}
 		}
 	}
-
-	dynamic_pointer_cast<sparce_container_class>(analyzer::get_all_texts_on_diagonal())->calculate_and_sum_parametr_to_one_term(analyzer::_sample_mean_all);
 }
 
 void analyzer::calculate_mat_ozidanie()

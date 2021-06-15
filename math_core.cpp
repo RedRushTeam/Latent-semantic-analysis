@@ -92,6 +92,8 @@ void math_core::calculate_sample_mean()
 			}
 		}
 
+		dynamic_pointer_cast<sparce_container_class>(analyzer::get_all_texts_on_diagonal())->calculate_and_sum_parametr_to_one_term(this->sample_mean_all);
+
 		(*dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_sample_mean_all())) /= ((now_type)this->vec_of_filepaths->size());
 
 		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_sample_mean_all())->upload_vec();
@@ -105,6 +107,9 @@ void math_core::calculate_mat_ozidanie()
 {
 	this->mat_ozidanie = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "mat_ozidanie");
 	analyzer::set_container_mat_ozidanie(this->mat_ozidanie);
+
+	this->_all_texts_on_diagonal = make_shared<sparce_container_class>(COLLOC_DIST, this->max_cont_size);
+	analyzer::set_all_texts_on_diagonal(this->_all_texts_on_diagonal);	//все на главной диагонали
 
 	for (int i = 0; i < this->number_of_slices; ++i) {
 		if (i + 1 == this->number_of_slices)
@@ -123,6 +128,8 @@ void math_core::calculate_mat_ozidanie()
 				_analyzer.calculate_mat_ozidanie();
 			}
 		}
+
+		dynamic_pointer_cast<sparce_container_class>(analyzer::get_all_texts_on_diagonal())->calculate_and_sum_parametr_to_one_term(this->mat_ozidanie);
 
 		(*dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())) /= ((now_type)this->divider(this->vec_of_filepaths->size() * (2 + 2 * COLLOC_DIST)));
 
