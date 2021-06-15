@@ -38,8 +38,14 @@
 //lemmatizator include
 #include <lemmatizator_engine.h>
 
+#ifdef _WIN32
 //windows.h include
 #include <windows.h>
+#elif __linux__
+// special linux includes here
+#else
+// special code for other OS
+#endif
 
 //Eigen lib include
 #include <Eigen>
@@ -99,6 +105,6 @@ constexpr int FLAGS = LEME_FASTEST;
 
 constexpr auto LEMADR = "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db";
 //constexpr auto TEXTS_PATH = "A:\\rasp_puhl1";
-//constexpr auto TEXTS_PATH = "G:\\rasp_puhl";
-constexpr auto TEXTS_PATH = "C:\\txts";
+constexpr auto TEXTS_PATH = "G:\\rasp_puhl";
+//constexpr auto TEXTS_PATH = "C:\\txts";
 constexpr auto DB_PATH = "C:\\databases";

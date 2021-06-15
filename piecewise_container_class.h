@@ -82,7 +82,7 @@ public:
     virtual now_type get_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension) override;
     virtual void set_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension, now_type perem) override;
     virtual shared_ptr<container_class_interface> pow_all(int stepen) override;
-    virtual shared_ptr<container_class_interface> sqrt_all() override;
+    virtual void sqrt_all() override;
 
     //operators
     // Унаследовано через container_class_interface
@@ -99,8 +99,9 @@ public:
     virtual bool operator!=(shared_ptr<container_class_interface> compared_class) override;
     virtual shared_ptr<container_class_interface> operator*(shared_ptr<container_class_interface> multipliable_class) override;
     virtual shared_ptr<container_class_interface> operator*(now_type _koef) override;
-    virtual shared_ptr<container_class_interface> operator/(shared_ptr<container_class_interface> dividor_class) override;
+    virtual void operator/(shared_ptr<container_class_interface> dividor_class) override;
     virtual void operator/(now_type _koef) override;
+    virtual void operator*=(now_type _num) override;
 
 private:
     //database closer instead of goto
@@ -110,5 +111,6 @@ private:
     pair<int, int> downloaded_range;
     int downloaded_text;
     fs::path path_to_db;
-    unordered_map<string, pair<int, int>> _filenames; // filename template: textN_termsA-B
+    unordered_map<string, pair<int, int>> _filenames;
+    // filename template: textN_termsA-B
 };

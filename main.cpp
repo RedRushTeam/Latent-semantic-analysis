@@ -6,6 +6,7 @@ int main(int argc, char* argv[])
 	auto start = clock();
 	setlocale(LC_ALL, "Russian");
 
+	list_of_functions::is_cpp17_possible();
 	list_of_functions::print_info_about_sysyem();
 
  	auto texts = list_of_functions::get_input_texts();

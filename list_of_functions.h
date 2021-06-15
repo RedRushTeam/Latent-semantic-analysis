@@ -9,4 +9,5 @@ public:
 	static bool compress_file_for_path(fs::path path_to_compress);
 	static bool decompress_file_for_path(fs::path path_to_decompress);
 	static bool delete_file_for_path(fs::path path_to_delete);
+	static bool is_cpp17_possible();
 };

@@ -2,6 +2,7 @@
 
 void list_of_functions::print_info_about_sysyem()
 {
+#ifdef _WIN64
 	MEMORYSTATUSEX statex;
 	statex.dwLength = sizeof(statex);
 	GlobalMemoryStatusEx(&statex);
@@ -12,6 +13,8 @@ void list_of_functions::print_info_about_sysyem()
 		cout << "You do not have enough RAM. Reduce SIZE_OF_PIECE!" << endl;
 		exit(1);
 	}
+#endif
+	
 }
 
 shared_ptr<vector<fs::path>> list_of_functions::get_input_texts()
@@ -53,6 +56,8 @@ bool list_of_functions::compress_file_for_path(fs::path path_to_compress)	//сж
 
 	for (int i = 0; i < files_for_ar->size(); ++i) {
 		files.push_back((*files_for_ar)[i].generic_wstring());
+		string dlt = (*files_for_ar)[i].string() + ".7z";
+		list_of_functions::delete_file_for_path(dlt);
 		compressor.compress(files, (*files_for_ar)[i].generic_wstring() + L".7z");
 		files.clear();
 	}
@@ -111,4 +116,17 @@ bool list_of_functions::delete_file_for_path(fs::path path_to_delete)
 		fs::remove(path_to_delete);
 
 	return true;
+}
+
+bool list_of_functions::is_cpp17_possible()
+{
+#if __cplusplus >= 201703L
+	cout << "your compiler now works with c++17" << endl;
+	return true;
+#else 
+	cout << "your compiler don't support c++17; programm will stop" << endl;
+	cout << __cplusplus;
+	
+	exit(-1);
+#endif
 }
