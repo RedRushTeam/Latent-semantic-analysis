@@ -22,34 +22,22 @@ public:
 	MatrixXf get_colloc_singular_U_matrix();
 	vector<pair<int, int>>* get_helper_vec();
 
-	void calculate_max_cont_size();	//first
+	void calculate_max_cont_size();
 	int calculate_max_cont_size_without_rare_words();
 	int calculate_max_cont_size_without_rare_words_and_frequency_in_texts();
 	int calculate_max_cont_size_without_rare_words_and_frequency_in_texts_and_SVD();
-	void calculate_sample_mean();	//second
-	void calculate_mat_ozidanie();	//third
-	void calculate_mat_disperse();	//4
-	void calculate_sredne_kv_otklonenie();	//5
-	void calculate_sredne_kv_otklonenie_fixed();	//6
+	void calculate_sample_mean();
+	void calculate_mat_ozidanie();
+	void calculate_mat_disperse();
+	void calculate_sredne_kv_otklonenie();
+	void calculate_sredne_kv_otklonenie_fixed();
 	void calculate_asymmetry_coefficient();	//nn
 	void calculate_excess_ratio();	//nn
-	void out_for_chart();	//nn
-	void find_fluctuations();	//7
-	void find_colloc_fluctuations();	//8
+	void find_fluctuations();
+	void find_colloc_fluctuations();
 
 	//getters&setters
-	shared_ptr<container_class_interface> get_sredne_kv_otklonenie() const;
-	shared_ptr<container_class_interface> get_sredne_kv_otklonenie_fixed() const;
-	shared_ptr<container_class_interface> get_mat_ozidanie() const;
-	shared_ptr<container_class_interface> get_mat_disperse() const;
-	shared_ptr<container_class_interface> get_asymmetry_coefficient() const;
-	shared_ptr<container_class_interface> get_excess_ratio() const;
-	shared_ptr<container_class_interface> get_sample_mean_all() const;
-	int get_length_of_all_container_class() const;
-	shared_ptr<container_class_interface> calculate_parametr_to_one_colloc(shared_ptr<container_class_interface> _parametr);
 	int get_max_cont_size() const;
-
-	//bool remove_container_class(shared_ptr<container_class_interface> _shared_ptr<container_class_interface>);	//fix this!
 
 private:
 	//private methods
@@ -74,6 +62,15 @@ private:
 	shared_ptr<container_class_interface> _all_texts_on_diagonal;
 	shared_ptr<container_class_interface> mat_disperse;
 	shared_ptr<container_class_interface> mat_ozidanie;
+
+	shared_ptr<container_class_interface> sparse_sample_mean_all;
+	shared_ptr<container_class_interface> sparse_excess_ratio;
+	shared_ptr<container_class_interface> sparse_asymmetry_coefficient;
+	shared_ptr<container_class_interface> sparse_all_texts_on_diagonal;
+	shared_ptr<container_class_interface> sparse_SKO;
+	shared_ptr<container_class_interface> sparse_mat_disperse;
+	shared_ptr<container_class_interface> sparse_mat_ozidanie;
+
 	int number_of_texts;
 	int max_cont_size = 0;
 	int number_of_slices;

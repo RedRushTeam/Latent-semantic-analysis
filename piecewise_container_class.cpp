@@ -78,7 +78,7 @@ void piecewise_container_class::operator-=(now_type _koef)
 
 void piecewise_container_class::operator/=(now_type _num)
 {
-
+	std::transform(this->downloaded_vector.begin(), this->downloaded_vector.end(), this->downloaded_vector.begin(), [&](now_type& obj) {	return obj /= _num; });
 }
 
 bool piecewise_container_class::operator==(shared_ptr<container_class_interface> compared_class)
@@ -108,7 +108,7 @@ void piecewise_container_class::operator/(shared_ptr<container_class_interface> 
 
 void piecewise_container_class::operator/(now_type _koef)
 {
-	std::transform(this->downloaded_vector.begin(), this->downloaded_vector.end(), this->downloaded_vector.begin(), [&](now_type obj) {return obj /= _koef; });
+	std::transform(this->downloaded_vector.begin(), this->downloaded_vector.end(), this->downloaded_vector.begin(), [&](now_type& obj) {return obj /= _koef; });
 }
 
 void piecewise_container_class::bailout(int rc, MDBX_env* env, MDBX_dbi dbi, MDBX_txn* txn, MDBX_cursor* cursor)
@@ -328,7 +328,15 @@ bool piecewise_container_class::is_data_for_this_colloc_downloaded(int first_dim
 
 size_t piecewise_container_class::collect_one_coordinate_from_three(int first_dimension, int second_dimension, int third_dimension) const
 {
-	return first_dimension * this->get_count_of_collocations() * COLLOC_DIST + second_dimension * COLLOC_DIST + third_dimension;
+	int counter = 0;
+	for (auto& obj : _filenames)
+	{
+		if ((first_dimension >= obj.second.first) && (first_dimension < obj.second.second))
+			break;
+		counter++;
+	}
+	
+	return (first_dimension * this->get_count_of_collocations() * COLLOC_DIST + second_dimension * COLLOC_DIST + third_dimension) - this->downloaded_vector.size() * counter;
 }
 
 void piecewise_container_class::fill_vector(now_type number_for_fill)
@@ -353,7 +361,7 @@ size_t piecewise_container_class::get_vector_size()
 
 void piecewise_container_class::set_downloaded_range(pair<int, int> downloaded_range)
 {
-	this->downloaded_vector.resize((downloaded_range.second - downloaded_range.first + 1) * this->get_count_of_collocations() * (this->get_k() + 1));// check it (is +1 needed?)
+	//this->downloaded_vector.resize((downloaded_range.second - downloaded_range.first + 1) * this->get_count_of_collocations() * (this->get_k() + 1));// check it (is +1 needed?)
 	this->downloaded_range = downloaded_range;
 }
 

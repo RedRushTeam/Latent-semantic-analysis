@@ -21,10 +21,10 @@ public:
 	virtual shared_ptr<container_class_interface> operator+(now_type _koef) = 0;
 	virtual shared_ptr<container_class_interface> operator-(shared_ptr<container_class_interface> summed_class) = 0;
 	virtual shared_ptr<container_class_interface> operator-(now_type _num) = 0;
-	virtual void operator+=(shared_ptr<container_class_interface> summed_class) = 0;
 	virtual void operator/=(now_type _num) = 0;
 	virtual void operator*=(now_type _num) = 0;
 	virtual void operator+=(now_type _num) = 0;
+	virtual void operator+=(shared_ptr<container_class_interface> summed_class) = 0;
 	virtual void operator-=(shared_ptr<container_class_interface> deductible_class) = 0;
 	virtual void operator-=(now_type _koef) = 0;
 	virtual bool operator==(shared_ptr<container_class_interface> compared_class) = 0;

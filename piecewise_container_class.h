@@ -112,5 +112,4 @@ private:
     int downloaded_text;
     fs::path path_to_db;
     unordered_map<string, pair<int, int>> _filenames;
-    // filename template: textN_termsA-B
 };

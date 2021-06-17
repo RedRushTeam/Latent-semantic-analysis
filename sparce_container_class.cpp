@@ -22,6 +22,11 @@ void sparce_container_class::calculate_and_sum_parametr_to_one_term(shared_ptr<c
                 this->set_count_of_concret_collocation(q, q, p, this->get_count_of_concret_collocation(q, q, p) + _parametr->get_count_of_concret_collocation(q, j, p));
 }
 
+now_type sparce_container_class::get_count_of_concret_collocation_for_one_coord(size_t coordinate) const
+{
+    return this->sparce_vec[coordinate];
+}
+
 void sparce_container_class::summ_for_concret_colloc(int first_dimension, int second_dimension, int third_dimension, now_type _num)
 {
 }
@@ -51,6 +56,7 @@ shared_ptr<container_class_interface> sparce_container_class::pow_all(int stepen
 
 void sparce_container_class::sqrt_all()
 {
+    std::transform(this->sparce_vec.begin(), this->sparce_vec.end(), this->sparce_vec.begin(), [&](now_type& obj) {	return sqrt(obj); });
 }
 
 shared_ptr<container_class_interface> sparce_container_class::operator+(shared_ptr<container_class_interface> summed_class)
@@ -73,24 +79,37 @@ shared_ptr<container_class_interface> sparce_container_class::operator-(now_type
     return shared_ptr<container_class_interface>();
 }
 
-void sparce_container_class::operator+=(shared_ptr<container_class_interface> summed_class)
-{
-}
-
 void sparce_container_class::operator/=(now_type _num)
 {
+    for (size_t i = 0; i < this->sparce_vec.size(); ++i)
+        this->sparce_vec[i] /= _num;
 }
 
 void sparce_container_class::operator+=(now_type _num)
 {
 }
 
+void sparce_container_class::operator+=(shared_ptr<container_class_interface> summed_class)
+{
+    if (!dynamic_cast<sparce_container_class*>(summed_class.get()))
+        return;
+
+    for (size_t i = 0; i < this->sparce_vec.size(); ++i)
+        this->sparce_vec[i] += dynamic_pointer_cast<sparce_container_class>(summed_class)->get_count_of_concret_collocation_for_one_coord(i);
+}
+
 void sparce_container_class::operator-=(shared_ptr<container_class_interface> deductible_class)
 {
+    if (dynamic_pointer_cast<sparce_container_class>(deductible_class) == nullptr)
+        return;
+
+    for (size_t i = 0; i < this->sparce_vec.size(); ++i)
+        this->sparce_vec[i] -= dynamic_pointer_cast<sparce_container_class>(deductible_class)->get_count_of_concret_collocation_for_one_coord(i);
 }
 
 void sparce_container_class::operator-=(now_type _koef)
 {
+    std::transform(this->sparce_vec.begin(), this->sparce_vec.end(), this->sparce_vec.begin(), [&](now_type& obj) {	return obj - _koef; });
 }
 
 bool sparce_container_class::operator==(shared_ptr<container_class_interface> compared_class)

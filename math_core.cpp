@@ -103,10 +103,12 @@ void math_core::calculate_sample_mean()
 	dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_sample_mean_all())->clear_vec();
 }
 
-void math_core::calculate_mat_ozidanie()
+void math_core::calculate_mat_ozidanie()	//testing
 {
 	this->mat_ozidanie = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "mat_ozidanie");
 	analyzer::set_container_mat_ozidanie(this->mat_ozidanie);
+
+	this->sparse_mat_ozidanie = make_shared<sparce_container_class>(COLLOC_DIST, this->max_cont_size);
 
 	this->_all_texts_on_diagonal = make_shared<sparce_container_class>(COLLOC_DIST, this->max_cont_size);
 	analyzer::set_all_texts_on_diagonal(this->_all_texts_on_diagonal);	//все на главной диагонали
@@ -131,19 +133,22 @@ void math_core::calculate_mat_ozidanie()
 
 		dynamic_pointer_cast<sparce_container_class>(analyzer::get_all_texts_on_diagonal())->calculate_and_sum_parametr_to_one_term(this->mat_ozidanie);
 
-		(*dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())) /= ((now_type)this->divider(this->vec_of_filepaths->size() * (2 + 2 * COLLOC_DIST)));
+		(*dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())) /= (now_type)(this->max_cont_size * (1 + COLLOC_DIST));
 
-		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->upload_vec();
+		dynamic_pointer_cast<sparce_container_class>(this->sparse_mat_ozidanie)->calculate_and_sum_parametr_to_one_term(this->mat_ozidanie);
+
 		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->fill_vector((now_type)0.0);
 	}
 
 	dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->clear_vec();
 }
 
-void math_core::calculate_mat_disperse()
+void math_core::calculate_mat_disperse()	//testing
 {
 	this->mat_disperse = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size, "mat_disperse");
 	analyzer::set_container_mat_disperse(this->mat_disperse);
+
+	this->sparse_mat_disperse = make_shared<sparce_container_class>(COLLOC_DIST, this->max_cont_size);
 
 	for (int i = 0; i < this->number_of_slices; ++i) {
 		if (i + 1 == this->number_of_slices)
@@ -163,48 +168,25 @@ void math_core::calculate_mat_disperse()
 			}
 		}
 
-		(*dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())) /= ((now_type)this->divider(this->vec_of_filepaths->size() * (2 + 2 * COLLOC_DIST)));
+		dynamic_pointer_cast<sparce_container_class>(this->sparse_mat_disperse)->calculate_and_sum_parametr_to_one_term(this->mat_disperse);
 
-		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->upload_vec();
-		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->fill_vector((now_type)0.0);
-	}
-
-	dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->clear_vec();
-
-	int now_size_of_peace = SIZE_OF_PIECE / 2;	//There may be data loss due to incorrect rounding
-	size_t size_of_slices = (int)ceil((float)this->max_cont_size / (float)now_size_of_peace);
-
-	for (int j = 0; j < size_of_slices; ++j) {
-		if (j + 1 == size_of_slices) {
-			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(j * now_size_of_peace, this->max_cont_size));
-			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->set_downloaded_range(make_pair(j * now_size_of_peace, this->max_cont_size));
-		}
-		else {
-			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(j * now_size_of_peace, (j + 1) * now_size_of_peace));
-			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->set_downloaded_range(make_pair(j * now_size_of_peace, (j + 1) * now_size_of_peace));
-		}
-
-		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->download_vec();
-		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->download_vec();
-
-		for (size_t i = 0; i < dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->get_vector_size(); ++i)
-			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->set_count_of_concret_collocation_with_one_coordinate(i, dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->get_count_of_concret_collocation_with_one_coordinate(i) - dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->get_count_of_concret_collocation_with_one_coordinate(i) * dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->get_count_of_concret_collocation_with_one_coordinate(i));
-	
-		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->upload_vec();
-		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->upload_vec();
-
-		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->fill_vector((now_type)0.0);
 		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->fill_vector((now_type)0.0);
 	}
 
 	dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->clear_vec();
-	dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_disperse())->clear_vec();
+
+	*this->sparse_mat_disperse -= this->sparse_mat_ozidanie;
+
+	this->sparse_mat_disperse->pow_all(2);	//tut isp pow!!!
+
+	*this->sparse_mat_disperse /= (now_type)(this->max_cont_size * (1 + COLLOC_DIST));
 }
 
 void math_core::calculate_sredne_kv_otklonenie()
 {
-	//this->sredne_kv_otklonenie = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size);
-	//this->sredne_kv_otklonenie = this->mat_disperse->pow_all(2);
+	this->sparse_SKO = make_shared<sparce_container_class>(COLLOC_DIST, this->max_cont_size);
+
+	//this->sparse_SKO += this->sparse_mat_disperse	//нужно исправить путаницу с наследниками, и лишь потом раскомментить эту строку
 }
 
 void math_core::calculate_sredne_kv_otklonenie_fixed()
@@ -215,6 +197,28 @@ void math_core::calculate_sredne_kv_otklonenie_fixed()
 void math_core::find_fluctuations()
 {
 	shared_ptr<container_class_interface> right_boundary_of_search_fluctuations = make_shared<sparce_container_class>(COLLOC_DIST, this->max_cont_size);	//sum1
+	shared_ptr<container_class_interface> left_boundary_of_search_fluctuations = make_shared<sparce_container_class>(COLLOC_DIST, this->max_cont_size);		//razn1
+
+	*right_boundary_of_search_fluctuations += this->sparse_mat_ozidanie;
+	*left_boundary_of_search_fluctuations += this->sparse_mat_ozidanie;
+
+	this->sparse_mat_disperse->sqrt_all();
+
+	*right_boundary_of_search_fluctuations += this->sparse_mat_disperse;
+	*left_boundary_of_search_fluctuations -= this->sparse_mat_disperse;
+
+
+	*this->_all_texts_on_diagonal /= (now_type)this->vec_of_filepaths->size();
+
+	ofstream in_file_stream((string)DB_PATH + "\\fluctuation.txt");
+
+	for (int i = 0; i < this->max_cont_size; ++i)
+		for (int l = 0; l <= COLLOC_DIST; ++l)
+			if ((this->_all_texts_on_diagonal->get_count_of_concret_collocation(i, i, l) > right_boundary_of_search_fluctuations->get_count_of_concret_collocation(i, i, l)) ||
+				(this->_all_texts_on_diagonal->get_count_of_concret_collocation(i, i, l) < left_boundary_of_search_fluctuations->get_count_of_concret_collocation(i, i, l)))
+				in_file_stream << analyzer::get_word_for_token(i) << " "; 
+
+	/*shared_ptr<container_class_interface> right_boundary_of_search_fluctuations = make_shared<sparce_container_class>(COLLOC_DIST, this->max_cont_size);	//sum1
 	shared_ptr<container_class_interface> left_boundary_of_search_fluctuations = make_shared<sparce_container_class>(COLLOC_DIST, this->max_cont_size);		//razn1
 	
 	//пишем первую часть
@@ -259,8 +263,7 @@ void math_core::find_fluctuations()
 		for (int l = 0; l <= COLLOC_DIST; ++l)
 			if ((this->_all_texts_on_diagonal->get_count_of_concret_collocation(i, i, l) > right_boundary_of_search_fluctuations->get_count_of_concret_collocation(i, i, l)) || 
 					(this->_all_texts_on_diagonal->get_count_of_concret_collocation(i, i, l) < left_boundary_of_search_fluctuations->get_count_of_concret_collocation(i, i, l)))
-				in_file_stream << analyzer::get_word_for_token(i) << " ";
-
+				in_file_stream << analyzer::get_word_for_token(i) << " ";*/
 }
 
 int math_core::get_max_cont_size() const

@@ -306,7 +306,11 @@ void analyzer::calculate_mat_ozidanie()
 					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
 						continue;
 
-					int first_index = (*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)).second;	//обращение к критическому ресурсу		//быть может, тут не нужна потокобезопасность?
+					int first_index = (*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)).second;	//место для поиска скорости	//обращение к критическому ресурсу		//быть может, тут не нужна потокобезопасность?
+					
+					if (first_index < dynamic_pointer_cast<piecewise_container_class>(this->_mat_ozidanie)->get_downloaded_range().first || 
+						(first_index > dynamic_pointer_cast<piecewise_container_class>(this->_mat_ozidanie)->get_downloaded_range().second))
+						continue;
 
 					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
 						continue;
@@ -323,8 +327,6 @@ void analyzer::calculate_mat_ozidanie()
 void analyzer::calculate_mat_disperse()
 {
 	this->lemmatize_all_words();
-
-	tsl::robin_map<three_coordinate_structure, int> map_of_tokens_TOKEN_DATA;
 
 	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
 		#pragma omp critical (maps_into_analyzer)
@@ -346,30 +348,12 @@ void analyzer::calculate_mat_disperse()
 					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
 						continue;
 
-					if (i > 0) {
-						three_coordinate_structure ___key = { first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, i - 1 };
-						auto iter_ = map_of_tokens_TOKEN_DATA.find(___key);
-						if (iter_ == map_of_tokens_TOKEN_DATA.end())
-							map_of_tokens_TOKEN_DATA[___key] = (now_type)1.;
-						else
-							iter_.value() = iter_.value() + 1;
-					}
-					else {			
-						three_coordinate_structure ___key = { first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, abs(i) - 1 };
-						auto iter_ = map_of_tokens_TOKEN_DATA.find(___key);
-						if (iter_ == map_of_tokens_TOKEN_DATA.end())
-							map_of_tokens_TOKEN_DATA[___key] = (now_type)1.;
-						else
-							iter_.value() = iter_.value() + 1;
-					}
+					if (i > 0)
+						this->_mat_disperse->summ_for_concret_colloc(first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, i - 1, (now_type)1.);	//обращение к критическому ресурсу
+					else
+						this->_mat_disperse->summ_for_concret_colloc(first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, abs(i) - 1, (now_type)1.);	//обращение к критическому ресурсу				
 				}
 		}
-	}
-
-	#pragma omp critical (mat_disperse_container)
-	{
-		for (auto& obj : map_of_tokens_TOKEN_DATA)
-			this->_mat_disperse->summ_for_concret_colloc(obj.first.first_coord, obj.first.second_coord, obj.first.k, obj.second * obj.second);
 	}
 }
 

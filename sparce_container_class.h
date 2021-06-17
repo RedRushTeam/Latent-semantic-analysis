@@ -12,6 +12,7 @@ public:
     //methods
     size_t collect_one_coordinate_from_three(size_t first_dimension, size_t second_dimension, size_t third_dimension);
     void calculate_and_sum_parametr_to_one_term(shared_ptr<container_class_interface> _parametr);
+    now_type get_count_of_concret_collocation_for_one_coord(size_t coordinate) const;
     
     // Унаследовано через container_class_interface
     virtual void summ_for_concret_colloc(int first_dimension, int second_dimension, int third_dimension, now_type _num) override;
@@ -27,8 +28,8 @@ public:
     virtual shared_ptr<container_class_interface> operator+(now_type _koef) override;
     virtual shared_ptr<container_class_interface> operator-(shared_ptr<container_class_interface> summed_class) override;
     virtual shared_ptr<container_class_interface> operator-(now_type _num) override;
-    virtual void operator+=(shared_ptr<container_class_interface> summed_class) override;
     virtual void operator/=(now_type _num) override;
+    virtual void operator+=(shared_ptr<container_class_interface> summed_class) override;
     virtual void operator+=(now_type _num) override;
     virtual void operator-=(shared_ptr<container_class_interface> deductible_class) override;
     virtual void operator-=(now_type _koef) override;

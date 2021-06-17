@@ -21,8 +21,8 @@ int main(int argc, char* argv[])
 	cout << endl << "ћаксимальный размер словар€, отбросив термы с по€влени€ми в " << CUTOFF_FR_IN_TEXTS << " и менее текстах, а так же, отбросив термы с " << CUTOFF << " и менее по€влени€ми: " << size_for_wichout_rare_words_in_texts;
 	//cout << endl << "ћаксимальный размер словар€, отбросив термы с косинусами, ниже " << DELETE_THRESHOLD << " равен: " << size_for_wichout_rare_words_in_texts_SVD;
 	
-	cout << endl << "¬ычисление среднего значени€ выборки...";
-	_math_core.calculate_sample_mean();
+	//cout << endl << "¬ычисление среднего значени€ выборки...";
+	//_math_core.calculate_sample_mean();
 	cout << endl << "¬ычисление математического ожидани€...";
 	_math_core.calculate_mat_ozidanie();
 	cout << endl << "¬ычисление математической дисперсии...";
