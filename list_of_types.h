@@ -94,7 +94,7 @@ using now_type = float;
 
 
 //my defines
-constexpr auto SIZE_OF_PIECE = 10000;
+constexpr auto SIZE_OF_PIECE = 7000;
 constexpr auto COLLOC_DIST = 3;
 constexpr auto STOP_WORD = 0 ;
 constexpr auto CUTOFF = 6;
@@ -105,6 +105,6 @@ constexpr int FLAGS = LEME_FASTEST;
 
 constexpr auto LEMADR = "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db";
 //constexpr auto TEXTS_PATH = "A:\\rasp_puhl1";
-constexpr auto TEXTS_PATH = "G:\\rasp_puhl";
-//constexpr auto TEXTS_PATH = "C:\\txts";
+//constexpr auto TEXTS_PATH = "G:\\rasp_puhl";
+constexpr auto TEXTS_PATH = "C:\\txts";
 constexpr auto DB_PATH = "C:\\databases";
