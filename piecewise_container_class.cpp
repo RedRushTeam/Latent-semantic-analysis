@@ -132,7 +132,8 @@ void piecewise_container_class::operator*=(now_type _num)
 void piecewise_container_class::clear_vec()
 {
 	this->downloaded_vector.clear();
-	this->downloaded_range = make_pair(-1, -1);
+	this->downloaded_vector.shrink_to_fit();
+	make_pair(-1, -1);
 }
 
 void piecewise_container_class::upload_vec()	//ошибки с удалением
