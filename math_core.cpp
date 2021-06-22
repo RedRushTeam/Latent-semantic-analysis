@@ -212,11 +212,16 @@ void math_core::find_fluctuations()
 
 	ofstream in_file_stream((string)DB_PATH + "\\fluctuation.txt");
 
+	string prev_word = "";
+
 	for (int i = 0; i < this->max_cont_size; ++i)
 		for (int l = 0; l <= COLLOC_DIST; ++l)
 			if ((this->_all_texts_on_diagonal->get_count_of_concret_collocation(i, i, l) > right_boundary_of_search_fluctuations->get_count_of_concret_collocation(i, i, l)) ||
 				(this->_all_texts_on_diagonal->get_count_of_concret_collocation(i, i, l) < left_boundary_of_search_fluctuations->get_count_of_concret_collocation(i, i, l)))
-				in_file_stream << analyzer::get_word_for_token(i) << " "; 
+				if(prev_word != analyzer::get_word_for_token(i)){
+						in_file_stream << analyzer::get_word_for_token(i) << " "; 
+						prev_word = analyzer::get_word_for_token(i);
+				}
 
 	/*shared_ptr<container_class_interface> right_boundary_of_search_fluctuations = make_shared<sparce_container_class>(COLLOC_DIST, this->max_cont_size);	//sum1
 	shared_ptr<container_class_interface> left_boundary_of_search_fluctuations = make_shared<sparce_container_class>(COLLOC_DIST, this->max_cont_size);		//razn1

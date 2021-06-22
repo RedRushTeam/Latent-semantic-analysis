@@ -27,6 +27,8 @@ int main(int argc, char* argv[])
 	_math_core.calculate_mat_ozidanie();
 	cout << endl << "Вычисление математической дисперсии...";
 	_math_core.calculate_mat_disperse();
+	cout << endl << "Вычисление флуктуационных термов...";
+	_math_core.find_fluctuations();
 	
 	auto finish = clock();
 	cout << endl << endl << ">>> " << finish - start << "ms <<<" << endl;
