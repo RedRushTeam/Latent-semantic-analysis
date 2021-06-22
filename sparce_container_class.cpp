@@ -16,7 +16,7 @@ void sparce_container_class::calculate_and_sum_parametr_to_one_term(shared_ptr<c
         return;
 
     //многопоток?
-    for (auto q = dynamic_pointer_cast<piecewise_container_class>(_parametr)->get_downloaded_range().first; q < dynamic_pointer_cast<piecewise_container_class>(_parametr)->get_downloaded_range().second; ++q)	//check it
+    for (auto q = dynamic_pointer_cast<piecewise_container_class>(_parametr)->get_downloaded_range().first; q < dynamic_pointer_cast<piecewise_container_class>(_parametr)->get_downloaded_range().second; ++q)
         for (auto j = dynamic_pointer_cast<piecewise_container_class>(_parametr)->get_downloaded_range().first; j < dynamic_pointer_cast<piecewise_container_class>(_parametr)->get_downloaded_range().second; ++j)
             for (int p = 0; p <= COLLOC_DIST; ++p)
                 this->set_count_of_concret_collocation(q, q, p, this->get_count_of_concret_collocation(q, q, p) + _parametr->get_count_of_concret_collocation(q, j, p));

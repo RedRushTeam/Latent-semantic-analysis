@@ -296,7 +296,7 @@ void piecewise_container_class::download_vec()
 
 		size_t vec_idx = 0;
 
-		for (int i = this->get_downloaded_range().first; i <= this->get_downloaded_range().second; ++i)
+		for (int i = this->get_downloaded_range().first; i < this->get_downloaded_range().second; ++i)
 			for (int j = 0; j < this->get_count_of_collocations(); ++j)
 				for (int l = 0; l <= this->get_k(); ++l) {
 
@@ -320,7 +320,7 @@ void piecewise_container_class::download_vec()
 
 bool piecewise_container_class::is_data_for_this_colloc_downloaded(int first_dimension, int second_dimension, int third_dimension)
 {
-	if (this->downloaded_range.first <= first_dimension && (this->downloaded_range.second >= first_dimension)) //CHECK SECOND CONDITION
+	if (this->downloaded_range.first <= first_dimension && (this->downloaded_range.second > first_dimension))
 		return true;
 
 	return false;
@@ -379,18 +379,5 @@ void piecewise_container_class::set_count_of_concret_collocation(int first_dimen
 	if (!is_data_for_this_colloc_downloaded(first_dimension, second_dimension, third_dimension))
 		return;
 
-	auto number_of_pieces = this->_filenames.size();
-
-	if (!number_of_pieces)
-		return;
-
-	int counter = 0;
-	for (auto &obj : _filenames)
-	{
-		if ((first_dimension >= obj.second.first) && (first_dimension < obj.second.second))
-			break;
-		counter++;
-	}
-	//TODO write setter in database
-	this->downloaded_vector[this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension) - this->downloaded_vector.size()*counter] = perem;
+	this->downloaded_vector[this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension)] = perem;
 }
