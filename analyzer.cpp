@@ -308,6 +308,10 @@ void analyzer::calculate_mat_ozidanie()
 
 					int first_index = (*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)).second;	//обращение к критическому ресурсу		//быть может, тут не нужна потокобезопасность?
 
+					if (first_index < dynamic_pointer_cast<piecewise_container_class>(this->_mat_ozidanie)->get_downloaded_range().first ||
+						(first_index > dynamic_pointer_cast<piecewise_container_class>(this->_mat_ozidanie)->get_downloaded_range().second))
+						continue;
+
 					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
 						continue;
 
@@ -343,6 +347,10 @@ void analyzer::calculate_mat_disperse()
 
 					int first_index = (*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)).second;	//обращение к критическому ресурсу		//быть может, тут не нужна потокобезопасность?
 
+					if (first_index < dynamic_pointer_cast<piecewise_container_class>(this->_mat_disperse)->get_downloaded_range().first ||
+						(first_index > dynamic_pointer_cast<piecewise_container_class>(this->_mat_disperse)->get_downloaded_range().second))
+						continue;
+					
 					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
 						continue;
 

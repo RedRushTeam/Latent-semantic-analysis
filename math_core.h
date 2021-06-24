@@ -22,6 +22,7 @@ public:
 	MatrixXf get_colloc_singular_U_matrix();
 	vector<pair<int, int>>* get_helper_vec();
 
+	void calculate_all();
 	void calculate_max_cont_size();	//first
 	int calculate_max_cont_size_without_rare_words();
 	int calculate_max_cont_size_without_rare_words_and_frequency_in_texts();
@@ -67,6 +68,9 @@ private:
 
 	//private elems
 	shared_ptr<vector<fs::path>> vec_of_filepaths;
+
+	//three_coordinate_structure
+	unordered_set<three_coordinate_structure> map_of_fluct_tokens;
 
 	shared_ptr<container_class_interface> sample_mean_all;
 	shared_ptr<container_class_interface> excess_ratio;

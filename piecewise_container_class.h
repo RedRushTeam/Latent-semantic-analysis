@@ -11,10 +11,10 @@ public:
     //constr
     piecewise_container_class(short k, int count_of_collocations, fs::path path_to_db, pair<int, int> downloaded_range) :
         container_class_interface(k, count_of_collocations), path_to_db(path_to_db), downloaded_range(downloaded_range) {
-        if (count_of_collocations < SIZE_OF_PIECE)
+        if (count_of_collocations < (SIZE_OF_PIECE / 2))
             this->downloaded_vector.resize((size_t)count_of_collocations * count_of_collocations * (COLLOC_DIST + 1), NULL);
-        if (count_of_collocations > SIZE_OF_PIECE)
-            this->downloaded_vector.resize((size_t)SIZE_OF_PIECE * count_of_collocations * (COLLOC_DIST + 1), NULL);
+        if (count_of_collocations >= (SIZE_OF_PIECE / 2))
+            this->downloaded_vector.resize((size_t)SIZE_OF_PIECE / 2 * count_of_collocations * (COLLOC_DIST + 1), NULL);
 
         this->downloaded_text = text_counter;
         text_counter++;
@@ -24,10 +24,10 @@ public:
 
     piecewise_container_class(short k, int count_of_collocations, string container_name) :
         container_class_interface(k, count_of_collocations) {
-        if (count_of_collocations < SIZE_OF_PIECE)
+        if (count_of_collocations < (SIZE_OF_PIECE / 2))
             this->downloaded_vector.resize((size_t)count_of_collocations * count_of_collocations * (COLLOC_DIST + 1), NULL);
-        if (count_of_collocations > SIZE_OF_PIECE)
-            this->downloaded_vector.resize((size_t)SIZE_OF_PIECE * count_of_collocations * (COLLOC_DIST + 1), NULL);
+        if (count_of_collocations >= (SIZE_OF_PIECE / 2))
+            this->downloaded_vector.resize((size_t)SIZE_OF_PIECE / 2 * count_of_collocations * (COLLOC_DIST + 1), NULL);
 
         this->downloaded_text = -text_counter;
         text_counter++;
@@ -43,10 +43,10 @@ public:
 
     piecewise_container_class(short k, int count_of_collocations) : container_class_interface(k, count_of_collocations)
     {
-        if (count_of_collocations < SIZE_OF_PIECE)
+        if (count_of_collocations < (SIZE_OF_PIECE / 2))
             this->downloaded_vector.resize((size_t)count_of_collocations * count_of_collocations * (COLLOC_DIST + 1), NULL);
-        if (count_of_collocations > SIZE_OF_PIECE)
-            this->downloaded_vector.resize((size_t)SIZE_OF_PIECE * count_of_collocations * (COLLOC_DIST + 1), NULL);
+        if (count_of_collocations > (SIZE_OF_PIECE / 2))
+            this->downloaded_vector.resize((size_t)SIZE_OF_PIECE / 2 * count_of_collocations * (COLLOC_DIST + 1), NULL);
 
         this->downloaded_text = text_counter;
         text_counter++;
@@ -77,11 +77,12 @@ public:
     pair<int, int> get_downloaded_range() const;
     // Унаследовано через container_class_interface
     virtual void summ_for_concret_colloc(int first_dimension, int second_dimension, int third_dimension, now_type _num) override;
+    void summ_for_concret_colloc(size_t index, now_type for_sum);
     virtual void increment(int first_dimension, int second_dimension, int third_dimension) override;
     virtual void decrement(int first_dimension, int second_dimension, int third_dimension) override;
     virtual now_type get_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension) override;
     virtual void set_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension, now_type perem) override;
-    virtual shared_ptr<container_class_interface> pow_all(int stepen) override;
+    virtual void pow_all(int stepen) override;
     virtual void sqrt_all() override;
 
     //operators
@@ -112,5 +113,4 @@ private:
     int downloaded_text;
     fs::path path_to_db;
     unordered_map<string, pair<int, int>> _filenames;
-    // filename template: textN_termsA-B
 };

@@ -25,10 +25,9 @@ now_type piecewise_container_class::get_count_of_concret_collocation(int first_d
 	return this->downloaded_vector[this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension)];
 }
 
-shared_ptr<container_class_interface> piecewise_container_class::pow_all(int stepen)
+void piecewise_container_class::pow_all(int stepen)
 {
-
-	return shared_ptr<container_class_interface>();
+	std::transform(this->downloaded_vector.begin(), this->downloaded_vector.end(), this->downloaded_vector.begin(), [&](now_type& obj) {	return pow(obj, stepen); });
 }
 
 void piecewise_container_class::sqrt_all()
@@ -55,18 +54,18 @@ shared_ptr<container_class_interface> piecewise_container_class::operator-(now_t
 {
 	return shared_ptr<container_class_interface>();
 }
-void piecewise_container_class::operator+=(shared_ptr<container_class_interface> summed_class)
-{
-
-}
 
 void piecewise_container_class::operator+=(now_type _num)
 {
-
 }
 
 void piecewise_container_class::operator-=(shared_ptr<container_class_interface> summed_class)
 {
+	if (summed_class->get_count_of_collocations() != this->get_count_of_collocations()) {	//TODO add check downloaded range!
+		exit(-228);
+		return;
+	}
+
 	for (size_t i = 0; i < this->downloaded_vector.size(); ++i)
 		this->downloaded_vector[i] -= dynamic_pointer_cast<piecewise_container_class>(summed_class)->get_count_of_concret_collocation_with_one_coordinate(i);
 }
@@ -124,6 +123,17 @@ void piecewise_container_class::bailout(int rc, MDBX_env* env, MDBX_dbi dbi, MDB
 		mdbx_env_close(env);
 }
 
+void piecewise_container_class::operator+=(shared_ptr<container_class_interface> summed_class)
+{
+	if (summed_class->get_count_of_collocations() != this->get_count_of_collocations()) {	//TODO add check downloaded range!
+		exit(-228);
+		return;
+	}
+
+	for (size_t i = 0; i < this->get_count_of_collocations(); ++i)
+		this->downloaded_vector[i] += dynamic_pointer_cast<piecewise_container_class>(summed_class)->get_count_of_concret_collocation_with_one_coordinate(i);
+}
+
 void piecewise_container_class::operator*=(now_type _num)
 {
 	std::transform(this->downloaded_vector.begin(), this->downloaded_vector.end(), this->downloaded_vector.begin(), [&](now_type obj) {	return obj * _num; });
@@ -132,6 +142,7 @@ void piecewise_container_class::operator*=(now_type _num)
 void piecewise_container_class::clear_vec()
 {
 	this->downloaded_vector.clear();
+	this->downloaded_vector.shrink_to_fit();
 	this->downloaded_range = make_pair(-1, -1);
 }
 
@@ -328,7 +339,9 @@ bool piecewise_container_class::is_data_for_this_colloc_downloaded(int first_dim
 
 size_t piecewise_container_class::collect_one_coordinate_from_three(int first_dimension, int second_dimension, int third_dimension) const
 {
-	return first_dimension * this->get_count_of_collocations() * COLLOC_DIST + second_dimension * COLLOC_DIST + third_dimension;
+	size_t part = first_dimension / (SIZE_OF_PIECE / 2);
+	size_t ret = ((size_t)first_dimension * (size_t)this->get_count_of_collocations() * (size_t)(COLLOC_DIST + 1) + second_dimension * (COLLOC_DIST + 1) + third_dimension) - (size_t)(this->downloaded_vector.capacity() * part);
+	return ret;
 }
 
 void piecewise_container_class::fill_vector(now_type number_for_fill)
@@ -353,7 +366,7 @@ size_t piecewise_container_class::get_vector_size()
 
 void piecewise_container_class::set_downloaded_range(pair<int, int> downloaded_range)
 {
-	this->downloaded_vector.resize((downloaded_range.second - downloaded_range.first + 1) * this->get_count_of_collocations() * (this->get_k() + 1));// check it (is +1 needed?)
+	//this->downloaded_vector.resize((downloaded_range.second - downloaded_range.first + 1) * this->get_count_of_collocations() * (this->get_k() + 1));// check it (is +1 needed?)
 	this->downloaded_range = downloaded_range;
 }
 
@@ -368,6 +381,11 @@ void piecewise_container_class::summ_for_concret_colloc(int first_dimension, int
 		return;
 
 	this->downloaded_vector[this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension)] += _num;
+}
+
+void piecewise_container_class::summ_for_concret_colloc(size_t index, now_type for_sum)
+{
+	this->downloaded_vector[index] += for_sum;
 }
 
 void piecewise_container_class::set_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension, now_type perem)

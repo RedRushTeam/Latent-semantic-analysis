@@ -44,9 +44,9 @@ void sparce_container_class::set_count_of_concret_collocation(int first_dimensio
     this->sparce_vec.at(this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension)) = perem;
 }
 
-shared_ptr<container_class_interface> sparce_container_class::pow_all(int stepen)
+void sparce_container_class::pow_all(int stepen)
 {
-    return shared_ptr<container_class_interface>();
+
 }
 
 void sparce_container_class::sqrt_all()
