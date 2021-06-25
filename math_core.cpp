@@ -200,14 +200,18 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 			this->map_of_flukt_cooloc_fuzzy->insert(make_pair(make_pair(obj.first_coord, obj.second_coord), iter->second + (now_type)(1 - obj.k * 0.2)));	//todo check this logic
 	}
 
-	this->helper_vec_for_SVD_rows_colloc_numbers = make_shared<vector<pair<int, int>>>();
+	this->helper_map_for_SVD_rows_colloc_numbers = make_shared<tsl::robin_map<pair<int, int>, int>>();
 
-	this->helper_vec_for_SVD_rows_colloc_numbers->reserve(this->map_of_flukt_cooloc_fuzzy->size());
+	//this->helper_vec_for_SVD_rows_colloc_numbers->reserve(this->map_of_flukt_cooloc_fuzzy->size());
 
-	for (auto& obj : *this->map_of_flukt_cooloc_fuzzy)
-		this->helper_vec_for_SVD_rows_colloc_numbers->push_back(make_pair(obj.first.first, obj.first.second));
+	int indexer = 0;
+	for (auto& obj : *this->map_of_flukt_cooloc_fuzzy) {
+		this->helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(make_pair(obj.first.first, obj.first.second), indexer));
 
-	analyzer::set_helper_vec_for_SVD_rows_colloc_numbers(this->helper_vec_for_SVD_rows_colloc_numbers);
+		++indexer;
+	}
+
+	analyzer::set_helper_map_for_SVD_rows_colloc_numbers(this->helper_map_for_SVD_rows_colloc_numbers);
 	analyzer::set_map_of_flukt_cooloc_fuzzy(this->map_of_flukt_cooloc_fuzzy);
 
 	this->set_of_fluct_cooloc.clear();
