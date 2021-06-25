@@ -163,7 +163,7 @@ int analyzer::get_counter_of_tokenizer_without_rare_words_SVD()
 		for (int j = 0; j < COLLOC_DIST; ++j)
 			resized_U_matrix_of_SVD->operator()(i, j) = U_matrix_of_SVD(i, j);
 
-	auto restored_matrix = ((*resized_U_matrix_of_SVD) * (*svalues_as_MatrixXf)) * (*resized_V_matrix_of_SVD);
+	//auto restored_matrix = ((*resized_U_matrix_of_SVD) * (*svalues_as_MatrixXf)) * (*resized_V_matrix_of_SVD);
 
 	vector<float> lenghts_words_vector;
 	lenghts_words_vector.resize(U_matrix_of_SVD.rows(), NULL);
@@ -381,6 +381,11 @@ void analyzer::calculate_mat_disperse()
 	}
 }
 
+shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
+{
+	return shared_ptr<MatrixXf>();
+}
+
 list<string>::iterator analyzer::move_list_iterator(list<string>::iterator _it, int mover)
 {
 	if (!mover)
@@ -522,6 +527,16 @@ void analyzer::set_k(short _k)
 void analyzer::set_number_of_texts(int number_of_texts)
 {
 	analyzer::number_of_texts = number_of_texts;
+}
+
+void analyzer::set_helper_vec_for_SVD_rows_colloc_numbers(shared_ptr<vector<pair<int, int>>> helper_vec_for_SVD_rows_colloc_numbers)
+{
+	analyzer::helper_vec_for_SVD_rows_colloc_numbers = helper_vec_for_SVD_rows_colloc_numbers;
+}
+
+void analyzer::set_map_of_flukt_cooloc_fuzzy(shared_ptr<tsl::robin_map<pair<int, int>, now_type>> map_of_flukt_cooloc_fuzzy)
+{
+	analyzer::map_of_flukt_cooloc_fuzzy = map_of_flukt_cooloc_fuzzy;
 }
 
 shared_ptr<container_class_interface> analyzer::get_container_sample_mean_all()

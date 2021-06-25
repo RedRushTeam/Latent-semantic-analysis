@@ -31,6 +31,7 @@
 //custom maps include
 //#include <hopscotch_map.h>
 #include <robin_map.h>
+#include <robin_set.h>
 
 //Multithreading include
 #include "omp.h"

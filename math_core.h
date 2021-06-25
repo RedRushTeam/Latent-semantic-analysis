@@ -36,6 +36,8 @@ public:
 	void calculate_excess_ratio();	//nn
 	void out_for_chart();	//nn
 	void find_fluctuations();	//7
+	void calculate_map_of_flukt_cooloc_fuzzy();
+	void find_SVD_coolc();
 	void find_colloc_fluctuations();	//8
 
 	//getters&setters
@@ -69,8 +71,11 @@ private:
 	//private elems
 	shared_ptr<vector<fs::path>> vec_of_filepaths;
 
-	//three_coordinate_structure
-	unordered_set<three_coordinate_structure> map_of_fluct_tokens;
+	//sets for flukt
+	tsl::robin_set<three_coordinate_structure> set_of_fluct_cooloc;
+	shared_ptr<tsl::robin_map<pair<int, int>, now_type>> map_of_flukt_cooloc_fuzzy;
+
+	shared_ptr<vector<pair<int, int>>> helper_vec_for_SVD_rows_colloc_numbers;
 
 	shared_ptr<container_class_interface> sample_mean_all;
 	shared_ptr<container_class_interface> excess_ratio;
