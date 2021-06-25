@@ -75,7 +75,7 @@ private:
 	tsl::robin_set<three_coordinate_structure> set_of_fluct_cooloc;
 	shared_ptr<tsl::robin_map<pair<int, int>, now_type>> map_of_flukt_cooloc_fuzzy;
 
-	shared_ptr<vector<pair<int, int>>> helper_vec_for_SVD_rows_colloc_numbers;
+	shared_ptr<tsl::robin_map<pair<int, int>, int>> helper_map_for_SVD_rows_colloc_numbers;
 
 	shared_ptr<container_class_interface> sample_mean_all;
 	shared_ptr<container_class_interface> excess_ratio;
