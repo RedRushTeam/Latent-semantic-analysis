@@ -122,12 +122,15 @@ public:
 	void calculate_sample_mean_all();
 	void calculate_mat_ozidanie();
 	void calculate_mat_disperse();
+	static shared_ptr<MatrixXf> calculate_SVD_matrix_for_concret_text();
 
 	//getters&&setters
 	static int get_k();
 	static void set_k(short _k);
 	static int get_number_of_texts();
 	static void set_number_of_texts(int number_of_texts);
+	static void set_helper_vec_for_SVD_rows_colloc_numbers(shared_ptr<vector<pair<int, int>>> helper_vec_for_SVD_rows_colloc_numbers);
+	static void set_map_of_flukt_cooloc_fuzzy(shared_ptr<tsl::robin_map<pair<int, int>, now_type>> map_of_flukt_cooloc_fuzzy);
 	void set_list_of_all_parsed_text(shared_ptr<list<string>> list_of_all_parsed_text);
 	//for counters
 	static int get_counter_of_tokenizer();
@@ -175,6 +178,10 @@ private:
 
 	//SVD matrix for max size calculation
 	static inline shared_ptr<MatrixXf> all_matrix_for_SVD;
+
+	//data for SVD calculation
+	static inline shared_ptr<vector<pair<int, int>>> helper_vec_for_SVD_rows_colloc_numbers;
+	static inline shared_ptr<tsl::robin_map<pair<int, int>, now_type>> map_of_flukt_cooloc_fuzzy;
 
 	//max_size
 	static inline int counter_of_tokenizer;

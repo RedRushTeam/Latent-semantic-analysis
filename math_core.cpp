@@ -150,14 +150,18 @@ void math_core::calculate_mat_ozidanie()
 
 	*dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse) += this->mat_ozidanie;
 
+<<<<<<< HEAD
 	(*dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())) /= (now_type)(this->max_cont_size * (1 + COLLOC_DIST)); // делить на число текстов
+=======
+	(*dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())) /= (now_type)this->vec_of_filepaths->size();
+>>>>>>> 18f3eda3b31e926d7b8162b9487041dd336d81a1
 }
 
 void math_core::calculate_mat_disperse()
 {
-	*dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse) -= this->mat_disperse;
+	*dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse) -= this->mat_ozidanie;
 	this->mat_disperse->pow_all(2);	//tut isp pow
-	(*dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())) /= (now_type)(this->max_cont_size * (1 + COLLOC_DIST));
+	(*dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())) /= (now_type)this->vec_of_filepaths->size();
 }
 
 void math_core::calculate_sredne_kv_otklonenie()
@@ -179,9 +183,61 @@ void math_core::find_fluctuations()
 	for (size_t i = 0; i < (SIZE_OF_PIECE / 2); ++i)
 		for (size_t j = 0; j < (SIZE_OF_PIECE / 2); ++j)
 			for (size_t k = 0; k <= COLLOC_DIST; ++k)
-				if (mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) - sqrt(mat_disp_like_piese->get_count_of_concret_collocation(i, j, k)) > mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->max_cont_size * (1 + COLLOC_DIST)) ||
-					(mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) + sqrt(mat_disp_like_piese->get_count_of_concret_collocation(i, j, k)) < mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->max_cont_size * (1 + COLLOC_DIST))))
-					map_of_fluct_tokens.insert(three_coordinate_structure{ (int)i, (int)j, (short)k });
+				if (mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) - sqrt(mat_disp_like_piese->get_count_of_concret_collocation(i, j, k)) > mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size()) ||
+					(mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) + sqrt(mat_disp_like_piese->get_count_of_concret_collocation(i, j, k)) < mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size())))
+					set_of_fluct_cooloc.insert(three_coordinate_structure{ (int)i, (int)j, (short)k });
+
+	mat_ozid_like_piese->clear_vec();
+	mat_disp_like_piese->clear_vec();
+}
+
+void math_core::calculate_map_of_flukt_cooloc_fuzzy()
+{
+	this->map_of_flukt_cooloc_fuzzy = make_shared<tsl::robin_map<pair<int, int>, now_type>>();
+	
+	for (auto& obj : this->set_of_fluct_cooloc) {
+		auto iter = this->map_of_flukt_cooloc_fuzzy->find(make_pair(obj.first_coord, obj.second_coord));
+
+		if (iter == this->map_of_flukt_cooloc_fuzzy->end())
+			this->map_of_flukt_cooloc_fuzzy->insert(make_pair(make_pair(obj.first_coord, obj.second_coord), 1 - obj.k * 0.2));
+		else 
+			this->map_of_flukt_cooloc_fuzzy->insert(make_pair(make_pair(obj.first_coord, obj.second_coord), iter->second + (now_type)(1 - obj.k * 0.2)));	//todo check this logic
+	}
+
+	this->helper_vec_for_SVD_rows_colloc_numbers = make_shared<vector<pair<int, int>>>();
+
+	this->helper_vec_for_SVD_rows_colloc_numbers->reserve(this->map_of_flukt_cooloc_fuzzy->size());
+
+	for (auto& obj : *this->map_of_flukt_cooloc_fuzzy)
+		this->helper_vec_for_SVD_rows_colloc_numbers->push_back(make_pair(obj.first.first, obj.first.second));
+
+	analyzer::set_helper_vec_for_SVD_rows_colloc_numbers(this->helper_vec_for_SVD_rows_colloc_numbers);
+	analyzer::set_map_of_flukt_cooloc_fuzzy(this->map_of_flukt_cooloc_fuzzy);
+
+	this->set_of_fluct_cooloc.clear();
+}
+
+void math_core::find_SVD_coolc()
+{
+	this->calculate_map_of_flukt_cooloc_fuzzy();
+
+	MatrixXf matrix_for_all_SVD(this->map_of_flukt_cooloc_fuzzy->size(), this->vec_of_filepaths->size());
+
+	matrix_for_all_SVD.fill(NULL);
+
+	#pragma omp parallel 
+	{
+		#pragma omp for schedule(static)
+		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
+			parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
+			auto result_of_parse = _parser.parse();
+
+			analyzer _analyzer(result_of_parse);
+			auto column = _analyzer.calculate_SVD_matrix_for_concret_text();
+
+			matrix_for_all_SVD.col(j) = *column;	//может быть тут нужна критическая секция, а может и нет, нужны тесты
+		}
+	}
 }
 
 int math_core::get_max_cont_size() const
