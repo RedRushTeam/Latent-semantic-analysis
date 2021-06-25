@@ -101,6 +101,7 @@ constexpr auto STOP_WORD = 0 ;
 constexpr auto CUTOFF = 6;
 constexpr auto CUTOFF_FR_IN_TEXTS = 6;
 constexpr auto DELETE_THRESHOLD = 0.065;
+constexpr auto KOEF_FOR_COLLOC_COS_DELETE = 0.065;
 constexpr auto BIT_COMPRESSION_LEVEL = BitCompressionLevel::FASTEST;
 constexpr int FLAGS = LEME_FASTEST;
 

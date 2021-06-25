@@ -67,6 +67,7 @@ private:
 	BDCSVD<MatrixXf>* BDCSVD_svd_colloc = nullptr;		//SVD for big matrix
 	vector<pair<int, int>>* helper_vec;
 	multiset<pair<int, int>>* possible_collocs;
+	tsl::robin_map<pair<int, int>, float> cosinuses;
 
 	//private elems
 	shared_ptr<vector<fs::path>> vec_of_filepaths;

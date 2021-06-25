@@ -144,9 +144,9 @@ int analyzer::get_counter_of_tokenizer_without_rare_words_SVD()
 
 	//распараллелрить тут?
 	for (int i = 0; i < singular_values_like_vectorXf.size(); ++i)
-		svalues_as_MatrixXf->operator()(i, i) = singular_values_like_vectorXf[i];
+		(*svalues_as_MatrixXf)(i, i) = singular_values_like_vectorXf[i];
 
-	svalues_as_MatrixXf->conservativeResize(COLLOC_DIST, COLLOC_DIST);
+	svalues_as_MatrixXf->conservativeResize(COLLOC_DIST+1, COLLOC_DIST+1);
 
 	shared_ptr<MatrixXf> resized_V_matrix_of_SVD = make_shared<MatrixXf>();
 	resized_V_matrix_of_SVD->resize(COLLOC_DIST, V_matrix_of_SVD.cols());
@@ -155,12 +155,12 @@ int analyzer::get_counter_of_tokenizer_without_rare_words_SVD()
 	resized_U_matrix_of_SVD->resize(U_matrix_of_SVD.rows(), COLLOC_DIST);
 
 	//распараллелрить тут?
-	for (int i = 0; i < COLLOC_DIST; ++i)
+	for (int i = 0; i <= COLLOC_DIST; ++i)
 		for (int j = 0; j < V_matrix_of_SVD.cols(); ++j)
 			resized_V_matrix_of_SVD->operator()(i, j) = V_matrix_of_SVD(i, j);
 
 	for (int i = 0; i < U_matrix_of_SVD.rows(); ++i)
-		for (int j = 0; j < COLLOC_DIST; ++j)
+		for (int j = 0; j <= COLLOC_DIST; ++j)
 			resized_U_matrix_of_SVD->operator()(i, j) = U_matrix_of_SVD(i, j);
 
 	//auto restored_matrix = ((*resized_U_matrix_of_SVD) * (*svalues_as_MatrixXf)) * (*resized_V_matrix_of_SVD);

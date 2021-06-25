@@ -234,6 +234,88 @@ void math_core::find_SVD_coolc()
 			matrix_for_all_SVD.col(j) = *column;	//может быть тут нужна критическая секция, а может и нет, нужны тесты
 		}
 	}
+
+	shared_ptr<BDCSVD<MatrixXf>> BDCSVD_svd = make_shared<BDCSVD<MatrixXf>>(matrix_for_all_SVD, ComputeThinV | ComputeThinU);
+	auto singular_values_like_vectorXf = BDCSVD_svd->singularValues();
+	auto V_matrix_of_SVD = BDCSVD_svd->matrixV();
+	auto U_matrix_of_SVD = BDCSVD_svd->matrixU();
+
+	shared_ptr<MatrixXf> svalues_as_MatrixXf = make_shared<MatrixXf>();
+	svalues_as_MatrixXf->resize(singular_values_like_vectorXf.size(), singular_values_like_vectorXf.size());
+	svalues_as_MatrixXf->fill(0.);
+
+	for (int i = 0; i < singular_values_like_vectorXf.size(); ++i)
+		(*svalues_as_MatrixXf)(i, i) = singular_values_like_vectorXf[i];
+
+	svalues_as_MatrixXf->conservativeResize(COLLOC_DIST + 1, COLLOC_DIST + 1);
+
+	shared_ptr<MatrixXf> resized_V_matrix_of_SVD = make_shared<MatrixXf>();
+	resized_V_matrix_of_SVD->resize(COLLOC_DIST +1 , V_matrix_of_SVD.cols());
+
+	shared_ptr<MatrixXf> resized_U_matrix_of_SVD = make_shared<MatrixXf>();
+	resized_U_matrix_of_SVD->resize(U_matrix_of_SVD.rows(), COLLOC_DIST + 1);
+
+	for (int i = 0; i <= COLLOC_DIST; ++i)
+		for (int j = 0; j < V_matrix_of_SVD.cols(); ++j)
+			resized_V_matrix_of_SVD->operator()(i, j) = V_matrix_of_SVD(i, j);
+
+	for (int i = 0; i < U_matrix_of_SVD.rows(); ++i)
+		for (int j = 0; j <= COLLOC_DIST; ++j)
+			resized_U_matrix_of_SVD->operator()(i, j) = U_matrix_of_SVD(i, j);
+
+	vector<float> lenghts_colloc_vector;
+	lenghts_colloc_vector.resize(U_matrix_of_SVD.rows(), NULL);
+
+	for (auto i = 0; i < U_matrix_of_SVD.rows(); ++i) {
+		for (auto j = 0; j < U_matrix_of_SVD.cols(); ++j) {
+			lenghts_colloc_vector[i] += U_matrix_of_SVD(i, j) * U_matrix_of_SVD(i, j);
+		}
+		lenghts_colloc_vector[i] = sqrt(lenghts_colloc_vector[i]);
+	}
+
+	vector<float> lenghts_texts_vector;
+	lenghts_texts_vector.resize(V_matrix_of_SVD.rows(), NULL); //Mabe need a cols, not rows
+
+	for (auto i = 0; i < V_matrix_of_SVD.rows(); ++i) {
+		for (auto j = 0; j < V_matrix_of_SVD.cols(); ++j) {
+			lenghts_texts_vector[i] += V_matrix_of_SVD(i, j) * V_matrix_of_SVD(i, j);
+		}
+		lenghts_texts_vector[i] = sqrt(lenghts_texts_vector[i]);
+	}
+
+	unordered_map<pair<int, int>, float> scalar_proizv;
+
+	for (auto k = 0; k < V_matrix_of_SVD.rows(); ++k)
+		for (auto i = 0; i < U_matrix_of_SVD.rows(); ++i)
+			for (auto j = 0; j < U_matrix_of_SVD.cols(); ++j) {
+				auto iter = scalar_proizv.find(make_pair(i, k));
+				if (iter == scalar_proizv.end())
+					scalar_proizv.insert(make_pair(make_pair(i, k), U_matrix_of_SVD(i, j) * V_matrix_of_SVD(k, j)));
+				else
+					scalar_proizv[make_pair(i, k)] = iter->second + U_matrix_of_SVD(i, j) * V_matrix_of_SVD(k, j);
+			}
+
+	//tsl::robin_map<pair<int, int>, float> cosinuses; //коллокация, документ, скалярное произведение //объявлено в math_core.h поскольку пока коллокации из числа обратно в слова не переводятся
+	
+	//сравнение каждой коллокации с каждым текстом выглядит нелогично(логичнее сравнивать каждую коллокацию с вектором всех текстов)
+	for (int i = 0; i < lenghts_colloc_vector.size(); ++i)
+		for (int j = 0; j < lenghts_texts_vector.size(); ++j) {
+			auto iter = this->cosinuses.find(make_pair(i, j));
+			if (iter == this->cosinuses.end())
+				this->cosinuses.insert(make_pair(make_pair(i, j), (lenghts_colloc_vector[i] / lenghts_texts_vector[j])));
+			else
+				this->cosinuses[make_pair(i, j)] = iter->second / lenghts_colloc_vector[i] / lenghts_texts_vector[j];
+		}
+
+
+	list<pair<int, int>> list_of_terms_will_be_deleted;
+
+	for (auto& obj : this->cosinuses)
+		if (obj.second < KOEF_FOR_COLLOC_COS_DELETE && (this->cosinuses.find(obj.first) != this->cosinuses.end()))
+			list_of_terms_will_be_deleted.push_back(obj.first);
+
+	for (auto& obj : list_of_terms_will_be_deleted)
+		this->cosinuses.erase(obj);
 }
 
 int math_core::get_max_cont_size() const
