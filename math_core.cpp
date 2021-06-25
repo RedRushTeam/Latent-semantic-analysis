@@ -150,7 +150,7 @@ void math_core::calculate_mat_ozidanie()
 
 	*dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse) += this->mat_ozidanie;
 
-	(*dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())) /= (now_type)(this->max_cont_size * (1 + COLLOC_DIST));
+	(*dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())) /= (now_type)(this->max_cont_size * (1 + COLLOC_DIST)); // делить на число текстов
 }
 
 void math_core::calculate_mat_disperse()

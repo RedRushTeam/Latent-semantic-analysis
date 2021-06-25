@@ -9,6 +9,18 @@ int main(int argc, char* argv[])
 	list_of_functions::is_cpp17_possible();
 	list_of_functions::print_info_about_sysyem();
 
+	MatrixXf xxx(100, 100);
+	xxx.fill(1);
+	
+	MatrixXf yyy(100, 1);
+	yyy.fill(2);
+
+	xxx.col(2) = yyy;
+
+	auto c = xxx.col(2);
+
+	cout << c;
+
  	auto texts = list_of_functions::get_input_texts();
 	cout << endl << endl << "¬сего обнаружено " << texts->size() << " текстов." << endl;
 
@@ -27,6 +39,8 @@ int main(int argc, char* argv[])
 	//_math_core.calculate_mat_ozidanie();
 	cout << endl << "¬ычисление математического ожидани€ и математической дисперсии...";
 	_math_core.calculate_all();
+
+	
 	
 	auto finish = clock();
 	cout << endl << endl << ">>> " << finish - start << "ms <<<" << endl;
