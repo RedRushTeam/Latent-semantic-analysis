@@ -164,11 +164,6 @@ int analyzer::get_counter_of_tokenizer_without_rare_words_SVD()
 			resized_U_matrix_of_SVD->operator()(i, j) = U_matrix_of_SVD(i, j);
 
 	//auto restored_matrix = ((*resized_U_matrix_of_SVD) * (*svalues_as_MatrixXf)) * (*resized_V_matrix_of_SVD);
-<<<<<<< HEAD
-
-	
-=======
->>>>>>> 18f3eda3b31e926d7b8162b9487041dd336d81a1
 
 	vector<float> lenghts_words_vector;
 	lenghts_words_vector.resize(U_matrix_of_SVD.rows(), NULL);
