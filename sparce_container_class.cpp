@@ -53,26 +53,6 @@ void sparce_container_class::sqrt_all()
 {
 }
 
-shared_ptr<container_class_interface> sparce_container_class::operator+(shared_ptr<container_class_interface> summed_class)
-{
-    return shared_ptr<container_class_interface>();
-}
-
-shared_ptr<container_class_interface> sparce_container_class::operator+(now_type _koef)
-{
-    return shared_ptr<container_class_interface>();
-}
-
-shared_ptr<container_class_interface> sparce_container_class::operator-(shared_ptr<container_class_interface> summed_class)
-{
-    return shared_ptr<container_class_interface>();
-}
-
-shared_ptr<container_class_interface> sparce_container_class::operator-(now_type _num)
-{
-    return shared_ptr<container_class_interface>();
-}
-
 void sparce_container_class::operator+=(shared_ptr<container_class_interface> summed_class)
 {
 }
@@ -90,35 +70,6 @@ void sparce_container_class::operator-=(shared_ptr<container_class_interface> de
 }
 
 void sparce_container_class::operator-=(now_type _koef)
-{
-}
-
-bool sparce_container_class::operator==(shared_ptr<container_class_interface> compared_class)
-{
-    return false;
-}
-
-bool sparce_container_class::operator!=(shared_ptr<container_class_interface> compared_class)
-{
-    return false;
-}
-
-shared_ptr<container_class_interface> sparce_container_class::operator*(shared_ptr<container_class_interface> multipliable_class)
-{
-    return shared_ptr<container_class_interface>();
-}
-
-shared_ptr<container_class_interface> sparce_container_class::operator*(now_type _koef)
-{
-    return shared_ptr<container_class_interface>();
-}
-
-void sparce_container_class::operator/(shared_ptr<container_class_interface> dividor_class)
-{
-
-}
-
-void sparce_container_class::operator/(now_type _koef)
 {
 }
 
