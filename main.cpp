@@ -1,27 +1,6 @@
 #pragma once
 #include "math_core.h"
 
-#define min(a,b) ((a)>(b)?(b):(a))
-
-void print_matrix(const char* desc, MKL_INT m, MKL_INT n, double* a, MKL_INT lda) {
-    MKL_INT i, j;
-    printf("\n %s\n", desc);
-    for (i = 0; i < m; i++) {
-        for (j = 0; j < n; j++) printf(" %6.2f", a[i * lda + j]);
-        printf("\n");
-    }
-}
-
-/* Auxiliary routines prototypes */
-extern void print_matrix(const char* desc, MKL_INT m, MKL_INT n, double* a, MKL_INT lda);
-
-/* Parameters */
-#define M 42000
-#define N 1000
-#define LDA N
-#define LDU M
-#define LDVT N
-
 int main()
 {
     auto start = clock();
@@ -84,7 +63,7 @@ int main()
     cout << endl << "Переход к нечеткой логике...";
     _math_core.calculate_map_of_flukt_cooloc_fuzzy();
     cout << endl << "Вычисление SVD коллокаций...";
-    _math_core.find_SVD_coolc();
+    _math_core.find_SVD_colloc();
 
     auto finish = clock();
     cout << endl << endl << ">>> " << finish - start << "ms <<<" << endl;

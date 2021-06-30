@@ -37,7 +37,7 @@ public:
 	void out_for_chart();	//nn
 	void find_fluctuations();	//7
 	void calculate_map_of_flukt_cooloc_fuzzy();
-	void find_SVD_coolc();
+	void find_SVD_colloc();
 	void find_colloc_fluctuations();	//8
 
 	//getters&setters

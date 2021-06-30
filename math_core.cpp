@@ -220,32 +220,61 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 	this->set_of_fluct_cooloc.clear();
 }
 
-void math_core::find_SVD_coolc()
+void math_core::find_SVD_colloc()
 {
-	//this->calculate_map_of_flukt_cooloc_fuzzy();
+	long long m = this->map_of_flukt_cooloc_fuzzy->size();
+	long long n = this->vec_of_filepaths->size();
+	long long lda = n;
+	long long ldu = m;
+	long long ldvt = n;
+	int info;
+	float* superb;
 
-	MatrixXf matrix_for_all_SVD(this->map_of_flukt_cooloc_fuzzy->size(), this->vec_of_filepaths->size());
+	if (m < n)
+		superb = new float[m - 1];
+	else
+		superb = new float[n - 1];
 
-	matrix_for_all_SVD.fill(NULL);
+	float* s = new float[n];
+	float* u = new float[ldu * m];
+	float* vt = new float[ldvt * n];
+	float* a = new float[lda * m];
 
-	#pragma omp parallel 
+	for (auto i = 0; i < lda * m; ++i)
+		a[i] = NULL;
+
+#pragma omp parallel 
 	{
-		#pragma omp for schedule(static)
+#pragma omp for schedule(static)
 		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
 			parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
 			auto result_of_parse = _parser.parse();
 
 			analyzer _analyzer(result_of_parse);
 			auto column = _analyzer.calculate_SVD_matrix_for_concret_text();
-
-			matrix_for_all_SVD.col(j) = *column;	//может быть тут нужна критическая секция, а может и нет, нужны тесты
+			
+			int counter = 0;
+			for (int i = j; i < lda * m; i += (*column).rows()) {
+				a[i] = counter;
+				++counter;
+			}
 		}
 	}
 
-	JacobiSVD<MatrixXf> Jacobi_svd(matrix_for_all_SVD, ComputeThinV | ComputeThinU);
-	auto singular_values_like_vectorXf = Jacobi_svd.singularValues();
-	auto V_matrix_of_SVD = Jacobi_svd.matrixV();
-	auto U_matrix_of_SVD = Jacobi_svd.matrixU();
+	info = LAPACKE_sgesvd(LAPACK_ROW_MAJOR, 'A', 'A', m, n, a, lda, s, u, ldu, vt, ldvt, superb);
+
+	if (info > 0) {
+		printf("The algorithm computing SVD failed to converge.\n");
+		exit(1);
+	}
+
+	VectorXf singular_values_like_vectorXf;
+	MatrixXf V_matrix_of_SVD;
+	MatrixXf U_matrix_of_SVD;
+
+	singular_values_like_vectorXf.resize(n);// проверить что сингулярных чисел именно n(это лоигично что их количество равно меньшему измерению матрицы)
+	for (auto i = 0; i < singular_values_like_vectorXf.size(); ++i)
+		singular_values_like_vectorXf[i] = s[i];
 
 	shared_ptr<MatrixXf> svalues_as_MatrixXf = make_shared<MatrixXf>();
 	svalues_as_MatrixXf->resize(singular_values_like_vectorXf.size(), singular_values_like_vectorXf.size());
@@ -254,10 +283,27 @@ void math_core::find_SVD_coolc()
 	for (int i = 0; i < singular_values_like_vectorXf.size(); ++i)
 		(*svalues_as_MatrixXf)(i, i) = singular_values_like_vectorXf[i];
 
+	V_matrix_of_SVD.resize(ldvt,n); // проверить размер
+	
+	int counter = 0;
+	for (int i = 0; i < ldvt; ++i)
+		for (int j = 0; i < n; ++j) {
+			V_matrix_of_SVD(i, j) = vt[counter];
+			++counter;
+		}
+
+	U_matrix_of_SVD.resize(ldu, m); // проверить размер
+	counter = 0;
+	for (int i = 0; i < ldu; ++i)
+		for (int j = 0; i < m; ++j) {
+			U_matrix_of_SVD(i, j) = u[counter];
+			++counter;
+		}
+
 	svalues_as_MatrixXf->conservativeResize(COLLOC_DIST + 1, COLLOC_DIST + 1);
 
 	shared_ptr<MatrixXf> resized_V_matrix_of_SVD = make_shared<MatrixXf>();
-	resized_V_matrix_of_SVD->resize(COLLOC_DIST +1 , V_matrix_of_SVD.cols());
+	resized_V_matrix_of_SVD->resize(COLLOC_DIST + 1, V_matrix_of_SVD.cols());
 
 	shared_ptr<MatrixXf> resized_U_matrix_of_SVD = make_shared<MatrixXf>();
 	resized_U_matrix_of_SVD->resize(U_matrix_of_SVD.rows(), COLLOC_DIST + 1);
@@ -281,7 +327,7 @@ void math_core::find_SVD_coolc()
 	}
 
 	vector<float> lenghts_texts_vector;
-	lenghts_texts_vector.resize(V_matrix_of_SVD.rows(), NULL); //Mabe need a cols, not rows
+	lenghts_texts_vector.resize(V_matrix_of_SVD.rows(), NULL); //Maybe need a cols, not rows
 
 	for (auto i = 0; i < V_matrix_of_SVD.rows(); ++i) {
 		for (auto j = 0; j < V_matrix_of_SVD.cols(); ++j) {
@@ -302,9 +348,6 @@ void math_core::find_SVD_coolc()
 					scalar_proizv[make_pair(i, k)] = iter->second + U_matrix_of_SVD(i, j) * V_matrix_of_SVD(k, j);
 			}
 
-	//tsl::robin_map<pair<int, int>, float> cosinuses; //коллокация, документ, скалярное произведение //объявлено в math_core.h поскольку пока коллокации из числа обратно в слова не переводятся
-	
-	//сравнение каждой коллокации с каждым текстом выглядит нелогично(логичнее сравнивать каждую коллокацию с вектором всех текстов)
 	for (int i = 0; i < lenghts_colloc_vector.size(); ++i)
 		for (int j = 0; j < lenghts_texts_vector.size(); ++j) {
 			auto iter = this->cosinuses.find(make_pair(i, j));
@@ -314,7 +357,6 @@ void math_core::find_SVD_coolc()
 				this->cosinuses[make_pair(i, j)] = iter->second / lenghts_colloc_vector[i] / lenghts_texts_vector[j];
 		}
 
-
 	list<pair<int, int>> list_of_terms_will_be_deleted;
 
 	for (auto& obj : this->cosinuses)
@@ -323,6 +365,7 @@ void math_core::find_SVD_coolc()
 
 	for (auto& obj : list_of_terms_will_be_deleted)
 		this->cosinuses.erase(obj);
+
 
 }
 

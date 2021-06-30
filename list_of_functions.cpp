@@ -130,3 +130,12 @@ bool list_of_functions::is_cpp17_possible()
 	exit(-1);
 #endif
 }
+
+void list_of_functions::print_matrix(const char* desc, MKL_INT m, MKL_INT n, double* a, MKL_INT lda) {
+	MKL_INT i, j;
+	printf("\n %s\n", desc);
+	for (i = 0; i < m; i++) {
+		for (j = 0; j < n; j++) printf(" %6.2f", a[i * lda + j]);
+		printf("\n");
+	}
+}
