@@ -117,26 +117,36 @@ void math_core::calculate_mat_ozidanie()
 
 void math_core::calculate_data_for_characteristics_of_random_variable()
 {
-	*dynamic_pointer_cast<piecewise_container_class>(this->data_for_characteristics_of_random_variable) -= this->mat_ozidanie;
-
-	//TODO threading
-	for (size_t i = dynamic_pointer_cast<piecewise_container_class>(this->data_for_characteristics_of_random_variable)->get_downloaded_range().first; i < dynamic_pointer_cast<piecewise_container_class>(this->data_for_characteristics_of_random_variable)->get_downloaded_range().second; ++i)
-		for (size_t j = 0; j < this->max_cont_size; ++j)
-			for (size_t k = 0; k <= COLLOC_DIST; ++k)
-				this->data_for_characteristics_of_random_variable->set_count_of_concret_collocation(i, j, k, this->data_for_characteristics_of_random_variable->get_count_of_concret_collocation(i, j, k) - this->mat_ozidanie->get_count_of_concret_collocation(i, j, k) * this->vec_of_filepaths->size());
+	#pragma omp parallel 
+	{
+		#pragma omp for schedule(static)
+		for (int i = dynamic_pointer_cast<piecewise_container_class>(this->data_for_characteristics_of_random_variable)->get_downloaded_range().first; i < dynamic_pointer_cast<piecewise_container_class>(this->data_for_characteristics_of_random_variable)->get_downloaded_range().second; ++i)
+			for (size_t j = 0; j < this->max_cont_size; ++j)
+				for (size_t k = 0; k <= COLLOC_DIST; ++k)
+					this->data_for_characteristics_of_random_variable->set_count_of_concret_collocation(i, j, k, this->data_for_characteristics_of_random_variable->get_count_of_concret_collocation(i, j, k) - this->mat_ozidanie->get_count_of_concret_collocation(i, j, k) * this->vec_of_filepaths->size());
+	}
 }
 
 void math_core::find_fluctuations()
 {
 	auto mat_ozid_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
 	auto data_for_characteristics_of_random_variable_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->data_for_characteristics_of_random_variable);
-
-	for (size_t i = mat_ozid_like_piese->get_downloaded_range().first; i < mat_ozid_like_piese->get_downloaded_range().second; ++i)
-		for (size_t j = 0; j < this->max_cont_size; ++j)
-			for (size_t k = 0; k <= COLLOC_DIST; ++k)
-				if (mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) - sqrt(pow(data_for_characteristics_of_random_variable_like_piese->get_count_of_concret_collocation(i, j, k), 2) / this->vec_of_filepaths->size()) > mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size()) ||
-					(mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) + sqrt(pow(data_for_characteristics_of_random_variable_like_piese->get_count_of_concret_collocation(i, j, k), 2) / this->vec_of_filepaths->size()) < mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size())))
-					set_of_fluct_cooloc.insert(three_coordinate_structure{ (int)(mat_ozid_like_piese->get_downloaded_range().first + i), (int)j, (short)k });
+	#pragma omp parallel 
+	{
+		#pragma omp for schedule(static)
+		for (int i = mat_ozid_like_piese->get_downloaded_range().first; i < mat_ozid_like_piese->get_downloaded_range().second; ++i)
+			for (size_t j = 0; j < this->max_cont_size; ++j)
+				for (size_t k = 0; k <= COLLOC_DIST; ++k) {
+					bool kond1 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) - sqrt(pow(data_for_characteristics_of_random_variable_like_piese->get_count_of_concret_collocation(i, j, k), 2) / this->vec_of_filepaths->size()) > mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
+					bool kond2 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) + sqrt(pow(data_for_characteristics_of_random_variable_like_piese->get_count_of_concret_collocation(i, j, k), 2) / this->vec_of_filepaths->size()) < mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
+					if (kond1 || kond2){
+						#pragma omp critical (set_of_fluct_cooloc)
+						{
+							set_of_fluct_cooloc.insert(three_coordinate_structure{ (int)(mat_ozid_like_piese->get_downloaded_range().first + i), (int)j, (short)k });
+						}
+					}
+				}
+	}
 
 	cout << endl << "Число подозрительных коллокаций: " << set_of_fluct_cooloc.size();
 }
@@ -198,9 +208,9 @@ void math_core::find_SVD_colloc()
 	for (auto i = 0; i < lda * m; ++i)
 		a[i] = NULL;
 
-#pragma omp parallel 
+	#pragma omp parallel 
 	{
-#pragma omp for schedule(static)
+		#pragma omp for schedule(static)
 		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
 			parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
 			auto result_of_parse = _parser.parse();
@@ -219,8 +229,8 @@ void math_core::find_SVD_colloc()
 	info = LAPACKE_sgesvd(LAPACK_ROW_MAJOR, 'A', 'A', m, n, a, lda, s, u, ldu, vt, ldvt, superb);
 
 	if (info > 0) {
-		printf("The algorithm computing SVD failed to converge.\n");
-		exit(1);
+		cout << "The algorithm computing SVD failed to converge." << endl;
+		exit(-1488);
 	}
 
 	VectorXf singular_values_like_vectorXf;
@@ -254,6 +264,11 @@ void math_core::find_SVD_colloc()
 			U_matrix_of_SVD(i, j) = u[counter];
 			++counter;
 		}
+
+	delete[] s;
+	delete[] u;
+	delete[] vt;
+	delete[] a;
 
 	svalues_as_MatrixXf->conservativeResize(COLLOC_DIST + 1, COLLOC_DIST + 1);
 
@@ -321,7 +336,7 @@ void math_core::find_SVD_colloc()
 	for (auto& obj : list_of_terms_will_be_deleted)
 		this->cosinuses.erase(obj);
 
-
+	auto blyadovka2 = nullptr;
 }
 
 shared_ptr<container_class_interface> math_core::get_mat_ozidanie() const

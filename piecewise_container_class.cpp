@@ -48,27 +48,22 @@ void piecewise_container_class::operator-=(shared_ptr<container_class_interface>
 	}
 
 	for (size_t i = 0; i < this->downloaded_vector.size(); ++i)
-		this->downloaded_vector[i] = this->downloaded_vector[i] - dynamic_pointer_cast<piecewise_container_class>(summed_class)->get_count_of_concret_collocation_with_one_coordinate(i) * 1000;	//TODO KOSTIL FOR TEST!!!!
+		this->downloaded_vector[i] = this->downloaded_vector[i] - dynamic_pointer_cast<piecewise_container_class>(summed_class)->get_count_of_concret_collocation_with_one_coordinate(i);	//TODO KOSTIL FOR TEST!!!!
 }
 
 void piecewise_container_class::operator-=(now_type _koef)
 {
-	std::transform(this->downloaded_vector.begin(), this->downloaded_vector.end(), this->downloaded_vector.begin(), [&](now_type& obj) {	return obj - _koef; });
+	std::transform(this->downloaded_vector.begin(), this->downloaded_vector.end(), this->downloaded_vector.begin(), [&](now_type& obj) {	return (obj - _koef); });
 }
 
 void piecewise_container_class::operator/=(now_type _num)
 {
-	std::transform(this->downloaded_vector.begin(), this->downloaded_vector.end(), this->downloaded_vector.begin(), [&](now_type& obj) {return obj /= _num; });
+	std::transform(this->downloaded_vector.begin(), this->downloaded_vector.end(), this->downloaded_vector.begin(), [&](now_type& obj) {return (obj / _num); });
 }
 
 void piecewise_container_class::operator+=(shared_ptr<container_class_interface> summed_class)
 {
-	if (summed_class->get_count_of_collocations() != this->get_count_of_collocations()) {	//TODO add check downloaded range!
-		exit(-228);
-		return;
-	}
-
-	for (size_t i = 0; i < this->get_count_of_collocations(); ++i)
+	for (size_t i = 0; i < this->downloaded_vector.size(); ++i)
 		this->downloaded_vector[i] += dynamic_pointer_cast<piecewise_container_class>(summed_class)->get_count_of_concret_collocation_with_one_coordinate(i);
 }
 
