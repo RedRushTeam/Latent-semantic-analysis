@@ -23,22 +23,12 @@ public:
     virtual void sqrt_all() override;
 
     //operators
-    virtual shared_ptr<container_class_interface> operator+(shared_ptr<container_class_interface> summed_class) override;
-    virtual shared_ptr<container_class_interface> operator+(now_type _koef) override;
-    virtual shared_ptr<container_class_interface> operator-(shared_ptr<container_class_interface> summed_class) override;
-    virtual shared_ptr<container_class_interface> operator-(now_type _num) override;
     virtual void operator+=(shared_ptr<container_class_interface> summed_class) override;
     virtual void operator/=(now_type _num) override;
     virtual void operator+=(now_type _num) override;
     virtual void operator-=(shared_ptr<container_class_interface> deductible_class) override;
     virtual void operator-=(now_type _koef) override;
-    virtual bool operator==(shared_ptr<container_class_interface> compared_class) override;
-    virtual bool operator!=(shared_ptr<container_class_interface> compared_class) override;
     virtual void operator*=(now_type _num) override;
-    virtual shared_ptr<container_class_interface> operator*(shared_ptr<container_class_interface> multipliable_class) override;
-    virtual shared_ptr<container_class_interface> operator*(now_type _koef) override;
-    virtual void operator/(shared_ptr<container_class_interface> dividor_class) override;
-    virtual void operator/(now_type _koef) override;
 
 private:
     //sparce vec

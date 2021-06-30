@@ -111,3 +111,103 @@ constexpr auto LEMADR = "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\l
 constexpr auto TEXTS_PATH = "G:\\rasp_puhl";
 //constexpr auto TEXTS_PATH = "C:\\txts";
 constexpr auto DB_PATH = "C:\\databases";
+
+//my structs
+struct word_and_number_of_appearances_structure {
+	string word;
+	int number_of_appearances_of_this_word;
+	int number_of_texts_in_which_term_occurs;
+};
+
+struct three_coordinate_structure {
+	int first_coord;
+	int second_coord;
+	short k;
+};
+
+//my std hash
+namespace std
+{
+	template<> struct hash<word_and_number_of_appearances_structure>
+	{
+		typedef word_and_number_of_appearances_structure argument_type;
+		typedef std::size_t result_type;
+		result_type operator()(argument_type const& s) const noexcept
+		{
+			std::size_t seed = 0;
+			boost::hash_combine(seed, std::hash<string>{}(s.word));
+			return seed;
+		}
+	};
+}
+
+namespace std
+{
+	template<> struct hash<three_coordinate_structure>
+	{
+		typedef three_coordinate_structure argument_type;
+		typedef std::size_t result_type;
+		result_type operator()(argument_type const& s) const noexcept
+		{
+			std::size_t seed = 0;
+			boost::hash_combine(seed, std::hash<int>{}(s.first_coord));
+			boost::hash_combine(seed, std::hash<int>{}(s.second_coord));
+			boost::hash_combine(seed, std::hash<short>{}(s.k));
+			return seed;
+		}
+	};
+}
+
+namespace std
+{
+	template<> struct hash<pair<int, int>>
+	{
+		typedef pair<int, int> argument_type;
+		typedef std::size_t result_type;
+		result_type operator()(argument_type const& s) const noexcept
+		{
+			std::size_t seed = 0;
+			boost::hash_combine(seed, std::hash<int>{}(s.first));
+			boost::hash_combine(seed, std::hash<int>{}(s.second));
+			return seed;
+		}
+	};
+}
+
+//my operators for trees
+inline bool operator== (three_coordinate_structure lefty, three_coordinate_structure righty)
+{
+	if (lefty.first_coord == righty.first_coord && (lefty.second_coord == righty.second_coord) && (lefty.k == righty.k))
+		return true;
+	return false;
+};
+
+inline bool operator== (word_and_number_of_appearances_structure lefty, word_and_number_of_appearances_structure righty)
+{
+	if (lefty.word == righty.word)
+		return true;
+	return false;
+};
+
+//methods for boost up robin trees
+struct hash_word_and_number_of_appearances_structure {
+	std::size_t operator()(const word_and_number_of_appearances_structure& e) const {
+		std::size_t seed = 0;
+		boost::hash_combine(seed, std::hash<string>{}(e.word));
+		return seed;
+	}
+
+	std::size_t operator()(int id) const {
+		std::size_t seed = 0;
+		boost::hash_combine(seed, std::hash<int>{}(id));
+		return seed;
+	}
+};
+
+struct equal_word_and_number_of_appearances_structure {
+	using is_transparent = void;
+
+	bool operator()(const word_and_number_of_appearances_structure& e1, const word_and_number_of_appearances_structure& e2) const {
+		return e1.word == e2.word;
+	}
+};

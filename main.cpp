@@ -1,27 +1,6 @@
 #pragma once
 #include "math_core.h"
 
-#define min(a,b) ((a)>(b)?(b):(a))
-
-void print_matrix(const char* desc, MKL_INT m, MKL_INT n, double* a, MKL_INT lda) {
-    MKL_INT i, j;
-    printf("\n %s\n", desc);
-    for (i = 0; i < m; i++) {
-        for (j = 0; j < n; j++) printf(" %6.2f", a[i * lda + j]);
-        printf("\n");
-    }
-}
-
-/* Auxiliary routines prototypes */
-extern void print_matrix(const char* desc, MKL_INT m, MKL_INT n, double* a, MKL_INT lda);
-
-/* Parameters */
-#define M 42000
-#define N 1000
-#define LDA N
-#define LDU M
-#define LDVT N
-
 int main()
 {
     auto start = clock();
@@ -29,42 +8,6 @@ int main()
 
     list_of_functions::is_cpp17_possible();
     list_of_functions::print_info_about_sysyem();
-
-
-    std::mt19937 gen(time(NULL));
-    std::uniform_real_distribution<> uid(0, 10);
-
-    /*long long m = M, n = N, lda = LDA, ldu = LDU, ldvt = LDVT, info;
-    float superb[min(M, N) - 1];
-
-    //double s[N], u[LDU * M], vt[LDVT * N];
-    //double a[LDA * M];
-    long long shit = LDU * M;
-    float* s = new float[N];
-    float* u = new float[shit];
-    float* vt = new float[LDVT * N];
-    float* a = new float[LDA * M];
-
-
-    for (auto i = 0; i < LDA * M; ++i)
-        a[i] = uid(gen);
-
-
-    printf("LAPACKE_dgesvd (row-major, high-level) Example Program Results\n");
-
-    info = LAPACKE_sgesvd(LAPACK_ROW_MAJOR, 'A', 'A', m, n, a, lda,
-        s, u, ldu, vt, ldvt, superb);
-
-    if (info > 0) {
-        printf("The algorithm computing SVD failed to converge.\n");
-        exit(1);
-    }*/
-    /* Print singular values */
-    //print_matrix("Singular values", 1, n, s, 1);
-    /* Print left singular vectors */
-    //print_matrix("Left singular vectors (stored columnwise)", m, n, u, ldu);
-    /* Print right singular vectors */
-    //print_matrix("Right singular vectors (stored rowwise)", n, n, vt, ldvt);
 
     auto texts = list_of_functions::get_input_texts();
     cout << endl << endl << "Всего обнаружено " << texts->size() << " текстов." << endl;
