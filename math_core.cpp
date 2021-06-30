@@ -90,7 +90,7 @@ void math_core::calculate_max_cont_size()
 		for (int i = 0; i < this->vec_of_filepaths->size(); ++i) {
 			parser _parser((*this->vec_of_filepaths)[i]);	//tut peredaetsa kopiya
 			auto result_of_parse = _parser.parse();
-			cout << i << " ";
+			//cout << i << " ";
 			analyzer _analyzer(result_of_parse);
 			_analyzer.calculate_counter_of_tokenizer_without_rare_words();
 		}
@@ -176,19 +176,21 @@ void math_core::find_fluctuations()
 	auto mat_ozid_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
 	auto mat_disp_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse);
 
-	for (size_t i = 0; i < (SIZE_OF_PIECE / 2); ++i)
-		for (size_t j = 0; j < (SIZE_OF_PIECE / 2); ++j)
+	for (size_t i = mat_ozid_like_piese->get_downloaded_range().first; i < mat_ozid_like_piese->get_downloaded_range().second; ++i)
+		for (size_t j = 0; j < this->max_cont_size; ++j)
 			for (size_t k = 0; k <= COLLOC_DIST; ++k)
 				if (mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) - sqrt(mat_disp_like_piese->get_count_of_concret_collocation(i, j, k)) > mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size()) ||
 					(mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) + sqrt(mat_disp_like_piese->get_count_of_concret_collocation(i, j, k)) < mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size())))
-					set_of_fluct_cooloc.insert(three_coordinate_structure{ (int)i, (int)j, (short)k });
+					set_of_fluct_cooloc.insert(three_coordinate_structure{ (int)(mat_ozid_like_piese->get_downloaded_range().first + i), (int)j, (short)k });
 
-	mat_ozid_like_piese->clear_vec();
-	mat_disp_like_piese->clear_vec();
+	cout << endl << "Число подозрительных коллокаций: " << set_of_fluct_cooloc.size();
 }
 
 void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 {
+	dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie)->clear_vec();
+	dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->clear_vec();
+
 	this->map_of_flukt_cooloc_fuzzy = make_shared<tsl::robin_map<pair<int, int>, now_type>>();
 	
 	for (auto& obj : this->set_of_fluct_cooloc) {
@@ -210,6 +212,7 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 
 		++indexer;
 	}
+	cout << endl << "Число подозрительных коллокаций после свертки: " << this->helper_map_for_SVD_rows_colloc_numbers->size();
 
 	analyzer::set_helper_map_for_SVD_rows_colloc_numbers(this->helper_map_for_SVD_rows_colloc_numbers);
 	analyzer::set_map_of_flukt_cooloc_fuzzy(this->map_of_flukt_cooloc_fuzzy);
@@ -219,7 +222,7 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 
 void math_core::find_SVD_coolc()
 {
-	this->calculate_map_of_flukt_cooloc_fuzzy();
+	//this->calculate_map_of_flukt_cooloc_fuzzy();
 
 	MatrixXf matrix_for_all_SVD(this->map_of_flukt_cooloc_fuzzy->size(), this->vec_of_filepaths->size());
 
@@ -239,10 +242,10 @@ void math_core::find_SVD_coolc()
 		}
 	}
 
-	shared_ptr<BDCSVD<MatrixXf>> BDCSVD_svd = make_shared<BDCSVD<MatrixXf>>(matrix_for_all_SVD, ComputeThinV | ComputeThinU);
-	auto singular_values_like_vectorXf = BDCSVD_svd->singularValues();
-	auto V_matrix_of_SVD = BDCSVD_svd->matrixV();
-	auto U_matrix_of_SVD = BDCSVD_svd->matrixU();
+	JacobiSVD<MatrixXf> Jacobi_svd(matrix_for_all_SVD, ComputeThinV | ComputeThinU);
+	auto singular_values_like_vectorXf = Jacobi_svd.singularValues();
+	auto V_matrix_of_SVD = Jacobi_svd.matrixV();
+	auto U_matrix_of_SVD = Jacobi_svd.matrixU();
 
 	shared_ptr<MatrixXf> svalues_as_MatrixXf = make_shared<MatrixXf>();
 	svalues_as_MatrixXf->resize(singular_values_like_vectorXf.size(), singular_values_like_vectorXf.size());
@@ -320,6 +323,7 @@ void math_core::find_SVD_coolc()
 
 	for (auto& obj : list_of_terms_will_be_deleted)
 		this->cosinuses.erase(obj);
+
 }
 
 int math_core::get_max_cont_size() const

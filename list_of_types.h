@@ -28,6 +28,7 @@
 #include <filesystem>
 #include <random>
 
+
 //custom maps include
 //#include <hopscotch_map.h>
 #include <robin_map.h>
@@ -47,6 +48,9 @@
 #else
 // special code for other OS
 #endif
+
+//LAPACKE for SVD
+#include "mkl_lapacke.h"
 
 //Eigen lib include
 #include <Eigen>
@@ -75,7 +79,6 @@
 //libmdbx include
 #include "mdbx.h++"
 
-
 //libmdbx namespace
 //using namespace mdbx;	(use mdbx::)!!!
 
@@ -89,10 +92,8 @@ using namespace Eigen;
 //7z namespace
 using namespace bit7z;
 
-
 //usings
 using now_type = float;
-
 
 //my defines
 constexpr auto SIZE_OF_PIECE = 10000;

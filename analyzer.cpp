@@ -12,7 +12,7 @@ void analyzer::create_lemmatizer()
 
 		int flags = FLAGS;
 
-
+		cout << endl;
 		printf("Loading the lemmatizator from %s\n", dict_path);
 
 		analyzer::lemmas_engine = sol_LoadLemmatizatorA(dict_path, flags);

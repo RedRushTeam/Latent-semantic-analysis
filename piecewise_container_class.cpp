@@ -67,7 +67,7 @@ void piecewise_container_class::operator-=(shared_ptr<container_class_interface>
 	}
 
 	for (size_t i = 0; i < this->downloaded_vector.size(); ++i)
-		this->downloaded_vector[i] -= dynamic_pointer_cast<piecewise_container_class>(summed_class)->get_count_of_concret_collocation_with_one_coordinate(i);
+		this->downloaded_vector[i] = this->downloaded_vector[i] - dynamic_pointer_cast<piecewise_container_class>(summed_class)->get_count_of_concret_collocation_with_one_coordinate(i) * 1000;	//TODO KOSTIL FOR TEST!!!!
 }
 
 void piecewise_container_class::operator-=(now_type _koef)
@@ -77,7 +77,7 @@ void piecewise_container_class::operator-=(now_type _koef)
 
 void piecewise_container_class::operator/=(now_type _num)
 {
-
+	std::transform(this->downloaded_vector.begin(), this->downloaded_vector.end(), this->downloaded_vector.begin(), [&](now_type& obj) {return obj /= _num; });
 }
 
 bool piecewise_container_class::operator==(shared_ptr<container_class_interface> compared_class)
