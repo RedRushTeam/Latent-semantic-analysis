@@ -11,18 +11,18 @@ public:
     //constr
     piecewise_container_class(short k, int count_of_collocations, pair<int, int> downloaded_range) :
         container_class_interface(k, count_of_collocations), downloaded_range(downloaded_range) {
-        if (count_of_collocations < (SIZE_OF_PIECE / 2))
+        if (count_of_collocations < (SIZE_OF_PIECE / 3))
             this->downloaded_vector.resize((size_t)count_of_collocations * count_of_collocations * (COLLOC_DIST + 1), NULL);
-        if (count_of_collocations >= (SIZE_OF_PIECE / 2))
-            this->downloaded_vector.resize((size_t)SIZE_OF_PIECE / 2 * count_of_collocations * (COLLOC_DIST + 1), NULL);
+        if (count_of_collocations >= (SIZE_OF_PIECE / 3))
+            this->downloaded_vector.resize((size_t)SIZE_OF_PIECE / 3 * count_of_collocations * (COLLOC_DIST + 1), NULL);
     }
 
     piecewise_container_class(short k, int count_of_collocations) :
         container_class_interface(k, count_of_collocations) {
-        if (count_of_collocations < (SIZE_OF_PIECE / 2))
+        if (count_of_collocations < (SIZE_OF_PIECE / 3))
             this->downloaded_vector.resize((size_t)count_of_collocations * count_of_collocations * (COLLOC_DIST + 1), NULL);
-        if (count_of_collocations >= (SIZE_OF_PIECE / 2))
-            this->downloaded_vector.resize((size_t)SIZE_OF_PIECE / 2 * count_of_collocations * (COLLOC_DIST + 1), NULL);
+        if (count_of_collocations >= (SIZE_OF_PIECE / 3))
+            this->downloaded_vector.resize((size_t)SIZE_OF_PIECE / 3 * count_of_collocations * (COLLOC_DIST + 1), NULL);
     }
 
     //destr
@@ -62,6 +62,6 @@ public:
     virtual void operator*=(now_type _num) override;
 
 private:
-    vector<now_type> downloaded_vector;
+    boost::numeric::ublas::mapped_vector<now_type> downloaded_vector;
     pair<int, int> downloaded_range;
 };

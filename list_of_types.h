@@ -63,6 +63,8 @@
 #include <boost/unordered_map.hpp>
 #include <boost/iostreams/code_converter.hpp>
 #include <boost/iostreams/device/mapped_file.hpp>
+#include <boost/numeric/ublas/vector_sparse.hpp>
+#include <boost/numeric/ublas/io.hpp>
 
 //SQLite include
 //#include <sqlite3.h> 
@@ -86,6 +88,7 @@
 //c++ namespaces
 namespace fs = std::filesystem;
 using namespace std;
+//using namespace boost::numeric::ublas;
 
 //SVD namespace
 using namespace Eigen;

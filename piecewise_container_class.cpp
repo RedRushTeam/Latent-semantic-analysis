@@ -6,7 +6,7 @@ void piecewise_container_class::increment(int first_dimension, int second_dimens
 	if (!is_data_for_this_colloc_downloaded(first_dimension, second_dimension, third_dimension))
 		return;
 
-	this->downloaded_vector[this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension)]++;
+	this->downloaded_vector[this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension)] += 1;
 }
 
 void piecewise_container_class::decrement(int first_dimension, int second_dimension, int third_dimension)
@@ -14,7 +14,7 @@ void piecewise_container_class::decrement(int first_dimension, int second_dimens
 	if (!is_data_for_this_colloc_downloaded(first_dimension, second_dimension, third_dimension))
 		return;
 
-	this->downloaded_vector[this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension)]--;
+	this->downloaded_vector[this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension)] -= 1;
 }
 
 now_type piecewise_container_class::get_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension)
@@ -75,7 +75,7 @@ void piecewise_container_class::operator*=(now_type _num)
 void piecewise_container_class::clear_vec()
 {
 	this->downloaded_vector.clear();
-	this->downloaded_vector.shrink_to_fit();
+	//this->downloaded_vector.shrink_to_fit();
 	this->downloaded_range = make_pair(-1, -1);
 }
 
@@ -89,8 +89,8 @@ bool piecewise_container_class::is_data_for_this_colloc_downloaded(int first_dim
 
 size_t piecewise_container_class::collect_one_coordinate_from_three(int first_dimension, int second_dimension, int third_dimension) const
 {
-	size_t part = first_dimension / (SIZE_OF_PIECE / 2);
-	size_t ret = ((size_t)first_dimension * (size_t)this->get_count_of_collocations() * (size_t)(COLLOC_DIST + 1) + (size_t)second_dimension * (COLLOC_DIST + 1) + third_dimension) - (size_t)(this->downloaded_vector.capacity() * part);
+	size_t part = first_dimension / (SIZE_OF_PIECE / 3);
+	size_t ret = ((size_t)first_dimension * (size_t)this->get_count_of_collocations() * (size_t)(COLLOC_DIST + 1) + (size_t)second_dimension * (COLLOC_DIST + 1) + third_dimension) - (size_t)(this->downloaded_vector.size() * part);
 	return ret;
 }
 
@@ -101,12 +101,12 @@ void piecewise_container_class::fill_vector(now_type number_for_fill)
 
 now_type piecewise_container_class::get_count_of_concret_collocation_with_one_coordinate(size_t _i)
 {
-	return this->downloaded_vector.at(_i);
+	return this->downloaded_vector[_i];
 }
 
 void piecewise_container_class::set_count_of_concret_collocation_with_one_coordinate(size_t _i, now_type _perem)
 {
-	this->downloaded_vector.at(_i) = _perem;
+	this->downloaded_vector[_i] = _perem;
 }
 
 size_t piecewise_container_class::get_vector_size()

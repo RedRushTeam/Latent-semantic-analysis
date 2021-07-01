@@ -24,6 +24,7 @@ public:
 	static string get_word_for_token(int token);
 	//methods for math calculate
 	void calculate_mat_ozidanie();
+	shared_ptr<container_class_interface> calculate_mat_disperse();
 	shared_ptr<MatrixXf> calculate_SVD_matrix_for_concret_text();
 
 	//getters&&setters
@@ -42,6 +43,8 @@ public:
 	//math getters and setters
 	static shared_ptr<container_class_interface> get_container_mat_ozidanie();
 	static void set_container_mat_ozidanie(shared_ptr<container_class_interface> _mat_ozidanie);
+	static shared_ptr<container_class_interface> get_container_mat_disperse();
+	static void set_container_mat_disperse(shared_ptr<container_class_interface> _mat_disperse);
 
 	//destr
 	~analyzer() {
@@ -61,6 +64,7 @@ private:
 
 	//math containers
 	static inline shared_ptr<container_class_interface> _mat_ozidanie;
+	static inline shared_ptr<container_class_interface> _mat_disperse;
 
 	//dictionaries
 	static inline tsl::robin_map<string, int> map_of_tokens_WORD_TOKEN;

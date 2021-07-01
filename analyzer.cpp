@@ -288,6 +288,49 @@ void analyzer::calculate_mat_ozidanie()
 	}
 }
 
+shared_ptr<container_class_interface> analyzer::calculate_mat_disperse()
+{
+	this->lemmatize_all_words();
+
+	auto now_text_container = make_shared<piecewise_container_class>(COLLOC_DIST, this->_mat_ozidanie->get_count_of_collocations(), dynamic_pointer_cast<piecewise_container_class>(this->_mat_ozidanie)->get_downloaded_range());
+
+	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
+		#pragma omp critical (maps_into_analyzer)
+		{
+			for (int i = -COLLOC_DIST - 1; i <= COLLOC_DIST + 1; ++i)
+				if (i != 0) {
+					auto now_it = this->move_list_iterator(it, i);
+					if (now_it == this->list_of_all_lemmatized_text->end())
+						continue;
+
+					word_and_number_of_appearances_structure _key = { *it, 1, 1 };
+					word_and_number_of_appearances_structure __key = { *now_it, 1, 1 };
+
+					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+						continue;
+
+					int first_index = (*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)).second;	//обращение к критическому ресурсу		//быть может, тут не нужна потокобезопасность?
+
+					if (first_index < dynamic_pointer_cast<piecewise_container_class>(now_text_container)->get_downloaded_range().first ||
+						(first_index > dynamic_pointer_cast<piecewise_container_class>(now_text_container)->get_downloaded_range().second))
+						continue;
+
+					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+						continue;
+
+					if (i > 0)
+						now_text_container->summ_for_concret_colloc(first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, i - 1, (now_type)1.);	//обращение к критическому ресурсу
+					else
+						now_text_container->summ_for_concret_colloc(first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, abs(i) - 1, (now_type)1.);	//обращение к критическому ресурсу				
+				}
+		}
+	}
+
+	*now_text_container -= analyzer::_mat_ozidanie;
+
+	return now_text_container;
+}
+
 shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 {
 	auto matrix_for_all_SVD = make_shared<MatrixXf>(analyzer::map_of_flukt_cooloc_fuzzy->size(), 1);
@@ -520,4 +563,14 @@ shared_ptr<container_class_interface> analyzer::get_container_mat_ozidanie()
 void analyzer::set_container_mat_ozidanie(shared_ptr<container_class_interface> _mat_ozidanie)
 {
 	analyzer::_mat_ozidanie = _mat_ozidanie;
+}
+
+shared_ptr<container_class_interface> analyzer::get_container_mat_disperse()
+{
+	return analyzer::_mat_disperse;
+}
+
+void analyzer::set_container_mat_disperse(shared_ptr<container_class_interface> _mat_disperse)
+{
+	analyzer::_mat_disperse = _mat_disperse;
 }

@@ -16,18 +16,16 @@ public:
 	int calculate_max_cont_size_without_rare_words_and_frequency_in_texts();
 	int calculate_max_cont_size_without_rare_words_and_frequency_in_texts_and_SVD();
 	void calculate_mat_ozidanie();
-	void calculate_data_for_characteristics_of_random_variable();
+	void calculate_mat_disperse();
 	//void calculate_asymmetry_coefficient();
 	//void calculate_excess_ratio();
 	void find_fluctuations();
 	void calculate_map_of_flukt_cooloc_fuzzy();
 	void find_SVD_colloc();
-	void find_colloc_fluctuations();	//8
-
 
 	//getters&setters
 	shared_ptr<container_class_interface> get_mat_ozidanie() const;
-	shared_ptr<container_class_interface> get_data_for_characteristics_of_random_variable() const;
+	shared_ptr<container_class_interface> get_mat_disperse() const;
 	int get_max_cont_size() const;
 
 private:
@@ -46,7 +44,7 @@ private:
 	shared_ptr<tsl::robin_map<pair<int, int>, int>> helper_map_for_SVD_rows_colloc_numbers;
 
 	//math cont
-	shared_ptr<container_class_interface> data_for_characteristics_of_random_variable;
+	shared_ptr<container_class_interface> mat_disperse;
 	shared_ptr<container_class_interface> mat_ozidanie;
 
 	//private perems

@@ -54,28 +54,28 @@ void math_core::calculate_all()
 	this->mat_ozidanie = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size);
 	analyzer::set_container_mat_ozidanie(this->mat_ozidanie);
 
-	this->data_for_characteristics_of_random_variable = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size);
+	this->mat_disperse = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size);
 
-	cout << "¬сего вычисление будет проиводитьс€ в " << this->number_of_slices * 2 << " этапов: ";
+	cout << "¬сего вычисление будет проиводитьс€ в " << this->number_of_slices * 3 << " этапов: ";
 
-	for (int i = 0; i < this->number_of_slices * 2; ++i) {
-		if (i + 1 == this->number_of_slices) {
-			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(i * (SIZE_OF_PIECE / 2), this->max_cont_size));
-			dynamic_pointer_cast<piecewise_container_class>(this->data_for_characteristics_of_random_variable)->set_downloaded_range(make_pair(i * (SIZE_OF_PIECE / 2), this->max_cont_size));
+	for (int i = 0; i < this->number_of_slices * 3; ++i) {
+		if (i + 1 == this->number_of_slices * 3) {
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(i * (SIZE_OF_PIECE / 3), this->max_cont_size));
+			dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->set_downloaded_range(make_pair(i * (SIZE_OF_PIECE / 3), this->max_cont_size));
 		}
 		else {
-			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(i * (SIZE_OF_PIECE / 2), (i + 1) * (SIZE_OF_PIECE / 2)));
-			dynamic_pointer_cast<piecewise_container_class>(this->data_for_characteristics_of_random_variable)->set_downloaded_range(make_pair(i * (SIZE_OF_PIECE / 2), (i + 1) * (SIZE_OF_PIECE / 2)));
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(i * (SIZE_OF_PIECE / 3), (i + 1) * (SIZE_OF_PIECE / 3)));
+			dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->set_downloaded_range(make_pair(i * (SIZE_OF_PIECE / 3), (i + 1) * (SIZE_OF_PIECE / 3)));
 		}
 
 		this->calculate_mat_ozidanie();
-		this->calculate_data_for_characteristics_of_random_variable();
+		this->calculate_mat_disperse();
 		this->find_fluctuations();
 
 		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->fill_vector((now_type)0.0);
-		dynamic_pointer_cast<piecewise_container_class>(this->data_for_characteristics_of_random_variable)->fill_vector((now_type)0.0);
+		dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->fill_vector((now_type)0.0);
 
-		cout << "(" << i + 1 << "/" << this->number_of_slices * 2 << ") ";
+		cout << "(" << i + 1 << "/" << this->number_of_slices * 3 << ") ";
 	}
 }
 
@@ -110,35 +110,46 @@ void math_core::calculate_mat_ozidanie()
 		}
 	}
 
-	*dynamic_pointer_cast<piecewise_container_class>(this->data_for_characteristics_of_random_variable) += this->mat_ozidanie;
-
 	(*dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())) /= (now_type)this->vec_of_filepaths->size();
+
+
 }
 
-void math_core::calculate_data_for_characteristics_of_random_variable()
+void math_core::calculate_mat_disperse()
 {
 	#pragma omp parallel 
 	{
 		#pragma omp for schedule(static)
-		for (int i = dynamic_pointer_cast<piecewise_container_class>(this->data_for_characteristics_of_random_variable)->get_downloaded_range().first; i < dynamic_pointer_cast<piecewise_container_class>(this->data_for_characteristics_of_random_variable)->get_downloaded_range().second; ++i)
-			for (size_t j = 0; j < this->max_cont_size; ++j)
-				for (size_t k = 0; k <= COLLOC_DIST; ++k)
-					this->data_for_characteristics_of_random_variable->set_count_of_concret_collocation(i, j, k, this->data_for_characteristics_of_random_variable->get_count_of_concret_collocation(i, j, k) - this->mat_ozidanie->get_count_of_concret_collocation(i, j, k) * this->vec_of_filepaths->size());
+		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
+			parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
+			auto result_of_parse = _parser.parse();
+
+			#pragma omp critical (disperse)
+			{
+				analyzer _analyzer(result_of_parse);
+				auto now_cont = _analyzer.calculate_mat_disperse();
+				now_cont->pow_all(2);
+				(*dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)) += now_cont;
+			}
+		}
 	}
+
+	(*dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)) /= (now_type)this->vec_of_filepaths->size();
 }
 
 void math_core::find_fluctuations()
 {
 	auto mat_ozid_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
-	auto data_for_characteristics_of_random_variable_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->data_for_characteristics_of_random_variable);
+	auto mat_disperse_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse);
+
 	#pragma omp parallel 
 	{
 		#pragma omp for schedule(static)
 		for (int i = mat_ozid_like_piese->get_downloaded_range().first; i < mat_ozid_like_piese->get_downloaded_range().second; ++i)
 			for (size_t j = 0; j < this->max_cont_size; ++j)
 				for (size_t k = 0; k <= COLLOC_DIST; ++k) {
-					bool kond1 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) - sqrt(pow(data_for_characteristics_of_random_variable_like_piese->get_count_of_concret_collocation(i, j, k), 2) / this->vec_of_filepaths->size()) > mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
-					bool kond2 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) + sqrt(pow(data_for_characteristics_of_random_variable_like_piese->get_count_of_concret_collocation(i, j, k), 2) / this->vec_of_filepaths->size()) < mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
+					bool kond1 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) - sqrt(mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k)) > (now_type)mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
+					bool kond2 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) + sqrt(mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k)) < (now_type)mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
 					if (kond1 || kond2){
 						#pragma omp critical (set_of_fluct_cooloc)
 						{
@@ -154,7 +165,7 @@ void math_core::find_fluctuations()
 void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 {
 	dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie)->clear_vec();
-	dynamic_pointer_cast<piecewise_container_class>(this->data_for_characteristics_of_random_variable)->clear_vec();
+	dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->clear_vec();
 
 	this->map_of_flukt_cooloc_fuzzy = make_shared<tsl::robin_map<pair<int, int>, now_type>>();
 	
@@ -344,9 +355,9 @@ shared_ptr<container_class_interface> math_core::get_mat_ozidanie() const
 	return this->mat_ozidanie;
 }
 
-shared_ptr<container_class_interface> math_core::get_data_for_characteristics_of_random_variable() const
+shared_ptr<container_class_interface> math_core::get_mat_disperse() const
 {
-	return this->data_for_characteristics_of_random_variable;
+	return this->mat_disperse;
 }
 
 int math_core::get_max_cont_size() const
