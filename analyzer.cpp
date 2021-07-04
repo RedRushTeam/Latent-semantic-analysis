@@ -326,7 +326,10 @@ shared_ptr<container_class_interface> analyzer::calculate_mat_disperse()
 		}
 	}
 
-	*now_text_container -= analyzer::_mat_ozidanie;
+	//#pragma omp critical (ozidanie)
+	//{
+	//	*now_text_container -= analyzer::_mat_ozidanie;
+	//}
 
 	return now_text_container;
 }
@@ -372,7 +375,7 @@ shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 						three_coordinate_structure ___key = { first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, i - 1 };
 						auto iter_ = map_of_tokens_TOKEN_DATA.find(___key);
 						if (iter_ == map_of_tokens_TOKEN_DATA.end())
-							map_of_tokens_TOKEN_DATA[___key] = (now_type)1.;
+							map_of_tokens_TOKEN_DATA[___key] = (float)1.;
 						else
 							iter_.value() = iter_.value() + 1;
 					}
@@ -380,7 +383,7 @@ shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 						three_coordinate_structure ___key = { first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, abs(i) - 1 };
 						auto iter_ = map_of_tokens_TOKEN_DATA.find(___key);
 						if (iter_ == map_of_tokens_TOKEN_DATA.end())
-							map_of_tokens_TOKEN_DATA[___key] = (now_type)1.;
+							map_of_tokens_TOKEN_DATA[___key] = (float)1.;
 						else
 							iter_.value() = iter_.value() + 1;
 					}
@@ -394,7 +397,7 @@ shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 		if (iter == this->helper_map_for_SVD_rows_colloc_numbers->end())
 			continue;
 
-		(*matrix_for_all_SVD)(iter.value(), 0) += (now_type)obj.second;
+		(*matrix_for_all_SVD)(iter.value(), 0) += (float)obj.second;
 	}
 
 	map_of_tokens_TOKEN_DATA.clear();

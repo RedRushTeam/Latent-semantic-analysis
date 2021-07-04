@@ -1,9 +1,6 @@
 #pragma once
 
 //lib defines
-//#define _ITERATOR_DEBUG_LEVEL 0
-//#define SQLITE_ENABLE_COLUMN_METADATA
-//#define SQLITE_OPEN_READWRITE
 #define BOOST_IOSTREAMS_NO_LIB
 #define _CRT_SECURE_NO_WARNINGS
 #define BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE
@@ -11,7 +8,6 @@
 #define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 #define DATABASE ":memory:"
-
 
 //C++ includes
 #include <iostream>
@@ -30,7 +26,6 @@
 
 
 //custom maps include
-//#include <hopscotch_map.h>
 #include <robin_map.h>
 #include <robin_set.h>
 
@@ -98,9 +93,10 @@ using namespace bit7z;
 
 //usings
 using now_type = float;
+//using now_type = half;
 
 //my defines
-constexpr auto SIZE_OF_PIECE = 10000;
+constexpr auto SIZE_OF_PIECE = 150000;
 constexpr auto COLLOC_DIST = 3;
 constexpr auto STOP_WORD = 0 ;
 constexpr auto CUTOFF = 6;

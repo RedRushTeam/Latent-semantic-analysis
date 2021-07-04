@@ -6,7 +6,7 @@ class sparce_container_class :
 public:
     //constr
     sparce_container_class(short k, int count_of_collocations) : container_class_interface(k, count_of_collocations) {
-            this->sparce_vec.resize(count_of_collocations, NULL);
+            this->sparce_vec.resize(count_of_collocations, /*my_float()*/ NULL);
     }
 
     //methods
