@@ -117,8 +117,33 @@ bool piecewise_container_class::is_data_for_this_colloc_downloaded(int first_dim
 
 size_t piecewise_container_class::collect_one_coordinate_from_three(int first_dimension, int second_dimension, int third_dimension) const
 {
-	size_t part = first_dimension / (SIZE_OF_PIECE);
-	size_t ret = ((size_t)first_dimension * (size_t)this->get_count_of_collocations() * (size_t)(COLLOC_DIST + 1) + (size_t)second_dimension * (COLLOC_DIST + 1) + third_dimension) - (size_t)(this->downloaded_vector.size() * part);
+	return ((size_t)first_dimension * (size_t)this->get_count_of_collocations() * (size_t)(COLLOC_DIST + 1) + (size_t)second_dimension * (COLLOC_DIST + 1) + third_dimension);
+}
+
+three_coordinate_structure piecewise_container_class::split_three_coordinates_from_one(size_t index) const
+{
+	three_coordinate_structure ret;
+	for (int i = 0; i <= 3; ++i)
+		if (!((index - i) % 4))
+		{
+			index = (index - i) / 4;
+			ret.k = i;
+			break;
+		}
+
+	size_t low = index / (size_t)this->get_count_of_collocations();
+	for (int i = low; i < this->get_count_of_collocations(); ++i) {
+		size_t minus = i * this->get_count_of_collocations();
+		size_t cond = index - minus;
+		bool c1 = cond < this->get_count_of_collocations();
+		bool c2 = cond >= 0;
+		if (c1 && c2)
+		{
+			ret.first_coord = i;
+			ret.second_coord = index - this->get_count_of_collocations() * i;
+			break;
+		}
+	}
 	return ret;
 }
 

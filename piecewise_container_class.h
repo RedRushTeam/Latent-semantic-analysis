@@ -34,6 +34,7 @@ public:
     void clear_vec();
     bool is_data_for_this_colloc_downloaded(int first_dimension, int second_dimension, int third_dimension);
     size_t collect_one_coordinate_from_three(int first_dimension, int second_dimension, int third_dimension) const;
+    three_coordinate_structure split_three_coordinates_from_one(size_t index) const;
     void fill_vector(now_type number_for_fill);
     size_t get_vector_size();
 
