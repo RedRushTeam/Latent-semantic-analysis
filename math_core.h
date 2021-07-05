@@ -22,6 +22,7 @@ public:
 	void find_fluctuations();
 	void calculate_map_of_flukt_cooloc_fuzzy();
 	void find_SVD_colloc();
+	void SVD_colloc_algorithm(float* arr, size_t rows);
 
 	//getters&setters
 	shared_ptr<container_class_interface> get_mat_ozidanie() const;

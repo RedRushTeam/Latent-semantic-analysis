@@ -199,11 +199,56 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 
 void math_core::find_SVD_colloc()
 {
-	long long m = this->map_of_flukt_cooloc_fuzzy->size();
-	long long n = this->vec_of_filepaths->size();
-	long long lda = n;
-	long long ldu = m;
-	long long ldvt = n;
+	size_t m = this->map_of_flukt_cooloc_fuzzy->size();
+	size_t n = this->vec_of_filepaths->size();
+	size_t lda = n;
+	size_t ldu = m;
+	size_t ldvt = n;
+	
+	float* a = new float[lda * m];
+
+	#pragma omp parallel 
+	{
+		#pragma omp for schedule(static)
+		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
+			parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
+			auto result_of_parse = _parser.parse();
+
+			analyzer _analyzer(result_of_parse);
+			auto column = _analyzer.calculate_SVD_matrix_for_concret_text();
+
+			int counter = 0;
+			for (int i = j; i < lda * m; i += (*column).rows()) {
+				a[i] = counter;
+				++counter;
+			}
+		}
+	}
+	size_t svd_piece = SVD_PIECE;
+	if (this->vec_of_filepaths->size() > 1000)
+		svd_piece = svd_piece * 1000 / this->vec_of_filepaths->size();
+
+	size_t pieces = this->map_of_flukt_cooloc_fuzzy->size() / svd_piece;
+
+	list<pair<float*, int>> arrays_for_svd;
+
+	for (int i = 0; i < pieces; ++i)
+		arrays_for_svd.push_back(make_pair(new float[svd_piece], svd_piece));
+
+	if (pieces * svd_piece != this->map_of_flukt_cooloc_fuzzy->size())
+		arrays_for_svd.push_back(make_pair(new float[this->map_of_flukt_cooloc_fuzzy->size() - pieces * svd_piece], this->map_of_flukt_cooloc_fuzzy->size() - pieces * svd_piece));
+
+	for (auto& obj : arrays_for_svd)
+		this->SVD_colloc_algorithm(obj.first, obj.second);
+}
+
+void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
+{
+	size_t m = rows;
+	size_t n = this->vec_of_filepaths->size();
+	size_t lda = n;
+	size_t ldu = m;
+	size_t ldvt = n;
 	int info;
 	float* superb;
 
@@ -215,28 +260,7 @@ void math_core::find_SVD_colloc()
 	float* s = new float[n];
 	float* u = new float[ldu * m];
 	float* vt = new float[ldvt * n];
-	float* a = new float[lda * m];
-
-	for (auto i = 0; i < lda * m; ++i)
-		a[i] = NULL;
-
-	#pragma omp parallel 
-	{
-		#pragma omp for schedule(static)
-		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
-			parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
-			auto result_of_parse = _parser.parse();
-
-			analyzer _analyzer(result_of_parse);
-			auto column = _analyzer.calculate_SVD_matrix_for_concret_text();
-			
-			int counter = 0;
-			for (int i = j; i < lda * m; i += (*column).rows()) {
-				a[i] = counter;
-				++counter;
-			}
-		}
-	}
+	float* a = arr;
 
 	info = LAPACKE_sgesvd(LAPACK_ROW_MAJOR, 'A', 'A', m, n, a, lda, s, u, ldu, vt, ldvt, superb);
 
@@ -347,8 +371,6 @@ void math_core::find_SVD_colloc()
 
 	for (auto& obj : list_of_terms_will_be_deleted)
 		this->cosinuses.erase(obj);
-
-	auto blyadovka2 = nullptr;
 }
 
 shared_ptr<container_class_interface> math_core::get_mat_ozidanie() const
