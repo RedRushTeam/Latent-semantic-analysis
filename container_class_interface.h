@@ -9,6 +9,7 @@ public:
 
 	//functions
 	virtual void summ_for_concret_colloc(int first_dimension, int second_dimension, int third_dimension, now_type _num) = 0;
+	virtual void minus_for_concret_colloc(int first_dimension, int second_dimension, int third_dimension, now_type _num) = 0;
 	virtual void increment(int first_dimension, int second_dimension, int third_dimension) = 0;
 	virtual void decrement(int first_dimension, int second_dimension, int third_dimension) = 0;
 	virtual now_type get_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension) = 0;

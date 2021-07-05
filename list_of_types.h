@@ -96,7 +96,7 @@ using now_type = float;
 //using now_type = half;
 
 //my defines
-constexpr auto SIZE_OF_PIECE = 150000;
+constexpr auto SIZE_OF_PIECE = 500000;
 constexpr auto COLLOC_DIST = 3;
 constexpr auto STOP_WORD = 0 ;
 constexpr auto CUTOFF = 6;

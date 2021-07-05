@@ -30,8 +30,8 @@ int main()
     _math_core.calculate_all();
     cout << endl << "Переход к нечеткой логике...";
     _math_core.calculate_map_of_flukt_cooloc_fuzzy();
-    cout << endl << "Вычисление SVD коллокаций...";
-    _math_core.find_SVD_colloc();
+    /*cout << endl << "Вычисление SVD коллокаций...";
+    _math_core.find_SVD_colloc();*/
 
     auto finish = clock();
     cout << endl << endl << ">>> " << finish - start << "ms <<<" << endl;

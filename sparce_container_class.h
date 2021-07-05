@@ -15,6 +15,7 @@ public:
     
     // Унаследовано через container_class_interface
     virtual void summ_for_concret_colloc(int first_dimension, int second_dimension, int third_dimension, now_type _num) override;
+    virtual void minus_for_concret_colloc(int first_dimension, int second_dimension, int third_dimension, now_type _num) override;
     virtual void increment(int first_dimension, int second_dimension, int third_dimension) override;
     virtual void decrement(int first_dimension, int second_dimension, int third_dimension) override;
     virtual now_type get_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension) override;

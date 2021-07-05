@@ -56,7 +56,7 @@ void math_core::calculate_all()
 
 	this->mat_disperse = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size);
 
-	cout << "¬сего вычисление будет проиводитьс€ в " << this->number_of_slices * 3 << " этапов: ";
+	cout << "¬сего вычисление будет проиводитьс€ в " << this->number_of_slices << " этапов: ";
 
 	for (int i = 0; i < this->number_of_slices; ++i) {
 		if (i + 1 == this->number_of_slices) {
@@ -123,7 +123,7 @@ void math_core::calculate_mat_disperse()
 		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
 			parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
 			auto result_of_parse = _parser.parse();
-			//cout << j << " ";
+
 			analyzer _analyzer(result_of_parse);
 			auto now_cont = _analyzer.calculate_mat_disperse();
 			now_cont->pow_all(2);
