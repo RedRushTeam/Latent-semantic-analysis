@@ -1,11 +1,9 @@
 #include "parser.h"
 
-
-
 shared_ptr<list<string>> parser::parse() {
 	auto terms = this->delete_trash();
 	for (auto& word : *terms)
-		if (stop_words.find(word) != stop_words.end())
+		if (parser::stop_words.find(word) != parser::stop_words.end())
 			word = "a";
 	return terms;
 }

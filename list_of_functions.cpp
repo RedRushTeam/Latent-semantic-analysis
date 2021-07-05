@@ -8,11 +8,6 @@ void list_of_functions::print_info_about_sysyem()
 	GlobalMemoryStatusEx(&statex);
 	cout << "This system have " << statex.ullTotalPhys / 1024 / 1024 << " MB of physical memory." << endl;
 	cout << "This system have " << statex.ullTotalPageFile / 1024 / 1024 << " MB of paging file." << endl;
-
-	if ((statex.ullTotalPhys / 1024 / 1024) < ((SIZE_OF_PIECE * SIZE_OF_PIECE * COLLOC_DIST * 4 * 8) / 1024 / 1024)) {
-		cout << "You do not have enough RAM. Reduce SIZE_OF_PIECE!" << endl;
-		exit(1);
-	}
 #endif
 	
 }
@@ -28,74 +23,19 @@ shared_ptr<vector<fs::path>> list_of_functions::get_input_texts()
 	return txtFiles;
 }
 
-bool list_of_functions::compress_file_for_path(fs::path path_to_compress)	//сжимает конкретный файл, если пришла ссылка на файл, или все файлы в директории в свой архив, если пришел путь к директории
+void list_of_functions::get_perems_from_console()
 {
-	if (!fs::exists(path_to_compress))
-		return false;
+	cout << "Enter the size of the bundle if the volume required to count 1000 texts is approximately 150000: ";
+	cin >> global_var::SIZE_OF_PIECE;
 
-	shared_ptr<std::vector<fs::path>> files_for_ar = make_shared<std::vector<fs::path>>();
-	if (fs::is_directory(path_to_compress)) {	//это директория
-		fs::recursive_directory_iterator begin(path_to_compress);
-		fs::recursive_directory_iterator end;
-		std::copy_if(begin, end, std::back_inserter(*files_for_ar), [](const fs::path& path) {	return fs::is_regular_file(path); });
-	}
-	else
-		if (fs::is_regular_file(path_to_compress))
-			files_for_ar->push_back(path_to_compress);
+	cout << "Enter the search range for collocation pairs: ";
+	cin >> global_var::COLLOC_DIST;
 
-	if (files_for_ar->empty())	//нам передали пустю дирректорию/или путь не к архиву
-		return false;
+	cout << "Enter the cutoff frequency for a specific term: ";
+	cin >> global_var::CUTOFF;
 
-
-	Bit7zLibrary lib{ L"7z.dll" };
-	BitCompressor compressor{ lib, BitFormat::SevenZip };
-	compressor.setCompressionMethod(BitCompressionMethod::Lzma2);
-	compressor.setCompressionLevel(BIT_COMPRESSION_LEVEL);
-
-	std::vector<std::wstring> files;
-
-	for (int i = 0; i < files_for_ar->size(); ++i) {
-		files.push_back((*files_for_ar)[i].generic_wstring());
-		string dlt = (*files_for_ar)[i].string() + ".7z";
-		list_of_functions::delete_file_for_path(dlt);
-		compressor.compress(files, (*files_for_ar)[i].generic_wstring() + L".7z");
-		files.clear();
-	}
-
-	return true;
-}
-
-bool list_of_functions::decompress_file_for_path(fs::path path_to_decompress)
-{
-	if (!fs::exists(path_to_decompress))
-		return false;
-
-	fs::path path_to_output;
-
-	shared_ptr<std::vector<fs::path>> files_for_ar = make_shared<std::vector<fs::path>>();
-	if (fs::is_directory(path_to_decompress)) {	//это директория
-		fs::recursive_directory_iterator begin(path_to_decompress);
-		fs::recursive_directory_iterator end;
-		std::copy_if(begin, end, std::back_inserter(*files_for_ar), [](const fs::path& path) {	return fs::is_regular_file(path) && path.extension() == ".7z"; });
-		path_to_output = path_to_decompress;
-	}
-	else
-		if (path_to_decompress.extension() == ".7z" && fs::is_regular_file(path_to_decompress)) {
-			path_to_output = path_to_decompress.parent_path();
-			files_for_ar->push_back(path_to_decompress);
-		}
-
-	if (files_for_ar->empty())	//нам передали пустю дирректорию/или путь не к архиву
-		return false;
-
-	Bit7zLibrary lib{ L"7z.dll" };
-	BitExtractor decompressor{ lib, BitFormat::SevenZip };
-
-
-	for (int i = 0; i < files_for_ar->size(); ++i)
-		decompressor.extract((*files_for_ar)[i].generic_wstring(), path_to_output.generic_wstring());
-
-	return true;
+	cout << "Enter the number of texts in which a specific term should appear: ";
+	cin >> global_var::CUTOFF_FR_IN_TEXTS;
 }
 
 bool list_of_functions::delete_file_for_path(fs::path path_to_delete)

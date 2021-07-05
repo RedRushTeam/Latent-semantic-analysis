@@ -10,20 +10,20 @@ public:
         container_class_interface(k, count_of_collocations), downloaded_range(downloaded_range) {
         this->downloaded_vector = make_shared<tsl::robin_map<int, now_type>>();
 
-        if (count_of_collocations < (SIZE_OF_PIECE))
-            this->now_real_size = (size_t)count_of_collocations * count_of_collocations * (COLLOC_DIST + 1);
-        if (count_of_collocations >= (SIZE_OF_PIECE))
-            this->now_real_size = (size_t)SIZE_OF_PIECE * count_of_collocations * (COLLOC_DIST + 1);
+        if (count_of_collocations < (global_var::SIZE_OF_PIECE))
+            this->now_real_size = (size_t)count_of_collocations * count_of_collocations * (global_var::COLLOC_DIST + 1);
+        if (count_of_collocations >= (global_var::SIZE_OF_PIECE))
+            this->now_real_size = (size_t)global_var::SIZE_OF_PIECE * count_of_collocations * (global_var::COLLOC_DIST + 1);
     }
 
     piecewise_container_class(short k, int count_of_collocations) :
         container_class_interface(k, count_of_collocations) {
         this->downloaded_vector = make_shared<tsl::robin_map<int, now_type>>();
 
-        if (count_of_collocations < (SIZE_OF_PIECE))
-            this->now_real_size = (size_t)count_of_collocations * count_of_collocations * (COLLOC_DIST + 1);
-        if (count_of_collocations >= (SIZE_OF_PIECE))
-            this->now_real_size = (size_t)SIZE_OF_PIECE * count_of_collocations * (COLLOC_DIST + 1);
+        if (count_of_collocations < (global_var::SIZE_OF_PIECE))
+            this->now_real_size = (size_t)count_of_collocations * count_of_collocations * (global_var::COLLOC_DIST + 1);
+        if (count_of_collocations >= (global_var::SIZE_OF_PIECE))
+            this->now_real_size = (size_t)global_var::SIZE_OF_PIECE * count_of_collocations * (global_var::COLLOC_DIST + 1);
     }
 
     //destr
@@ -65,6 +65,5 @@ public:
 private:
     size_t now_real_size;
     shared_ptr<tsl::robin_map<int, now_type>> downloaded_vector;
-    //boost::numeric::ublas::mapped_vector<now_type> downloaded_vector;
     pair<int, int> downloaded_range;
 };

@@ -40,13 +40,13 @@ now_type piecewise_container_class::get_count_of_concret_collocation(int first_d
 void piecewise_container_class::pow_all(int stepen)
 {
 	for (auto& obj : *this->downloaded_vector)
-		(*this->downloaded_vector)[obj.first] = pow(obj.second/*.perem*/, stepen);
+		(*this->downloaded_vector)[obj.first] = pow(obj.second, stepen);
 }
 
 void piecewise_container_class::sqrt_all()
 {
 	for (auto& obj : *this->downloaded_vector)
-		(*this->downloaded_vector)[obj.first] = sqrt(obj.second/*.perem*/);
+		(*this->downloaded_vector)[obj.first] = sqrt(obj.second);
 }
 
 void piecewise_container_class::operator+=(now_type _num)
@@ -85,7 +85,7 @@ void piecewise_container_class::operator/=(now_type _num)
 
 void piecewise_container_class::operator+=(shared_ptr<container_class_interface> summed_class)
 {
-	if (summed_class->get_count_of_collocations() != this->get_count_of_collocations()) {	//TODO add check downloaded range!
+	if (summed_class->get_count_of_collocations() != this->get_count_of_collocations()) {
 		exit(-228);
 		return;
 	}
@@ -120,7 +120,7 @@ bool piecewise_container_class::is_data_for_this_colloc_downloaded(int first_dim
 
 size_t piecewise_container_class::collect_one_coordinate_from_three(int first_dimension, int second_dimension, int third_dimension) const
 {
-	return ((size_t)first_dimension * (size_t)this->get_count_of_collocations() * (size_t)(COLLOC_DIST + 1) + (size_t)second_dimension * (COLLOC_DIST + 1) + third_dimension);
+	return ((size_t)first_dimension * (size_t)this->get_count_of_collocations() * (size_t)(global_var::COLLOC_DIST + 1) + (size_t)second_dimension * (global_var::COLLOC_DIST + 1) + third_dimension);
 }
 
 three_coordinate_structure piecewise_container_class::split_three_coordinates_from_one(size_t index) const
@@ -135,6 +135,7 @@ three_coordinate_structure piecewise_container_class::split_three_coordinates_fr
 		}
 
 	size_t low = index / (size_t)this->get_count_of_collocations();
+
 	for (size_t i = low; i < this->get_count_of_collocations(); ++i) {
 		size_t minus = i * (size_t)this->get_count_of_collocations();
 		size_t cond = index - minus;
@@ -147,6 +148,7 @@ three_coordinate_structure piecewise_container_class::split_three_coordinates_fr
 			break;
 		}
 	}
+
 	return ret;
 }
 

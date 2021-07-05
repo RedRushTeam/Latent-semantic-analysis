@@ -47,9 +47,7 @@ public:
 	static void set_container_mat_disperse(shared_ptr<container_class_interface> _mat_disperse);
 
 	//destr
-	~analyzer() {
-		//sol_DeleteLemmatizator(lemmas_engine);
-	}
+	~analyzer() {}
 
 private:
 	//private methods
