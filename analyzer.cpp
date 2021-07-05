@@ -144,21 +144,21 @@ int analyzer::get_counter_of_tokenizer_without_rare_words_SVD()
 	for (int i = 0; i < singular_values_like_vectorXf.size(); ++i)
 		(*svalues_as_MatrixXf)(i, i) = singular_values_like_vectorXf[i];
 
-	svalues_as_MatrixXf->conservativeResize(COLLOC_DIST+1, COLLOC_DIST+1);
+	svalues_as_MatrixXf->conservativeResize(global_var::COLLOC_DIST + 1, global_var::COLLOC_DIST + 1);
 
 	shared_ptr<MatrixXf> resized_V_matrix_of_SVD = make_shared<MatrixXf>();
-	resized_V_matrix_of_SVD->resize(COLLOC_DIST, V_matrix_of_SVD.cols());
+	resized_V_matrix_of_SVD->resize(global_var::COLLOC_DIST, V_matrix_of_SVD.cols());
 
 	shared_ptr<MatrixXf> resized_U_matrix_of_SVD = make_shared<MatrixXf>();
-	resized_U_matrix_of_SVD->resize(U_matrix_of_SVD.rows(), COLLOC_DIST);
+	resized_U_matrix_of_SVD->resize(U_matrix_of_SVD.rows(), global_var::COLLOC_DIST);
 
 	//распараллелрить тут?
-	for (int i = 0; i <= COLLOC_DIST; ++i)
+	for (int i = 0; i <= global_var::COLLOC_DIST; ++i)
 		for (int j = 0; j < V_matrix_of_SVD.cols(); ++j)
 			resized_V_matrix_of_SVD->operator()(i, j) = V_matrix_of_SVD(i, j);
 
 	for (int i = 0; i < U_matrix_of_SVD.rows(); ++i)
-		for (int j = 0; j <= COLLOC_DIST; ++j)
+		for (int j = 0; j <= global_var::COLLOC_DIST; ++j)
 			resized_U_matrix_of_SVD->operator()(i, j) = U_matrix_of_SVD(i, j);
 
 	//auto restored_matrix = ((*resized_U_matrix_of_SVD) * (*svalues_as_MatrixXf)) * (*resized_V_matrix_of_SVD);
@@ -258,7 +258,7 @@ void analyzer::calculate_mat_ozidanie()
 	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
 		#pragma omp critical (maps_into_analyzer)
 		{
-			for (int i = -COLLOC_DIST - 1; i <= COLLOC_DIST + 1; ++i)
+			for (int i = -global_var::COLLOC_DIST - 1; i <= global_var::COLLOC_DIST + 1; ++i)
 				if (i != 0) {
 					auto now_it = this->move_list_iterator(it, i);
 					if (now_it == this->list_of_all_lemmatized_text->end())
@@ -292,12 +292,12 @@ shared_ptr<container_class_interface> analyzer::calculate_mat_disperse()
 {
 	this->lemmatize_all_words();
 
-	auto now_text_container = make_shared<piecewise_container_class>(COLLOC_DIST, this->_mat_ozidanie->get_count_of_collocations(), dynamic_pointer_cast<piecewise_container_class>(this->_mat_ozidanie)->get_downloaded_range());
+	auto now_text_container = make_shared<piecewise_container_class>(global_var::COLLOC_DIST, this->_mat_ozidanie->get_count_of_collocations(), dynamic_pointer_cast<piecewise_container_class>(this->_mat_ozidanie)->get_downloaded_range());
 
 	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
 		#pragma omp critical (maps_into_analyzer)
 		{
-			for (int i = -COLLOC_DIST - 1; i <= COLLOC_DIST + 1; ++i)
+			for (int i = -global_var::COLLOC_DIST - 1; i <= global_var::COLLOC_DIST + 1; ++i)
 				if (i != 0) {
 					auto now_it = this->move_list_iterator(it, i);
 					if (now_it == this->list_of_all_lemmatized_text->end())
@@ -347,7 +347,7 @@ shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
 		#pragma omp critical (maps_into_analyzer)
 		{
-			for (int i = -COLLOC_DIST - 1; i <= COLLOC_DIST + 1; ++i)
+			for (int i = -global_var::COLLOC_DIST - 1; i <= global_var::COLLOC_DIST + 1; ++i)
 				if (i != 0) {
 					auto now_it = this->move_list_iterator(it, i);
 					if (now_it == this->list_of_all_lemmatized_text->end())

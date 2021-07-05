@@ -35,4 +35,3 @@ private:
     //sparce vec
     vector<now_type> sparce_vec;
 };
-

@@ -7,7 +7,6 @@
 #define BOOST_HAS_THREADS
 #define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
-#define DATABASE ":memory:"
 
 //C++ includes
 #include <iostream>
@@ -23,7 +22,6 @@
 #include <ctime>
 #include <filesystem>
 #include <random>
-
 
 //custom maps include
 #include <robin_map.h>
@@ -47,7 +45,6 @@
 //LAPACKE for SVD
 #include "mkl_lapacke.h"
 
-
 //Eigen lib include
 #include <Eigen>
 
@@ -61,49 +58,31 @@
 #include <boost/numeric/ublas/vector_sparse.hpp>
 #include <boost/numeric/ublas/io.hpp>
 
-//SQLite include
-//#include <sqlite3.h> 
-
-//SQLiteCpp SQL wrapper include
-//#include <SQLiteCpp/SQLiteCpp.h>
-
 //RE2 include
 #include <re2.h>
-
-//7zip Wrapper include
-#include "bitextractor.hpp"
-#include "bitcompressor.hpp"
-
-//libmdbx include
-#include "mdbx.h++"
-
-//libmdbx namespace
-//using namespace mdbx;	(use mdbx::)!!!
 
 //c++ namespaces
 namespace fs = std::filesystem;
 using namespace std;
-//using namespace boost::numeric::ublas;
 
 //SVD namespace
 using namespace Eigen;
-
-//7z namespace
-using namespace bit7z;
 
 //usings
 using now_type = float;
 //using now_type = half;
 
 //my defines
-constexpr auto SIZE_OF_PIECE = 500000;
-constexpr auto COLLOC_DIST = 3;
+class global_var {
+public:
+	static inline int SIZE_OF_PIECE = 500000;
+	static inline int COLLOC_DIST = 3;
+	static inline int CUTOFF = 6;
+	static inline int CUTOFF_FR_IN_TEXTS = 6;
+};
 constexpr auto STOP_WORD = 0 ;
-constexpr auto CUTOFF = 6;
-constexpr auto CUTOFF_FR_IN_TEXTS = 6;
 constexpr auto DELETE_THRESHOLD = 0.065;
 constexpr auto KOEF_FOR_COLLOC_COS_DELETE = 0.065;
-constexpr auto BIT_COMPRESSION_LEVEL = BitCompressionLevel::FASTEST;
 constexpr int FLAGS = LEME_FASTEST;
 
 constexpr auto LEMADR = "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db";

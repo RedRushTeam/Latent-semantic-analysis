@@ -15,7 +15,7 @@ public:
 
 private:
 	fs::path _filename;
-	set<string> stop_words = {
+	static inline unordered_set<string> stop_words = {
 "а-ля",
 "без",
 "безо",

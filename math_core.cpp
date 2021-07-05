@@ -10,18 +10,18 @@ now_type math_core::divider(int size)
 
 int math_core::calculate_max_cont_size_without_rare_words()
 {
-	this->max_cont_size = analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff(CUTOFF);
+	this->max_cont_size = analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff(global_var::CUTOFF);
 
-	this->number_of_slices = (int)ceil((float)this->max_cont_size * 3 / (float)SIZE_OF_PIECE);
+	this->number_of_slices = (int)ceil((float)this->max_cont_size * 3 / (float)global_var::SIZE_OF_PIECE);
 
 	return this->max_cont_size;
 }
 
 int math_core::calculate_max_cont_size_without_rare_words_and_frequency_in_texts()
 {
-	this->max_cont_size = analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff_of_text(CUTOFF, CUTOFF_FR_IN_TEXTS);
+	this->max_cont_size = analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff_of_text(global_var::CUTOFF, global_var::CUTOFF_FR_IN_TEXTS);
 
-	this->number_of_slices = (int)ceil((float)this->max_cont_size * 3 / (float)SIZE_OF_PIECE);
+	this->number_of_slices = (int)ceil((float)this->max_cont_size * 3 / (float)global_var::SIZE_OF_PIECE);
 
 	return this->max_cont_size;
 }
@@ -44,28 +44,28 @@ int math_core::calculate_max_cont_size_without_rare_words_and_frequency_in_texts
 
 	this->max_cont_size = analyzer::get_counter_of_tokenizer_without_rare_words_SVD();
 
-	this->number_of_slices = (int)ceil((float)this->max_cont_size * 3 / (float)SIZE_OF_PIECE);
+	this->number_of_slices = (int)ceil((float)this->max_cont_size * 3 / (float)global_var::SIZE_OF_PIECE);
 
 	return this->max_cont_size;
 }
 
 void math_core::calculate_all()
 {
-	this->mat_ozidanie = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size);
+	this->mat_ozidanie = make_shared<piecewise_container_class>(global_var::COLLOC_DIST, this->max_cont_size);
 	analyzer::set_container_mat_ozidanie(this->mat_ozidanie);
 
-	this->mat_disperse = make_shared<piecewise_container_class>(COLLOC_DIST, this->max_cont_size);
+	this->mat_disperse = make_shared<piecewise_container_class>(global_var::COLLOC_DIST, this->max_cont_size);
 
 	cout << "¬сего вычисление будет проиводитьс€ в " << this->number_of_slices << " этапов: ";
 
 	for (int i = 0; i < this->number_of_slices; ++i) {
 		if (i + 1 == this->number_of_slices) {
-			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(i * (SIZE_OF_PIECE), this->max_cont_size));
-			dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->set_downloaded_range(make_pair(i * (SIZE_OF_PIECE), this->max_cont_size));
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(i * (global_var::SIZE_OF_PIECE), this->max_cont_size));
+			dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->set_downloaded_range(make_pair(i * (global_var::SIZE_OF_PIECE), this->max_cont_size));
 		}
 		else {
-			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(i * (SIZE_OF_PIECE), (i + 1) * (SIZE_OF_PIECE)));
-			dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->set_downloaded_range(make_pair(i * (SIZE_OF_PIECE), (i + 1) * (SIZE_OF_PIECE)));
+			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(i * (global_var::SIZE_OF_PIECE), (i + 1) * (global_var::SIZE_OF_PIECE)));
+			dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->set_downloaded_range(make_pair(i * (global_var::SIZE_OF_PIECE), (i + 1) * (global_var::SIZE_OF_PIECE)));
 		}
 
 		this->calculate_mat_ozidanie();
@@ -104,7 +104,7 @@ void math_core::calculate_mat_ozidanie()
 		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
 			parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
 			auto result_of_parse = _parser.parse();
-			cout << j << " ";
+
 			analyzer _analyzer(result_of_parse);
 			_analyzer.calculate_mat_ozidanie();
 		}
@@ -115,7 +115,6 @@ void math_core::calculate_mat_ozidanie()
 
 void math_core::calculate_mat_disperse()
 {
-	cout << endl;
 	#pragma omp parallel
 	{
 		#pragma omp for schedule(static)
@@ -130,7 +129,6 @@ void math_core::calculate_mat_disperse()
 			#pragma omp critical (disperse)
 			{
 				(*dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)) += now_cont;
-				//cout << 1 << " ";
 			}
 		}
 	}
@@ -147,10 +145,10 @@ void math_core::find_fluctuations()
 	{
 		#pragma omp for schedule(static)
 		for (int i = mat_ozid_like_piese->get_downloaded_range().first; i < mat_ozid_like_piese->get_downloaded_range().second; ++i)
-			for (size_t j = 0; j < this->max_cont_size; ++j)
-				for (size_t k = 0; k <= COLLOC_DIST; ++k) {
-					bool kond1 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) - sqrt(mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k)/*.perem*/) >(now_type)mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
-					bool kond2 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) + sqrt(mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k)/*.perem*/) < (now_type)mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
+			for (int j = 0; j < this->max_cont_size; ++j)
+				for (int k = 0; k <= global_var::COLLOC_DIST; ++k) {
+					bool kond1 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) - sqrt(mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k)/*.perem*/) > mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
+					bool kond2 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) + sqrt(mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k)/*.perem*/) < mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
 					if (kond1 || kond2){
 						#pragma omp critical (set_of_fluct_cooloc)
 						{
@@ -176,12 +174,10 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 		if (iter == this->map_of_flukt_cooloc_fuzzy->end())
 			this->map_of_flukt_cooloc_fuzzy->insert(make_pair(make_pair(obj.first_coord, obj.second_coord), 1 - obj.k * 0.2));
 		else 
-			this->map_of_flukt_cooloc_fuzzy->insert(make_pair(make_pair(obj.first_coord, obj.second_coord), iter->second/*.perem*/ + (float)(1 - obj.k * 0.2)));	//todo check this logic
+			this->map_of_flukt_cooloc_fuzzy->insert(make_pair(make_pair(obj.first_coord, obj.second_coord), iter->second + (float)(1 - obj.k * 0.2)));	//todo check this logic
 	}
 
 	this->helper_map_for_SVD_rows_colloc_numbers = make_shared<tsl::robin_map<pair<int, int>, int>>();
-
-	//this->helper_vec_for_SVD_rows_colloc_numbers->reserve(this->map_of_flukt_cooloc_fuzzy->size());
 
 	int indexer = 0;
 	for (auto& obj : *this->map_of_flukt_cooloc_fuzzy) {
@@ -282,20 +278,20 @@ void math_core::find_SVD_colloc()
 	delete[] vt;
 	delete[] a;
 
-	svalues_as_MatrixXf->conservativeResize(COLLOC_DIST + 1, COLLOC_DIST + 1);
+	svalues_as_MatrixXf->conservativeResize(global_var::COLLOC_DIST + 1, global_var::COLLOC_DIST + 1);
 
 	shared_ptr<MatrixXf> resized_V_matrix_of_SVD = make_shared<MatrixXf>();
-	resized_V_matrix_of_SVD->resize(COLLOC_DIST + 1, V_matrix_of_SVD.cols());
+	resized_V_matrix_of_SVD->resize(global_var::COLLOC_DIST + 1, V_matrix_of_SVD.cols());
 
 	shared_ptr<MatrixXf> resized_U_matrix_of_SVD = make_shared<MatrixXf>();
-	resized_U_matrix_of_SVD->resize(U_matrix_of_SVD.rows(), COLLOC_DIST + 1);
+	resized_U_matrix_of_SVD->resize(U_matrix_of_SVD.rows(), global_var::COLLOC_DIST + 1);
 
-	for (int i = 0; i <= COLLOC_DIST; ++i)
+	for (int i = 0; i <= global_var::COLLOC_DIST; ++i)
 		for (int j = 0; j < V_matrix_of_SVD.cols(); ++j)
 			resized_V_matrix_of_SVD->operator()(i, j) = V_matrix_of_SVD(i, j);
 
 	for (int i = 0; i < U_matrix_of_SVD.rows(); ++i)
-		for (int j = 0; j <= COLLOC_DIST; ++j)
+		for (int j = 0; j <= global_var::COLLOC_DIST; ++j)
 			resized_U_matrix_of_SVD->operator()(i, j) = U_matrix_of_SVD(i, j);
 
 	vector<float> lenghts_colloc_vector;

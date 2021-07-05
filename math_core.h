@@ -9,6 +9,19 @@ public:
 		analyzer::set_number_of_texts(this->number_of_texts);
 	}
 
+	/*int SIZE_OF_PIECE = 500000;
+	int COLLOC_DIST = 3;
+	int CUTOFF = 6;
+	int CUTOFF_FR_IN_TEXTS = 6;*/
+
+	math_core(shared_ptr<vector<fs::path>> vec_of_filepaths, int SIZE_OF_PIECE, int COLLOC_DIST, int CUTOFF, int CUTOFF_FR_IN_TEXTS) : vec_of_filepaths(vec_of_filepaths), number_of_texts(vec_of_filepaths->size()) {
+		analyzer::set_number_of_texts(this->number_of_texts);
+		global_var::SIZE_OF_PIECE = SIZE_OF_PIECE;
+		global_var::COLLOC_DIST = COLLOC_DIST;
+		global_var::CUTOFF = CUTOFF;
+		global_var::CUTOFF_FR_IN_TEXTS = CUTOFF_FR_IN_TEXTS;
+	}
+
 	//public methods
 	void calculate_all();
 	void calculate_max_cont_size();
