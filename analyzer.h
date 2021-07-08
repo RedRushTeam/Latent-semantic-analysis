@@ -22,6 +22,7 @@ public:
 	void calculate_counter_of_tokenizer_SVD_words();				//LV3(2)
 	list<string>::iterator move_list_iterator(list<string>::iterator _it, int mover);
 	static string get_word_for_token(int token);
+	void calculate_matrix_only_for_terms(int number_of_text);
 	//methods for math calculate
 	void calculate_mat_ozidanie();
 	shared_ptr<container_class_interface> calculate_mat_disperse();
@@ -45,6 +46,8 @@ public:
 	static void set_container_mat_ozidanie(shared_ptr<container_class_interface> _mat_ozidanie);
 	static shared_ptr<container_class_interface> get_container_mat_disperse();
 	static void set_container_mat_disperse(shared_ptr<container_class_interface> _mat_disperse);
+	static shared_ptr<float[]> get_only_terms_mass();
+	static void set_only_terms_mass(shared_ptr<float[]> only_terms_mass);
 
 	//destr
 	~analyzer() {}
@@ -63,6 +66,7 @@ private:
 	//math containers
 	static inline shared_ptr<container_class_interface> _mat_ozidanie;
 	static inline shared_ptr<container_class_interface> _mat_disperse;
+	static inline shared_ptr<float[]> only_terms_mass;
 
 	//dictionaries
 	static inline tsl::robin_map<string, int> map_of_tokens_WORD_TOKEN;

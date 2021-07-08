@@ -7,20 +7,38 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SVDCollocationAnalyzer", "S
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		DebLib|x64 = DebLib|x64
+		DebLib|x86 = DebLib|x86
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		MinSizeRelLib|x64 = MinSizeRelLib|x64
+		MinSizeRelLib|x86 = MinSizeRelLib|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
+		RelLib|x64 = RelLib|x64
+		RelLib|x86 = RelLib|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.DebLib|x64.ActiveCfg = DebLib|x64
+		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.DebLib|x64.Build.0 = DebLib|x64
+		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.DebLib|x86.ActiveCfg = DebLib|Win32
+		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.DebLib|x86.Build.0 = DebLib|Win32
 		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.Debug|x64.ActiveCfg = Debug|x64
 		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.Debug|x64.Build.0 = Debug|x64
 		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.Debug|x86.ActiveCfg = Debug|Win32
 		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.Debug|x86.Build.0 = Debug|Win32
+		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.MinSizeRelLib|x64.ActiveCfg = MinSizeRelLib|x64
+		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.MinSizeRelLib|x64.Build.0 = MinSizeRelLib|x64
+		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.MinSizeRelLib|x86.ActiveCfg = MinSizeRelLib|Win32
+		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.MinSizeRelLib|x86.Build.0 = MinSizeRelLib|Win32
 		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.Release|x64.ActiveCfg = Release|x64
 		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.Release|x64.Build.0 = Release|x64
 		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.Release|x86.ActiveCfg = Release|Win32
 		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.Release|x86.Build.0 = Release|Win32
+		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.RelLib|x64.ActiveCfg = Release|x64
+		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.RelLib|x64.Build.0 = Release|x64
+		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.RelLib|x86.ActiveCfg = RelLib|Win32
+		{C8EE62FC-795F-4C93-924C-4C042E4E2457}.RelLib|x86.Build.0 = RelLib|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
