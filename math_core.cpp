@@ -147,8 +147,8 @@ void math_core::find_fluctuations()
 		for (int i = mat_ozid_like_piese->get_downloaded_range().first; i < mat_ozid_like_piese->get_downloaded_range().second; ++i)
 			for (int j = 0; j < this->max_cont_size; ++j)
 				for (int k = 0; k <= global_var::COLLOC_DIST; ++k) {
-					bool kond1 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) - sqrt(mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k)/*.perem*/) > mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
-					bool kond2 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) + sqrt(mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k)/*.perem*/) < mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
+					bool kond1 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) - /*sqrt(*/mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k)/*)*/ > mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k)* (this->vec_of_filepaths->size());
+					bool kond2 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) + /*sqrt(*/mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k)/*)*/ < mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k)* (this->vec_of_filepaths->size());
 					if (kond1 || kond2){
 						#pragma omp critical (set_of_fluct_cooloc)
 						{
@@ -367,6 +367,36 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 
 	for (auto& obj : list_of_terms_will_be_deleted)
 		this->cosinuses.erase(obj);
+
+	cout << endl << " оличество термов после разложени€ с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
+
+	auto blyadovka1 = nullptr;
+}
+
+void math_core::find_SVD_terms()
+{
+	size_t m = this->max_cont_size;
+	size_t n = this->vec_of_filepaths->size();
+	size_t lda = n;
+	size_t ldu = m;
+	size_t ldvt = n;
+
+	shared_ptr<float[]> only_terms_mass(new float[lda * m]{});
+	analyzer::set_only_terms_mass(only_terms_mass);
+
+	#pragma omp parallel 
+	{
+		#pragma omp for schedule(static)
+		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
+			parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
+			auto result_of_parse = _parser.parse();
+
+			analyzer _analyzer(result_of_parse);
+			_analyzer.calculate_matrix_only_for_terms(j);
+		}
+	}
+
+	this->SVD_colloc_algorithm(only_terms_mass.get(), this->max_cont_size);
 }
 
 shared_ptr<container_class_interface> math_core::get_mat_ozidanie() const

@@ -433,6 +433,20 @@ string analyzer::get_word_for_token(int token)
 	return analyzer::map_of_tokens_TOKEN_Word_and_number_of_appearances_struct_.find(token).value().word;
 }
 
+void analyzer::calculate_matrix_only_for_terms(int number_of_text)
+{
+	this->lemmatize_all_words();
+
+	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
+		#pragma omp critical (maps_into_analyzer)
+		{
+			word_and_number_of_appearances_structure _key = { *it, 1, 1 };
+
+			analyzer::only_terms_mass[(*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)).second * analyzer::number_of_texts + number_of_text] += (now_type)1.;	//обращение к критическому ресурсу
+		}
+	}
+}
+
 void analyzer::lemmatize_all_words()
 {
 	this->list_of_all_lemmatized_text = make_shared<list<string>>();
@@ -576,4 +590,14 @@ shared_ptr<container_class_interface> analyzer::get_container_mat_disperse()
 void analyzer::set_container_mat_disperse(shared_ptr<container_class_interface> _mat_disperse)
 {
 	analyzer::_mat_disperse = _mat_disperse;
+}
+
+shared_ptr<float[]> analyzer::get_only_terms_mass()
+{
+	return analyzer::only_terms_mass;
+}
+
+void analyzer::set_only_terms_mass(shared_ptr<float[]> only_terms_mass)
+{
+	analyzer::only_terms_mass = only_terms_mass;
 }
