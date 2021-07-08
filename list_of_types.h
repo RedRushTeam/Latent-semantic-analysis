@@ -89,8 +89,8 @@ constexpr auto SVD_PIECE = 40000;
 
 constexpr auto LEMADR = "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db";
 //constexpr auto TEXTS_PATH = "A:\\rasp_puhl1";
-constexpr auto TEXTS_PATH = "G:\\rasp_puhl";
-//constexpr auto TEXTS_PATH = "C:\\txts";
+//constexpr auto TEXTS_PATH = "G:\\rasp_puhl";
+constexpr auto TEXTS_PATH = "C:\\txts";
 constexpr auto DB_PATH = "C:\\databases";
 
 //my structs

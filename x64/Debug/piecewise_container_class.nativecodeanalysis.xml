@@ -3,34 +3,6 @@
   <DEFECT>
     <SFA>
       <FILEPATH>C:\tsl\include\</FILEPATH>
-      <FILENAME>hopscotch_growth_policy.h</FILENAME>
-      <LINE>381</LINE>
-      <COLUMN>17</COLUMN>
-    </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
-    <FUNCTION>tsl::hh::prime_growth_policy::next_bucket_count</FUNCTION>
-    <DECORATED>?next_bucket_count@prime_growth_policy@hh@tsl@@QEBA_KXZ</DECORATED>
-    <FUNCLINE>380</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\tsl\include\</FILEPATH>
-      <FILENAME>hopscotch_growth_policy.h</FILENAME>
-      <LINE>386</LINE>
-      <COLUMN>35</COLUMN>
-    </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
-    <FUNCTION>tsl::hh::prime_growth_policy::next_bucket_count</FUNCTION>
-    <DECORATED>?next_bucket_count@prime_growth_policy@hh@tsl@@QEBA_KXZ</DECORATED>
-    <FUNCLINE>380</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\tsl\include\</FILEPATH>
       <FILENAME>robin_growth_policy.h</FILENAME>
       <LINE>383</LINE>
       <COLUMN>17</COLUMN>
@@ -263,202 +235,6 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\libmdbx\include\</FILEPATH>
-      <FILENAME>mdbx.h</FILENAME>
-      <LINE>825</LINE>
-      <COLUMN>0</COLUMN>
-    </SFA>
-    <DEFECTCODE>26812</DEFECTCODE>
-    <DESCRIPTION>Тип перечисления "MDBX_debug_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
-    <FUNCTION>|</FUNCTION>
-    <DECORATED>??U@YA?AW4MDBX_debug_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>825</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\libmdbx\include\</FILEPATH>
-      <FILENAME>mdbx.h</FILENAME>
-      <LINE>1290</LINE>
-      <COLUMN>0</COLUMN>
-    </SFA>
-    <DEFECTCODE>26812</DEFECTCODE>
-    <DESCRIPTION>Тип перечисления "MDBX_env_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
-    <FUNCTION>|</FUNCTION>
-    <DECORATED>??U@YA?AW4MDBX_env_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>1290</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\libmdbx\include\</FILEPATH>
-      <FILENAME>mdbx.h</FILENAME>
-      <LINE>1336</LINE>
-      <COLUMN>0</COLUMN>
-    </SFA>
-    <DEFECTCODE>26812</DEFECTCODE>
-    <DESCRIPTION>Тип перечисления "MDBX_txn_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
-    <FUNCTION>|</FUNCTION>
-    <DECORATED>??U@YA?AW4MDBX_txn_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>1336</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\libmdbx\include\</FILEPATH>
-      <FILENAME>mdbx.h</FILENAME>
-      <LINE>1387</LINE>
-      <COLUMN>0</COLUMN>
-    </SFA>
-    <DEFECTCODE>26812</DEFECTCODE>
-    <DESCRIPTION>Тип перечисления "MDBX_db_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
-    <FUNCTION>|</FUNCTION>
-    <DECORATED>??U@YA?AW4MDBX_db_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>1387</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\libmdbx\include\</FILEPATH>
-      <FILENAME>mdbx.h</FILENAME>
-      <LINE>1438</LINE>
-      <COLUMN>0</COLUMN>
-    </SFA>
-    <DEFECTCODE>26812</DEFECTCODE>
-    <DESCRIPTION>Тип перечисления "MDBX_put_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
-    <FUNCTION>|</FUNCTION>
-    <DECORATED>??U@YA?AW4MDBX_put_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>1438</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\libmdbx\include\</FILEPATH>
-      <FILENAME>mdbx.h</FILENAME>
-      <LINE>1458</LINE>
-      <COLUMN>0</COLUMN>
-    </SFA>
-    <DEFECTCODE>26812</DEFECTCODE>
-    <DESCRIPTION>Тип перечисления "MDBX_copy_flags_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
-    <FUNCTION>|</FUNCTION>
-    <DECORATED>??U@YA?AW4MDBX_copy_flags_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>1458</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\libmdbx\include\</FILEPATH>
-      <FILENAME>mdbx.h</FILENAME>
-      <LINE>3690</LINE>
-      <COLUMN>0</COLUMN>
-    </SFA>
-    <DEFECTCODE>26812</DEFECTCODE>
-    <DESCRIPTION>Тип перечисления "MDBX_dbi_state_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
-    <FUNCTION>|</FUNCTION>
-    <DECORATED>??U@YA?AW4MDBX_dbi_state_t@@W40@0@Z</DECORATED>
-    <FUNCLINE>3690</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\libmdbx\include\</FILEPATH>
-      <FILENAME>mdbx.h++</FILENAME>
-      <LINE>1823</LINE>
-      <COLUMN>19</COLUMN>
-    </SFA>
-    <DEFECTCODE>26812</DEFECTCODE>
-    <DESCRIPTION>Тип перечисления "mdbx::env::mode" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
-    <FUNCTION>mdbx::env::operate_parameters::{ctor}</FUNCTION>
-    <DECORATED>??0operate_parameters@env@mdbx@@QEAA@XZ</DECORATED>
-    <FUNCLINE>1828</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\libmdbx\include\</FILEPATH>
-      <FILENAME>mdbx.h++</FILENAME>
-      <LINE>1824</LINE>
-      <COLUMN>31</COLUMN>
-    </SFA>
-    <DEFECTCODE>26812</DEFECTCODE>
-    <DESCRIPTION>Тип перечисления "mdbx::env::durability" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
-    <FUNCTION>mdbx::env::operate_parameters::{ctor}</FUNCTION>
-    <DECORATED>??0operate_parameters@env@mdbx@@QEAA@XZ</DECORATED>
-    <FUNCLINE>1828</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\libmdbx\include\</FILEPATH>
-      <FILENAME>mdbx.h++</FILENAME>
-      <LINE>2772</LINE>
-      <COLUMN>23</COLUMN>
-    </SFA>
-    <DEFECTCODE>26812</DEFECTCODE>
-    <DESCRIPTION>Тип перечисления "MDBX_error_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
-    <FUNCTION>mdbx::&lt;&lt;</FUNCTION>
-    <DECORATED>??6mdbx@@YAAEAV?$basic_ostream@DU?$char_traits@D@std@@@std@@AEAV12@AEBW4MDBX_error_t@@@Z</DECORATED>
-    <FUNCLINE>2772</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\libmdbx\include\</FILEPATH>
-      <FILENAME>mdbx.h++</FILENAME>
-      <LINE>3901</LINE>
-      <COLUMN>17</COLUMN>
-    </SFA>
-    <DEFECTCODE>26812</DEFECTCODE>
-    <DESCRIPTION>Тип перечисления "mdbx::put_mode" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
-    <FUNCTION>mdbx::txn::put</FUNCTION>
-    <DECORATED>?put@txn@mdbx@@QEAAXUmap_handle@2@AEBUslice@2@U42@W4put_mode@2@@Z</DECORATED>
-    <FUNCLINE>3901</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\libmdbx\include\</FILEPATH>
-      <FILENAME>mdbx.h++</FILENAME>
-      <LINE>4097</LINE>
-      <COLUMN>46</COLUMN>
-    </SFA>
-    <DEFECTCODE>26819</DEFECTCODE>
-    <DESCRIPTION>Неаннотированная передача управления между метками switch (es.78).</DESCRIPTION>
-    <FUNCTION>mdbx::txn::put_multiple</FUNCTION>
-    <DECORATED>?put_multiple@txn@mdbx@@QEAA_KUmap_handle@2@AEBUslice@2@_KPEBX_KW4put_mode@2@_N@Z</DECORATED>
-    <FUNCLINE>4081</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\libmdbx\include\</FILEPATH>
-      <FILENAME>mdbx.h++</FILENAME>
-      <LINE>4176</LINE>
-      <COLUMN>28</COLUMN>
-    </SFA>
-    <DEFECTCODE>26812</DEFECTCODE>
-    <DESCRIPTION>Тип перечисления "mdbx::cursor::move_operation" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
-    <FUNCTION>mdbx::cursor::move_result::{ctor}</FUNCTION>
-    <DECORATED>??0move_result@cursor@mdbx@@QEAA@AEAV12@W4move_operation@12@_N@Z</DECORATED>
-    <FUNCLINE>4176</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\libmdbx\include\</FILEPATH>
-      <FILENAME>mdbx.h++</FILENAME>
-      <LINE>4710</LINE>
-      <COLUMN>14</COLUMN>
-    </SFA>
-    <DEFECTCODE>26812</DEFECTCODE>
-    <DESCRIPTION>Тип перечисления "MDBX_log_level_t" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
-    <FUNCTION>std::to_string</FUNCTION>
-    <DECORATED>?to_string@std@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@AEBW4MDBX_log_level_t@@@Z</DECORATED>
-    <FUNCLINE>4710</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
       <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>container_class_interface.h</FILENAME>
       <LINE>7</LINE>
@@ -494,71 +270,313 @@
   <DEFECT>
     <SFA>
       <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-      <FILENAME>piecewise_container_class.cpp</FILENAME>
-      <LINE>142</LINE>
-      <COLUMN>141</COLUMN>
-    </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
-    <FUNCTION>piecewise_container_class::upload_vec</FUNCTION>
-    <DECORATED>?upload_vec@piecewise_container_class@@QEAAXXZ</DECORATED>
-    <FUNCLINE>130</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-      <FILENAME>piecewise_container_class.cpp</FILENAME>
-      <LINE>142</LINE>
-      <COLUMN>105</COLUMN>
-    </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
-    <FUNCTION>piecewise_container_class::upload_vec</FUNCTION>
-    <DECORATED>?upload_vec@piecewise_container_class@@QEAAXXZ</DECORATED>
-    <FUNCLINE>130</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-      <FILENAME>piecewise_container_class.cpp</FILENAME>
-      <LINE>142</LINE>
-      <COLUMN>67</COLUMN>
-    </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>Арифметическое переполнение: использование оператора "-" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "-", чтобы избежать переполнения (io.2).</DESCRIPTION>
-    <FUNCTION>piecewise_container_class::upload_vec</FUNCTION>
-    <DECORATED>?upload_vec@piecewise_container_class@@QEAAXXZ</DECORATED>
-    <FUNCLINE>130</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-      <FILENAME>piecewise_container_class.cpp</FILENAME>
-      <LINE>182</LINE>
-      <COLUMN>104</COLUMN>
+      <FILENAME>piecewise_container_class.h</FILENAME>
+      <LINE>14</LINE>
+      <COLUMN>115</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
-    <FUNCTION>piecewise_container_class::upload_vec</FUNCTION>
-    <DECORATED>?upload_vec@piecewise_container_class@@QEAAXXZ</DECORATED>
-    <FUNCLINE>130</FUNCLINE>
+    <FUNCTION>piecewise_container_class::{ctor}</FUNCTION>
+    <DECORATED>??0piecewise_container_class@@QEAA@FHU?$pair@HH@std@@@Z</DECORATED>
+    <FUNCLINE>9</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>piecewise_container_class.h</FILENAME>
+      <LINE>16</LINE>
+      <COLUMN>119</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>piecewise_container_class::{ctor}</FUNCTION>
+    <DECORATED>??0piecewise_container_class@@QEAA@FHU?$pair@HH@std@@@Z</DECORATED>
+    <FUNCLINE>9</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>piecewise_container_class.h</FILENAME>
+      <LINE>24</LINE>
+      <COLUMN>115</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>piecewise_container_class::{ctor}</FUNCTION>
+    <DECORATED>??0piecewise_container_class@@QEAA@FH@Z</DECORATED>
+    <FUNCLINE>19</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>piecewise_container_class.h</FILENAME>
+      <LINE>26</LINE>
+      <COLUMN>119</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>piecewise_container_class::{ctor}</FUNCTION>
+    <DECORATED>??0piecewise_container_class@@QEAA@FH@Z</DECORATED>
+    <FUNCLINE>19</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
       <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.cpp</FILENAME>
-      <LINE>256</LINE>
-      <COLUMN>123</COLUMN>
+      <LINE>67</LINE>
+      <COLUMN>18</COLUMN>
+    </SFA>
+    <DEFECTCODE>26815</DEFECTCODE>
+    <DESCRIPTION>Это висячий указатель, так как он указывает на временный экземпляр, который был уничтожен.</DESCRIPTION>
+    <FUNCTION>piecewise_container_class::-=</FUNCTION>
+    <DECORATED>??Zpiecewise_container_class@@UEAAXV?$shared_ptr@Vcontainer_class_interface@@@std@@@Z</DECORATED>
+    <FUNCLINE>58</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>piecewise_container_class.cpp</FILENAME>
+      <LINE>95</LINE>
+      <COLUMN>18</COLUMN>
+    </SFA>
+    <DEFECTCODE>26815</DEFECTCODE>
+    <DESCRIPTION>Это висячий указатель, так как он указывает на временный экземпляр, который был уничтожен.</DESCRIPTION>
+    <FUNCTION>piecewise_container_class::+=</FUNCTION>
+    <DECORATED>??Ypiecewise_container_class@@UEAAXV?$shared_ptr@Vcontainer_class_interface@@@std@@@Z</DECORATED>
+    <FUNCLINE>86</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>piecewise_container_class.cpp</FILENAME>
+      <LINE>123</LINE>
+      <COLUMN>112</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
-    <FUNCTION>piecewise_container_class::upload_vec</FUNCTION>
-    <DECORATED>?upload_vec@piecewise_container_class@@QEAAXXZ</DECORATED>
-    <FUNCLINE>130</FUNCLINE>
+    <FUNCTION>piecewise_container_class::collect_one_coordinate_from_three</FUNCTION>
+    <DECORATED>?collect_one_coordinate_from_three@piecewise_container_class@@QEBA_KHHH@Z</DECORATED>
+    <FUNCLINE>121</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>piecewise_container_class.cpp</FILENAME>
+      <LINE>123</LINE>
+      <COLUMN>171</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>piecewise_container_class::collect_one_coordinate_from_three</FUNCTION>
+    <DECORATED>?collect_one_coordinate_from_three@piecewise_container_class@@QEBA_KHHH@Z</DECORATED>
+    <FUNCLINE>121</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>piecewise_container_class.cpp</FILENAME>
+      <LINE>152</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>6001</DEFECTCODE>
+    <DESCRIPTION>Использование неинициализированной памяти "ret".</DESCRIPTION>
+    <FUNCTION>piecewise_container_class::split_three_coordinates_from_one</FUNCTION>
+    <DECORATED>?split_three_coordinates_from_one@piecewise_container_class@@QEBA?AUthree_coordinate_structure@@_K@Z</DECORATED>
+    <FUNCLINE>126</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>3</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>128</LINE>
+        <COLUMN>28</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>объявление</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>Инициализация "ret" не выполнена</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>129</LINE>
+        <COLUMN>10</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>129</LINE>
+        <COLUMN>19</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>ветвь</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Войти в этот цикл (предполагается "i&lt;=3")</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>130</LINE>
+        <COLUMN>6</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>ветвь</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Пропустить эту ветвь (предполагается, что "!((((index-i))%4))" равно false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>129</LINE>
+        <COLUMN>25</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>129</LINE>
+        <COLUMN>19</COLUMN>
+        <KEYEVENT>
+          <ID>4</ID>
+          <KIND>ветвь</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Войти в этот цикл (предполагается "i&lt;=3")</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>130</LINE>
+        <COLUMN>6</COLUMN>
+        <KEYEVENT>
+          <ID>5</ID>
+          <KIND>ветвь</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Пропустить эту ветвь (предполагается, что "!((((index-i))%4))" равно false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>129</LINE>
+        <COLUMN>25</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>129</LINE>
+        <COLUMN>19</COLUMN>
+        <KEYEVENT>
+          <ID>6</ID>
+          <KIND>ветвь</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Продолжить этот цикл (предполагается "i&lt;=3")</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>137</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>139</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>139</LINE>
+        <COLUMN>24</COLUMN>
+        <KEYEVENT>
+          <ID>7</ID>
+          <KIND>ветвь</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Пропустить этот цикл (предполагается, что "&lt;условие ветви&gt;" равно false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>152</LINE>
+        <COLUMN>1</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>152</LINE>
+        <COLUMN>8</COLUMN>
+        <KEYEVENT>
+          <ID>8</ID>
+          <KIND>использование</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>"ret" используется, но, возможно, не инициализировано</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>181</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,float&gt;,0&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,float&gt;,0&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$bucket_entry@U?$pair@HM@std@@$0A@@detail_robin_hash@tsl@@QEAA@_N@Z</DECORATED>
+    <FUNCLINE>181</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,float&gt;,0&gt;::m_value</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>1075</LINE>
+      <COLUMN>55</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::robin_hash&lt;std::pair&lt;int,float&gt;,tsl::robin_map&lt;int,float,std::hash&lt;int&gt;,std::equal_to&lt;int&gt;,std::allocator&lt;std::pair&lt;int,float&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::KeySelect,tsl::robin_map&lt;int,float,std::hash&lt;int&gt;,std::equal_to&lt;int&gt;,std::allocator&lt;std::pair&lt;int,float&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::ValueSelect,std::hash&lt;int&gt;,std::equal_to&lt;int&gt;,std::allocator&lt;std::pair&lt;int,float&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::max_load_factor</FUNCTION>
+    <DECORATED>?max_load_factor@?$robin_hash@U?$pair@HM@std@@VKeySelect@?$robin_map@HMU?$hash@H@std@@U?$equal_to@H@2@V?$allocator@U?$pair@HM@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@tsl@@@tsl@@VValueSelect@45@U?$hash@H@2@U?$equal_to@H@2@V?$allocator@U?$pair@HM@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@5@@detail_robin_hash@tsl@@QEAAXM@Z</DECORATED>
+    <FUNCLINE>1072</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>174</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,float&gt;,0&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,float&gt;,0&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$bucket_entry@U?$pair@HM@std@@$0A@@detail_robin_hash@tsl@@QEAA@XZ</DECORATED>
+    <FUNCLINE>174</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,float&gt;,0&gt;::m_value</targetSymbol>
+    </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT>
 </DEFECTS>

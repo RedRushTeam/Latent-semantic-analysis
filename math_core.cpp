@@ -215,7 +215,7 @@ void math_core::find_SVD_colloc()
 
 			int counter = 0;
 			for (int i = j; i < lda * m; i += (*column).rows()) {
-				a[i] = counter;
+				a[i] = (*column)(counter, 0);
 				++counter;
 			}
 		}
@@ -234,8 +234,13 @@ void math_core::find_SVD_colloc()
 	if (pieces * svd_piece != this->map_of_flukt_cooloc_fuzzy->size())
 		arrays_for_svd.push_back(make_pair(new float[this->map_of_flukt_cooloc_fuzzy->size() - pieces * svd_piece], this->map_of_flukt_cooloc_fuzzy->size() - pieces * svd_piece));
 
-	for (auto& obj : arrays_for_svd)
+	int index = 0;
+	for (auto& obj : arrays_for_svd) {
+		for (int i = index; i < index + obj.second; ++i)
+			obj.first[i] = a[i];
+		index += obj.second;
 		this->SVD_colloc_algorithm(obj.first, obj.second);
+	}
 }
 
 void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
