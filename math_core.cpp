@@ -269,90 +269,59 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 		cout << "The algorithm computing SVD failed to converge." << endl;
 		exit(-1488);
 	}
-
-	VectorXf singular_values_like_vectorXf;
-	MatrixXf V_matrix_of_SVD;
-	MatrixXf U_matrix_of_SVD;
-
-	singular_values_like_vectorXf.resize(n);// проверить что сингулярных чисел именно n(это лоигично что их количество равно меньшему измерению матрицы)
-	for (auto i = 0; i < singular_values_like_vectorXf.size(); ++i)
-		singular_values_like_vectorXf[i] = s[i];
-
-	shared_ptr<MatrixXf> svalues_as_MatrixXf = make_shared<MatrixXf>();
-	svalues_as_MatrixXf->resize(singular_values_like_vectorXf.size(), singular_values_like_vectorXf.size());
-	svalues_as_MatrixXf->fill(0.);
-
-	for (int i = 0; i < singular_values_like_vectorXf.size(); ++i)
-		(*svalues_as_MatrixXf)(i, i) = singular_values_like_vectorXf[i];
-
-	V_matrix_of_SVD.resize(ldvt,n); // проверить размер
-	
-	int counter = 0;
-	for (int i = 0; i < ldvt; ++i)
-		for (int j = 0; i < n; ++j) {
-			V_matrix_of_SVD(i, j) = vt[counter];
-			++counter;
-		}
-
-	U_matrix_of_SVD.resize(ldu, m); // проверить размер
-	counter = 0;
-	for (int i = 0; i < ldu; ++i)
-		for (int j = 0; i < m; ++j) {
-			U_matrix_of_SVD(i, j) = u[counter];
-			++counter;
-		}
-
-	delete[] s;
-	delete[] u;
-	delete[] vt;
 	delete[] a;
-
-	svalues_as_MatrixXf->conservativeResize(global_var::COLLOC_DIST + 1, global_var::COLLOC_DIST + 1);
+	delete[] s;
 
 	shared_ptr<MatrixXf> resized_V_matrix_of_SVD = make_shared<MatrixXf>();
-	resized_V_matrix_of_SVD->resize(global_var::COLLOC_DIST + 1, V_matrix_of_SVD.cols());
-
-	shared_ptr<MatrixXf> resized_U_matrix_of_SVD = make_shared<MatrixXf>();
-	resized_U_matrix_of_SVD->resize(U_matrix_of_SVD.rows(), global_var::COLLOC_DIST + 1);
+	resized_V_matrix_of_SVD->resize(global_var::COLLOC_DIST + 1, n);
 
 	for (int i = 0; i <= global_var::COLLOC_DIST; ++i)
-		for (int j = 0; j < V_matrix_of_SVD.cols(); ++j)
-			resized_V_matrix_of_SVD->operator()(i, j) = V_matrix_of_SVD(i, j);
+		for (int j = 0; j < n; ++j)
+			resized_V_matrix_of_SVD->operator()(i, j) = vt[i * n + j];
 
-	for (int i = 0; i < U_matrix_of_SVD.rows(); ++i)
+	delete[] vt;
+
+	shared_ptr<MatrixXf> resized_U_matrix_of_SVD = make_shared<MatrixXf>();
+	resized_U_matrix_of_SVD->resize(m, global_var::COLLOC_DIST + 1);
+
+	int starter = 0;
+	for (int i = 0; i < m; ++i) {
 		for (int j = 0; j <= global_var::COLLOC_DIST; ++j)
-			resized_U_matrix_of_SVD->operator()(i, j) = U_matrix_of_SVD(i, j);
-
+			resized_U_matrix_of_SVD->operator()(i, j) = u[starter + j];
+		starter += n;
+	}
+	delete[] u;
+	
 	vector<float> lenghts_colloc_vector;
-	lenghts_colloc_vector.resize(U_matrix_of_SVD.rows(), NULL);
+	lenghts_colloc_vector.resize(m, NULL);
 
-	for (auto i = 0; i < U_matrix_of_SVD.rows(); ++i) {
-		for (auto j = 0; j < U_matrix_of_SVD.cols(); ++j) {
-			lenghts_colloc_vector[i] += U_matrix_of_SVD(i, j) * U_matrix_of_SVD(i, j);
+	for (auto i = 0; i < resized_U_matrix_of_SVD->rows(); ++i) {
+		for (auto j = 0; j < resized_U_matrix_of_SVD->cols(); ++j) {
+			lenghts_colloc_vector[i] += (*resized_U_matrix_of_SVD)(i, j) * (*resized_U_matrix_of_SVD)(i, j);
 		}
 		lenghts_colloc_vector[i] = sqrt(lenghts_colloc_vector[i]);
 	}
 
 	vector<float> lenghts_texts_vector;
-	lenghts_texts_vector.resize(V_matrix_of_SVD.rows(), NULL); //Maybe need a cols, not rows
+	lenghts_texts_vector.resize(resized_V_matrix_of_SVD->rows(), NULL); 
 
-	for (auto i = 0; i < V_matrix_of_SVD.rows(); ++i) {
-		for (auto j = 0; j < V_matrix_of_SVD.cols(); ++j) {
-			lenghts_texts_vector[i] += V_matrix_of_SVD(i, j) * V_matrix_of_SVD(i, j);
+	for (auto i = 0; i < resized_V_matrix_of_SVD->rows(); ++i) {
+		for (auto j = 0; j < resized_V_matrix_of_SVD->cols(); ++j) {
+			lenghts_texts_vector[i] += (*resized_V_matrix_of_SVD)(i, j) * (*resized_V_matrix_of_SVD)(i, j);
 		}
 		lenghts_texts_vector[i] = sqrt(lenghts_texts_vector[i]);
 	}
 
 	unordered_map<pair<int, int>, float> scalar_proizv;
 
-	for (auto k = 0; k < V_matrix_of_SVD.rows(); ++k)
-		for (auto i = 0; i < U_matrix_of_SVD.rows(); ++i)
-			for (auto j = 0; j < U_matrix_of_SVD.cols(); ++j) {
+	for (auto k = 0; k < resized_V_matrix_of_SVD->rows(); ++k)
+		for (auto i = 0; i < resized_U_matrix_of_SVD->rows(); ++i)
+			for (auto j = 0; j < resized_U_matrix_of_SVD->cols(); ++j) {
 				auto iter = scalar_proizv.find(make_pair(i, k));
 				if (iter == scalar_proizv.end())
-					scalar_proizv.insert(make_pair(make_pair(i, k), U_matrix_of_SVD(i, j) * V_matrix_of_SVD(k, j)));
+					scalar_proizv.insert(make_pair(make_pair(i, k), (*resized_U_matrix_of_SVD)(i, j) * (*resized_V_matrix_of_SVD)(k, j)));
 				else
-					scalar_proizv[make_pair(i, k)] = iter->second + U_matrix_of_SVD(i, j) * V_matrix_of_SVD(k, j);
+					scalar_proizv[make_pair(i, k)] = iter->second + (*resized_U_matrix_of_SVD)(i, j) * (*resized_V_matrix_of_SVD)(k, j);
 			}
 
 	for (int i = 0; i < lenghts_colloc_vector.size(); ++i)
