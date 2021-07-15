@@ -391,13 +391,18 @@ shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 		}
 	}
 
-	for (auto& obj : map_of_tokens_TOKEN_DATA) {
-		auto iter = this->helper_map_for_SVD_rows_colloc_numbers->find(make_pair(obj.first.first_coord, obj.first.second_coord));
+	tsl::robin_map<pair<int, int>, int> tmp_map;
 
-		if (iter == this->helper_map_for_SVD_rows_colloc_numbers->end())
+	for (auto obj : *this->helper_map_for_SVD_rows_colloc_numbers)
+		tmp_map.insert(make_pair(obj.second, obj.first));
+
+	for (auto& obj : map_of_tokens_TOKEN_DATA) {
+		auto iter = tmp_map.find(make_pair(obj.first.first_coord, obj.first.second_coord));
+
+		if (iter == tmp_map.end())
 			continue;
 
-		(*matrix_for_all_SVD)(iter.value(), 0) += (float)obj.second;
+		(*matrix_for_all_SVD)(iter.value(), 0) += (now_type)obj.second;
 	}
 
 	map_of_tokens_TOKEN_DATA.clear();
@@ -562,7 +567,7 @@ void analyzer::set_number_of_texts(int number_of_texts)
 	analyzer::number_of_texts = number_of_texts;
 }
 
-void analyzer::set_helper_map_for_SVD_rows_colloc_numbers(shared_ptr<tsl::robin_map<pair<int, int>, int>> helper_map_for_SVD_rows_colloc_numbers)
+void analyzer::set_helper_map_for_SVD_rows_colloc_numbers(shared_ptr<tsl::robin_map<int, pair<int, int>>> helper_map_for_SVD_rows_colloc_numbers)
 {
 	analyzer::helper_map_for_SVD_rows_colloc_numbers = helper_map_for_SVD_rows_colloc_numbers;
 }

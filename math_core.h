@@ -36,12 +36,16 @@ public:
 	void calculate_map_of_flukt_cooloc_fuzzy();
 	void find_SVD_colloc();
 	void SVD_colloc_algorithm(float* arr, size_t rows);
+
 	void find_SVD_terms();
+	shared_ptr<unordered_set<int>> get_shrinked_cosinuses_terms();
+	void prepare_and_calculate_strange_matrix();
 
 	//getters&setters
 	shared_ptr<container_class_interface> get_mat_ozidanie() const;
 	shared_ptr<container_class_interface> get_mat_disperse() const;
 	int get_max_cont_size() const;
+	now_type prepare_and_get_norm_mat_ozid_for_one_colloc(int first_term, int second_term) const;
 
 private:
 	//private methods
@@ -56,7 +60,7 @@ private:
 	//sets for flukt
 	tsl::robin_set<three_coordinate_structure> set_of_fluct_cooloc;
 	shared_ptr<tsl::robin_map<pair<int, int>, now_type>> map_of_flukt_cooloc_fuzzy;
-	shared_ptr<tsl::robin_map<pair<int, int>, int>> helper_map_for_SVD_rows_colloc_numbers;
+	shared_ptr<tsl::robin_map<int, pair<int, int>>> helper_map_for_SVD_rows_colloc_numbers;
 
 	//math cont
 	shared_ptr<container_class_interface> mat_disperse;

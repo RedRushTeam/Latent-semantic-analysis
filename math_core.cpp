@@ -163,25 +163,27 @@ void math_core::find_fluctuations()
 
 void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 {
+	//TODO check this
 	dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie)->clear_vec();
-	dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->clear_vec();
+	//dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->clear_vec();
+
+	unordered_set<pair<int, int>> helper_set;
+
+	for (auto obj : this->set_of_fluct_cooloc)
+		helper_set.insert(make_pair(obj.first_coord, obj.second_coord));
+
+	this->set_of_fluct_cooloc.clear();
 
 	this->map_of_flukt_cooloc_fuzzy = make_shared<tsl::robin_map<pair<int, int>, now_type>>();
 	
-	for (auto& obj : this->set_of_fluct_cooloc) {
-		auto iter = this->map_of_flukt_cooloc_fuzzy->find(make_pair(obj.first_coord, obj.second_coord));
+	for (auto& obj : helper_set)
+		map_of_flukt_cooloc_fuzzy->insert(make_pair(obj, this->prepare_and_get_norm_mat_ozid_for_one_colloc(obj.first, obj.second)));
 
-		if (iter == this->map_of_flukt_cooloc_fuzzy->end())
-			this->map_of_flukt_cooloc_fuzzy->insert(make_pair(make_pair(obj.first_coord, obj.second_coord), 1 - obj.k * 0.2));
-		else 
-			this->map_of_flukt_cooloc_fuzzy->insert(make_pair(make_pair(obj.first_coord, obj.second_coord), iter->second + (float)(1 - obj.k * 0.2)));	//todo check this logic
-	}
-
-	this->helper_map_for_SVD_rows_colloc_numbers = make_shared<tsl::robin_map<pair<int, int>, int>>();
+	this->helper_map_for_SVD_rows_colloc_numbers = make_shared<tsl::robin_map<int, pair<int, int>>>();
 
 	int indexer = 0;
 	for (auto& obj : *this->map_of_flukt_cooloc_fuzzy) {
-		this->helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(make_pair(obj.first.first, obj.first.second), indexer));
+		this->helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(indexer, make_pair(obj.first.first, obj.first.second)));
 
 		++indexer;
 	}
@@ -220,6 +222,7 @@ void math_core::find_SVD_colloc()
 			}
 		}
 	}
+
 	size_t svd_piece = SVD_PIECE;
 	if (this->vec_of_filepaths->size() > 1000)
 		svd_piece = svd_piece * 1000 / this->vec_of_filepaths->size();
@@ -237,7 +240,8 @@ void math_core::find_SVD_colloc()
 	int index = 0;
 	for (auto& obj : arrays_for_svd) {
 		for (int i = index; i < index + obj.second; ++i)
-			obj.first[i] = a[i];
+			obj.first[i] = (float)a[i];
+
 		index += obj.second;
 		this->SVD_colloc_algorithm(obj.first, obj.second);
 	}
@@ -245,6 +249,8 @@ void math_core::find_SVD_colloc()
 
 void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 {
+	this->cosinuses.clear();
+
 	size_t m = rows;
 	size_t n = this->vec_of_filepaths->size();
 	size_t lda = n;
@@ -291,7 +297,7 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 		starter += n;
 	}
 	delete[] u;
-	
+
 	vector<float> lenghts_colloc_vector;
 	lenghts_colloc_vector.resize(m, NULL);
 
@@ -303,10 +309,10 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 	}
 
 	vector<float> lenghts_texts_vector;
-	lenghts_texts_vector.resize(resized_V_matrix_of_SVD->rows(), NULL); 
+	lenghts_texts_vector.resize(n, NULL);
 
-	for (auto i = 0; i < resized_V_matrix_of_SVD->rows(); ++i) {
-		for (auto j = 0; j < resized_V_matrix_of_SVD->cols(); ++j) {
+	for (auto i = 0; i < resized_V_matrix_of_SVD->cols(); ++i) {
+		for (auto j = 0; j < resized_V_matrix_of_SVD->rows(); ++j) {
 			lenghts_texts_vector[i] += (*resized_V_matrix_of_SVD)(i, j) * (*resized_V_matrix_of_SVD)(i, j);
 		}
 		lenghts_texts_vector[i] = sqrt(lenghts_texts_vector[i]);
@@ -314,7 +320,7 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 
 	unordered_map<pair<int, int>, float> scalar_proizv;
 
-	for (auto k = 0; k < resized_V_matrix_of_SVD->rows(); ++k)
+	for (auto k = 0; k < resized_V_matrix_of_SVD->cols(); ++k)
 		for (auto i = 0; i < resized_U_matrix_of_SVD->rows(); ++i)
 			for (auto j = 0; j < resized_U_matrix_of_SVD->cols(); ++j) {
 				auto iter = scalar_proizv.find(make_pair(i, k));
@@ -373,6 +379,28 @@ void math_core::find_SVD_terms()
 	this->SVD_colloc_algorithm(only_terms_mass.get(), this->max_cont_size);
 }
 
+shared_ptr<unordered_set<int>> math_core::get_shrinked_cosinuses_terms()
+{
+	shared_ptr<unordered_set<int>> set_for_unique_terms = make_shared<unordered_set<int>>();
+
+	for (auto obj : this->cosinuses)
+		set_for_unique_terms->insert(obj.first.first);
+
+	cout << endl << " оличество уникальных термов после свертки: " << set_for_unique_terms->size();
+
+	return set_for_unique_terms;
+}
+
+void math_core::prepare_and_calculate_strange_matrix()
+{
+	this->find_SVD_terms();
+	auto shrinked_cosinuses_terms_set = this->get_shrinked_cosinuses_terms();
+
+	this->calculate_map_of_flukt_cooloc_fuzzy();
+	this->find_SVD_colloc();
+
+}
+
 shared_ptr<container_class_interface> math_core::get_mat_ozidanie() const
 {
 	return this->mat_ozidanie;
@@ -386,4 +414,24 @@ shared_ptr<container_class_interface> math_core::get_mat_disperse() const
 int math_core::get_max_cont_size() const
 {
 	return this->max_cont_size;
+}
+
+now_type math_core::prepare_and_get_norm_mat_ozid_for_one_colloc(int first_term, int second_term) const
+{
+	now_type norm_mat_ozid_for_one_colloc = 0;	//dima check this
+
+	for(int i = global_var::COLLOC_DIST; 0 <= global_var::COLLOC_DIST; --i)
+		if (i - 1 >= 0) {
+			now_type tmp_perem_for_first = this->mat_ozidanie->get_count_of_concret_collocation(first_term, second_term, i - 1);
+
+			if (i == global_var::COLLOC_DIST) {
+				now_type tmp_perem_for_second = this->mat_ozidanie->get_count_of_concret_collocation(first_term, second_term, i);
+				norm_mat_ozid_for_one_colloc = tmp_perem_for_first + tmp_perem_for_second - tmp_perem_for_first * tmp_perem_for_second;
+			}
+			else {
+				norm_mat_ozid_for_one_colloc = tmp_perem_for_first + norm_mat_ozid_for_one_colloc - tmp_perem_for_first * norm_mat_ozid_for_one_colloc;
+			}
+		}
+
+	return norm_mat_ozid_for_one_colloc;
 }
