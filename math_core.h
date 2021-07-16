@@ -33,6 +33,9 @@ public:
 	//void calculate_asymmetry_coefficient();
 	//void calculate_excess_ratio();
 	void find_fluctuations();
+	void shrink_mat_ozid();
+	void shrink_set_of_fluct_cooloc();
+	void calculate_norm_shrinked_mat_ozid();
 	void calculate_map_of_flukt_cooloc_fuzzy();
 	void find_SVD_colloc();
 	void SVD_colloc_algorithm(float* arr, size_t rows);
@@ -45,7 +48,7 @@ public:
 	shared_ptr<container_class_interface> get_mat_ozidanie() const;
 	shared_ptr<container_class_interface> get_mat_disperse() const;
 	int get_max_cont_size() const;
-	now_type prepare_and_get_norm_mat_ozid_for_one_colloc(int first_term, int second_term) const;
+	now_type prepare_and_get_s_norm_for_one_colloc(int first_term, int second_term) const;
 
 private:
 	//private methods

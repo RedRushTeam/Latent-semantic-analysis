@@ -16,6 +16,7 @@ public:
 	virtual void set_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension, now_type perem) = 0;
 	virtual void pow_all(int stepen) = 0;
 	virtual void sqrt_all() = 0;
+	virtual void erase_concret_colloc(int first_dimension, int second_dimension, int third_dimension) = 0;
 
 	//operators
 	virtual void operator+=(shared_ptr<container_class_interface> summed_class) = 0;

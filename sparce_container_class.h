@@ -34,4 +34,7 @@ public:
 private:
     //sparce vec
     vector<now_type> sparce_vec;
+
+    // Унаследовано через container_class_interface
+    virtual void erase_concret_colloc(int first_dimension, int second_dimension, int third_dimension) override;
 };

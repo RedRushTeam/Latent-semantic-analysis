@@ -105,6 +105,14 @@ void piecewise_container_class::operator*=(now_type _num)
 		(*this->downloaded_vector)[obj.first] = obj.second * _num;
 }
 
+void piecewise_container_class::erase_concret_colloc(int first_dimension, int second_dimension, int third_dimension)
+{
+	auto iter = this->downloaded_vector->find(this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension));
+
+	if (iter != this->downloaded_vector->end())
+		this->downloaded_vector->erase(this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension));
+}
+
 void piecewise_container_class::clear_vec()
 {
 	this->downloaded_vector->clear();

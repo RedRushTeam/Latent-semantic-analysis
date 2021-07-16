@@ -71,6 +71,7 @@ void math_core::calculate_all()
 		this->calculate_mat_ozidanie();
 		this->calculate_mat_disperse();
 		this->find_fluctuations();
+		this->shrink_set_of_fluct_cooloc();
 
 		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->fill_vector((now_type)0.0);
 		dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->fill_vector((now_type)0.0);
@@ -147,12 +148,12 @@ void math_core::find_fluctuations()
 		for (int i = mat_ozid_like_piese->get_downloaded_range().first; i < mat_ozid_like_piese->get_downloaded_range().second; ++i)
 			for (int j = 0; j < this->max_cont_size; ++j)
 				for (int k = 0; k <= global_var::COLLOC_DIST; ++k) {
-					bool kond1 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) - /*sqrt(*/mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k)/*)*/ > mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k)* (this->vec_of_filepaths->size());
-					bool kond2 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) + /*sqrt(*/mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k)/*)*/ < mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k)* (this->vec_of_filepaths->size());
+					bool kond1 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) - /*sqrt(*/mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k)/*)*/ > mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
+					bool kond2 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) + /*sqrt(*/mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k)/*)*/ < mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
 					if (kond1 || kond2){
 						#pragma omp critical (set_of_fluct_cooloc)
 						{
-							set_of_fluct_cooloc.insert(three_coordinate_structure{ (int)(mat_ozid_like_piese->get_downloaded_range().first + i), (int)j, (short)k });
+							this->set_of_fluct_cooloc.insert(three_coordinate_structure{ (int)(mat_ozid_like_piese->get_downloaded_range().first + i), (int)j, (short)k });
 						}
 					}
 				}
@@ -161,11 +162,43 @@ void math_core::find_fluctuations()
 	cout << endl << "Число подозрительных коллокаций: " << set_of_fluct_cooloc.size();
 }
 
-void math_core::calculate_map_of_flukt_cooloc_fuzzy()
+void math_core::shrink_mat_ozid()
+{
+	unordered_set<pair<int, int>> helper_set;
+
+	for (auto obj : this->set_of_fluct_cooloc)
+		helper_set.insert(make_pair(obj.first_coord, obj.second_coord));
+
+	for (auto obj : helper_set)
+		for (int k = 0; k <= global_var::COLLOC_DIST; ++k)
+			this->mat_ozidanie->erase_concret_colloc(obj.first, obj.second, k);
+}
+
+void math_core::shrink_set_of_fluct_cooloc()
+{
+	tsl::robin_set<three_coordinate_structure> set_for_deleted_colloc;
+
+	for (auto obj : this->set_of_fluct_cooloc)
+		if (this->mat_ozidanie->get_count_of_concret_collocation(obj.first_coord, obj.second_coord, obj.k) * this->vec_of_filepaths->size() < global_var::CUTOFF_FR_COLLOC_IN_TEXTS)
+			set_for_deleted_colloc.insert(obj);
+
+	for (auto obj : set_for_deleted_colloc)
+		this->set_of_fluct_cooloc.erase(obj);
+
+	cout << endl << "Число подозрительных коллокаций, число встреч которых превышает " << global_var::CUTOFF_FR_COLLOC_IN_TEXTS << " равно: " << set_of_fluct_cooloc.size();
+}
+
+void math_core::calculate_norm_shrinked_mat_ozid()
+{
+	this->shrink_mat_ozid();
+
+
+}
+
+void math_core::calculate_map_of_flukt_cooloc_fuzzy()	//Убрать нахуй
 {
 	//TODO check this
 	dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie)->clear_vec();
-	//dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->clear_vec();
 
 	unordered_set<pair<int, int>> helper_set;
 
@@ -177,7 +210,7 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 	this->map_of_flukt_cooloc_fuzzy = make_shared<tsl::robin_map<pair<int, int>, now_type>>();
 	
 	for (auto& obj : helper_set)
-		map_of_flukt_cooloc_fuzzy->insert(make_pair(obj, this->prepare_and_get_norm_mat_ozid_for_one_colloc(obj.first, obj.second)));
+		this->map_of_flukt_cooloc_fuzzy->insert(make_pair(obj, this->prepare_and_get_s_norm_for_one_colloc(obj.first, obj.second)));
 
 	this->helper_map_for_SVD_rows_colloc_numbers = make_shared<tsl::robin_map<int, pair<int, int>>>();
 
@@ -416,11 +449,11 @@ int math_core::get_max_cont_size() const
 	return this->max_cont_size;
 }
 
-now_type math_core::prepare_and_get_norm_mat_ozid_for_one_colloc(int first_term, int second_term) const
+now_type math_core::prepare_and_get_s_norm_for_one_colloc(int first_term, int second_term) const
 {
 	now_type norm_mat_ozid_for_one_colloc = 0;	//dima check this
 
-	for(int i = global_var::COLLOC_DIST; 0 <= global_var::COLLOC_DIST; --i)
+	for(int i = global_var::COLLOC_DIST; 0 <= i; --i)
 		if (i - 1 >= 0) {
 			now_type tmp_perem_for_first = this->mat_ozidanie->get_count_of_concret_collocation(first_term, second_term, i - 1);
 

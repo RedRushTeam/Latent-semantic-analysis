@@ -66,4 +66,7 @@ private:
     size_t now_real_size;
     shared_ptr<tsl::robin_map<int, now_type>> downloaded_vector;
     pair<int, int> downloaded_range;
+
+    // Унаследовано через container_class_interface
+    virtual void erase_concret_colloc(int first_dimension, int second_dimension, int third_dimension) override;
 };

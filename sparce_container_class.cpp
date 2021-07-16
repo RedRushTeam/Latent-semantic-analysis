@@ -77,6 +77,10 @@ void sparce_container_class::operator*=(now_type _num)
 {
 }
 
+void sparce_container_class::erase_concret_colloc(int first_dimension, int second_dimension, int third_dimension)
+{
+}
+
 void sparce_container_class::minus_for_concret_colloc(int first_dimension, int second_dimension, int third_dimension, now_type _num)
 {
 }

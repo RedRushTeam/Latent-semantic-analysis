@@ -21,14 +21,16 @@ int main()
     cout << endl << "ћаксимальный размер словар€, отбросив термы с " << global_var::CUTOFF << " и менее по€влени€ми: " << size_for_wichout_rare_words;
     cout << endl << "ћаксимальный размер словар€, отбросив термы с по€влени€ми в " << global_var::CUTOFF_FR_IN_TEXTS << " и менее текстах, а так же, отбросив термы с " << global_var::CUTOFF << " и менее по€влени€ми: " << size_for_wichout_rare_words_in_texts;
     //cout << endl << "ћаксимальный размер словар€, отбросив термы с косинусами, ниже " << DELETE_THRESHOLD << " равен: " << size_for_wichout_rare_words_in_texts_SVD;
-    _math_core.find_SVD_terms();
-    _math_core.get_shrinked_cosinuses_terms();
-    /*cout << endl << "¬ычисление математического ожидани€ и математической дисперсии...";
+    //_math_core.find_SVD_terms();
+    //_math_core.get_shrinked_cosinuses_terms();
+    cout << endl << "¬ычисление математического ожидани€ и математической дисперсии...";
     _math_core.calculate_all();
-    cout << endl << "ѕереход к нечеткой логике...";
-    _math_core.calculate_map_of_flukt_cooloc_fuzzy();*/
-    /*cout << endl << "¬ычисление SVD коллокаций...";
-    _math_core.find_SVD_colloc();*/
+    //cout << endl << "ѕереход к нечеткой логике...";
+    //_math_core.calculate_map_of_flukt_cooloc_fuzzy();
+    //cout << endl << "ќчистка полученных коллокаций...";
+    //_math_core.shrink_set_of_fluct_cooloc();
+    //cout << endl << "¬ычисление SVD коллокаций...";
+    //_math_core.find_SVD_colloc();
 
     auto finish = clock();
     cout << endl << endl << ">>> " << finish - start << "ms <<<" << endl;
