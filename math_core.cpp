@@ -192,7 +192,34 @@ void math_core::calculate_norm_shrinked_mat_ozid()
 {
 	this->shrink_mat_ozid();
 
+	auto mat_ozid_like_piece = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
+	auto shrinked_vec_mat_ozid = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie)->get_vector_ptr();
 
+	list<now_type> numbers_for_one_colloc;
+	unordered_set<pair<int, int>> set_for_checked_collocs;
+
+	for (auto obj : *shrinked_vec_mat_ozid) {
+		auto three_coord = mat_ozid_like_piece->split_three_coordinates_from_one(obj.first);
+
+		if (set_for_checked_collocs.find(make_pair(three_coord.first_coord, three_coord.second_coord)) != set_for_checked_collocs.end())
+			continue;
+
+		for (int k = 0; k <= global_var::COLLOC_DIST; ++k)
+			numbers_for_one_colloc.push_back(mat_ozid_like_piece->get_count_of_concret_collocation(three_coord.first_coord, three_coord.second_coord, k));
+
+		auto max_elem = std::max_element(numbers_for_one_colloc.begin(), numbers_for_one_colloc.end());
+
+		std::transform(numbers_for_one_colloc.begin(), numbers_for_one_colloc.end(), numbers_for_one_colloc.begin(), [&](now_type& obj0) {return obj0 / *max_elem;	});
+
+		short counter = 0; 
+		for (auto obj : numbers_for_one_colloc) {
+			mat_ozid_like_piece->set_count_of_concret_collocation(three_coord.first_coord, three_coord.second_coord, counter, obj);
+			++counter;
+		}
+
+		set_for_checked_collocs.insert(make_pair(three_coord.first_coord, three_coord.second_coord));
+		numbers_for_one_colloc.clear();
+	}
 }
 
 void math_core::calculate_map_of_flukt_cooloc_fuzzy()	//Убрать нахуй
