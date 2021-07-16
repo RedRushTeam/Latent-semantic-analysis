@@ -336,7 +336,7 @@ shared_ptr<container_class_interface> analyzer::calculate_mat_disperse()
 
 shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 {
-	auto matrix_for_all_SVD = make_shared<MatrixXf>(analyzer::map_of_flukt_cooloc_fuzzy->size(), 1);
+	auto matrix_for_all_SVD = make_shared<MatrixXf>(analyzer::helper_map_for_SVD_rows_colloc_numbers->size(), 1);
 
 	matrix_for_all_SVD->fill(NULL);
 
@@ -368,10 +368,11 @@ shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
 						continue;
 
-					if(!analyzer::map_of_flukt_cooloc_fuzzy->contains(make_pair(first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second)))
-						continue;	//проверка на то, что пара с подозрением на флуктуацию
+					
 
 					if (i > 0) {
+						if (!analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->contains(three_coordinate_structure{first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, (short)(i - 1)}))
+							continue;	//проверка на то, что пара с подозрением на флуктуацию
 						three_coordinate_structure ___key = { first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, i - 1 };
 						auto iter_ = map_of_tokens_TOKEN_DATA.find(___key);
 						if (iter_ == map_of_tokens_TOKEN_DATA.end())
@@ -380,6 +381,8 @@ shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 							iter_.value() = iter_.value() + 1;
 					}
 					else {
+						if (!analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->contains(three_coordinate_structure{ first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, (short)(abs(i) - 1) }))
+							continue;	//проверка на то, что пара с подозрением на флуктуацию
 						three_coordinate_structure ___key = { first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, abs(i) - 1 };
 						auto iter_ = map_of_tokens_TOKEN_DATA.find(___key);
 						if (iter_ == map_of_tokens_TOKEN_DATA.end())
@@ -391,15 +394,11 @@ shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 		}
 	}
 
-	tsl::robin_map<pair<int, int>, int> tmp_map;
-
-	for (auto obj : *this->helper_map_for_SVD_rows_colloc_numbers)
-		tmp_map.insert(make_pair(obj.second, obj.first));
-
+	
 	for (auto& obj : map_of_tokens_TOKEN_DATA) {
-		auto iter = tmp_map.find(make_pair(obj.first.first_coord, obj.first.second_coord));
+		auto iter = inverse_helper_map_for_SVD_rows_colloc_numbers->find(obj.first);
 
-		if (iter == tmp_map.end())
+		if (iter == inverse_helper_map_for_SVD_rows_colloc_numbers->end())
 			continue;
 
 		(*matrix_for_all_SVD)(iter.value(), 0) += (now_type)obj.second;
@@ -567,14 +566,12 @@ void analyzer::set_number_of_texts(int number_of_texts)
 	analyzer::number_of_texts = number_of_texts;
 }
 
-void analyzer::set_helper_map_for_SVD_rows_colloc_numbers(shared_ptr<tsl::robin_map<int, pair<int, int>>> helper_map_for_SVD_rows_colloc_numbers)
+void analyzer::set_helper_map_for_SVD_rows_colloc_numbers(shared_ptr<tsl::robin_map<int, three_coordinate_structure>> helper_map_for_SVD_rows_colloc_numbers)
 {
-	analyzer::helper_map_for_SVD_rows_colloc_numbers = helper_map_for_SVD_rows_colloc_numbers;
-}
+	for (auto obj : *helper_map_for_SVD_rows_colloc_numbers)
+		analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(obj.second, obj.first));
 
-void analyzer::set_map_of_flukt_cooloc_fuzzy(shared_ptr<tsl::robin_map<pair<int, int>, now_type>> map_of_flukt_cooloc_fuzzy)
-{
-	analyzer::map_of_flukt_cooloc_fuzzy = map_of_flukt_cooloc_fuzzy;
+	analyzer::helper_map_for_SVD_rows_colloc_numbers = helper_map_for_SVD_rows_colloc_numbers;
 }
 
 shared_ptr<container_class_interface> analyzer::get_container_mat_ozidanie()

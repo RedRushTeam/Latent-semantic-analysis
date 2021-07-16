@@ -197,86 +197,65 @@ void math_core::calculate_norm_shrinked_mat_ozid()
 
 void math_core::calculate_map_of_flukt_cooloc_fuzzy()	//Убрать нахуй
 {
-	//TODO check this
-	dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie)->clear_vec();
-
-	unordered_set<pair<int, int>> helper_set;
-
-	for (auto obj : this->set_of_fluct_cooloc)
-		helper_set.insert(make_pair(obj.first_coord, obj.second_coord));
-
-	this->set_of_fluct_cooloc.clear();
-
-	this->map_of_flukt_cooloc_fuzzy = make_shared<tsl::robin_map<pair<int, int>, now_type>>();
+	this->helper_map_for_SVD_rows_colloc_numbers = make_shared<tsl::robin_map<int, three_coordinate_structure>>();
+	auto mat_ozid_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
 	
-	for (auto& obj : helper_set)
-		this->map_of_flukt_cooloc_fuzzy->insert(make_pair(obj, this->prepare_and_get_s_norm_for_one_colloc(obj.first, obj.second)));
-
-	this->helper_map_for_SVD_rows_colloc_numbers = make_shared<tsl::robin_map<int, pair<int, int>>>();
-
-	int indexer = 0;
-	for (auto& obj : *this->map_of_flukt_cooloc_fuzzy) {
-		this->helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(indexer, make_pair(obj.first.first, obj.first.second)));
-
-		++indexer;
-	}
+	for (auto& obj : *mat_ozid_like_piese->get_vector_ptr())
+		this->helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(obj.first, mat_ozid_like_piese->split_three_coordinates_from_one(obj.first)));
+	
 	cout << endl << "Число подозрительных коллокаций после свертки: " << this->helper_map_for_SVD_rows_colloc_numbers->size();
 
 	analyzer::set_helper_map_for_SVD_rows_colloc_numbers(this->helper_map_for_SVD_rows_colloc_numbers);
-	analyzer::set_map_of_flukt_cooloc_fuzzy(this->map_of_flukt_cooloc_fuzzy);
 
 	this->set_of_fluct_cooloc.clear();
 }
 
 void math_core::find_SVD_colloc()
 {
-	size_t m = this->map_of_flukt_cooloc_fuzzy->size();
+	size_t m = this->helper_map_for_SVD_rows_colloc_numbers->size();
 	size_t n = this->vec_of_filepaths->size();
 	size_t lda = n;
 	size_t ldu = m;
 	size_t ldvt = n;
-	
-	float* a = new float[lda * m];
-
-	#pragma omp parallel 
-	{
-		#pragma omp for schedule(static)
-		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
-			parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
-			auto result_of_parse = _parser.parse();
-
-			analyzer _analyzer(result_of_parse);
-			auto column = _analyzer.calculate_SVD_matrix_for_concret_text();
-
-			int counter = 0;
-			for (int i = j; i < lda * m; i += (*column).rows()) {
-				a[i] = (*column)(counter, 0);
-				++counter;
-			}
-		}
-	}
 
 	size_t svd_piece = SVD_PIECE;
 	if (this->vec_of_filepaths->size() > 1000)
 		svd_piece = svd_piece * 1000 / this->vec_of_filepaths->size();
 
-	size_t pieces = this->map_of_flukt_cooloc_fuzzy->size() / svd_piece;
+	size_t pieces = this->helper_map_for_SVD_rows_colloc_numbers->size() / svd_piece;
 
-	list<pair<float*, int>> arrays_for_svd;
+	//if (pieces * svd_piece != m)
+		
+	float* a;
 
-	for (int i = 0; i < pieces; ++i)
-		arrays_for_svd.push_back(make_pair(new float[svd_piece], svd_piece));
+	
+		for (auto p = 0; p <= pieces; ++p) {
+			if (p != pieces)
+				a = new float[lda * svd_piece];
+			else
+				if (m - pieces * svd_piece)
+					a = new float[m - pieces * svd_piece];
+				else
+					continue;
 
-	if (pieces * svd_piece != this->map_of_flukt_cooloc_fuzzy->size())
-		arrays_for_svd.push_back(make_pair(new float[this->map_of_flukt_cooloc_fuzzy->size() - pieces * svd_piece], this->map_of_flukt_cooloc_fuzzy->size() - pieces * svd_piece));
+			#pragma omp parallel 
+			{
+			#pragma omp for schedule(static)
+			for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
+				parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
+				auto result_of_parse = _parser.parse();
 
-	int index = 0;
-	for (auto& obj : arrays_for_svd) {
-		for (int i = index; i < index + obj.second; ++i)
-			obj.first[i] = (float)a[i];
+				analyzer _analyzer(result_of_parse);
+				auto column = _analyzer.calculate_SVD_matrix_for_concret_text();
 
-		index += obj.second;
-		this->SVD_colloc_algorithm(obj.first, obj.second);
+				int counter = 0;
+				for (int i = j; i < lda * m; i += (*column).rows()) {
+					a[i] = (*column)(counter, 0);
+					++counter;
+				}
+			}
+			this->SVD_colloc_algorithm(a, svd_piece);
+		}
 	}
 }
 
