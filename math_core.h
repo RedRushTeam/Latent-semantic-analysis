@@ -33,11 +33,12 @@ public:
 	//void calculate_asymmetry_coefficient();
 	//void calculate_excess_ratio();
 	void find_fluctuations();
-	void shrink_mat_ozid();
 	void shrink_set_of_fluct_cooloc();
-	void calculate_norm_shrinked_mat_ozid();
+	void shrink_mat_ozid();
 	void calculate_map_of_flukt_cooloc_fuzzy();
 	void find_SVD_colloc();
+
+	void calculate_norm_shrinked_mat_ozid();
 	void SVD_colloc_algorithm(float* arr, size_t rows);
 
 	void find_SVD_terms();

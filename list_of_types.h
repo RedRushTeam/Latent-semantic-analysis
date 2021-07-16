@@ -79,7 +79,7 @@ public:
 	static inline int COLLOC_DIST = 3;
 	static inline int CUTOFF = 8;
 	static inline int CUTOFF_FR_IN_TEXTS = 8;
-	static inline int CUTOFF_FR_COLLOC_IN_TEXTS = 6;
+	static inline int CUTOFF_FR_COLLOC_IN_TEXTS = 12;
 };
 constexpr auto STOP_WORD = 0;
 constexpr auto DELETE_THRESHOLD = 0.065;

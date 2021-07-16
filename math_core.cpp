@@ -51,6 +51,16 @@ int math_core::calculate_max_cont_size_without_rare_words_and_frequency_in_texts
 
 void math_core::calculate_all()
 {
+	cout << endl << "Вычисление максимального размера контейнера...";
+	this->calculate_max_cont_size();
+	int size_for_wichout_rare_words = this->calculate_max_cont_size_without_rare_words();
+	int size_for_wichout_rare_words_in_texts = this->calculate_max_cont_size_without_rare_words_and_frequency_in_texts();
+
+	cout << endl << "Максимальный размер словаря, отбросив термы с " << global_var::CUTOFF << " и менее появлениями: " << size_for_wichout_rare_words;
+	cout << endl << "Максимальный размер словаря, отбросив термы с появлениями в " << global_var::CUTOFF_FR_IN_TEXTS << " и менее текстах, а так же, отбросив термы с " << global_var::CUTOFF << " и менее появлениями: " << size_for_wichout_rare_words_in_texts;
+	//cout << endl << "Максимальный размер словаря, отбросив термы с косинусами, ниже " << DELETE_THRESHOLD << " равен: " << size_for_wichout_rare_words_in_texts_SVD;
+
+
 	this->mat_ozidanie = make_shared<piecewise_container_class>(global_var::COLLOC_DIST, this->max_cont_size);
 	analyzer::set_container_mat_ozidanie(this->mat_ozidanie);
 
@@ -68,10 +78,20 @@ void math_core::calculate_all()
 			dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->set_downloaded_range(make_pair(i * (global_var::SIZE_OF_PIECE), (i + 1) * (global_var::SIZE_OF_PIECE)));
 		}
 
+		cout << endl << "Вычисление математического ожидания...";
 		this->calculate_mat_ozidanie();
+		cout << endl << "Вычисление математической дисперсии...";
 		this->calculate_mat_disperse();
+		cout << endl << "Вычисление флуктуационных коллокаций...";
 		this->find_fluctuations();
+		cout << endl << "Сокращение числа флуктуационных коллокаций...";
 		this->shrink_set_of_fluct_cooloc();
+		cout << endl << "Сокращение контейнера математического ожидания...";
+		this->shrink_mat_ozid();
+		cout << endl << "Подготовка вспомогательной карты...";
+		this->calculate_map_of_flukt_cooloc_fuzzy();
+		cout << endl << "SVD разложение флуктуационных коллокаций...";
+		this->find_SVD_colloc();
 
 		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->fill_vector((now_type)0.0);
 		dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->fill_vector((now_type)0.0);
@@ -222,7 +242,7 @@ void math_core::calculate_norm_shrinked_mat_ozid()
 	}
 }
 
-void math_core::calculate_map_of_flukt_cooloc_fuzzy()	//Убрать нахуй
+void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 {
 	this->helper_map_for_SVD_rows_colloc_numbers = make_shared<tsl::robin_map<int, three_coordinate_structure>>();
 	auto mat_ozid_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
@@ -230,7 +250,7 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()	//Убрать нахуй
 	for (auto& obj : *mat_ozid_like_piese->get_vector_ptr())
 		this->helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(obj.first, mat_ozid_like_piese->split_three_coordinates_from_one(obj.first)));
 	
-	cout << endl << "Число подозрительных коллокаций после свертки: " << this->helper_map_for_SVD_rows_colloc_numbers->size();
+	//cout << endl << "Число подозрительных коллокаций после свертки: " << this->helper_map_for_SVD_rows_colloc_numbers->size();
 
 	analyzer::set_helper_map_for_SVD_rows_colloc_numbers(this->helper_map_for_SVD_rows_colloc_numbers);
 
@@ -239,6 +259,8 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()	//Убрать нахуй
 
 void math_core::find_SVD_colloc()
 {
+	dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->clear_vec();
+
 	size_t m = this->helper_map_for_SVD_rows_colloc_numbers->size();
 	size_t n = this->vec_of_filepaths->size();
 	size_t lda = n;
@@ -251,22 +273,21 @@ void math_core::find_SVD_colloc()
 
 	size_t pieces = this->helper_map_for_SVD_rows_colloc_numbers->size() / svd_piece;
 
-	//if (pieces * svd_piece != m)
-		
+	cout << endl << "Всего вычисление будет производиться в " << pieces << " шагов";
+	
 	float* a;
 
-	
-		for (auto p = 0; p <= pieces; ++p) {
-			if (p != pieces)
-				a = new float[lda * svd_piece];
+	for (auto p = 0; p <= pieces; ++p) {
+		if (p != pieces)
+			a = new float[lda * svd_piece];
+		else
+			if (m - pieces * svd_piece)
+				a = new float[m - pieces * svd_piece];
 			else
-				if (m - pieces * svd_piece)
-					a = new float[m - pieces * svd_piece];
-				else
-					continue;
+				continue;
 
-			#pragma omp parallel 
-			{
+		#pragma omp parallel 
+		{
 			#pragma omp for schedule(static)
 			for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
 				parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
@@ -281,8 +302,9 @@ void math_core::find_SVD_colloc()
 					++counter;
 				}
 			}
-			this->SVD_colloc_algorithm(a, svd_piece);
 		}
+		this->SVD_colloc_algorithm(a, svd_piece);
+		cout << endl << "Количество коллокаций после разложения с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
 	}
 }
 
@@ -386,10 +408,6 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 
 	for (auto& obj : list_of_terms_will_be_deleted)
 		this->cosinuses.erase(obj);
-
-	cout << endl << "Количество термов после разложения с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
-
-	auto blyadovka1 = nullptr;
 }
 
 void math_core::find_SVD_terms()
@@ -416,6 +434,7 @@ void math_core::find_SVD_terms()
 	}
 
 	this->SVD_colloc_algorithm(only_terms_mass.get(), this->max_cont_size);
+	cout << endl << "Количество термов после разложения с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
 }
 
 shared_ptr<unordered_set<int>> math_core::get_shrinked_cosinuses_terms()
