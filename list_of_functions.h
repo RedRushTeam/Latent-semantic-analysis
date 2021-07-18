@@ -10,4 +10,5 @@ public:
 	static bool delete_file_for_path(fs::path path_to_delete);
 	static bool is_cpp17_possible();
 	static void print_matrix(const char* desc, MKL_INT m, MKL_INT n, double* a, MKL_INT lda);
+	static std::streamoff stream_size(std::istream& f);
 };

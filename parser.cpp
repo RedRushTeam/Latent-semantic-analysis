@@ -27,15 +27,20 @@ shared_ptr<list<string>> parser::delete_trash()
 {
 	ifstream _input(this->_filename);
 
-	std::stringstream ss;
+	//std::stringstream ss;
 	std::string untext;
-	if (_input.is_open()) {
+	std::streamoff len = list_of_functions::stream_size(_input);
+	if(len == -1)
+		cout << "it doesn't work";
+	untext.resize(static_cast<std::string::size_type>(len));
+	_input.rdbuf()->sgetn(&untext[0], len);
+	/*if (_input.is_open()) {
 		ss << _input.rdbuf();
 		untext = ss.str();
 		_input.close();
 	}
 	else
-		cout << "it doesn't work";
+		cout << "it doesn't work";*/
 
 	std::string wrapped_pattern_for_symbols = "[^Р-пр-џ ]+";
 	RE2::Options opt_for_symbols;

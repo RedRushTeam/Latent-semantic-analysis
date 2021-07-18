@@ -184,14 +184,19 @@ void math_core::find_fluctuations()
 
 void math_core::shrink_mat_ozid()
 {
-	unordered_set<pair<int, int>> helper_set;
+	auto mat_ozid_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
 
-	for (auto obj : this->set_of_fluct_cooloc)
-		helper_set.insert(make_pair(obj.first_coord, obj.second_coord));
+	tsl::robin_set<three_coordinate_structure> set_for_delete;
+	for (auto obj : *mat_ozid_like_piese->get_vector_ptr()) {
+		auto three = mat_ozid_like_piese->split_three_coordinates_from_one(obj.first);
+		if (this->set_of_fluct_cooloc.find(three) == this->set_of_fluct_cooloc.end())
+			set_for_delete.insert(three);
+	}
 
-	for (auto obj : helper_set)
-		for (int k = 0; k <= global_var::COLLOC_DIST; ++k)
-			this->mat_ozidanie->erase_concret_colloc(obj.first, obj.second, k);
+	for(auto obj : set_for_delete)
+		this->mat_ozidanie->erase_concret_colloc(obj.first_coord, obj.second_coord, obj.k);
+
+	cout << endl << "„исло коллокаций в мат ожидании ѕосле чистки: " << dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie)->get_vector_ptr()->size();
 }
 
 void math_core::shrink_set_of_fluct_cooloc()
@@ -205,12 +210,12 @@ void math_core::shrink_set_of_fluct_cooloc()
 	for (auto obj : set_for_deleted_colloc)
 		this->set_of_fluct_cooloc.erase(obj);
 
-	cout << endl << "„исло подозрительных коллокаций, число встреч которых превышает " << global_var::CUTOFF_FR_COLLOC_IN_TEXTS << " равно: " << set_of_fluct_cooloc.size();
+	cout << endl << "„исло подозрительных коллокаций, число встреч которых превышает " << global_var::CUTOFF_FR_COLLOC_IN_TEXTS << " равно: " << this->set_of_fluct_cooloc.size();
 }
 
 void math_core::calculate_norm_shrinked_mat_ozid()
 {
-	this->shrink_mat_ozid();
+	//this->shrink_mat_ozid();
 
 	auto mat_ozid_like_piece = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
 	auto shrinked_vec_mat_ozid = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie)->get_vector_ptr();
@@ -244,11 +249,14 @@ void math_core::calculate_norm_shrinked_mat_ozid()
 
 void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 {
-	this->helper_map_for_SVD_rows_colloc_numbers = make_shared<tsl::robin_map<int, three_coordinate_structure>>();
+	this->helper_map_for_SVD_rows_colloc_numbers = make_shared<tsl::robin_map<size_t, three_coordinate_structure>>();
 	auto mat_ozid_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
 	
-	for (auto& obj : *mat_ozid_like_piese->get_vector_ptr())
-		this->helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(obj.first, mat_ozid_like_piese->split_three_coordinates_from_one(obj.first)));
+	size_t indexer = 0;
+	for (auto& obj : *mat_ozid_like_piese->get_vector_ptr()) {
+		this->helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(indexer, mat_ozid_like_piese->split_three_coordinates_from_one(obj.first)));
+		++indexer;
+	}
 	
 	//cout << endl << "„исло подозрительных коллокаций после свертки: " << this->helper_map_for_SVD_rows_colloc_numbers->size();
 
@@ -274,15 +282,20 @@ void math_core::find_SVD_colloc()
 	size_t pieces = this->helper_map_for_SVD_rows_colloc_numbers->size() / svd_piece;
 
 	cout << endl << "¬сего вычисление будет производитьс€ в " << pieces << " шагов";
-	
+
 	float* a;
+	size_t size_a = 0;
 
 	for (auto p = 0; p <= pieces; ++p) {
-		if (p != pieces)
+		if (p != pieces) {
 			a = new float[lda * svd_piece];
+			size_a = lda * svd_piece;
+		}
 		else
-			if (m - pieces * svd_piece)
+			if (m - pieces * svd_piece) {
 				a = new float[m - pieces * svd_piece];
+				size_a = m - pieces * svd_piece;
+			}
 			else
 				continue;
 
@@ -297,20 +310,23 @@ void math_core::find_SVD_colloc()
 				auto column = _analyzer.calculate_SVD_matrix_for_concret_text();
 
 				int counter = 0;
-				for (int i = j; i < lda * m; i += (*column).rows()) {
+				for (int i = 0; i < size_a; i += (*column).rows()) {
 					a[i] = (*column)(counter, 0);
 					++counter;
 				}
 			}
 		}
+
 		this->SVD_colloc_algorithm(a, svd_piece);
 		cout << endl << " оличество коллокаций после разложени€ с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
 	}
+
+	auto blyadovka1 = 1;
 }
 
 void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 {
-	this->cosinuses.clear();
+	//this->cosinuses.clear();
 
 	size_t m = rows;
 	size_t n = this->vec_of_filepaths->size();
@@ -374,7 +390,7 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 
 	for (auto i = 0; i < resized_V_matrix_of_SVD->cols(); ++i) {
 		for (auto j = 0; j < resized_V_matrix_of_SVD->rows(); ++j) {
-			lenghts_texts_vector[i] += (*resized_V_matrix_of_SVD)(i, j) * (*resized_V_matrix_of_SVD)(i, j);
+			lenghts_texts_vector[i] += (*resized_V_matrix_of_SVD)(j, i) * (*resized_V_matrix_of_SVD)(j, i);
 		}
 		lenghts_texts_vector[i] = sqrt(lenghts_texts_vector[i]);
 	}
@@ -386,9 +402,9 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 			for (auto j = 0; j < resized_U_matrix_of_SVD->cols(); ++j) {
 				auto iter = scalar_proizv.find(make_pair(i, k));
 				if (iter == scalar_proizv.end())
-					scalar_proizv.insert(make_pair(make_pair(i, k), (*resized_U_matrix_of_SVD)(i, j) * (*resized_V_matrix_of_SVD)(k, j)));
+					scalar_proizv.insert(make_pair(make_pair(i, k), (*resized_U_matrix_of_SVD)(i, j) * (*resized_V_matrix_of_SVD)(j, k)));
 				else
-					scalar_proizv[make_pair(i, k)] = iter->second + (*resized_U_matrix_of_SVD)(i, j) * (*resized_V_matrix_of_SVD)(k, j);
+					scalar_proizv[make_pair(i, k)] = iter->second + (*resized_U_matrix_of_SVD)(i, j) * (*resized_V_matrix_of_SVD)(j, k);
 			}
 
 	for (int i = 0; i < lenghts_colloc_vector.size(); ++i)

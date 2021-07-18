@@ -85,7 +85,7 @@ constexpr auto STOP_WORD = 0;
 constexpr auto DELETE_THRESHOLD = 0.065;
 constexpr auto KOEF_FOR_COLLOC_COS_DELETE = 0.7;
 constexpr int FLAGS = LEME_FASTEST;
-constexpr auto SVD_PIECE = 40000;
+constexpr auto SVD_PIECE = 20000;
 
 
 constexpr auto LEMADR = "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db";

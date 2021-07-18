@@ -79,3 +79,14 @@ void list_of_functions::print_matrix(const char* desc, MKL_INT m, MKL_INT n, dou
 		printf("\n");
 	}
 }
+
+std::streamoff list_of_functions::stream_size(std::istream& f)
+{
+	std::istream::pos_type current_pos = f.tellg();
+	if(-1 == current_pos)
+		return -1;
+	f.seekg(0, std::istream::end);
+	std::istream::pos_type end_pos = f.tellg();
+	f.seekg(current_pos);
+	return end_pos - current_pos;
+}

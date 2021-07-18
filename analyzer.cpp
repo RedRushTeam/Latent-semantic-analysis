@@ -336,7 +336,7 @@ shared_ptr<container_class_interface> analyzer::calculate_mat_disperse()
 
 shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 {
-	auto matrix_for_all_SVD = make_shared<MatrixXf>(analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->size(), 1);
+	auto matrix_for_all_SVD = make_shared<MatrixXf>(analyzer::helper_map_for_SVD_rows_colloc_numbers->size(), 1);
 
 	matrix_for_all_SVD->fill(NULL);
 
@@ -394,12 +394,15 @@ shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 		}
 	}
 
+	auto size = inverse_helper_map_for_SVD_rows_colloc_numbers->size();
 	
-	for (auto& obj : map_of_tokens_TOKEN_DATA) {
+	for (auto obj : map_of_tokens_TOKEN_DATA) {
 		auto iter = inverse_helper_map_for_SVD_rows_colloc_numbers->find(obj.first);
 
 		if (iter == inverse_helper_map_for_SVD_rows_colloc_numbers->end())
 			continue;
+
+		auto shit = iter.value();
 
 		(*matrix_for_all_SVD)(iter.value(), 0) += (now_type)obj.second;
 	}
@@ -566,9 +569,9 @@ void analyzer::set_number_of_texts(int number_of_texts)
 	analyzer::number_of_texts = number_of_texts;
 }
 
-void analyzer::set_helper_map_for_SVD_rows_colloc_numbers(shared_ptr<tsl::robin_map<int, three_coordinate_structure>> helper_map_for_SVD_rows_colloc_numbers)
+void analyzer::set_helper_map_for_SVD_rows_colloc_numbers(shared_ptr<tsl::robin_map<size_t, three_coordinate_structure>> helper_map_for_SVD_rows_colloc_numbers)
 {
-	analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers = make_shared<tsl::robin_map<three_coordinate_structure, int>>();
+	analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers = make_shared<tsl::robin_map<three_coordinate_structure, size_t>>();
 
 	for (auto obj : *helper_map_for_SVD_rows_colloc_numbers)
 		analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(obj.second, obj.first));

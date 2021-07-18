@@ -63,7 +63,7 @@ private:
 
 	//sets for flukt
 	tsl::robin_set<three_coordinate_structure> set_of_fluct_cooloc;
-	shared_ptr<tsl::robin_map<int, three_coordinate_structure>> helper_map_for_SVD_rows_colloc_numbers;
+	shared_ptr<tsl::robin_map<size_t, three_coordinate_structure>> helper_map_for_SVD_rows_colloc_numbers;
 
 	//math cont
 	shared_ptr<container_class_interface> mat_disperse;

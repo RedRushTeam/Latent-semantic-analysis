@@ -33,7 +33,7 @@ public:
 	static void set_k(short _k);
 	static int get_number_of_texts();
 	static void set_number_of_texts(int number_of_texts);
-	static void set_helper_map_for_SVD_rows_colloc_numbers(shared_ptr<tsl::robin_map<int, three_coordinate_structure>> helper_map_for_SVD_rows_colloc_numbers);
+	static void set_helper_map_for_SVD_rows_colloc_numbers(shared_ptr<tsl::robin_map<size_t, three_coordinate_structure>> helper_map_for_SVD_rows_colloc_numbers);
 	void set_list_of_all_parsed_text(shared_ptr<list<string>> list_of_all_parsed_text);
 	//for counters
 	static int get_counter_of_tokenizer();
@@ -78,8 +78,8 @@ private:
 	static inline shared_ptr<MatrixXf> all_matrix_for_SVD;
 
 	//data for SVD calculation
-	static inline shared_ptr<tsl::robin_map<int,three_coordinate_structure>> helper_map_for_SVD_rows_colloc_numbers;
-	static inline shared_ptr<tsl::robin_map<three_coordinate_structure, int>> inverse_helper_map_for_SVD_rows_colloc_numbers;
+	static inline shared_ptr<tsl::robin_map<size_t, three_coordinate_structure>> helper_map_for_SVD_rows_colloc_numbers;
+	static inline shared_ptr<tsl::robin_map<three_coordinate_structure, size_t>> inverse_helper_map_for_SVD_rows_colloc_numbers;
 
 	//max_size
 	static inline int counter_of_tokenizer;
