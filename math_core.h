@@ -34,6 +34,7 @@ public:
 	//void calculate_excess_ratio();
 	void find_fluctuations();
 	void shrink_set_of_fluct_cooloc();
+	void shrink_set_of_fluct_cooloc_by_rare();
 	void shrink_mat_ozid();
 	void calculate_map_of_flukt_cooloc_fuzzy();
 	void find_SVD_colloc();
@@ -68,6 +69,9 @@ private:
 	//math cont
 	shared_ptr<container_class_interface> mat_disperse;
 	shared_ptr<container_class_interface> mat_ozidanie;
+
+	//semantic high-volume terms
+	shared_ptr<unordered_set<int>> set_for_unique_terms;
 
 	//private perems
 	int number_of_texts;

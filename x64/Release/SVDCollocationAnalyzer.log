@@ -7,7 +7,7 @@
   parser.cpp
   piecewise_container_class.cpp
   sparce_container_class.cpp
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(375,150): warning C4838: Преобразование из "int" в "short" требует сужающего преобразования.
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(383,155): warning C4838: Преобразование из "int" в "short" требует сужающего преобразования.
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(376,150): warning C4838: Преобразование из "int" в "short" требует сужающего преобразования.
+C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(386,155): warning C4838: Преобразование из "int" в "short" требует сужающего преобразования.
   LINK : указан параметр /LTCG, но не требуется создание кода; удалите /LTCG из командной строки компоновки для повышения производительности компоновщика
   SVDCollocationAnalyzer.vcxproj -> C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Release\SVDCollocationAnalyzer.exe

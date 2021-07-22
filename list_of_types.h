@@ -75,23 +75,24 @@ using now_type = float;
 //my defines
 class global_var {
 public:
-	static inline int SIZE_OF_PIECE = 500000;
+	static inline int SIZE_OF_PIECE = 20000;
 	static inline int COLLOC_DIST = 3;
 	static inline int CUTOFF = 8;
 	static inline int CUTOFF_FR_IN_TEXTS = 8;
+	static inline int CUTOFF_FR_IN_FLUCT = 2;
 	static inline int CUTOFF_FR_COLLOC_IN_TEXTS = 12;
 };
 constexpr auto STOP_WORD = 0;
 constexpr auto DELETE_THRESHOLD = 0.065;
-constexpr auto KOEF_FOR_COLLOC_COS_DELETE = 0.7;
+constexpr auto KOEF_FOR_COLLOC_COS_DELETE = 0.8;
 constexpr int FLAGS = LEME_FASTEST;
 constexpr auto SVD_PIECE = 20000;
 
 
 constexpr auto LEMADR = "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db";
 //constexpr auto TEXTS_PATH = "A:\\rasp_puhl1";
-constexpr auto TEXTS_PATH = "G:\\rasp_puhl";
-//constexpr auto TEXTS_PATH = "C:\\txts";
+//constexpr auto TEXTS_PATH = "G:\\rasp_puhl";
+constexpr auto TEXTS_PATH = "C:\\txts";
 
 
 //my structs
