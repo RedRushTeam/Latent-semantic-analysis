@@ -66,7 +66,7 @@ void math_core::calculate_all()
 
 	this->mat_disperse = make_shared<piecewise_container_class>(global_var::COLLOC_DIST, this->max_cont_size);
 
-	cout << "Всего вычисление будет проиводиться в " << this->number_of_slices << " этапов: ";
+	cout << endl << "Всего вычисление будет проиводиться в " << this->number_of_slices << " этапов: ";
 
 	for (int i = 0; i < this->number_of_slices; ++i) {
 		if (i + 1 == this->number_of_slices) {
@@ -168,8 +168,8 @@ void math_core::find_fluctuations()
 		for (int i = mat_ozid_like_piese->get_downloaded_range().first; i < mat_ozid_like_piese->get_downloaded_range().second; ++i)
 			for (int j = 0; j < this->max_cont_size; ++j)
 				for (int k = 0; k <= global_var::COLLOC_DIST; ++k) {
-					bool kond1 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) - /*sqrt(*/mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k)/*)*/ > mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
-					bool kond2 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) + /*sqrt(*/mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k)/*)*/ < mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
+					bool kond1 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) - /*sqrt(*/mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k) * 4/*)*/ > mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
+					bool kond2 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) + /*sqrt(*/mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k) * 4/*)*/ < mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
 					if (kond1 || kond2){
 						#pragma omp critical (set_of_fluct_cooloc)
 						{
@@ -180,23 +180,6 @@ void math_core::find_fluctuations()
 	}
 
 	cout << endl << "Число подозрительных коллокаций: " << set_of_fluct_cooloc.size();
-}
-
-void math_core::shrink_mat_ozid()
-{
-	auto mat_ozid_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
-
-	tsl::robin_set<three_coordinate_structure> set_for_delete;
-	for (auto obj : *mat_ozid_like_piese->get_vector_ptr()) {
-		auto three = mat_ozid_like_piese->split_three_coordinates_from_one(obj.first);
-		if (this->set_of_fluct_cooloc.find(three) == this->set_of_fluct_cooloc.end())
-			set_for_delete.insert(three);
-	}
-
-	for(auto obj : set_for_delete)
-		this->mat_ozidanie->erase_concret_colloc(obj.first_coord, obj.second_coord, obj.k);
-
-	cout << endl << "Число коллокаций в мат ожидании После чистки: " << dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie)->get_vector_ptr()->size();
 }
 
 void math_core::shrink_set_of_fluct_cooloc()
@@ -211,6 +194,65 @@ void math_core::shrink_set_of_fluct_cooloc()
 		this->set_of_fluct_cooloc.erase(obj);
 
 	cout << endl << "Число подозрительных коллокаций, число встреч которых превышает " << global_var::CUTOFF_FR_COLLOC_IN_TEXTS << " равно: " << this->set_of_fluct_cooloc.size();
+}
+
+void math_core::shrink_set_of_fluct_cooloc_by_rare()
+{
+	tsl::robin_set<three_coordinate_structure> set_for_deleted_colloc;
+
+	unordered_set<pair<int, int>> set_for_colloc_without_dist;
+
+	for (auto obj : this->set_of_fluct_cooloc)
+		set_for_colloc_without_dist.insert(make_pair(obj.first_coord, obj.second_coord));
+
+	for (auto obj : set_for_colloc_without_dist) {
+		short colloc_dist_counter = 0;
+		for (int i = 0; i <= global_var::COLLOC_DIST; ++i)
+			if (this->set_of_fluct_cooloc.find(three_coordinate_structure{ obj.first, obj.second, (short)i }) != this->set_of_fluct_cooloc.end())
+				++colloc_dist_counter;
+
+		if (colloc_dist_counter < global_var::CUTOFF_FR_IN_FLUCT)
+			for (int i = 0; i <= global_var::COLLOC_DIST; ++i)
+				if (this->set_of_fluct_cooloc.find(three_coordinate_structure{ obj.first, obj.second, (short)i }) != this->set_of_fluct_cooloc.end())
+					set_for_deleted_colloc.insert(three_coordinate_structure{ obj.first, obj.second, (short)i });
+	}
+
+	for (auto obj : set_for_deleted_colloc)
+		this->set_of_fluct_cooloc.erase(obj);
+
+	cout << endl << "Число подозрительных коллокаций, встречающихся на расстояниях, более " << global_var::CUTOFF_FR_IN_FLUCT << " равно: " << this->set_of_fluct_cooloc.size();
+}
+
+void math_core::shrink_mat_ozid()
+{
+	auto mat_ozid_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
+
+	tsl::robin_set<three_coordinate_structure> set_for_delete;
+
+	tsl::robin_set<three_coordinate_structure> test_set;
+
+	long long s = 0, l = 0;
+	for (auto obj : *mat_ozid_like_piese->get_vector_ptr()) {
+		auto three = mat_ozid_like_piese->split_three_coordinates_from_one(obj.first);
+		test_set.insert(three);
+		if (this->set_of_fluct_cooloc.find(three) == this->set_of_fluct_cooloc.end()) {
+			set_for_delete.insert(three);
+			++s;
+		}
+	}
+
+	cout << endl << "Размер проверочного сета: " << test_set.size();
+
+	cout << endl << "Число коллокаций, подготовленных для удаления: " << set_for_delete.size();
+	cout << endl << "Число коллокаций в мат ожидании ДО чистки: " << dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie)->get_vector_ptr()->size();
+
+	for (auto obj : set_for_delete) {
+		this->mat_ozidanie->erase_concret_colloc(obj.first_coord, obj.second_coord, obj.k);
+		++l;
+	}
+	cout << endl << "Первый цикл: " << s;
+	cout << endl << "Второй цикл: " << l;
+	cout << endl << "Число коллокаций в мат ожидании После чистки: " << dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie)->get_vector_ptr()->size();
 }
 
 void math_core::calculate_norm_shrinked_mat_ozid()
@@ -286,6 +328,8 @@ void math_core::find_SVD_colloc()
 	float* a;
 	size_t size_a = 0;
 
+	tsl::robin_map<int, float> cosinuses_for_only_colloc;
+
 	for (auto p = 0; p <= pieces; ++p) {
 		if (p != pieces) {
 			a = new float[lda * svd_piece];
@@ -293,8 +337,8 @@ void math_core::find_SVD_colloc()
 		}
 		else
 			if (m - pieces * svd_piece) {
-				a = new float[m - pieces * svd_piece];
-				size_a = m - pieces * svd_piece;
+				size_a = (m - pieces * svd_piece) * lda;
+				a = new float[size_a];
 			}
 			else
 				continue;
@@ -308,9 +352,9 @@ void math_core::find_SVD_colloc()
 
 				analyzer _analyzer(result_of_parse);
 				auto column = _analyzer.calculate_SVD_matrix_for_concret_text();
-
-				int counter = 0;
-				for (int i = 0; i < size_a; i += (*column).rows()) {
+				// место полное говно // срочно переделать counter; и принцип заполнения
+				int counter = p * n;
+				for (int i = j; i < size_a; i += (size_a / lda)) {
 					a[i] = (*column)(counter, 0);
 					++counter;
 				}
@@ -319,6 +363,13 @@ void math_core::find_SVD_colloc()
 
 		this->SVD_colloc_algorithm(a, svd_piece);
 		cout << endl << "Количество коллокаций после разложения с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
+
+		for (auto obj : this->cosinuses)
+			cosinuses_for_only_colloc.insert(make_pair(obj.first.first, obj.second));
+
+		this->cosinuses.clear();
+
+		cout << endl << "Количество коллокаций после разложения и свертки, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << cosinuses_for_only_colloc.size();
 	}
 
 	auto blyadovka1 = 1;

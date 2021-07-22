@@ -61,7 +61,6 @@ void analyzer::calculate_counter_of_tokenizer_without_rare_words()
 			if (iter == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end()) {
 				set_of_words_in_this_text.insert(analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.size());
 				analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.insert(make_pair(_key, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.size()));
-
 			}
 			else {
 				int tmp_token = iter->second;
@@ -73,14 +72,13 @@ void analyzer::calculate_counter_of_tokenizer_without_rare_words()
 				else
 					__key = { obj, iter->first.number_of_appearances_of_this_word + 1, iter->first.number_of_texts_in_which_term_occurs };
 
-
 				analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.erase(__key);
 				analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.insert(make_pair(__key, tmp_token));
 			}
 		}
 	}
 
-#pragma omp critical (maps_into_analyzer)
+	#pragma omp critical (maps_into_analyzer)
 	{
 		this->counter_of_tokenizer_without_rare_words = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.size();
 	}

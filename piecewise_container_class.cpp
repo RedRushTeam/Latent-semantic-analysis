@@ -134,10 +134,10 @@ size_t piecewise_container_class::collect_one_coordinate_from_three(int first_di
 three_coordinate_structure piecewise_container_class::split_three_coordinates_from_one(size_t index) const
 {
 	three_coordinate_structure ret;
-	for (int i = 0; i <= 3; ++i)
-		if (!((index - i) % 4))
+	for (int i = 0; i <= global_var::COLLOC_DIST; ++i)
+		if (!((index - i) % global_var::COLLOC_DIST + 1))
 		{
-			index = (index - i) / 4;
+			index = (index - i) / global_var::COLLOC_DIST + 1;
 			ret.k = i;
 			break;
 		}
