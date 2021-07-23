@@ -57,6 +57,8 @@
 #include <boost/iostreams/device/mapped_file.hpp>
 #include <boost/numeric/ublas/vector_sparse.hpp>
 #include <boost/numeric/ublas/io.hpp>
+#include <boost/multiprecision/cpp_int.hpp>
+#include <boost/multiprecision/integer.hpp>
 
 //RE2 include
 #include <re2.h>

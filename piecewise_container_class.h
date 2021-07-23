@@ -8,7 +8,7 @@ public:
     //constr
     piecewise_container_class(short k, int count_of_collocations, pair<int, int> downloaded_range) :
         container_class_interface(k, count_of_collocations), downloaded_range(downloaded_range) {
-        this->downloaded_vector = make_shared<tsl::robin_map<int, now_type>>();
+        this->downloaded_vector = make_shared<tsl::robin_map<size_t, now_type>>();
 
         if (count_of_collocations < (global_var::SIZE_OF_PIECE))
             this->now_real_size = (size_t)count_of_collocations * count_of_collocations * (global_var::COLLOC_DIST + 1);
@@ -18,7 +18,7 @@ public:
 
     piecewise_container_class(short k, int count_of_collocations) :
         container_class_interface(k, count_of_collocations) {
-        this->downloaded_vector = make_shared<tsl::robin_map<int, now_type>>();
+        this->downloaded_vector = make_shared<tsl::robin_map<size_t, now_type>>();
 
         if (count_of_collocations < (global_var::SIZE_OF_PIECE))
             this->now_real_size = (size_t)count_of_collocations * count_of_collocations * (global_var::COLLOC_DIST + 1);
@@ -42,7 +42,7 @@ public:
     //setters&getters
     void set_downloaded_range(pair<int, int> downloaded_range);
     pair<int, int> get_downloaded_range() const;
-    shared_ptr<tsl::robin_map<int, now_type>> get_vector_ptr() const;
+    shared_ptr<tsl::robin_map<size_t, now_type>> get_vector_ptr() const;
     // Унаследовано через container_class_interface
     virtual void summ_for_concret_colloc(int first_dimension, int second_dimension, int third_dimension, now_type _num) override;
     virtual void minus_for_concret_colloc(int first_dimension, int second_dimension, int third_dimension, now_type _num) override;
@@ -64,7 +64,7 @@ public:
 
 private:
     size_t now_real_size;
-    shared_ptr<tsl::robin_map<int, now_type>> downloaded_vector;
+    shared_ptr<tsl::robin_map<size_t, now_type>> downloaded_vector;
     pair<int, int> downloaded_range;
 
     // Унаследовано через container_class_interface

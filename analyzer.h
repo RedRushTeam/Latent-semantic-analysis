@@ -45,8 +45,8 @@ public:
 	static void set_container_mat_ozidanie(shared_ptr<container_class_interface> _mat_ozidanie);
 	static shared_ptr<container_class_interface> get_container_mat_disperse();
 	static void set_container_mat_disperse(shared_ptr<container_class_interface> _mat_disperse);
-	static shared_ptr<float[]> get_only_terms_mass();
-	static void set_only_terms_mass(shared_ptr<float[]> only_terms_mass);
+	static float* get_only_terms_mass();
+	static void set_only_terms_mass(float* only_terms_mass);
 
 	//destr
 	~analyzer() {}
@@ -65,7 +65,7 @@ private:
 	//math containers
 	static inline shared_ptr<container_class_interface> _mat_ozidanie;
 	static inline shared_ptr<container_class_interface> _mat_disperse;
-	static inline shared_ptr<float[]> only_terms_mass;
+	static inline float* only_terms_mass;
 
 	//dictionaries
 	static inline tsl::robin_map<string, int> map_of_tokens_WORD_TOKEN;

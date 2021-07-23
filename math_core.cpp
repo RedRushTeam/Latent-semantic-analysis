@@ -233,30 +233,14 @@ void math_core::shrink_mat_ozid()
 
 	tsl::robin_set<three_coordinate_structure> set_for_delete;
 
-	tsl::robin_set<three_coordinate_structure> test_set;
-
-	long long s = 0, l = 0;
 	for (auto obj : *mat_ozid_like_piese->get_vector_ptr()) {
 		auto three = mat_ozid_like_piese->split_three_coordinates_from_one(obj.first);
-		test_set.insert(three);
-		if (this->set_of_fluct_cooloc.find(three) == this->set_of_fluct_cooloc.end()) {
+		if (this->set_of_fluct_cooloc.find(three) == this->set_of_fluct_cooloc.end())
 			set_for_delete.insert(three);
-			++s;
-		}
 	}
 
-	cout << endl << "Размер проверочного сета: " << test_set.size();
-
-	cout << endl << "Число коллокаций, подготовленных для удаления: " << set_for_delete.size();
-	cout << endl << "Число коллокаций в мат ожидании ДО чистки: " << dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie)->get_vector_ptr()->size();
-
-	for (auto obj : set_for_delete) {
+	for (auto obj : set_for_delete)
 		this->mat_ozidanie->erase_concret_colloc(obj.first_coord, obj.second_coord, obj.k);
-		++l;
-	}
-	cout << endl << "Первый цикл: " << s;
-	cout << endl << "Второй цикл: " << l;
-	cout << endl << "Число коллокаций в мат ожидании После чистки: " << dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie)->get_vector_ptr()->size();
 }
 
 void math_core::calculate_norm_shrinked_mat_ozid()
@@ -321,9 +305,15 @@ void math_core::find_SVD_colloc()
 	//size_t ldu = m;
 	size_t ldvt = n;
 
+	size_t m1 = this->max_cont_size;
+	size_t n1 = this->vec_of_filepaths->size();
+
 	size_t svd_piece = SVD_PIECE;
 	if (this->vec_of_filepaths->size() > 1000)
 		svd_piece = svd_piece * 1000 / this->vec_of_filepaths->size();
+
+	if (m + m1 < svd_piece)
+		svd_piece = m + m1;
 
 	size_t pieces = 0;
 	if (svd_piece != this->set_for_unique_terms.get()->size())
@@ -337,8 +327,26 @@ void math_core::find_SVD_colloc()
 
 	cout << endl << "Всего вычисление будет производиться в " << pieces+1 << " шагов";
 
+	
+
+	float* only_terms_mass = new float[n1 * m1]{};
+
+	analyzer::set_only_terms_mass(only_terms_mass);
+
+	#pragma omp parallel 
+	{
+		#pragma omp for schedule(static)
+		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
+			parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
+			auto result_of_parse = _parser.parse();
+			analyzer _analyzer(result_of_parse);
+			_analyzer.calculate_matrix_only_for_terms(j);
+		}
+	}
+
 	int idx = 0;
 	float* svd_array = new float[lda * svd_piece];
+
 	for (int i = 0; i < this->set_for_unique_terms.get()->size(); ++i)
 		for (int j = 0; j < this->vec_of_filepaths->size(); ++j)
 		{
@@ -353,13 +361,12 @@ void math_core::find_SVD_colloc()
 
 	for (auto p = 0; p <= pieces; ++p) {
 		if (p != pieces) {
-			a = new float[lda * svd_piece - idx];
-			size_a = lda * svd_piece;
+			size_a = lda * svd_piece - idx;
+			a = new float[size_a];
 		}
 		else
 			if (m - pieces * svd_piece) {
-
-				size_a = (m - pieces * svd_piece) * lda - idx;
+				size_a = (m + m1 - pieces * svd_piece) * lda - idx;
 				a = new float[size_a];
 			}
 			else
@@ -390,8 +397,6 @@ void math_core::find_SVD_colloc()
 			++a_idx;
 		}
 
-		/*debug*/ cout << endl << "svd_piece = " << svd_piece << " really = " << idx + a_idx << endl; /*debug*/
-		this->SVD_colloc_algorithm(svd_array, svd_piece);
 		cout << endl << "Количество коллокаций после разложения с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
 
 		for (auto obj : this->cosinuses)
@@ -401,7 +406,8 @@ void math_core::find_SVD_colloc()
 
 		cout << endl << "Количество коллокаций после разложения и свертки, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << cosinuses_for_only_colloc.size();
 	}
-
+	delete[] only_terms_mass;
+	//analyzer::set_only_terms_mass(nullptr);
 	auto blyadovka1 = 1;
 }
 
@@ -414,7 +420,6 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 	size_t lda = n;
 	size_t ldu = m;
 	size_t ldvt = n;
-	int info;
 	float* superb;
 
 	if (m < n)
@@ -429,10 +434,6 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 
 	LAPACKE_sgesvd(LAPACK_ROW_MAJOR, 'A', 'A', m, n, a, lda, s, u, ldu, vt, ldvt, superb);
 
-	if (info > 0) {
-		cout << "The algorithm computing SVD failed to converge." << endl;
-		exit(-1488);
-	}
 	delete[] a;
 	delete[] s;
 
@@ -511,11 +512,9 @@ void math_core::find_SVD_terms()
 {
 	size_t m = this->max_cont_size;
 	size_t n = this->vec_of_filepaths->size();
-	size_t lda = n;
-	size_t ldu = m;
-	size_t ldvt = n;
 
-	shared_ptr<float[]> only_terms_mass(new float[lda * m]{});
+	float* only_terms_mass = new float[n * m]{};
+
 	analyzer::set_only_terms_mass(only_terms_mass);
 
 	#pragma omp parallel 
@@ -530,8 +529,10 @@ void math_core::find_SVD_terms()
 		}
 	}
 
-	this->SVD_colloc_algorithm(only_terms_mass.get(), this->max_cont_size);
+	this->SVD_colloc_algorithm(only_terms_mass, this->max_cont_size);
 	cout << endl << "Количество термов после разложения с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
+	//delete[] only_terms_mass;
+	//analyzer::set_only_terms_mass(nullptr);
 }
 
 shared_ptr<unordered_set<int>> math_core::get_shrinked_cosinuses_terms()

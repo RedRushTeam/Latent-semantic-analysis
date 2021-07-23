@@ -134,19 +134,29 @@ size_t piecewise_container_class::collect_one_coordinate_from_three(int first_di
 three_coordinate_structure piecewise_container_class::split_three_coordinates_from_one(size_t index) const
 {
 	three_coordinate_structure ret;
-	for (int i = 0; i <= global_var::COLLOC_DIST; ++i)
-		if (!((index - i) % global_var::COLLOC_DIST + 1))
+	for (long long i = 0; i <= global_var::COLLOC_DIST; ++i) {
+		//size_t x = (static_cast<long>(index - i) % static_cast<long long>(global_var::COLLOC_DIST + 1));
+		boost::multiprecision::cpp_int idx(index-i);
+		boost::multiprecision::cpp_int mod(global_var::COLLOC_DIST + 1);
+		auto x = boost::multiprecision::powm<boost::multiprecision::cpp_int>(idx, 1, mod);
+		//auto y = static_cast<size_t>(x);
+		//cout << endl << "!" << x << " " << y;
+		if (x==0) 
 		{
-			index = (index - i) / global_var::COLLOC_DIST + 1;
+			index -= i; 
+			index /= (size_t)global_var::COLLOC_DIST + 1;
 			ret.k = i;
 			break;
 		}
-
+	}
 	size_t low = index / (size_t)this->get_count_of_collocations();
 
+	size_t minuss = 0;
+	size_t cond = 0;
+
 	for (size_t i = low; i < this->get_count_of_collocations(); ++i) {
-		size_t minus = i * (size_t)this->get_count_of_collocations();
-		size_t cond = index - minus;
+		minuss = i * (size_t)this->get_count_of_collocations();
+		cond = index - minuss;
 		bool c1 = cond < this->get_count_of_collocations();
 		bool c2 = cond >= 0;
 		if (c1 && c2)
@@ -155,13 +165,12 @@ three_coordinate_structure piecewise_container_class::split_three_coordinates_fr
 			ret.second_coord = index - (size_t)this->get_count_of_collocations() * i;
 			break;
 		}
-	}
-
+	}	
 	return ret;
 }
 
 void piecewise_container_class::fill_vector(now_type number_for_fill)
-{
+{  
 	for (auto& obj : *this->downloaded_vector)
 		(*this->downloaded_vector)[obj.first] = number_for_fill;
 }
@@ -186,7 +195,7 @@ pair<int, int> piecewise_container_class::get_downloaded_range() const
 	return this->downloaded_range;
 }
 
-shared_ptr<tsl::robin_map<int, now_type>> piecewise_container_class::get_vector_ptr() const
+shared_ptr<tsl::robin_map<size_t, now_type>> piecewise_container_class::get_vector_ptr() const
 {
 	return this->downloaded_vector;
 }

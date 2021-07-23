@@ -597,12 +597,12 @@ void analyzer::set_container_mat_disperse(shared_ptr<container_class_interface> 
 	analyzer::_mat_disperse = _mat_disperse;
 }
 
-shared_ptr<float[]> analyzer::get_only_terms_mass()
+float* analyzer::get_only_terms_mass()
 {
 	return analyzer::only_terms_mass;
 }
 
-void analyzer::set_only_terms_mass(shared_ptr<float[]> only_terms_mass)
+void analyzer::set_only_terms_mass(float* only_terms_mass)
 {
 	analyzer::only_terms_mass = only_terms_mass;
 }
