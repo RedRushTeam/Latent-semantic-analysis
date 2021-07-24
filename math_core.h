@@ -44,7 +44,7 @@ public:
 
 	void find_SVD_terms();
 	shared_ptr<unordered_set<int>> get_shrinked_cosinuses_terms();
-	void prepare_and_calculate_strange_matrix();
+	void calculate_tf_idf();
 
 	//getters&setters
 	shared_ptr<container_class_interface> get_mat_ozidanie() const;
@@ -58,6 +58,7 @@ private:
 
 	//for colloc
 	tsl::robin_map<pair<int, int>, float> cosinuses;
+	tsl::robin_set<int> only_colloc_after_SVD;
 
 	//private elems
 	shared_ptr<vector<fs::path>> vec_of_filepaths;

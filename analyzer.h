@@ -27,6 +27,7 @@ public:
 	void calculate_mat_ozidanie();
 	shared_ptr<container_class_interface> calculate_mat_disperse();
 	shared_ptr<MatrixXf> calculate_SVD_matrix_for_concret_text();
+	void calculate_idf_tf_matrix();
 
 	//getters&&setters
 	static int get_k();
@@ -45,6 +46,8 @@ public:
 	static void set_container_mat_ozidanie(shared_ptr<container_class_interface> _mat_ozidanie);
 	static shared_ptr<container_class_interface> get_container_mat_disperse();
 	static void set_container_mat_disperse(shared_ptr<container_class_interface> _mat_disperse);
+	static shared_ptr<vector<int>> get_idf_matrix();
+	static void set_idf_matrix(shared_ptr<vector<int>> idf_matrix);
 	static float* get_only_terms_mass();
 	static void set_only_terms_mass(float* only_terms_mass);
 
@@ -66,6 +69,7 @@ private:
 	static inline shared_ptr<container_class_interface> _mat_ozidanie;
 	static inline shared_ptr<container_class_interface> _mat_disperse;
 	static inline float* only_terms_mass;
+	static inline shared_ptr<vector<int>> idf_matrix;
 
 	//dictionaries
 	static inline tsl::robin_map<string, int> map_of_tokens_WORD_TOKEN;
