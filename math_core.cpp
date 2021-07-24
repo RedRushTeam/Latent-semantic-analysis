@@ -283,10 +283,18 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 	auto mat_ozid_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
 	
 	size_t indexer = 0;
-	for (auto& obj : *mat_ozid_like_piese->get_vector_ptr()) {
+
+	for (auto obj : *this->set_for_unique_terms)
+	{
+		this->helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(indexer, three_coordinate_structure{ obj, -1, -1 }));
+		++indexer;
+	}
+
+	for (auto obj : *mat_ozid_like_piese->get_vector_ptr()) {
 		this->helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(indexer, mat_ozid_like_piese->split_three_coordinates_from_one(obj.first)));
 		++indexer;
 	}
+
 	
 	//cout << endl << "„исло подозрительных коллокаций после свертки: " << this->helper_map_for_SVD_rows_colloc_numbers->size();
 
