@@ -410,6 +410,12 @@ shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 	return matrix_for_all_SVD;
 }
 
+void analyzer::calculate_idf_tf_matrix()
+{
+
+
+}
+
 list<string>::iterator analyzer::move_list_iterator(list<string>::iterator _it, int mover)
 {
 	if (!mover)
@@ -595,6 +601,16 @@ shared_ptr<container_class_interface> analyzer::get_container_mat_disperse()
 void analyzer::set_container_mat_disperse(shared_ptr<container_class_interface> _mat_disperse)
 {
 	analyzer::_mat_disperse = _mat_disperse;
+}
+
+shared_ptr<vector<int>> analyzer::get_idf_matrix()
+{
+	return analyzer::idf_matrix;
+}
+
+void analyzer::set_idf_matrix(shared_ptr<vector<int>> idf_matrix)
+{
+	analyzer::idf_matrix = idf_matrix;
 }
 
 float* analyzer::get_only_terms_mass()

@@ -51,11 +51,12 @@ int math_core::calculate_max_cont_size_without_rare_words_and_frequency_in_texts
 
 void math_core::calculate_all()
 {
+	std::cout.flush();
 	cout << endl << "Вычисление максимального размера контейнера...";
 	this->calculate_max_cont_size();
 	int size_for_wichout_rare_words = this->calculate_max_cont_size_without_rare_words();
 	int size_for_wichout_rare_words_in_texts = this->calculate_max_cont_size_without_rare_words_and_frequency_in_texts();
-
+	std::cout.flush();
 	cout << endl << "Максимальный размер словаря, отбросив термы с " << global_var::CUTOFF << " и менее появлениями: " << size_for_wichout_rare_words;
 	cout << endl << "Максимальный размер словаря, отбросив термы с появлениями в " << global_var::CUTOFF_FR_IN_TEXTS << " и менее текстах, а так же, отбросив термы с " << global_var::CUTOFF << " и менее появлениями: " << size_for_wichout_rare_words_in_texts;
 	//cout << endl << "Максимальный размер словаря, отбросив термы с косинусами, ниже " << DELETE_THRESHOLD << " равен: " << size_for_wichout_rare_words_in_texts_SVD;
@@ -66,6 +67,7 @@ void math_core::calculate_all()
 
 	this->mat_disperse = make_shared<piecewise_container_class>(global_var::COLLOC_DIST, this->max_cont_size);
 
+	std::cout.flush();
 	cout << endl << "Всего вычисление будет проиводиться в " << this->number_of_slices << " этапов: ";
 
 	for (int i = 0; i < this->number_of_slices; ++i) {
@@ -78,27 +80,36 @@ void math_core::calculate_all()
 			dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->set_downloaded_range(make_pair(i * (global_var::SIZE_OF_PIECE), (i + 1) * (global_var::SIZE_OF_PIECE)));
 		}
 
+		std::cout.flush();
 		cout << endl << "Вычисление математического ожидания...";
 		this->calculate_mat_ozidanie();
+		std::cout.flush();
 		cout << endl << "Вычисление математической дисперсии...";
 		this->calculate_mat_disperse();
+		std::cout.flush();
 		cout << endl << "Вычисление флуктуационных коллокаций...";
 		this->find_fluctuations();
+		std::cout.flush();
 		cout << endl << "Сокращение числа флуктуационных коллокаций...";
 		this->shrink_set_of_fluct_cooloc();
+		std::cout.flush();
 		cout << endl << "Сокращение контейнера математического ожидания...";
 		this->shrink_mat_ozid();
+		std::cout.flush();
 		cout << endl << "Подготовка термов для SVD разложения...";
 		this->find_SVD_terms();
 		this->get_shrinked_cosinuses_terms();
+		std::cout.flush();
 		cout << endl << "Подготовка вспомогательной карты...";
 		this->calculate_map_of_flukt_cooloc_fuzzy();
+		std::cout.flush();
 		cout << endl << "SVD разложение флуктуационных коллокаций...";
 		this->find_SVD_colloc();
 
 		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->fill_vector((now_type)0.0);
 		dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->fill_vector((now_type)0.0);
 
+		std::cout.flush();
 		cout << "(" << i + 1 << "/" << this->number_of_slices << ") ";
 	}
 }
@@ -181,7 +192,7 @@ void math_core::find_fluctuations()
 					}
 				}
 	}
-
+	std::cout.flush();
 	cout << endl << "Число подозрительных коллокаций: " << set_of_fluct_cooloc.size();
 }
 
@@ -195,7 +206,7 @@ void math_core::shrink_set_of_fluct_cooloc()
 
 	for (auto obj : set_for_deleted_colloc)
 		this->set_of_fluct_cooloc.erase(obj);
-
+	std::cout.flush();
 	cout << endl << "Число подозрительных коллокаций, число встреч которых превышает " << global_var::CUTOFF_FR_COLLOC_IN_TEXTS << " равно: " << this->set_of_fluct_cooloc.size();
 
 }
@@ -223,7 +234,7 @@ void math_core::shrink_set_of_fluct_cooloc_by_rare()
 
 	for (auto obj : set_for_deleted_colloc)
 		this->set_of_fluct_cooloc.erase(obj);
-
+	std::cout.flush();
 	cout << endl << "Число подозрительных коллокаций, встречающихся на расстояниях, более " << global_var::CUTOFF_FR_IN_FLUCT << " равно: " << this->set_of_fluct_cooloc.size();
 }
 
@@ -329,10 +340,11 @@ void math_core::find_SVD_colloc()
 
 	if (pieces < 0)
 	{
+		std::cout.flush();
 		cout << endl << "Количество термов превышает допустимый для ОЗУ кусок";
 		exit(-4);
 	}
-
+	std::cout.flush();
 	cout << endl << "Всего вычисление будет производиться в " << pieces+1 << " шагов";
 
 	
@@ -364,8 +376,6 @@ void math_core::find_SVD_colloc()
 
 	float* a;
 	size_t size_a = 0;
-
-	tsl::robin_map<int, float> cosinuses_for_only_colloc;
 
 	for (auto p = 0; p <= pieces; ++p) {
 		if (p != pieces) {
@@ -404,15 +414,15 @@ void math_core::find_SVD_colloc()
 			svd_array[i] = a[a_idx];
 			++a_idx;
 		}
-
+		std::cout.flush();
 		cout << endl << "Количество коллокаций после разложения с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
 
 		for (auto obj : this->cosinuses)
-			cosinuses_for_only_colloc.insert(make_pair(obj.first.first, obj.second));
+			only_colloc_after_SVD.insert(obj.first.first);
 
 		this->cosinuses.clear();
-
-		cout << endl << "Количество коллокаций после разложения и свертки, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << cosinuses_for_only_colloc.size();
+		std::cout.flush();
+		cout << endl << "Количество коллокаций после разложения и свертки, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << only_colloc_after_SVD.size();
 	}
 	delete[] only_terms_mass;
 	//analyzer::set_only_terms_mass(nullptr);
@@ -538,6 +548,7 @@ void math_core::find_SVD_terms()
 	}
 
 	this->SVD_colloc_algorithm(only_terms_mass, this->max_cont_size);
+	std::cout.flush();
 	cout << endl << "Количество термов после разложения с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
 	//delete[] only_terms_mass;
 	//analyzer::set_only_terms_mass(nullptr);
@@ -550,11 +561,20 @@ shared_ptr<unordered_set<int>> math_core::get_shrinked_cosinuses_terms()
 	for (auto obj : this->cosinuses)
 		this->set_for_unique_terms->insert(obj.first.first);
 
+	std::cout.flush();
 	cout << endl << "Количество уникальных термов после свертки: " << set_for_unique_terms->size();
 
 	this->cosinuses.clear();
 
 	return set_for_unique_terms;
+}
+
+void math_core::calculate_tf_idf()
+{
+	shared_ptr<vector<int>> idf_matrix = make_shared<vector<int>>();
+	idf_matrix->resize(only_colloc_after_SVD.size() /*+ число термов, оставшихся после свд*/, 0);
+
+
 }
 
 shared_ptr<container_class_interface> math_core::get_mat_ozidanie() const
