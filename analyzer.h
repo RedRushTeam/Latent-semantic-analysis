@@ -46,6 +46,8 @@ public:
 	static void set_container_mat_ozidanie(shared_ptr<container_class_interface> _mat_ozidanie);
 	static shared_ptr<container_class_interface> get_container_mat_disperse();
 	static void set_container_mat_disperse(shared_ptr<container_class_interface> _mat_disperse);
+	static shared_ptr<tsl::robin_set<int>> get_only_colloc_after_SVD();
+	static void set_only_colloc_after_SVD(shared_ptr<tsl::robin_set<int>> only_colloc_after_SVD);
 	static shared_ptr<vector<int>> get_idf_matrix();
 	static void set_idf_matrix(shared_ptr<vector<int>> idf_matrix);
 	static float* get_only_terms_mass();
@@ -69,6 +71,7 @@ private:
 	static inline shared_ptr<container_class_interface> _mat_ozidanie;
 	static inline shared_ptr<container_class_interface> _mat_disperse;
 	static inline float* only_terms_mass;
+	static inline shared_ptr<tsl::robin_set<int>> only_colloc_after_SVD;
 	static inline shared_ptr<vector<int>> idf_matrix;
 
 	//dictionaries

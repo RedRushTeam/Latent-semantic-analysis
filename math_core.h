@@ -58,7 +58,7 @@ private:
 
 	//for colloc
 	tsl::robin_map<pair<int, int>, float> cosinuses;
-	tsl::robin_set<int> only_colloc_after_SVD;
+	shared_ptr<tsl::robin_set<int>> only_colloc_after_SVD;
 
 	//private elems
 	shared_ptr<vector<fs::path>> vec_of_filepaths;

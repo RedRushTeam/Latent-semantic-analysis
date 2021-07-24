@@ -412,8 +412,76 @@ shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 
 void analyzer::calculate_idf_tf_matrix()
 {
+	static bool one_step_flag = true;
 
+	if (one_step_flag) {
+		unordered_set<three_coordinate_structure> set_for_delete;
 
+		for (auto obj : *analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers)
+			if (analyzer::only_colloc_after_SVD->find(obj.first.first_coord * (size_t)analyzer::counter_of_tokenizer_without_rare_words_and_text * (size_t)(global_var::COLLOC_DIST + 1) + obj.first.second_coord * (global_var::COLLOC_DIST + 1) + obj.first.k) == analyzer::only_colloc_after_SVD->end())
+				set_for_delete.insert(obj.first);
+
+		for (auto obj : set_for_delete)
+			analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->erase(obj);
+
+		size_t indexer = 0;
+		for (auto& obj : *analyzer::helper_map_for_SVD_rows_colloc_numbers) {
+			analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->erase(obj.second);
+			analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(obj.second, indexer));
+			++indexer;
+		}
+
+		one_step_flag = !one_step_flag;
+	}
+
+	this->lemmatize_all_words();
+
+	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
+		#pragma omp critical (maps_into_analyzer)
+		{
+			for (int i = -global_var::COLLOC_DIST - 1; i <= global_var::COLLOC_DIST + 1; ++i)
+				if (i != 0) {
+					auto now_it = this->move_list_iterator(it, i);
+					if (now_it == this->list_of_all_lemmatized_text->end())
+						continue;
+
+					word_and_number_of_appearances_structure _key = { *it, 1, 1 };
+					word_and_number_of_appearances_structure __key = { *now_it, 1, 1 };
+					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+						continue;
+
+					int first_index = (*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)).second;	//обращение к критическому ресурсу		//быть может, тут не нужна потокобезопасность?
+
+					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+						continue;
+
+					if (i > 0) {
+						three_coordinate_structure inside_key{ first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, short(i - 1) };
+						
+						if (analyzer::only_colloc_after_SVD->find((size_t)first_index * (size_t)analyzer::counter_of_tokenizer_without_rare_words_and_text * (size_t)(global_var::COLLOC_DIST + 1) + (size_t)analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second * (global_var::COLLOC_DIST + 1) + (i - 1)) == analyzer::only_colloc_after_SVD->end())
+							continue;
+						
+						auto _perem = analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->find(inside_key)->second;
+
+						auto x2 = this->_mat_ozidanie->get_count_of_concret_collocation(inside_key.first_coord, inside_key.second_coord, inside_key.k);
+
+						(*analyzer::idf_matrix)[_perem] = (*analyzer::idf_matrix)[_perem] + x2 - x2 * (*analyzer::idf_matrix)[_perem];
+					}
+					else {
+						three_coordinate_structure inside_key{ first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, abs(i) - 1 };
+
+						if (analyzer::only_colloc_after_SVD->find((size_t)first_index * (size_t)analyzer::counter_of_tokenizer_without_rare_words_and_text * (size_t)(global_var::COLLOC_DIST + 1) + (size_t)analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second * (global_var::COLLOC_DIST + 1) + (abs(i) - 1)) == analyzer::only_colloc_after_SVD->end())
+							continue;
+
+						auto _perem = analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->find(inside_key)->second;
+
+						auto x2 = this->_mat_ozidanie->get_count_of_concret_collocation(inside_key.first_coord, inside_key.second_coord, inside_key.k);
+
+						(*analyzer::idf_matrix)[_perem] = (*analyzer::idf_matrix)[_perem] + x2 - x2 * (*analyzer::idf_matrix)[_perem];
+					}
+				}
+		}
+	}
 }
 
 list<string>::iterator analyzer::move_list_iterator(list<string>::iterator _it, int mover)
@@ -601,6 +669,16 @@ shared_ptr<container_class_interface> analyzer::get_container_mat_disperse()
 void analyzer::set_container_mat_disperse(shared_ptr<container_class_interface> _mat_disperse)
 {
 	analyzer::_mat_disperse = _mat_disperse;
+}
+
+shared_ptr<tsl::robin_set<int>> analyzer::get_only_colloc_after_SVD()
+{
+	return only_colloc_after_SVD;
+}
+
+void analyzer::set_only_colloc_after_SVD(shared_ptr<tsl::robin_set<int>> only_colloc_after_SVD)
+{
+	analyzer::only_colloc_after_SVD = only_colloc_after_SVD;
 }
 
 shared_ptr<vector<int>> analyzer::get_idf_matrix()

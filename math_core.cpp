@@ -318,7 +318,10 @@ void math_core::find_SVD_colloc()
 {
 	dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->clear_vec();
 
-	size_t m = this->helper_map_for_SVD_rows_colloc_numbers->size();
+	this->only_colloc_after_SVD = make_shared<tsl::robin_set<int>>();
+	analyzer::set_only_colloc_after_SVD(this->only_colloc_after_SVD);
+
+	size_t m = this->helper_map_for_SVD_rows_colloc_numbers->size() - this->set_for_unique_terms->size();
 	size_t n = this->vec_of_filepaths->size();
 	size_t lda = n;
 	//size_t ldu = m;
@@ -418,11 +421,11 @@ void math_core::find_SVD_colloc()
 		cout << endl << "Количество коллокаций после разложения с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
 
 		for (auto obj : this->cosinuses)
-			only_colloc_after_SVD.insert(obj.first.first);
+			only_colloc_after_SVD->insert(obj.first.first);
 
 		this->cosinuses.clear();
 		std::cout.flush();
-		cout << endl << "Количество коллокаций после разложения и свертки, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << only_colloc_after_SVD.size();
+		cout << endl << "Количество коллокаций после разложения и свертки, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << only_colloc_after_SVD->size();
 	}
 	delete[] only_terms_mass;
 	//analyzer::set_only_terms_mass(nullptr);
@@ -572,9 +575,19 @@ shared_ptr<unordered_set<int>> math_core::get_shrinked_cosinuses_terms()
 void math_core::calculate_tf_idf()
 {
 	shared_ptr<vector<int>> idf_matrix = make_shared<vector<int>>();
-	idf_matrix->resize(only_colloc_after_SVD.size() /*+ число термов, оставшихся после свд*/, 0);
+	idf_matrix->resize(only_colloc_after_SVD->size() /*+ число термов, оставшихся после свд*/, 0);
+	
+	#pragma omp parallel 
+	{
+		#pragma omp for schedule(static)
+		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
+			parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
+			auto result_of_parse = _parser.parse();
 
-
+			analyzer _analyzer(result_of_parse);
+			_analyzer.calculate_idf_tf_matrix();
+		}
+	}
 }
 
 shared_ptr<container_class_interface> math_core::get_mat_ozidanie() const
