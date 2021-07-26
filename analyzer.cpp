@@ -410,24 +410,18 @@ shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 	return matrix_for_all_SVD;
 }
 
-void analyzer::calculate_idf_tf_matrix()
+void analyzer::calculate_idf_tf_matrix(int number_of_text)
 {
 	static bool one_step_flag = true;
 
 	if (one_step_flag) {
-		unordered_set<three_coordinate_structure> set_for_delete;
 
-		for (auto obj : *analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers)
-			if (analyzer::only_colloc_after_SVD->find(obj.first.first_coord * (size_t)analyzer::counter_of_tokenizer_without_rare_words_and_text * (size_t)(global_var::COLLOC_DIST + 1) + obj.first.second_coord * (global_var::COLLOC_DIST + 1) + obj.first.k) == analyzer::only_colloc_after_SVD->end())
-				set_for_delete.insert(obj.first);
+		analyzer::helper_map_for_SVD_rows_colloc_numbers->clear();
 
-		for (auto obj : set_for_delete)
-			analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->erase(obj);
-
+		analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->clear();
 		size_t indexer = 0;
-		for (auto& obj : *analyzer::helper_map_for_SVD_rows_colloc_numbers) {
-			analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->erase(obj.second);
-			analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(obj.second, indexer));
+		for (auto obj : *analyzer::get_colloc_and_terms_after_SVD()) {
+			analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(obj, indexer));
 			++indexer;
 		}
 
@@ -436,9 +430,10 @@ void analyzer::calculate_idf_tf_matrix()
 
 	this->lemmatize_all_words();
 
-	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
-		#pragma omp critical (maps_into_analyzer)
-		{
+	#pragma omp critical (maps_into_analyzer)
+	{
+		for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
+
 			for (int i = -global_var::COLLOC_DIST - 1; i <= global_var::COLLOC_DIST + 1; ++i)
 				if (i != 0) {
 					auto now_it = this->move_list_iterator(it, i);
@@ -456,32 +451,64 @@ void analyzer::calculate_idf_tf_matrix()
 						continue;
 
 					if (i > 0) {
-						three_coordinate_structure inside_key{ first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, short(i - 1) };
-						
-						if (analyzer::only_colloc_after_SVD->find((size_t)first_index * (size_t)analyzer::counter_of_tokenizer_without_rare_words_and_text * (size_t)(global_var::COLLOC_DIST + 1) + (size_t)analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second * (global_var::COLLOC_DIST + 1) + (i - 1)) == analyzer::only_colloc_after_SVD->end())
+						three_coordinate_structure ___key = { first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, i - 1 };
+
+						auto iter = analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->find(___key);
+
+						if (iter == analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->end())
 							continue;
-						
-						auto _perem = analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->find(inside_key)->second;
 
-						auto x2 = this->_mat_ozidanie->get_count_of_concret_collocation(inside_key.first_coord, inside_key.second_coord, inside_key.k);
+						auto x2 = this->_mat_ozidanie->get_count_of_concret_collocation(___key.first_coord, ___key.second_coord, ___key.k);
 
-						(*analyzer::idf_matrix)[_perem] = (*analyzer::idf_matrix)[_perem] + x2 - x2 * (*analyzer::idf_matrix)[_perem];
+						(*tf_matrix)[iter.value()][number_of_text] += x2;
+
+						(*idf_matrix)[iter.value()] = (*idf_matrix)[iter.value()] + x2/*нормированное мат ожидание*/ - (*idf_matrix)[iter.value()] + x2/*нормированное мат ожидание*/;
 					}
 					else {
-						three_coordinate_structure inside_key{ first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, abs(i) - 1 };
+						three_coordinate_structure ___key = { first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, abs(i) - 1 };
 
-						if (analyzer::only_colloc_after_SVD->find((size_t)first_index * (size_t)analyzer::counter_of_tokenizer_without_rare_words_and_text * (size_t)(global_var::COLLOC_DIST + 1) + (size_t)analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second * (global_var::COLLOC_DIST + 1) + (abs(i) - 1)) == analyzer::only_colloc_after_SVD->end())
+						auto iter = analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->find(___key);
+
+						if (iter == analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->end())
 							continue;
 
-						auto _perem = analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->find(inside_key)->second;
+						auto x2 = this->_mat_ozidanie->get_count_of_concret_collocation(___key.first_coord, ___key.second_coord, ___key.k);
 
-						auto x2 = this->_mat_ozidanie->get_count_of_concret_collocation(inside_key.first_coord, inside_key.second_coord, inside_key.k);
+						(*tf_matrix)[iter.value()][number_of_text] += x2;
 
-						(*analyzer::idf_matrix)[_perem] = (*analyzer::idf_matrix)[_perem] + x2 - x2 * (*analyzer::idf_matrix)[_perem];
+						(*idf_matrix)[iter.value()] = (*idf_matrix)[iter.value()] + x2/*нормированное мат ожидание*/ - (*idf_matrix)[iter.value()] + x2/*нормированное мат ожидание*/;
 					}
 				}
+
+			word_and_number_of_appearances_structure key_ = { *it, 1, 1 };
+			if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(key_) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+				continue;
+
+			int first_index = (*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(key_)).second;
+
+			three_coordinate_structure ____key = { first_index, -1., -1. };
+
+			auto _iter = analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->find(____key);
+
+			if (_iter == analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->end())
+				continue;
+
+			(*tf_matrix)[_iter.value()][number_of_text] += 1.f;
+
+			if ((*idf_matrix)[_iter.value()] == 0)
+				(*idf_matrix)[_iter.value()] = 1.;
 		}
 	}
+
+	tsl::robin_set<std::string> set_for_unique_terms_of_this_text;
+
+	for (auto obj : *this->list_of_all_lemmatized_text)
+		set_for_unique_terms_of_this_text.insert(obj);
+
+	for (size_t i = 0; i < tf_matrix->size(); ++i)
+		(*tf_matrix)[i][number_of_text] /= set_for_unique_terms_of_this_text.size();
+
+	set_for_unique_terms_of_this_text.clear();
 }
 
 list<string>::iterator analyzer::move_list_iterator(list<string>::iterator _it, int mover)
@@ -671,24 +698,34 @@ void analyzer::set_container_mat_disperse(shared_ptr<container_class_interface> 
 	analyzer::_mat_disperse = _mat_disperse;
 }
 
-shared_ptr<tsl::robin_set<int>> analyzer::get_only_colloc_after_SVD()
+shared_ptr<tsl::robin_set<three_coordinate_structure>> analyzer::get_colloc_and_terms_after_SVD()
 {
-	return only_colloc_after_SVD;
+	return colloc_and_terms_after_SVD;
 }
 
-void analyzer::set_only_colloc_after_SVD(shared_ptr<tsl::robin_set<int>> only_colloc_after_SVD)
+void analyzer::set_colloc_and_terms_after_SVD(shared_ptr<tsl::robin_set<three_coordinate_structure>> colloc_and_terms_after_SVD)
 {
-	analyzer::only_colloc_after_SVD = only_colloc_after_SVD;
+	analyzer::colloc_and_terms_after_SVD = colloc_and_terms_after_SVD;
 }
 
-shared_ptr<vector<int>> analyzer::get_idf_matrix()
+shared_ptr<vector<now_type>> analyzer::get_idf_matrix()
 {
 	return analyzer::idf_matrix;
 }
 
-void analyzer::set_idf_matrix(shared_ptr<vector<int>> idf_matrix)
+void analyzer::set_idf_matrix(shared_ptr<vector<now_type>> idf_matrix)
 {
 	analyzer::idf_matrix = idf_matrix;
+}
+
+shared_ptr<vector<vector<now_type>>> analyzer::get_tf_matrix()
+{
+	return analyzer::tf_matrix;
+}
+
+void analyzer::set_tf_matrix(shared_ptr<vector<vector<now_type>>> tf_matrix)
+{
+	analyzer::tf_matrix = tf_matrix;
 }
 
 float* analyzer::get_only_terms_mass()

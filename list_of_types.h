@@ -81,8 +81,8 @@ public:
 	static inline int COLLOC_DIST = 3;
 	static inline int CUTOFF = 8;
 	static inline int CUTOFF_FR_IN_TEXTS = 8;
-	static inline int CUTOFF_FR_IN_FLUCT = 2;
-	static inline int CUTOFF_FR_COLLOC_IN_TEXTS = 12;
+	static inline int CUTOFF_FR_IN_FLUCT = 3;
+	static inline int CUTOFF_FR_COLLOC_IN_TEXTS = 1000;
 };
 constexpr auto STOP_WORD = 0;
 constexpr auto DELETE_THRESHOLD = 0.065;
@@ -93,7 +93,7 @@ constexpr auto SVD_PIECE = 20000;
 
 constexpr auto LEMADR = "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db";
 //constexpr auto TEXTS_PATH = "A:\\rasp_puhl1";
-constexpr auto TEXTS_PATH = "G:\\rasp_puhl";
+constexpr auto TEXTS_PATH = "A:\\rasp_puhl";
 //constexpr auto TEXTS_PATH = "C:\\txts";
 
 
