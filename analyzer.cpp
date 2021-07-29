@@ -500,15 +500,9 @@ void analyzer::calculate_idf_tf_matrix(int number_of_text)
 		}
 	}
 
-	tsl::robin_set<std::string> set_for_unique_terms_of_this_text;
-
-	for (auto obj : *this->list_of_all_lemmatized_text)
-		set_for_unique_terms_of_this_text.insert(obj);
-
 	for (size_t i = 0; i < tf_matrix->size(); ++i)
-		(*tf_matrix)[i][number_of_text] /= set_for_unique_terms_of_this_text.size();
+		(*tf_matrix)[i][number_of_text] /= this->list_of_all_lemmatized_text->size();	//возможно стоит делть на colloc dist + 1
 
-	set_for_unique_terms_of_this_text.clear();
 }
 
 list<string>::iterator analyzer::move_list_iterator(list<string>::iterator _it, int mover)

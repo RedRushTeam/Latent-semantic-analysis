@@ -112,6 +112,8 @@ void math_core::calculate_all()
 		std::cout.flush();
 		cout << endl << "Вычисление tf и idf...";
 		this->calculate_tf_idf();
+		cout << endl << "SVD разложение tf матрицы...";
+		this->prepare_tf_matrix_for_SVD();
 
 		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->fill_vector((now_type)0.0);
 		dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->fill_vector((now_type)0.0);
@@ -580,16 +582,17 @@ shared_ptr<unordered_set<int>> math_core::get_shrinked_cosinuses_terms()
 
 void math_core::calculate_tf_idf()
 {
-	shared_ptr<vector<now_type>> idf_matrix = make_shared<vector<now_type>>();
-	idf_matrix->resize(colloc_and_terms_after_SVD->size(), 0.f);
-	analyzer::set_idf_matrix(idf_matrix);
+	this->idf_matrix = make_shared<vector<now_type>>();
+	this->idf_matrix->resize(this->colloc_and_terms_after_SVD->size(), 0.f);
+	analyzer::set_idf_matrix(this->idf_matrix);
 
-	shared_ptr<vector<vector<now_type>>> tf_matrix = make_shared<vector<vector<now_type>>>();
-	tf_matrix->resize(colloc_and_terms_after_SVD->size());
-	for (auto& obj : *tf_matrix)
+	this->tf_matrix = make_shared<vector<vector<now_type>>>();
+	this->tf_matrix->resize(this->colloc_and_terms_after_SVD->size());
+
+	for (auto& obj : *this->tf_matrix)
 		obj.resize(this->vec_of_filepaths->size(), 0.f);
 
-	analyzer::set_tf_matrix(tf_matrix);
+	analyzer::set_tf_matrix(this->tf_matrix);
 
 	#pragma omp parallel 
 	{
@@ -602,6 +605,19 @@ void math_core::calculate_tf_idf()
 			_analyzer.calculate_idf_tf_matrix(j);
 		}
 	}
+
+	for (size_t i = 0; i < this->idf_matrix->size(); ++i)
+		(*this->idf_matrix)[i] = log2f(this->vec_of_filepaths->size() / ((*this->idf_matrix)[i] + 1));
+}
+
+void math_core::prepare_tf_matrix_for_SVD()
+{
+	for (auto& obj : *this->tf_matrix)
+		for (size_t i = 0; i < this->idf_matrix->size(); ++i)
+			obj[i] *= (*this->idf_matrix)[i];
+
+	this->idf_matrix->clear();
+	//отправляем матрицу в SVD
 }
 
 shared_ptr<container_class_interface> math_core::get_mat_ozidanie() const
