@@ -338,8 +338,8 @@ void math_core::find_SVD_colloc()
 		svd_piece = m + m1;
 
 	size_t pieces = 0;
-	if (svd_piece != this->set_for_unique_terms.get()->size())
-		pieces = this->helper_map_for_SVD_rows_colloc_numbers->size() / (svd_piece - this->set_for_unique_terms.get()->size());
+	if (svd_piece != this->set_for_unique_terms->size())
+		pieces = this->helper_map_for_SVD_rows_colloc_numbers->size() / (svd_piece - this->set_for_unique_terms->size());
 
 	if (pieces < 0)
 	{
@@ -359,26 +359,29 @@ void math_core::find_SVD_colloc()
 	#pragma omp parallel 
 	{
 		#pragma omp for schedule(static)
-		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
-			parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
+		for (int j0 = 0; j0 < this->vec_of_filepaths->size(); ++j0) {
+			parser _parser((*this->vec_of_filepaths)[j0]);	//tut peredaetsa kopiya
 			auto result_of_parse = _parser.parse();
 			analyzer _analyzer(result_of_parse);
-			_analyzer.calculate_matrix_only_for_terms(j);
+			_analyzer.calculate_matrix_only_for_terms(j0);
 		}
 	}
 
 	int idx = 0;
-	float* svd_array = new float[lda * svd_piece];
+	size_t svd_array_size = lda * svd_piece;
+	float* svd_array = new float[svd_array_size];
 
-	for (int i = 0; i < this->set_for_unique_terms.get()->size(); ++i)
-		for (int j = 0; j < this->vec_of_filepaths->size(); ++j)
+	for (auto obj : *this->set_for_unique_terms)
+		for (int j1 = 0; j1 < this->vec_of_filepaths->size(); ++j1)
 		{
-			svd_array[idx] = analyzer::get_only_terms_mass()[i * this->vec_of_filepaths->size() + j];
+			svd_array[idx] = analyzer::get_only_terms_mass()[obj * this->vec_of_filepaths->size() + j1];
 			++idx;
 		}
 
-	float* a;
+	float* a = nullptr;
 	size_t size_a = 0;
+
+	int counter = 0;
 
 	for (auto p = 0; p <= pieces; ++p) {
 		if (p != pieces) {
@@ -396,27 +399,51 @@ void math_core::find_SVD_colloc()
 		#pragma omp parallel 
 		{
 			#pragma omp for schedule(static)
-			for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
-				parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
+			for (int j2 = 0; j2 < this->vec_of_filepaths->size(); ++j2) {
+				parser _parser((*this->vec_of_filepaths)[j2]);	//tut peredaetsa kopiya
 				auto result_of_parse = _parser.parse();
 
 				analyzer _analyzer(result_of_parse);
 				auto column = _analyzer.calculate_SVD_matrix_for_concret_text();
-				int counter = p * n;
-				for (int i = j; i < size_a; i += (size_a / lda)) {
-					a[i] = (*column)(counter, 0);
+				int counter = p * (svd_piece - this->set_for_unique_terms->size());
+				for (int i2 = j2; i2 < size_a; i2 += this->vec_of_filepaths->size()) {
+					a[i2] = (*column)(counter, 0);
 					++counter;
+					//if (counter?)
 				}
 			}
 		}
-		
-		int new_idx = idx;
+
 		int a_idx = 0;
-		for (int i = new_idx; i < (lda * svd_piece); ++i)
+
+		std::cout.flush();
+		cout << endl << a[0] << " " << a[1] << " " << a[n - 1] << " " << a[n] << " " << a[size_a - 1];
+		for (int i3 = idx; i3 < svd_array_size; ++i3)
 		{
-			svd_array[i] = a[a_idx];
+			auto tmp = a[a_idx];
+			svd_array[i3] = tmp;
 			++a_idx;
+			if (a_idx >= size_a)
+				break;
 		}
+
+		if ((idx + a_idx) != svd_array_size) { 
+			/*
+			* в последнем куске обычно меньше строк чем svd_piece, поэтому надо переложить всё в другой массив поменьше
+			* cout нужен для дебага, в случае если в этот блок произошло попадание не на последнем шаге - что-то идёт не так
+			*/
+			svd_array_size = idx + a_idx;
+			float* small_svd_array = new float[svd_array_size];
+			std::cout.flush();
+			cout << endl << "svd_array_size = " << svd_array_size << "; idx + a_idx = ;" << idx + a_idx << "; возникновение на " << p << " шаге из " << pieces + 1;
+
+			for (auto i4 = 0; i4 < svd_array_size; ++i4)
+				small_svd_array[i4] = svd_array[i4];
+			delete[] svd_array;
+			this->SVD_colloc_algorithm(small_svd_array, svd_array_size/n);
+		}
+		else
+			this->SVD_colloc_algorithm(svd_array, svd_array_size/n); 
 		std::cout.flush();
 		cout << endl << "Количество коллокаций после разложения с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
 
