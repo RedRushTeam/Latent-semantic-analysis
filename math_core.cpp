@@ -331,19 +331,13 @@ void math_core::find_SVD_colloc()
 
 	size_t m = this->helper_map_for_SVD_rows_colloc_numbers->size() - this->set_for_unique_terms->size();
 	size_t n = this->vec_of_filepaths->size();
-	size_t lda = n;
-	//size_t ldu = m;
-	size_t ldvt = n;
-
-	size_t m1 = this->max_cont_size;
-	size_t n1 = this->vec_of_filepaths->size();
 
 	size_t svd_piece = SVD_PIECE;
 	if (this->vec_of_filepaths->size() > 1000)
 		svd_piece = svd_piece * 1000 / this->vec_of_filepaths->size();
 
-	if (m + m1 < svd_piece)
-		svd_piece = m + m1;
+	if (this->helper_map_for_SVD_rows_colloc_numbers->size() < svd_piece)
+		svd_piece = this->helper_map_for_SVD_rows_colloc_numbers->size();
 
 	size_t pieces = 0;
 	if (svd_piece != this->set_for_unique_terms->size())
@@ -360,7 +354,7 @@ void math_core::find_SVD_colloc()
 
 	
 
-	float* only_terms_mass = new float[n1 * m1]{};
+	float* only_terms_mass = new float[n * this->max_cont_size]{};
 
 	analyzer::set_only_terms_mass(only_terms_mass);
 
@@ -376,91 +370,68 @@ void math_core::find_SVD_colloc()
 	}
 
 	int idx = 0;
-	size_t svd_array_size = lda * svd_piece;
-	float* svd_array = new float[svd_array_size];
+	size_t term_array_size = n * this->set_for_unique_terms->size();
+	float* term_array = new float[term_array_size];
 
 	for (auto obj : *this->set_for_unique_terms)
 		for (int j1 = 0; j1 < this->vec_of_filepaths->size(); ++j1)
 		{
-			svd_array[idx] = analyzer::get_only_terms_mass()[obj * this->vec_of_filepaths->size() + j1];
+			term_array[idx] = analyzer::get_only_terms_mass()[obj * this->vec_of_filepaths->size() + j1];
 			++idx;
 		}
 
-	float* a = nullptr;
 	size_t size_a = 0;
+
+	size_a = n * svd_piece - idx;
+	float* a = new float[size_a];
 
 	int counter = 0;
 
 	for (auto p = 0; p <= pieces; ++p) {
-		if (p != pieces) {
-			size_a = lda * svd_piece - idx;
-			a = new float[size_a];
-		}
-		else
+		if (p == pieces) {
 			if (m - pieces * svd_piece) {
-				size_a = (m + m1 - pieces * svd_piece) * lda - idx;
+				size_a = m - ((svd_piece - this->set_for_unique_terms->size()) * p);
+				delete[] a;
 				a = new float[size_a];
 			}
 			else
 				continue;
-
+		}
 		#pragma omp parallel 
-		{
-			#pragma omp for schedule(static)
-			for (int j2 = 0; j2 < this->vec_of_filepaths->size(); ++j2) {
-				parser _parser((*this->vec_of_filepaths)[j2]);	//tut peredaetsa kopiya
-				auto result_of_parse = _parser.parse();
+			{
+				#pragma omp for schedule(static)
+					for (int j2 = 0; j2 < this->vec_of_filepaths->size(); ++j2) {
+						parser _parser((*this->vec_of_filepaths)[j2]);	//tut peredaetsa kopiya
+						auto result_of_parse = _parser.parse();
 
-				analyzer _analyzer(result_of_parse);
-				auto column = _analyzer.calculate_SVD_matrix_for_concret_text();
-				int counter = p * (svd_piece - this->set_for_unique_terms->size());
-				for (int i2 = j2; i2 < size_a; i2 += this->vec_of_filepaths->size()) {
-					a[i2] = (*column)(counter, 0);
-					++counter;
-					//if (counter?)
-				}
-			}
-		}
+						analyzer _analyzer(result_of_parse);
+						auto column = _analyzer.calculate_SVD_matrix_for_concret_text();
 
-		int a_idx = 0;
+						counter = p * (svd_piece - this->set_for_unique_terms->size());
 
-		std::cout.flush();
-		cout << endl << a[0] << " " << a[1] << " " << a[n - 1] << " " << a[n] << " " << a[size_a - 1];
-		for (int i3 = idx; i3 < svd_array_size; ++i3)
-		{
-			auto tmp = a[a_idx];
-			svd_array[i3] = tmp;
-			++a_idx;
-			if (a_idx >= size_a)
-				break;
-		}
+						for (int i2 = j2; i2 < size_a; i2 += this->vec_of_filepaths->size()) {
+							a[i2] = (*column)(counter, 0);
+							++counter;
+						}
+					}
+			}	
 
-		if ((idx + a_idx) != svd_array_size) { 
-			/*
-			* в последнем куске обычно меньше строк чем svd_piece, поэтому надо переложить всё в другой массив поменьше
-			* cout нужен для дебага, в случае если в этот блок произошло попадание не на последнем шаге - что-то идёт не так
-			*/
-			svd_array_size = idx + a_idx;
-			float* small_svd_array = new float[svd_array_size];
+			size_t svd_array_size = term_array_size + size_a;
+			float* svd_array = new float[svd_array_size];
+
+			std::copy(term_array, term_array + term_array_size, svd_array);
+			std::copy(a, a + size_a, svd_array + term_array_size);
+
+			this->SVD_colloc_algorithm(svd_array, svd_array_size / n);
 			std::cout.flush();
-			cout << endl << "svd_array_size = " << svd_array_size << "; idx + a_idx = ;" << idx + a_idx << "; возникновение на " << p << " шаге из " << pieces + 1;
+			cout << endl << "Количество коллокаций после разложения с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
 
-			for (auto i4 = 0; i4 < svd_array_size; ++i4)
-				small_svd_array[i4] = svd_array[i4];
-			delete[] svd_array;
-			this->SVD_colloc_algorithm(small_svd_array, svd_array_size/n);
-		}
-		else
-			this->SVD_colloc_algorithm(svd_array, svd_array_size/n); 
-		std::cout.flush();
-		cout << endl << "Количество коллокаций после разложения с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
+			for (auto obj : this->cosinuses)
+				this->colloc_and_terms_after_SVD->insert(this->helper_map_for_SVD_rows_colloc_numbers->find(obj.first.first).value());
 
-		for (auto obj : this->cosinuses)
-			this->colloc_and_terms_after_SVD->insert(this->helper_map_for_SVD_rows_colloc_numbers->find(obj.first.first).value());
-
-		this->cosinuses.clear();
-		std::cout.flush();
-		cout << endl << "Количество коллокаций после разложения и свертки, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->colloc_and_terms_after_SVD->size();
+			this->cosinuses.clear();
+			std::cout.flush();
+			cout << endl << "Количество коллокаций после разложения и свертки, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->colloc_and_terms_after_SVD->size();
 	}
 	delete[] only_terms_mass;
 	//analyzer::set_only_terms_mass(nullptr);
