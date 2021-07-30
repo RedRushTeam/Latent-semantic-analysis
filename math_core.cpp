@@ -92,6 +92,7 @@ void math_core::calculate_all()
 		std::cout.flush();
 		cout << endl << "—окращение числа флуктуационных коллокаций...";
 		this->shrink_set_of_fluct_cooloc();
+		//this->shrink_set_of_fluct_cooloc_by_rare();
 		std::cout.flush();
 		cout << endl << "—окращение контейнера математического ожидани€...";
 		this->shrink_mat_ozid();
@@ -105,6 +106,14 @@ void math_core::calculate_all()
 		std::cout.flush();
 		cout << endl << "SVD разложение флуктуационных коллокаций...";
 		this->find_SVD_colloc();
+		std::cout.flush();
+		cout << endl << "¬ычисление нормированного математического ожидани€...";
+		this->calculate_norm_shrinked_mat_ozid();
+		std::cout.flush();
+		cout << endl << "¬ычисление tf и idf...";
+		this->calculate_tf_idf();
+		cout << endl << "SVD разложение tf матрицы...";
+		this->prepare_tf_matrix_for_SVD();
 
 		dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->fill_vector((now_type)0.0);
 		dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->fill_vector((now_type)0.0);
@@ -256,7 +265,8 @@ void math_core::shrink_mat_ozid()
 
 void math_core::calculate_norm_shrinked_mat_ozid()
 {
-	//this->shrink_mat_ozid();
+	for(auto obj : *this->colloc_and_terms_after_SVD)
+		this->mat_ozidanie->erase_concret_colloc(obj.first_coord, obj.second_coord, obj.k);
 
 	auto mat_ozid_like_piece = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
 	auto shrinked_vec_mat_ozid = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie)->get_vector_ptr();
@@ -294,7 +304,6 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 	auto mat_ozid_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
 	
 	size_t indexer = 0;
-
 	for (auto obj : *this->set_for_unique_terms)
 	{
 		this->helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(indexer, three_coordinate_structure{ obj, -1, -1 }));
@@ -305,7 +314,6 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 		this->helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(indexer, mat_ozid_like_piese->split_three_coordinates_from_one(obj.first)));
 		++indexer;
 	}
-
 	
 	//cout << endl << "„исло подозрительных коллокаций после свертки: " << this->helper_map_for_SVD_rows_colloc_numbers->size();
 
@@ -318,8 +326,8 @@ void math_core::find_SVD_colloc()
 {
 	dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->clear_vec();
 
-	this->only_colloc_after_SVD = make_shared<tsl::robin_set<int>>();
-	analyzer::set_only_colloc_after_SVD(this->only_colloc_after_SVD);
+	this->colloc_and_terms_after_SVD = make_shared<tsl::robin_set<three_coordinate_structure>>();
+	analyzer::set_colloc_and_terms_after_SVD(this->colloc_and_terms_after_SVD);
 
 	size_t m = this->helper_map_for_SVD_rows_colloc_numbers->size() - this->set_for_unique_terms->size();
 	size_t n = this->vec_of_filepaths->size();
@@ -448,11 +456,11 @@ void math_core::find_SVD_colloc()
 		cout << endl << " оличество коллокаций после разложени€ с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
 
 		for (auto obj : this->cosinuses)
-			only_colloc_after_SVD->insert(obj.first.first);
+			this->colloc_and_terms_after_SVD->insert(this->helper_map_for_SVD_rows_colloc_numbers->find(obj.first.first).value());
 
 		this->cosinuses.clear();
 		std::cout.flush();
-		cout << endl << " оличество коллокаций после разложени€ и свертки, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << only_colloc_after_SVD->size();
+		cout << endl << " оличество коллокаций после разложени€ и свертки, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->colloc_and_terms_after_SVD->size();
 	}
 	delete[] only_terms_mass;
 	//analyzer::set_only_terms_mass(nullptr);
@@ -601,9 +609,18 @@ shared_ptr<unordered_set<int>> math_core::get_shrinked_cosinuses_terms()
 
 void math_core::calculate_tf_idf()
 {
-	shared_ptr<vector<int>> idf_matrix = make_shared<vector<int>>();
-	idf_matrix->resize(only_colloc_after_SVD->size() /*+ число термов, оставшихс€ после свд*/, 0);
-	
+	this->idf_matrix = make_shared<vector<now_type>>();
+	this->idf_matrix->resize(this->colloc_and_terms_after_SVD->size(), 0.f);
+	analyzer::set_idf_matrix(this->idf_matrix);
+
+	this->tf_matrix = make_shared<vector<vector<now_type>>>();
+	this->tf_matrix->resize(this->colloc_and_terms_after_SVD->size());
+
+	for (auto& obj : *this->tf_matrix)
+		obj.resize(this->vec_of_filepaths->size(), 0.f);
+
+	analyzer::set_tf_matrix(this->tf_matrix);
+
 	#pragma omp parallel 
 	{
 		#pragma omp for schedule(static)
@@ -612,9 +629,22 @@ void math_core::calculate_tf_idf()
 			auto result_of_parse = _parser.parse();
 
 			analyzer _analyzer(result_of_parse);
-			_analyzer.calculate_idf_tf_matrix();
+			_analyzer.calculate_idf_tf_matrix(j);
 		}
 	}
+
+	for (size_t i = 0; i < this->idf_matrix->size(); ++i)
+		(*this->idf_matrix)[i] = log2f(this->vec_of_filepaths->size() / ((*this->idf_matrix)[i] + 1));
+}
+
+void math_core::prepare_tf_matrix_for_SVD()
+{
+	for (auto& obj : *this->tf_matrix)
+		for (size_t i = 0; i < this->idf_matrix->size(); ++i)
+			obj[i] *= (*this->idf_matrix)[i];
+
+	this->idf_matrix->clear();
+	//отправл€ем матрицу в SVD
 }
 
 shared_ptr<container_class_interface> math_core::get_mat_ozidanie() const

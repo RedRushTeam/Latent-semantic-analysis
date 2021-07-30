@@ -45,6 +45,7 @@ public:
 	void find_SVD_terms();
 	shared_ptr<unordered_set<int>> get_shrinked_cosinuses_terms();
 	void calculate_tf_idf();
+	void prepare_tf_matrix_for_SVD();
 
 	//getters&setters
 	shared_ptr<container_class_interface> get_mat_ozidanie() const;
@@ -58,7 +59,7 @@ private:
 
 	//for colloc
 	tsl::robin_map<pair<int, int>, float> cosinuses;
-	shared_ptr<tsl::robin_set<int>> only_colloc_after_SVD;
+	shared_ptr<tsl::robin_set<three_coordinate_structure>> colloc_and_terms_after_SVD;
 
 	//private elems
 	shared_ptr<vector<fs::path>> vec_of_filepaths;
@@ -73,6 +74,10 @@ private:
 
 	//semantic high-volume terms
 	shared_ptr<unordered_set<int>> set_for_unique_terms;
+
+	//tf idf
+	shared_ptr<vector<now_type>> idf_matrix;
+	shared_ptr<vector<vector<now_type>>> tf_matrix;
 
 	//private perems
 	int number_of_texts;
