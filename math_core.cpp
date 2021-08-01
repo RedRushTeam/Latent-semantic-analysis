@@ -350,7 +350,7 @@ void math_core::find_SVD_colloc()
 		exit(-4);
 	}
 	std::cout.flush();
-	cout << endl << "¬сего вычисление будет производитьс€ в " << pieces+1 << " шагов";
+	cout << endl << "¬сего вычисление будет производитьс€ в " << pieces << " шагов";
 
 	
 
@@ -389,7 +389,7 @@ void math_core::find_SVD_colloc()
 
 	for (auto p = 0; p <= pieces; ++p) {
 		if (p == pieces) {
-			if (m - pieces * svd_piece) {
+			if (this->helper_map_for_SVD_rows_colloc_numbers->size() - pieces * svd_piece) {
 				size_a = m - ((svd_piece - this->set_for_unique_terms->size()) * p);
 				delete[] a;
 				a = new float[size_a];
@@ -397,41 +397,42 @@ void math_core::find_SVD_colloc()
 			else
 				continue;
 		}
+
 		#pragma omp parallel 
-			{
-				#pragma omp for schedule(static)
-					for (int j2 = 0; j2 < this->vec_of_filepaths->size(); ++j2) {
-						parser _parser((*this->vec_of_filepaths)[j2]);	//tut peredaetsa kopiya
-						auto result_of_parse = _parser.parse();
+		{
+			#pragma omp for schedule(static)
+				for (int j2 = 0; j2 < this->vec_of_filepaths->size(); ++j2) {
+					parser _parser((*this->vec_of_filepaths)[j2]);	//tut peredaetsa kopiya
+					auto result_of_parse = _parser.parse();
 
-						analyzer _analyzer(result_of_parse);
-						auto column = _analyzer.calculate_SVD_matrix_for_concret_text();
+					analyzer _analyzer(result_of_parse);
+					auto column = _analyzer.calculate_SVD_matrix_for_concret_text();
 
-						counter = p * (svd_piece - this->set_for_unique_terms->size());
+					counter = p * (svd_piece - this->set_for_unique_terms->size());
 
-						for (int i2 = j2; i2 < size_a; i2 += this->vec_of_filepaths->size()) {
-							a[i2] = (*column)(counter, 0);
-							++counter;
-						}
+					for (int i2 = j2; i2 < size_a; i2 += this->vec_of_filepaths->size()) {
+						a[i2] = (*column)(counter, 0);
+						++counter;
 					}
-			}	
+				}
+		}	
+	
+		size_t svd_array_size = term_array_size + size_a;
+		float* svd_array = new float[svd_array_size];
 
-			size_t svd_array_size = term_array_size + size_a;
-			float* svd_array = new float[svd_array_size];
+		std::copy(term_array, term_array + term_array_size, svd_array);
+		std::copy(a, a + size_a, svd_array + term_array_size);
 
-			std::copy(term_array, term_array + term_array_size, svd_array);
-			std::copy(a, a + size_a, svd_array + term_array_size);
+		this->SVD_colloc_algorithm(svd_array, svd_array_size / n);
+		std::cout.flush();
+		cout << endl << " оличество коллокаций после разложени€ с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
 
-			this->SVD_colloc_algorithm(svd_array, svd_array_size / n);
-			std::cout.flush();
-			cout << endl << " оличество коллокаций после разложени€ с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
+		for (auto obj : this->cosinuses)
+			this->colloc_and_terms_after_SVD->insert(this->helper_map_for_SVD_rows_colloc_numbers->find(obj.first.first).value());
 
-			for (auto obj : this->cosinuses)
-				this->colloc_and_terms_after_SVD->insert(this->helper_map_for_SVD_rows_colloc_numbers->find(obj.first.first).value());
-
-			this->cosinuses.clear();
-			std::cout.flush();
-			cout << endl << " оличество коллокаций после разложени€ и свертки, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->colloc_and_terms_after_SVD->size();
+		this->cosinuses.clear();
+		std::cout.flush();
+		cout << endl << " оличество коллокаций после разложени€ и свертки, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->colloc_and_terms_after_SVD->size();
 	}
 	delete[] only_terms_mass;
 	//analyzer::set_only_terms_mass(nullptr);
@@ -610,12 +611,31 @@ void math_core::calculate_tf_idf()
 
 void math_core::prepare_tf_matrix_for_SVD()
 {
-	for (auto& obj : *this->tf_matrix)
+	for (size_t j = 0; j < this->tf_matrix->begin()->size(); ++j)
 		for (size_t i = 0; i < this->idf_matrix->size(); ++i)
-			obj[i] *= (*this->idf_matrix)[i];
+			(*this->tf_matrix)[i][j] *= (*this->idf_matrix)[i];
 
 	this->idf_matrix->clear();
-	//отправл€ем матрицу в SVD
+	this->idf_matrix->shrink_to_fit();
+
+	vector<now_type> tf_like_row;
+	tf_like_row.resize(this->tf_matrix->begin()->size() * this->tf_matrix->size(), 0.f);
+
+	for (size_t j = 0; j < this->tf_matrix->size(); ++j)
+		for (size_t i = 0; i < this->tf_matrix->begin()->size(); ++i)
+			tf_like_row[i * this->tf_matrix->size() + i] = (*this->tf_matrix)[j][i];
+
+	for (auto& obj : *this->tf_matrix) {
+		vector<now_type> tmp;
+		obj.swap(tmp);
+	}
+
+	vector<now_type> tmp;
+	this->tf_matrix->clear();
+	this->tf_matrix->shrink_to_fit();
+
+
+	//отправл€ем матрицу в SVD	tf_like_row
 }
 
 shared_ptr<container_class_interface> math_core::get_mat_ozidanie() const
