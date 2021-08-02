@@ -329,19 +329,23 @@ void math_core::find_SVD_colloc()
 	this->colloc_and_terms_after_SVD = make_shared<tsl::robin_set<three_coordinate_structure>>();
 	analyzer::set_colloc_and_terms_after_SVD(this->colloc_and_terms_after_SVD);
 
-	size_t m = this->helper_map_for_SVD_rows_colloc_numbers->size() - this->set_for_unique_terms->size();
-	size_t n = this->vec_of_filepaths->size();
+	size_t number_of_collocs = this->helper_map_for_SVD_rows_colloc_numbers->size() - this->set_for_unique_terms->size();
 
-	size_t svd_piece = SVD_PIECE;
-	if (this->vec_of_filepaths->size() > 1000)
-		svd_piece = svd_piece * 1000 / this->vec_of_filepaths->size();
+	size_t svd_piece = this->helper_map_for_SVD_rows_colloc_numbers->size();
 
-	if (this->helper_map_for_SVD_rows_colloc_numbers->size() < svd_piece)
+	if ((this->helper_map_for_SVD_rows_colloc_numbers->size()) > (SVD_PIECE))
+		svd_piece = SVD_PIECE; 
+
+	if((this->helper_map_for_SVD_rows_colloc_numbers->size() - svd_piece) < this->vec_of_filepaths->size())
 		svd_piece = this->helper_map_for_SVD_rows_colloc_numbers->size();
 
+
 	size_t pieces = 0;
-	if (svd_piece != this->set_for_unique_terms->size())
-		pieces = this->helper_map_for_SVD_rows_colloc_numbers->size() / (svd_piece - this->set_for_unique_terms->size());
+
+	if (svd_piece == this->helper_map_for_SVD_rows_colloc_numbers->size())
+		pieces = 0;
+	else
+		pieces = number_of_collocs / (svd_piece - this->set_for_unique_terms->size());
 
 	if (pieces < 0)
 	{
@@ -349,14 +353,14 @@ void math_core::find_SVD_colloc()
 		cout << endl << "Количество термов превышает допустимый для ОЗУ кусок";
 		exit(-4);
 	}
+
 	std::cout.flush();
-	cout << endl << "Всего вычисление будет производиться в " << pieces << " шагов";
+	cout << endl << "Всего вычисление будет производиться в " << pieces+1 << " шагов";
 
-	
+	vector<float> only_terms_mass;
+	only_terms_mass.resize(this->vec_of_filepaths->size() * this->max_cont_size, 0);
 
-	float* only_terms_mass = new float[n * this->max_cont_size]{};
-
-	analyzer::set_only_terms_mass(only_terms_mass);
+	analyzer::set_only_terms_mass(only_terms_mass.data());
 
 	#pragma omp parallel 
 	{
@@ -369,33 +373,26 @@ void math_core::find_SVD_colloc()
 		}
 	}
 
-	int idx = 0;
-	size_t term_array_size = n * this->set_for_unique_terms->size();
-	float* term_array = new float[term_array_size];
+	vector<float> term_array;
+	term_array.reserve(this->vec_of_filepaths->size() * this->set_for_unique_terms->size());
 
 	for (auto obj : *this->set_for_unique_terms)
 		for (int j1 = 0; j1 < this->vec_of_filepaths->size(); ++j1)
-		{
-			term_array[idx] = analyzer::get_only_terms_mass()[obj * this->vec_of_filepaths->size() + j1];
-			++idx;
-		}
+			term_array.push_back(analyzer::get_only_terms_mass()[obj * this->vec_of_filepaths->size() + j1]);
 
-	size_t size_a = 0;
-
-	size_a = n * svd_piece - idx;
-	float* a = new float[size_a];
-
+	vector<float> colloc_array;
+	
 	int counter = 0;
 
 	for (auto p = 0; p <= pieces; ++p) {
-		if (p == pieces) {
-			if (this->helper_map_for_SVD_rows_colloc_numbers->size() - pieces * svd_piece) {
-				size_a = m - ((svd_piece - this->set_for_unique_terms->size()) * p);
-				delete[] a;
-				a = new float[size_a];
-			}
-			else
-				continue;
+		if (p != pieces)
+		{
+			colloc_array.resize((svd_piece - this->set_for_unique_terms->size()) * this->vec_of_filepaths->size(), -1);
+			//tester.reserve((svd_piece - this->set_for_unique_terms->size()) * this->vec_of_filepaths->size());
+		}
+		else {
+			colloc_array.resize((number_of_collocs - p * ((svd_piece - this->set_for_unique_terms->size())) * this->vec_of_filepaths->size()), 0);
+			//tester.reserve((number_of_collocs - p * ((svd_piece - this->set_for_unique_terms->size())) * this->vec_of_filepaths->size()));
 		}
 
 		#pragma omp parallel 
@@ -410,20 +407,28 @@ void math_core::find_SVD_colloc()
 
 					counter = p * (svd_piece - this->set_for_unique_terms->size());
 
-					for (int i2 = j2; i2 < size_a; i2 += this->vec_of_filepaths->size()) {
-						a[i2] = (*column)(counter, 0);
+					for (int i2 = j2; i2 < colloc_array.size(); i2 += this->vec_of_filepaths->size()) {
+						colloc_array[i2] = (*column)(counter, 0);
+						//tester.push_back((*column)(counter, 0));
 						++counter;
 					}
 				}
 		}	
 	
-		size_t svd_array_size = term_array_size + size_a;
-		float* svd_array = new float[svd_array_size];
+		int f = 0;
+		for (auto x : colloc_array)
+			if (x == -1)
+				f++;
 
-		std::copy(term_array, term_array + term_array_size, svd_array);
-		std::copy(a, a + size_a, svd_array + term_array_size);
+		cout << endl << f;
 
-		this->SVD_colloc_algorithm(svd_array, svd_array_size / n);
+		vector<float> svd_array;
+		svd_array.resize(term_array.size() + colloc_array.size(), 0);
+
+		std::copy(term_array.begin(), term_array.end(), svd_array.begin());
+		std::copy(colloc_array.begin(), colloc_array.end(), svd_array.begin() + term_array.size());
+
+		this->SVD_colloc_algorithm(svd_array.data(), svd_array.size() / this->vec_of_filepaths->size());
 		std::cout.flush();
 		cout << endl << "Количество коллокаций после разложения с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
 
@@ -434,8 +439,7 @@ void math_core::find_SVD_colloc()
 		std::cout.flush();
 		cout << endl << "Количество коллокаций после разложения и свертки, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->colloc_and_terms_after_SVD->size();
 	}
-	delete[] only_terms_mass;
-	//analyzer::set_only_terms_mass(nullptr);
+	
 	auto blyadovka1 = 1;
 }
 
@@ -462,7 +466,7 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 
 	LAPACKE_sgesvd(LAPACK_ROW_MAJOR, 'A', 'A', m, n, a, lda, s, u, ldu, vt, ldvt, superb);
 
-	delete[] a;
+	//delete[] a;
 	delete[] s;
 
 	shared_ptr<MatrixXf> resized_V_matrix_of_SVD = make_shared<MatrixXf>();
@@ -623,7 +627,7 @@ void math_core::prepare_tf_matrix_for_SVD()
 
 	for (size_t j = 0; j < this->tf_matrix->size(); ++j)
 		for (size_t i = 0; i < this->tf_matrix->begin()->size(); ++i)
-			tf_like_row[i * this->tf_matrix->size() + i] = (*this->tf_matrix)[j][i];
+			tf_like_row[j * this->tf_matrix->size() + i] = (*this->tf_matrix)[j][i];
 
 	for (auto& obj : *this->tf_matrix) {
 		vector<now_type> tmp;
