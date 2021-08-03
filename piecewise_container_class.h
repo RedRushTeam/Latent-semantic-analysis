@@ -52,6 +52,7 @@ public:
     virtual void set_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension, now_type perem) override;
     virtual void pow_all(int stepen) override;
     virtual void sqrt_all() override;
+    virtual void erase_concret_colloc(int first_dimension, int second_dimension, int third_dimension) override;
 
     //operators
     // Унаследовано через container_class_interface
@@ -67,6 +68,5 @@ private:
     shared_ptr<tsl::robin_map<size_t, now_type>> downloaded_vector;
     pair<int, int> downloaded_range;
 
-    // Унаследовано через container_class_interface
-    virtual void erase_concret_colloc(int first_dimension, int second_dimension, int third_dimension) override;
+
 };

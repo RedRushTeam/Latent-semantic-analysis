@@ -101,9 +101,6 @@ void math_core::calculate_all()
 		this->find_SVD_terms();
 		this->get_shrinked_cosinuses_terms();
 		std::cout.flush();
-		cout << endl << "ѕодготовка вспомогательной карты...";
-		this->calculate_map_of_flukt_cooloc_fuzzy();
-		std::cout.flush();
 		cout << endl << "SVD разложение флуктуационных коллокаций...";
 		this->find_SVD_colloc();
 		std::cout.flush();
@@ -314,8 +311,6 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 		this->helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(indexer, mat_ozid_like_piese->split_three_coordinates_from_one(obj.first)));
 		++indexer;
 	}
-	
-	//cout << endl << "„исло подозрительных коллокаций после свертки: " << this->helper_map_for_SVD_rows_colloc_numbers->size();
 
 	analyzer::set_helper_map_for_SVD_rows_colloc_numbers(this->helper_map_for_SVD_rows_colloc_numbers);
 
@@ -345,7 +340,7 @@ void math_core::find_SVD_colloc()
 	if (svd_piece == this->helper_map_for_SVD_rows_colloc_numbers->size())
 		pieces = 0;
 	else
-		pieces = number_of_collocs / (svd_piece - this->set_for_unique_terms->size());
+		pieces = number_of_collocs / (svd_piece - this->set_for_unique_terms->size());	//opasnoe delenie na 0
 
 	if (pieces < 0)
 	{
@@ -355,10 +350,10 @@ void math_core::find_SVD_colloc()
 	}
 
 	std::cout.flush();
-	cout << endl << "¬сего вычисление будет производитьс€ в " << pieces+1 << " шагов";
+	cout << endl << "¬сего вычисление будет производитьс€ в " << pieces + 1 << " шагов";
 
 	vector<float> only_terms_mass;
-	only_terms_mass.resize(this->vec_of_filepaths->size() * this->max_cont_size, 0);
+	only_terms_mass.resize(this->vec_of_filepaths->size() * this->max_cont_size, 0.f);
 
 	analyzer::set_only_terms_mass(only_terms_mass.data());
 
@@ -368,6 +363,7 @@ void math_core::find_SVD_colloc()
 		for (int j0 = 0; j0 < this->vec_of_filepaths->size(); ++j0) {
 			parser _parser((*this->vec_of_filepaths)[j0]);	//tut peredaetsa kopiya
 			auto result_of_parse = _parser.parse();
+
 			analyzer _analyzer(result_of_parse);
 			_analyzer.calculate_matrix_only_for_terms(j0);
 		}
@@ -380,20 +376,22 @@ void math_core::find_SVD_colloc()
 		for (int j1 = 0; j1 < this->vec_of_filepaths->size(); ++j1)
 			term_array.push_back(analyzer::get_only_terms_mass()[obj * this->vec_of_filepaths->size() + j1]);
 
+	vector<float> tmp;
+	only_terms_mass.swap(tmp);
+
 	vector<float> colloc_array;
 	
 	int counter = 0;
 
 	for (auto p = 0; p <= pieces; ++p) {
 		if (p != pieces)
-		{
-			colloc_array.resize((svd_piece - this->set_for_unique_terms->size()) * this->vec_of_filepaths->size(), -1);
-			//tester.reserve((svd_piece - this->set_for_unique_terms->size()) * this->vec_of_filepaths->size());
-		}
-		else {
-			colloc_array.resize((number_of_collocs - p * ((svd_piece - this->set_for_unique_terms->size())) * this->vec_of_filepaths->size()), 0);
-			//tester.reserve((number_of_collocs - p * ((svd_piece - this->set_for_unique_terms->size())) * this->vec_of_filepaths->size()));
-		}
+			colloc_array.resize((svd_piece - this->set_for_unique_terms->size()) * this->vec_of_filepaths->size(), 0.f);
+		else
+			colloc_array.resize((number_of_collocs - p * (svd_piece - this->set_for_unique_terms->size())) * this->vec_of_filepaths->size(), 0.f);
+
+		static auto mat_ozid_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
+
+		this->calculate_map_of_flukt_cooloc_fuzzy();
 
 		#pragma omp parallel 
 		{
@@ -409,26 +407,27 @@ void math_core::find_SVD_colloc()
 
 					for (int i2 = j2; i2 < colloc_array.size(); i2 += this->vec_of_filepaths->size()) {
 						colloc_array[i2] = (*column)(counter, 0);
-						//tester.push_back((*column)(counter, 0));
+						auto iter = this->helper_map_for_SVD_rows_colloc_numbers->find(counter);
+						mat_ozid_like_piese->erase_concret_colloc(iter->second.first_coord, iter->second.second_coord, iter->second.k);
 						++counter;
 					}
 				}
 		}	
-	
-		int f = 0;
-		for (auto x : colloc_array)
-			if (x == -1)
-				f++;
-
-		cout << endl << f;
 
 		vector<float> svd_array;
-		svd_array.resize(term_array.size() + colloc_array.size(), 0);
+		svd_array.resize(term_array.size() + colloc_array.size(), 0.f);
 
 		std::copy(term_array.begin(), term_array.end(), svd_array.begin());
 		std::copy(colloc_array.begin(), colloc_array.end(), svd_array.begin() + term_array.size());
 
+		colloc_array.clear();
+		colloc_array.shrink_to_fit();
+
 		this->SVD_colloc_algorithm(svd_array.data(), svd_array.size() / this->vec_of_filepaths->size());
+
+		svd_array.clear();
+		svd_array.shrink_to_fit();
+
 		std::cout.flush();
 		cout << endl << " оличество коллокаций после разложени€ с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
 
@@ -466,11 +465,10 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 
 	LAPACKE_sgesvd(LAPACK_ROW_MAJOR, 'A', 'A', m, n, a, lda, s, u, ldu, vt, ldvt, superb);
 
-	//delete[] a;
 	delete[] s;
 
 	shared_ptr<MatrixXf> resized_V_matrix_of_SVD = make_shared<MatrixXf>();
-	resized_V_matrix_of_SVD->resize(global_var::COLLOC_DIST + 1, n);
+	resized_V_matrix_of_SVD->resize(global_var::COLLOC_DIST + (int)1, n);
 
 	for (int i = 0; i <= global_var::COLLOC_DIST; ++i)
 		for (int j = 0; j < n; ++j)
@@ -479,33 +477,35 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 	delete[] vt;
 
 	shared_ptr<MatrixXf> resized_U_matrix_of_SVD = make_shared<MatrixXf>();
-	resized_U_matrix_of_SVD->resize(m, global_var::COLLOC_DIST + 1);
+	resized_U_matrix_of_SVD->resize(m, global_var::COLLOC_DIST + (int)1);
 
 	int starter = 0;
 	for (int i = 0; i < m; ++i) {
 		for (int j = 0; j <= global_var::COLLOC_DIST; ++j)
 			resized_U_matrix_of_SVD->operator()(i, j) = u[starter + j];
+
 		starter += n;
 	}
+
 	delete[] u;
 
 	vector<float> lenghts_colloc_vector;
-	lenghts_colloc_vector.resize(m, NULL);
+	lenghts_colloc_vector.resize(m, 0.f);
 
 	for (auto i = 0; i < resized_U_matrix_of_SVD->rows(); ++i) {
-		for (auto j = 0; j < resized_U_matrix_of_SVD->cols(); ++j) {
+		for (auto j = 0; j < resized_U_matrix_of_SVD->cols(); ++j)
 			lenghts_colloc_vector[i] += (*resized_U_matrix_of_SVD)(i, j) * (*resized_U_matrix_of_SVD)(i, j);
-		}
+
 		lenghts_colloc_vector[i] = sqrt(lenghts_colloc_vector[i]);
 	}
 
 	vector<float> lenghts_texts_vector;
-	lenghts_texts_vector.resize(n, NULL);
+	lenghts_texts_vector.resize(n, 0.f);
 
 	for (auto i = 0; i < resized_V_matrix_of_SVD->cols(); ++i) {
-		for (auto j = 0; j < resized_V_matrix_of_SVD->rows(); ++j) {
+		for (auto j = 0; j < resized_V_matrix_of_SVD->rows(); ++j) 
 			lenghts_texts_vector[i] += (*resized_V_matrix_of_SVD)(j, i) * (*resized_V_matrix_of_SVD)(j, i);
-		}
+
 		lenghts_texts_vector[i] = sqrt(lenghts_texts_vector[i]);
 	}
 
@@ -521,6 +521,10 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 					scalar_proizv[make_pair(i, k)] = iter->second + (*resized_U_matrix_of_SVD)(i, j) * (*resized_V_matrix_of_SVD)(j, k);
 			}
 
+	//resized_U_matrix_of_SVD->resize(0);
+	//resized_V_matrix_of_SVD->resize(0);
+	scalar_proizv.clear();
+
 	for (int i = 0; i < lenghts_colloc_vector.size(); ++i)
 		for (int j = 0; j < lenghts_texts_vector.size(); ++j) {
 			auto iter = this->cosinuses.find(make_pair(i, j));
@@ -529,6 +533,11 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 			else
 				this->cosinuses[make_pair(i, j)] = iter->second / lenghts_colloc_vector[i] / lenghts_texts_vector[j];
 		}
+
+	lenghts_texts_vector.clear();
+	lenghts_texts_vector.shrink_to_fit();
+	lenghts_colloc_vector.clear();
+	lenghts_colloc_vector.shrink_to_fit();
 
 	list<pair<int, int>> list_of_terms_will_be_deleted;
 
@@ -564,11 +573,11 @@ void math_core::find_SVD_terms()
 	this->SVD_colloc_algorithm(only_terms_mass, this->max_cont_size);
 	std::cout.flush();
 	cout << endl << " оличество термов после разложени€ с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
-	//delete[] only_terms_mass;
+	delete[] only_terms_mass;
 	//analyzer::set_only_terms_mass(nullptr);
 }
 
-shared_ptr<unordered_set<int>> math_core::get_shrinked_cosinuses_terms()
+shared_ptr<unordered_set<int>> math_core::get_shrinked_cosinuses_terms()	//void
 {
 	this->set_for_unique_terms = make_shared<unordered_set<int>>();
 
@@ -615,6 +624,8 @@ void math_core::calculate_tf_idf()
 
 void math_core::prepare_tf_matrix_for_SVD()
 {
+	dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie)->clear_vec();
+
 	for (size_t j = 0; j < this->tf_matrix->begin()->size(); ++j)
 		for (size_t i = 0; i < this->idf_matrix->size(); ++i)
 			(*this->tf_matrix)[i][j] *= (*this->idf_matrix)[i];
@@ -627,7 +638,7 @@ void math_core::prepare_tf_matrix_for_SVD()
 
 	for (size_t j = 0; j < this->tf_matrix->size(); ++j)
 		for (size_t i = 0; i < this->tf_matrix->begin()->size(); ++i)
-			tf_like_row[j * this->tf_matrix->size() + i] = (*this->tf_matrix)[j][i];
+			tf_like_row[i * this->tf_matrix->size() + j] = (*this->tf_matrix)[j][i];
 
 	for (auto& obj : *this->tf_matrix) {
 		vector<now_type> tmp;
@@ -638,8 +649,42 @@ void math_core::prepare_tf_matrix_for_SVD()
 	this->tf_matrix->clear();
 	this->tf_matrix->shrink_to_fit();
 
+	this->helper_map_for_SVD_rows_colloc_numbers = make_shared<tsl::robin_map<size_t, three_coordinate_structure>>();
+
+	size_t indexer = 0;
+	for (auto obj : *this->colloc_and_terms_after_SVD)
+	{
+		this->helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(indexer, obj));
+		++indexer;
+	}
+
+	analyzer::set_helper_map_for_SVD_rows_colloc_numbers(this->helper_map_for_SVD_rows_colloc_numbers);
 
 	//отправл€ем матрицу в SVD	tf_like_row
+	this->SVD_colloc_algorithm(tf_like_row.data(), tf_like_row.size() / this->vec_of_filepaths->size());
+
+	tf_like_row.clear();
+
+	cout << endl << " оличество значимых термов/коллокаций после разложени€ tf/idf, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
+
+	this->colloc_and_terms_after_SVD->clear();
+
+	for (auto obj : this->cosinuses)
+		this->colloc_and_terms_after_SVD->insert(this->helper_map_for_SVD_rows_colloc_numbers->find(obj.first.first).value());
+
+	this->cosinuses.clear();
+	std::cout.flush();
+	cout << endl << " оличество значимых термов/коллокаций после разложени€ и свертки tf/idf, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->colloc_and_terms_after_SVD->size();
+
+	ofstream _fout("high-value terms and collocs.txt");
+
+	for (auto obj : *this->colloc_and_terms_after_SVD)
+		if (obj.second_coord != -1)
+			_fout << analyzer::get_word_for_token(obj.first_coord) << " " << analyzer::get_word_for_token(obj.second_coord) << " " << obj.k << endl;
+		else
+			_fout << analyzer::get_word_for_token(obj.first_coord) << endl;
+
+	this->colloc_and_terms_after_SVD->clear();
 }
 
 shared_ptr<container_class_interface> math_core::get_mat_ozidanie() const
