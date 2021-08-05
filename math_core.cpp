@@ -324,6 +324,8 @@ void math_core::find_SVD_colloc()
 	this->colloc_and_terms_after_SVD = make_shared<tsl::robin_set<three_coordinate_structure>>();
 	analyzer::set_colloc_and_terms_after_SVD(this->colloc_and_terms_after_SVD);
 
+	this->calculate_map_of_flukt_cooloc_fuzzy();
+
 	size_t number_of_collocs = this->helper_map_for_SVD_rows_colloc_numbers->size() - this->set_for_unique_terms->size();
 
 	size_t svd_piece = this->helper_map_for_SVD_rows_colloc_numbers->size();
@@ -380,18 +382,18 @@ void math_core::find_SVD_colloc()
 	only_terms_mass.swap(tmp);
 
 	vector<float> colloc_array;
-	
-	int counter = 0;
 
 	for (auto p = 0; p <= pieces; ++p) {
 		if (p != pieces)
-			colloc_array.resize((svd_piece - this->set_for_unique_terms->size()) * this->vec_of_filepaths->size(), 0.f);
+			//colloc_array.resize((svd_piece - this->set_for_unique_terms->size()) * this->vec_of_filepaths->size(), 0.f);
+			colloc_array.resize(svd_piece * this->vec_of_filepaths->size() - term_array.size(), 0.f);
 		else
 			colloc_array.resize((number_of_collocs - p * (svd_piece - this->set_for_unique_terms->size())) * this->vec_of_filepaths->size(), 0.f);
 
 		static auto mat_ozid_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
 
-		this->calculate_map_of_flukt_cooloc_fuzzy();
+		if (p)
+			this->calculate_map_of_flukt_cooloc_fuzzy();
 
 		#pragma omp parallel 
 		{
@@ -403,13 +405,15 @@ void math_core::find_SVD_colloc()
 					analyzer _analyzer(result_of_parse);
 					auto column = _analyzer.calculate_SVD_matrix_for_concret_text();
 
-					counter = p * (svd_piece - this->set_for_unique_terms->size());
+					for (int i2 = p * (svd_piece - this->set_for_unique_terms->size()); i2 < (svd_piece - this->set_for_unique_terms->size()); ++i2)
+					{
+						colloc_array[i2 * this->vec_of_filepaths->size() + j2] = (*column)(i2, 0);
 
-					for (int i2 = j2; i2 < colloc_array.size(); i2 += this->vec_of_filepaths->size()) {
-						colloc_array[i2] = (*column)(counter, 0);
-						auto iter = this->helper_map_for_SVD_rows_colloc_numbers->find(counter);
-						mat_ozid_like_piese->erase_concret_colloc(iter->second.first_coord, iter->second.second_coord, iter->second.k);
-						++counter;
+						#pragma omp critical (mia)
+						{
+							auto iter = this->helper_map_for_SVD_rows_colloc_numbers->find(i2);
+							mat_ozid_like_piese->erase_concret_colloc(iter->second.first_coord, iter->second.second_coord, iter->second.k);
+						}
 					}
 				}
 		}	
