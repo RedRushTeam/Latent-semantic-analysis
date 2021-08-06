@@ -30,9 +30,12 @@ void analyzer::calculate_counter_of_tokenizer()
 	this->lemmatize_all_words();
 
 		//критическая секция
-	for (auto& obj : *this->list_of_all_lemmatized_text) {	//обращение к критическому ресурсу
-		#pragma omp critical (maps_into_analyzer)
-		{
+	#pragma omp critical (maps_into_analyzer)
+	{
+		for (auto& obj : *this->list_of_all_lemmatized_text) {	//обращение к критическому ресурсу
+			if (obj == string("А"))
+				continue;
+
 			analyzer::map_of_tokens_WORD_TOKEN.insert(make_pair(obj, analyzer::map_of_tokens_WORD_TOKEN.size()));
 		}
 	}
@@ -43,17 +46,19 @@ void analyzer::calculate_counter_of_tokenizer()
 	}
 }
 
-void analyzer::calculate_counter_of_tokenizer_without_rare_words()
+void analyzer::calculate_counter_of_tokenizer_without_rare_words()	//вызвано
 {
 	this->lemmatize_all_words();
 
 	unordered_set<int> set_of_words_in_this_text;
 
-	this->lemmatize_all_words();
+	#pragma omp critical (maps_into_analyzer)
+	{
+		for (auto& obj : *this->list_of_all_lemmatized_text) {
 
-	for (auto& obj : *this->list_of_all_lemmatized_text) {
-		#pragma omp critical (maps_into_analyzer)
-		{
+			if (obj == string("А"))
+				continue;
+
 			word_and_number_of_appearances_structure _key{ obj, 1, 1 };
 
 			auto iter = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key);
@@ -262,19 +267,25 @@ void analyzer::calculate_mat_ozidanie()
 					if (now_it == this->list_of_all_lemmatized_text->end())
 						continue;
 
+					if (*it == string("А"))
+						continue;
+
+					if (*now_it == string("А"))
+						continue;
+
 					word_and_number_of_appearances_structure _key = { *it, 1, 1 };
 					word_and_number_of_appearances_structure __key = { *now_it, 1, 1 };
 
 					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
 						continue;
 
-					int first_index = (*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)).second;	//обращение к критическому ресурсу		//быть может, тут не нужна потокобезопасность?
+					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+						continue;
+
+					int first_index = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key).value();	//обращение к критическому ресурсу		//быть может, тут не нужна потокобезопасность?
 
 					if (first_index < dynamic_pointer_cast<piecewise_container_class>(this->_mat_ozidanie)->get_downloaded_range().first ||
 						(first_index > dynamic_pointer_cast<piecewise_container_class>(this->_mat_ozidanie)->get_downloaded_range().second))
-						continue;
-
-					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
 						continue;
 
 					if (i > 0)
@@ -301,10 +312,19 @@ shared_ptr<container_class_interface> analyzer::calculate_mat_disperse()
 					if (now_it == this->list_of_all_lemmatized_text->end())
 						continue;
 
+					if (*it == string("А"))
+						continue;
+
+					if (*now_it == string("А"))
+						continue;
+
 					word_and_number_of_appearances_structure _key = { *it, 1, 1 };
 					word_and_number_of_appearances_structure __key = { *now_it, 1, 1 };
 
 					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+						continue;
+
+					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
 						continue;
 
 					int first_index = (*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)).second;	//обращение к критическому ресурсу		//быть может, тут не нужна потокобезопасность?
@@ -351,10 +371,19 @@ shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 					if (now_it == this->list_of_all_lemmatized_text->end())
 						continue;
 
+					if (*it == string("А"))
+						continue;
+
+					if (*now_it == string("А"))
+						continue;
+
 					word_and_number_of_appearances_structure _key = { *it, 1, 1 };
 					word_and_number_of_appearances_structure __key = { *now_it, 1, 1 };
 
 					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+						continue;
+
+					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
 						continue;
 
 					int first_index = (*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)).second;	//обращение к критическому ресурсу		//быть может, тут не нужна потокобезопасность?
@@ -430,6 +459,8 @@ void analyzer::calculate_idf_tf_matrix(int number_of_text)
 
 	this->lemmatize_all_words();
 
+	word_and_number_of_appearances_structure __key = { string("А"), 1, 1 };
+
 	#pragma omp critical (maps_into_analyzer)
 	{
 		for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
@@ -440,12 +471,19 @@ void analyzer::calculate_idf_tf_matrix(int number_of_text)
 					if (now_it == this->list_of_all_lemmatized_text->end())
 						continue;
 
-					word_and_number_of_appearances_structure _key = { *it, 1, 1 };
-					word_and_number_of_appearances_structure __key = { *now_it, 1, 1 };
-					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+					if (*it == string("А"))
 						continue;
 
+					if (*now_it == string("А"))
+						continue;
+
+					word_and_number_of_appearances_structure _key = { *it, 1, 1 };
+					word_and_number_of_appearances_structure __key = { *now_it, 1, 1 };
+
 					int first_index = (*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)).second;	//обращение к критическому ресурсу		//быть может, тут не нужна потокобезопасность?
+
+					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+						continue;
 
 					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
 						continue;
@@ -574,7 +612,7 @@ int analyzer::get_counter_of_tokenizer()
 	return analyzer::counter_of_tokenizer;
 }
 
-int analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff(int cutoff)
+int analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff(int cutoff)	//вызвано
 {
 	int counter_without_rare_words = 0;
 
@@ -599,17 +637,15 @@ int analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff(int cutoff
 		++tokens_new;
 	}
 
-	//стоп слово А всегда имеет нулевой номер
-	word_and_number_of_appearances_structure _key = { zero_token, 1, 1 };
-	word_and_number_of_appearances_structure __key = { (string)"А", 1, 1 };
-	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key).value() = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key).value();
-	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key).value() = 0;
+	word_and_number_of_appearances_structure __key = { string("А"), 1, 1 };
 
-	analyzer::counter_of_tokenizer_without_rare_words = counter_without_rare_words;
-	return counter_without_rare_words;
+	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.erase(__key);	//test
+
+	analyzer::counter_of_tokenizer_without_rare_words = map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.size();
+	return map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.size();
 }
 
-int analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff_of_text(int cutoff, int cutoff_of_texts)
+int analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff_of_text(int cutoff, int cutoff_of_texts)	//вызвано
 {
 	int counter_without_rare_words = 0;
 
@@ -633,18 +669,15 @@ int analyzer::get_counter_of_tokenizer_without_rare_words_with_cutoff_of_text(in
 		it.value() = tokens_new;
 		++tokens_new;
 	}
-
-	//стоп слово А всегда имеет нулевой номер
-	word_and_number_of_appearances_structure _key = { zero_token, 1, 1 };
-	word_and_number_of_appearances_structure __key = { (string)"А", 1, 1 };
-	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key).value() = analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key).value();
-	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key).value() = 0;
+	word_and_number_of_appearances_structure __key = { string("А"), 1, 1 };
 	
+	analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.erase(__key);	//test
+
 	for (auto& obj : analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_)
 		map_of_tokens_TOKEN_Word_and_number_of_appearances_struct_.insert(make_pair(obj.second, obj.first));
 
-	analyzer::counter_of_tokenizer_without_rare_words_and_text = counter_without_rare_words;
-	return counter_without_rare_words;
+	analyzer::counter_of_tokenizer_without_rare_words_and_text = map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.size();
+	return map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.size();
 }
 
 void analyzer::set_list_of_all_parsed_text(shared_ptr<list<string>> list_of_all_parsed_text)

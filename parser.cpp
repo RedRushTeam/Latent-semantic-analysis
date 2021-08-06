@@ -4,7 +4,7 @@ shared_ptr<list<string>> parser::parse() {
 	auto terms = this->delete_trash();
 	for (auto& word : *terms)
 		if (parser::stop_words.find(word) != parser::stop_words.end())
-			word = "a";
+			word = "à";
 	return terms;
 }
 

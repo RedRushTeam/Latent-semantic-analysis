@@ -214,7 +214,16 @@ void math_core::shrink_set_of_fluct_cooloc()
 		this->set_of_fluct_cooloc.erase(obj);
 	std::cout.flush();
 	cout << endl << "Число подозрительных коллокаций, число встреч которых превышает " << global_var::CUTOFF_FR_COLLOC_IN_TEXTS << " равно: " << this->set_of_fluct_cooloc.size();
+	
+	tsl::robin_set<int> set_;
 
+	for (auto obj : this->set_of_fluct_cooloc) {
+		set_.insert(obj.first_coord);
+		set_.insert(obj.second_coord);
+	}
+
+	if(set_.find(0) != set_.end())
+		cout << endl << "ПУК";
 }
 
 void math_core::shrink_set_of_fluct_cooloc_by_rare()

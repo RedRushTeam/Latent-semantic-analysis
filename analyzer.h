@@ -80,7 +80,7 @@ private:
 	//dictionaries
 	static inline tsl::robin_map<string, int> map_of_tokens_WORD_TOKEN;
 	static inline tsl::robin_map<int, string> map_of_tokens_TOKEN_WORD;
-	static inline tsl::robin_map<word_and_number_of_appearances_structure, int, hash_word_and_number_of_appearances_structure, equal_word_and_number_of_appearances_structure, std::allocator<pair<word_and_number_of_appearances_structure, int>>, true> map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_;
+	static inline tsl::robin_map<word_and_number_of_appearances_structure, int> map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_;
 	static inline tsl::robin_map<int, word_and_number_of_appearances_structure> map_of_tokens_TOKEN_Word_and_number_of_appearances_struct_;
 	static inline tsl::robin_map<word_and_number_of_appearances_structure, int> map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_SVD;
 

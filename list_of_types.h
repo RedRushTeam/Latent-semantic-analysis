@@ -82,11 +82,11 @@ public:
 	static inline int CUTOFF = 8;
 	static inline int CUTOFF_FR_IN_TEXTS = 8;
 	static inline int CUTOFF_FR_IN_FLUCT = 3;
-	static inline int CUTOFF_FR_COLLOC_IN_TEXTS = 1000;
+	static inline int CUTOFF_FR_COLLOC_IN_TEXTS = 30;
 };
 constexpr auto STOP_WORD = 0;
 constexpr auto DELETE_THRESHOLD = 0.065;
-constexpr auto KOEF_FOR_COLLOC_COS_DELETE = 0.8;
+constexpr auto KOEF_FOR_COLLOC_COS_DELETE = 0.6;
 constexpr int FLAGS = LEME_FASTEST;
 constexpr auto SVD_PIECE = 20000;
 
