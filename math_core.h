@@ -43,7 +43,6 @@ public:
 	void SVD_colloc_algorithm(float* arr, size_t rows);
 
 	void find_SVD_terms();
-	shared_ptr<unordered_set<int>> get_shrinked_cosinuses_terms();
 	void calculate_tf_idf();
 	void prepare_tf_matrix_for_SVD();
 

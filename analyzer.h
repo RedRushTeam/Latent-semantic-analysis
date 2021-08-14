@@ -28,6 +28,7 @@ public:
 	shared_ptr<container_class_interface> calculate_mat_disperse();
 	shared_ptr<MatrixXf> calculate_SVD_matrix_for_concret_text();
 	void calculate_idf_tf_matrix(int number_of_text);
+	void calculate_tf_matrix_for_only_terms(int number_of_text);
 
 	//getters&&setters
 	static int get_k();

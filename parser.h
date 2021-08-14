@@ -13,7 +13,7 @@ public:
 	shared_ptr<list<string>> delete_trash();
 	~parser() {}
 
-private:
+//public:
 	fs::path _filename;
 	static inline unordered_set<string> stop_words = {
 "а-ля",

@@ -5,6 +5,7 @@ shared_ptr<list<string>> parser::parse() {
 	for (auto& word : *terms)
 		if (parser::stop_words.find(word) != parser::stop_words.end())
 			word = "à";
+
 	return terms;
 }
 
