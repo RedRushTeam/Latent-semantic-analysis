@@ -494,15 +494,15 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 
 	int starter = 0;
 	for (int i = 0; i < m; ++i) {
-		for (int j = 0; j <= global_var::COLLOC_DIST; ++j) {
+		for (int j = 0; j <= global_var::COLLOC_DIST; ++j)
 			resized_U_matrix_of_SVD->operator()(i, j) = u[starter + j];
-		}
 
 		starter += n;
 	}
 
 	delete[] u;
 
+	// начало части с косинусами
 	vector<float> lenghts_colloc_vector;
 	lenghts_colloc_vector.resize(m, 0.f);
 
@@ -510,17 +510,17 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 		for (auto j = 0; j < resized_U_matrix_of_SVD->cols(); ++j)
 			lenghts_colloc_vector[i] += (*resized_U_matrix_of_SVD)(i, j) * (*resized_U_matrix_of_SVD)(i, j);
 
-		lenghts_colloc_vector[i] = sqrt(lenghts_colloc_vector[i]);
+		lenghts_colloc_vector[i] = sqrt(lenghts_colloc_vector[i]); // нахождение длин векторов факторов
 	}
 
 	vector<float> lenghts_texts_vector;
 	lenghts_texts_vector.resize(n, 0.f);
 
 	for (auto i = 0; i < resized_V_matrix_of_SVD->cols(); ++i) {
-		for (auto j = 0; j < resized_V_matrix_of_SVD->rows(); ++j) 
+		for (auto j = 0; j < resized_V_matrix_of_SVD->rows(); ++j)
 			lenghts_texts_vector[i] += (*resized_V_matrix_of_SVD)(j, i) * (*resized_V_matrix_of_SVD)(j, i);
 
-		lenghts_texts_vector[i] = sqrt(lenghts_texts_vector[i]);
+		lenghts_texts_vector[i] = sqrt(lenghts_texts_vector[i]); // нахождение длин векторов текстов
 	}
 
 	unordered_map<pair<int, int>, float> scalar_proizv;
@@ -530,23 +530,20 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 			for (auto j = 0; j < resized_U_matrix_of_SVD->cols(); ++j) {
 				auto iter = scalar_proizv.find(make_pair(i, k));
 				if (iter == scalar_proizv.end())
-					scalar_proizv.insert(make_pair(make_pair(i, k), (*resized_U_matrix_of_SVD)(i, j) * (*resized_V_matrix_of_SVD)(j, k)));
+					scalar_proizv.insert(make_pair(make_pair(i, k), (*resized_U_matrix_of_SVD)(i, j) * (*resized_V_matrix_of_SVD)(j, k))); // подсчёт скалярного произведения по координатам
 				else
 					scalar_proizv[make_pair(i, k)] = iter->second + (*resized_U_matrix_of_SVD)(i, j) * (*resized_V_matrix_of_SVD)(j, k);
 			}
 
 	//resized_U_matrix_of_SVD->resize(0);
 	//resized_V_matrix_of_SVD->resize(0);
-	scalar_proizv.clear();
+	//scalar_proizv.clear();
 
 	for (int i = 0; i < lenghts_colloc_vector.size(); ++i)
-		for (int j = 0; j < lenghts_texts_vector.size(); ++j) {
-			auto iter = this->cosinuses.find(make_pair(i, j));
-			if (iter == this->cosinuses.end())
-				this->cosinuses.insert(make_pair(make_pair(i, j), (lenghts_colloc_vector[i] / lenghts_texts_vector[j])));
-			else
-				this->cosinuses[make_pair(i, j)] = iter->second / lenghts_colloc_vector[i] / lenghts_texts_vector[j];
-		}
+		for (int j = 0; j < lenghts_texts_vector.size(); ++j)
+			this->cosinuses.insert(make_pair(make_pair(i, j), (scalar_proizv[make_pair(i, j)] / lenghts_colloc_vector[i] / lenghts_texts_vector[j])));
+
+	scalar_proizv.clear();
 
 	lenghts_texts_vector.clear();
 	lenghts_texts_vector.shrink_to_fit();
