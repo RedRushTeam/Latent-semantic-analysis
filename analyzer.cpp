@@ -309,6 +309,10 @@ shared_ptr<container_class_interface> analyzer::calculate_mat_disperse()
 		if (parser::stop_words.find(obj) != parser::stop_words.end())
 			cout << endl << "Произошло страшное. Ты обосрался, братишка";
 
+	for (auto obj : analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_)
+		if (parser::stop_words.find(obj.first.word) != parser::stop_words.end())
+			cout << endl << "Произошло страшное. Ты обосрался, братишка";
+
 	auto now_text_container = make_shared<piecewise_container_class>(global_var::COLLOC_DIST, this->_mat_ozidanie->get_count_of_collocations(), dynamic_pointer_cast<piecewise_container_class>(this->_mat_ozidanie)->get_downloaded_range());
 
 	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
@@ -453,31 +457,11 @@ shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 
 void analyzer::calculate_idf_tf_matrix(int number_of_text)
 {
-	/*#pragma omp critical (one_step_flag)
-	{
-		static bool one_step_flag = true;
-
-		if (one_step_flag) {
-
-			analyzer::helper_map_for_SVD_rows_colloc_numbers->clear();
-
-			analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->clear();
-			size_t indexer = 0;
-			for (auto obj : *analyzer::get_colloc_and_terms_after_SVD()) {
-				analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(obj, indexer));
-				++indexer;
-			}
-
-			one_step_flag = !one_step_flag;
-		}
-	}*/
-
 	this->lemmatize_all_words();
 
 	#pragma omp critical (maps_into_analyzer)
 	{
 		for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
-
 			for (int i = -global_var::COLLOC_DIST - 1; i <= global_var::COLLOC_DIST + 1; ++i)
 				if (i != 0) {
 					auto now_it = this->move_list_iterator(it, i);
@@ -498,39 +482,40 @@ void analyzer::calculate_idf_tf_matrix(int number_of_text)
 					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
 						continue;
 
-					if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
-						continue;
-
 					if (i > 0) {
 						three_coordinate_structure ___key = { first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, i - 1 };
+
+						auto x2 = this->_mat_ozidanie->get_count_of_concret_collocation(___key.first_coord, ___key.second_coord, ___key.k);
+						
+						___key.k = -1;
 
 						auto iter = analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->find(___key);
 
 						if (iter == analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->end())
 							continue;
 
-						auto x2 = this->_mat_ozidanie->get_count_of_concret_collocation(___key.first_coord, ___key.second_coord, ___key.k);
-
 						(*tf_matrix)[iter.value()][number_of_text] += x2;
 
-						(*idf_matrix)[iter.value()] = (*idf_matrix)[iter.value()] + x2/*нормированное мат ожидание*/ - (*idf_matrix)[iter.value()] + x2/*нормированное мат ожидание*/;
+						(*idf_matrix)[iter.value()] = (*idf_matrix)[iter.value()] + x2/*нормированное мат ожидание*/ - (*idf_matrix)[iter.value()] * x2/*нормированное мат ожидание*/;
 					}
 					else {
 						three_coordinate_structure ___key = { first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, abs(i) - 1 };
 
+						auto x2 = this->_mat_ozidanie->get_count_of_concret_collocation(___key.first_coord, ___key.second_coord, ___key.k);
+
+						___key.k = -1;
+
 						auto iter = analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->find(___key);
 
 						if (iter == analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->end())
 							continue;
 
-						auto x2 = this->_mat_ozidanie->get_count_of_concret_collocation(___key.first_coord, ___key.second_coord, ___key.k);
-
 						(*tf_matrix)[iter.value()][number_of_text] += x2;
 
-						(*idf_matrix)[iter.value()] = (*idf_matrix)[iter.value()] + x2/*нормированное мат ожидание*/ - (*idf_matrix)[iter.value()] + x2/*нормированное мат ожидание*/;
+						(*idf_matrix)[iter.value()] = (*idf_matrix)[iter.value()] + x2/*нормированное мат ожидание*/ - (*idf_matrix)[iter.value()] * x2/*нормированное мат ожидание*/;
 					}
 				}
-
+			
 			word_and_number_of_appearances_structure key_ = { *it, 1, 1 };
 
 			if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(key_) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
@@ -744,9 +729,6 @@ void analyzer::set_helper_map_for_SVD_rows_colloc_numbers(shared_ptr<tsl::robin_
 		analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(obj.second, obj.first));
 
 	analyzer::helper_map_for_SVD_rows_colloc_numbers = helper_map_for_SVD_rows_colloc_numbers;
-
-	cout << endl << "Ш-1" << analyzer::helper_map_for_SVD_rows_colloc_numbers->size();
-	cout << endl << "Ш0" << analyzer::inverse_helper_map_for_SVD_rows_colloc_numbers->size();
 }
 
 shared_ptr<container_class_interface> analyzer::get_container_mat_ozidanie()

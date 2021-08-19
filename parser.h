@@ -6,6 +6,7 @@ class parser
 public:
 	parser() {}
 	parser(fs::path filename) : _filename(filename) {}
+	static void prepair_stop_words();
 	shared_ptr<list<string>> parse();
 	void set_filename(fs::path filename);
 	fs::path get_filename() const;
@@ -13,9 +14,9 @@ public:
 	shared_ptr<list<string>> delete_trash();
 	~parser() {}
 
-//public:
+//private:
 	fs::path _filename;
-	static inline unordered_set<string> stop_words = {
+	static inline unordered_set<string> stop_words/* = {
 "а-ля",
 "без",
 "безо",
@@ -470,6 +471,6 @@ public:
 "штобы",
 "яко",
 "якобы"
-	};
+	}*/;
 };
 

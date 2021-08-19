@@ -1,5 +1,21 @@
 #include "parser.h"
 
+void parser::prepair_stop_words()
+{
+	ifstream _input("stop_words.txt");
+
+	std::string untext;
+	std::streamoff len = list_of_functions::stream_size(_input);
+
+	if (len == -1)
+		cout << "it doesn't work";
+
+	untext.resize(static_cast<std::string::size_type>(len));
+	_input.rdbuf()->sgetn(&untext[0], len);
+
+	boost::algorithm::split(parser::stop_words, untext, boost::is_any_of(" "));
+}
+
 shared_ptr<list<string>> parser::parse() {
 	auto terms = this->delete_trash();
 	for (auto& word : *terms)

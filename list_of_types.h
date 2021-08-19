@@ -86,7 +86,7 @@ public:
 };
 constexpr auto STOP_WORD = 0;
 constexpr auto DELETE_THRESHOLD = 0.065;
-constexpr auto KOEF_FOR_COLLOC_COS_DELETE = 1.1f;
+constexpr auto KOEF_FOR_COLLOC_COS_DELETE = 0.9f;
 constexpr int FLAGS = LEME_FASTEST;
 constexpr auto SVD_PIECE = 20000;
 

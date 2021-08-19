@@ -51,6 +51,8 @@ int math_core::calculate_max_cont_size_without_rare_words_and_frequency_in_texts
 
 void math_core::calculate_all()
 {
+	parser::prepair_stop_words();
+	
 	std::cout.flush();
 	cout << endl << "¬ычисление максимального размера контейнера...";
 	this->calculate_max_cont_size();
@@ -79,6 +81,10 @@ void math_core::calculate_all()
 			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(i * (global_var::SIZE_OF_PIECE), (i + 1) * (global_var::SIZE_OF_PIECE)));
 			dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->set_downloaded_range(make_pair(i * (global_var::SIZE_OF_PIECE), (i + 1) * (global_var::SIZE_OF_PIECE)));
 		}
+
+		for (auto obj : parser::stop_words)
+			cout << obj << " ";
+
 		cout << endl << "ѕодготовка и SVD разложение термов...";	//6
 		this->find_SVD_terms();
 		std::cout.flush();
@@ -199,6 +205,10 @@ void math_core::find_fluctuations()
 	cout << endl << "„исло подозрительных коллокаций: " << set_of_fluct_cooloc.size();
 
 	dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->clear_vec();
+
+	for (auto obj : this->set_of_fluct_cooloc)
+		if (parser::stop_words.find(analyzer::get_word_for_token(obj.first_coord)) != parser::stop_words.end() || (parser::stop_words.find(analyzer::get_word_for_token(obj.second_coord)) != parser::stop_words.end()))
+			cout << endl << "ѕроизошло страшное. “ы обосралс€, братишка";
 }
 
 void math_core::shrink_set_of_fluct_cooloc()
@@ -257,6 +267,7 @@ void math_core::shrink_mat_ozid()
 
 	for (auto obj : set_for_delete)
 		this->mat_ozidanie->erase_concret_colloc(obj.first_coord, obj.second_coord, obj.k);
+
 }
 
 void math_core::calculate_norm_shrinked_mat_ozid()
@@ -280,8 +291,16 @@ void math_core::calculate_norm_shrinked_mat_ozid()
 
 		std::transform(numbers_for_one_colloc.begin(), numbers_for_one_colloc.end(), numbers_for_one_colloc.begin(), [&](now_type& obj0) {return obj0 / *max_elem;	});
 
-		short counter = 0; 
+		for (auto obj : *shrinked_vec_mat_ozid)
+			cout << obj.second << " ";
+
+		short counter = 0;
 		for (auto obj : numbers_for_one_colloc) {
+			if (shrinked_vec_mat_ozid->find(mat_ozid_like_piece->collect_one_coordinate_from_three(three_coord.first_coord, three_coord.second_coord, counter)) == shrinked_vec_mat_ozid->end()) {
+				++counter;
+				continue;
+			}
+
 			mat_ozid_like_piece->set_count_of_concret_collocation(three_coord.first_coord, three_coord.second_coord, counter, obj);
 			++counter;
 		}
@@ -289,13 +308,34 @@ void math_core::calculate_norm_shrinked_mat_ozid()
 		set_for_checked_collocs.insert(make_pair(three_coord.first_coord, three_coord.second_coord));
 		numbers_for_one_colloc.clear();
 	}
+
+	unordered_set<pair<int, int>> outputed_coolocs;
+
+	std::ofstream csv_file("norm_shrinked_mat_ozid.csv");
+
+	for (auto obj : *shrinked_vec_mat_ozid) {
+		if (outputed_coolocs.find(make_pair(mat_ozid_like_piece->split_three_coordinates_from_one(obj.first).first_coord, mat_ozid_like_piece->split_three_coordinates_from_one(obj.first).second_coord)) != outputed_coolocs.end())
+			continue;
+
+		csv_file << analyzer::get_word_for_token(mat_ozid_like_piece->split_three_coordinates_from_one(obj.first).first_coord) << "," << analyzer::get_word_for_token(mat_ozid_like_piece->split_three_coordinates_from_one(obj.first).second_coord) << ",";
+		
+		for (int i = 0; i <= global_var::COLLOC_DIST; ++i)
+			if (mat_ozid_like_piece->split_three_coordinates_from_one(obj.first).k != i)
+				csv_file << mat_ozid_like_piece->get_count_of_concret_collocation(obj.first, obj.second, i) << ",";
+
+		outputed_coolocs.insert(make_pair(mat_ozid_like_piece->split_three_coordinates_from_one(obj.first).first_coord, mat_ozid_like_piece->split_three_coordinates_from_one(obj.first).second_coord));
+		csv_file << "\n";
+	}
+	
+	csv_file.close();
+	outputed_coolocs.clear();
 }
 
 void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 {
 	this->helper_map_for_SVD_rows_colloc_numbers = make_shared<tsl::robin_map<size_t, three_coordinate_structure>>();
 	auto mat_ozid_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
-	
+
 	size_t indexer = 0;
 	for (auto obj : *this->set_for_unique_terms)
 	{
@@ -303,8 +343,13 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 		++indexer;
 	}
 
-	for (auto obj : *mat_ozid_like_piese->get_vector_ptr()) {
-		this->helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(indexer, mat_ozid_like_piese->split_three_coordinates_from_one(obj.first)));
+	unordered_set<pair<int, int>> u_set_for_shrinked_collocs_two_coordinate;
+
+	for (auto obj : *mat_ozid_like_piese->get_vector_ptr())
+		u_set_for_shrinked_collocs_two_coordinate.insert(make_pair(mat_ozid_like_piese->split_three_coordinates_from_one(obj.first).first_coord, mat_ozid_like_piese->split_three_coordinates_from_one(obj.first).second_coord));
+
+	for (auto obj : u_set_for_shrinked_collocs_two_coordinate) {
+		this->helper_map_for_SVD_rows_colloc_numbers->insert(make_pair(indexer, three_coordinate_structure{ obj.first, obj.second, -1 }));
 		++indexer;
 	}
 
@@ -313,7 +358,7 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 	this->set_of_fluct_cooloc.clear();
 }
 
-void math_core::find_SVD_colloc()
+/*void math_core::find_SVD_colloc()
 {
 	dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->clear_vec();
 
@@ -440,9 +485,9 @@ void math_core::find_SVD_colloc()
 	}
 	
 	auto blyadovka1 = 1;
-}
+}*/
 
-void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
+void math_core::SVD_colloc_algorithm(float* arr, size_t rows, bool is_this_SVD_for_terms)
 {
 	//this->cosinuses.clear();
 
@@ -551,13 +596,32 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows)
 	lenghts_colloc_vector.shrink_to_fit();
 
 	list<pair<int, int>> list_of_terms_will_be_deleted;
+	if (is_this_SVD_for_terms) {
+		for (auto& obj : this->cosinuses)
+			if (obj.second < KOEF_FOR_COLLOC_COS_DELETE && (this->cosinuses.find(obj.first) != this->cosinuses.end()))
+				list_of_terms_will_be_deleted.push_back(obj.first);
 
-	for (auto& obj : this->cosinuses)
-		if (obj.second < KOEF_FOR_COLLOC_COS_DELETE && (this->cosinuses.find(obj.first) != this->cosinuses.end()))
-			list_of_terms_will_be_deleted.push_back(obj.first);
+		for (auto& obj : list_of_terms_will_be_deleted)
+			this->cosinuses.erase(obj);
+	}
+	else {
+		for (auto i = KOEF_FOR_COLLOC_COS_DELETE; i < 1.f; i += 0.01) {
+			for (auto& obj : this->cosinuses)
+				if (obj.second < i && (this->cosinuses.find(obj.first) != this->cosinuses.end()))
+					list_of_terms_will_be_deleted.push_back(obj.first);
 
-	for (auto& obj : list_of_terms_will_be_deleted)
-		this->cosinuses.erase(obj);
+			for (auto& obj : list_of_terms_will_be_deleted)
+				this->cosinuses.erase(obj);
+
+			for (auto obj : this->cosinuses)
+				this->colloc_and_terms_after_SVD->insert(this->helper_map_for_SVD_rows_colloc_numbers->find(obj.first.first).value());
+
+			std::cout.flush();
+			cout << endl << " оличество значимых термов/коллокаций после разложени€ и свертки tf/idf, с множителем " << i << " :" << this->colloc_and_terms_after_SVD->size();
+
+			colloc_and_terms_after_SVD->clear();
+		}
+	}
 }
 
 void math_core::find_SVD_terms()
@@ -623,7 +687,7 @@ void math_core::find_SVD_terms()
 	this->tf_matrix->shrink_to_fit();
 
 	//отправл€ем матрицу в SVD	tf_like_row
-	this->SVD_colloc_algorithm(tf_like_row.data(), tf_like_row.size() / this->vec_of_filepaths->size());
+	this->SVD_colloc_algorithm(tf_like_row.data(), tf_like_row.size() / this->vec_of_filepaths->size(), true);
 
 	tf_like_row.clear();
 
@@ -702,26 +766,33 @@ void math_core::prepare_tf_matrix_for_SVD()
 	this->colloc_and_terms_after_SVD = make_shared<tsl::robin_set<three_coordinate_structure>>();
 
 	//отправл€ем матрицу в SVD	tf_like_row
-	this->SVD_colloc_algorithm(tf_like_row.data(), tf_like_row.size() / this->vec_of_filepaths->size());
+	this->SVD_colloc_algorithm(tf_like_row.data(), tf_like_row.size() / this->vec_of_filepaths->size(), false);
 
 	tf_like_row.clear();
 
-	cout << endl << " оличество значимых термов/коллокаций после разложени€ tf/idf, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
+	cout << endl << " оличество значимых термов/коллокаций после разложени€ tf/idf, с множителем " << 0.99 << " :" << this->cosinuses.size();
 
 	for (auto obj : this->cosinuses)
 		this->colloc_and_terms_after_SVD->insert(this->helper_map_for_SVD_rows_colloc_numbers->find(obj.first.first).value());
 
 	this->cosinuses.clear();
 	std::cout.flush();
-	cout << endl << " оличество значимых термов/коллокаций после разложени€ и свертки tf/idf, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->colloc_and_terms_after_SVD->size();
+	cout << endl << " оличество значимых термов/коллокаций после разложени€ и свертки tf/idf, с множителем " << 0.99 << " :" << this->colloc_and_terms_after_SVD->size();
 
 	ofstream _fout("high-value terms and collocs.txt");
 
+	cout << endl << "—верим размер файла со стоп-словами: " << parser::stop_words.size();
+
 	for (auto obj : *this->colloc_and_terms_after_SVD)
-		if (obj.second_coord != -1)
+		if (obj.second_coord != -1) {
 			_fout << analyzer::get_word_for_token(obj.first_coord) << " " << analyzer::get_word_for_token(obj.second_coord) << " " << obj.k << endl;
-		else
+			
+			if (parser::stop_words.find(analyzer::get_word_for_token(obj.first_coord)) != parser::stop_words.end() || (parser::stop_words.find(analyzer::get_word_for_token(obj.second_coord)) != parser::stop_words.end()))
+				cout << endl << "ѕроизошло страшное. “ы обосралс€, братишка";
+		}
+		else {
 			_fout << analyzer::get_word_for_token(obj.first_coord) << endl;
+		}
 
 	this->colloc_and_terms_after_SVD->clear();
 }
@@ -739,24 +810,4 @@ shared_ptr<container_class_interface> math_core::get_mat_disperse() const
 int math_core::get_max_cont_size() const
 {
 	return this->max_cont_size;
-}
-
-now_type math_core::prepare_and_get_s_norm_for_one_colloc(int first_term, int second_term) const
-{
-	now_type norm_mat_ozid_for_one_colloc = 0;	//dima check this
-
-	for(int i = global_var::COLLOC_DIST; 0 <= i; --i)
-		if (i - 1 >= 0) {
-			now_type tmp_perem_for_first = this->mat_ozidanie->get_count_of_concret_collocation(first_term, second_term, i - 1);
-
-			if (i == global_var::COLLOC_DIST) {
-				now_type tmp_perem_for_second = this->mat_ozidanie->get_count_of_concret_collocation(first_term, second_term, i);
-				norm_mat_ozid_for_one_colloc = tmp_perem_for_first + tmp_perem_for_second - tmp_perem_for_first * tmp_perem_for_second;
-			}
-			else {
-				norm_mat_ozid_for_one_colloc = tmp_perem_for_first + norm_mat_ozid_for_one_colloc - tmp_perem_for_first * norm_mat_ozid_for_one_colloc;
-			}
-		}
-
-	return norm_mat_ozid_for_one_colloc;
 }

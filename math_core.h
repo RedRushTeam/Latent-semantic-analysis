@@ -30,17 +30,15 @@ public:
 	int calculate_max_cont_size_without_rare_words_and_frequency_in_texts_and_SVD();
 	void calculate_mat_ozidanie();
 	void calculate_mat_disperse();
-	//void calculate_asymmetry_coefficient();
-	//void calculate_excess_ratio();
 	void find_fluctuations();
 	void shrink_set_of_fluct_cooloc();
 	void shrink_set_of_fluct_cooloc_by_rare();
 	void shrink_mat_ozid();
 	void calculate_map_of_flukt_cooloc_fuzzy();
-	void find_SVD_colloc();
+	//void find_SVD_colloc();
 
 	void calculate_norm_shrinked_mat_ozid();
-	void SVD_colloc_algorithm(float* arr, size_t rows);
+
 
 	void find_SVD_terms();
 	void calculate_tf_idf();
@@ -50,11 +48,11 @@ public:
 	shared_ptr<container_class_interface> get_mat_ozidanie() const;
 	shared_ptr<container_class_interface> get_mat_disperse() const;
 	int get_max_cont_size() const;
-	now_type prepare_and_get_s_norm_for_one_colloc(int first_term, int second_term) const;
 
 private:
 	//private methods
 	now_type divider(int size);
+	void SVD_colloc_algorithm(float* arr, size_t rows, bool is_this_SVD_for_terms);
 
 	//for colloc
 	tsl::robin_map<pair<int, int>, float> cosinuses;
