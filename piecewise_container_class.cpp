@@ -27,8 +27,8 @@ void piecewise_container_class::decrement(int first_dimension, int second_dimens
 
 now_type piecewise_container_class::get_count_of_concret_collocation(int first_dimension, int second_dimension, int third_dimension)
 {
-	if (!is_data_for_this_colloc_downloaded(first_dimension, second_dimension, third_dimension))
-		return -1.;
+	/*if (!is_data_for_this_colloc_downloaded(first_dimension, second_dimension, third_dimension))
+		return -1.;*/
 
 	auto iter = this->downloaded_vector->find(this->collect_one_coordinate_from_three(first_dimension, second_dimension, third_dimension));
 	if(iter == this->downloaded_vector->end())

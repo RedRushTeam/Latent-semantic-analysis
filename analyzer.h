@@ -67,6 +67,7 @@ private:
 	static inline HLEM lemmas_engine;
 	static inline short k;
 	static inline int number_of_texts = 0;
+	static inline unordered_set<string> set_of_vowels = { "à", "î", "ý", "å", "è", "û", "ó", "¸", "þ", "ÿ"};
 	shared_ptr<list<string>> list_of_all_lemmatized_text;
 	shared_ptr<list<string>> list_of_all_parsed_text;
 

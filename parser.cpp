@@ -76,6 +76,8 @@ shared_ptr<list<string>> parser::delete_trash()
 	RE2::GlobalReplace(&untext, re2_for_symbols, " ");
 	RE2::GlobalReplace(&untext, re2_for_spaces, " ");
 
+	transform(untext.begin(), untext.end(), untext.begin(), ::tolower);
+
 	if (untext[0] == ' ')
 		untext.erase(0, 1);
 	untext.pop_back();

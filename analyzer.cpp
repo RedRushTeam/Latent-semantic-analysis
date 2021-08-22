@@ -618,9 +618,26 @@ void analyzer::lemmatize_all_words()
 	char utf8[128];
 
 	for (auto& obj : *this->list_of_all_parsed_text) {
+		while (obj.find("ё") != string::npos)
+			obj[obj.find("ё")] = (char)"е";
+
 		sol_GetLemmaA(analyzer::lemmas_engine, obj.c_str(), utf8, sizeof(utf8));
 		this->list_of_all_lemmatized_text->push_back((string)(utf8));
 	}
+
+	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end();) {
+	label:
+		++it;
+		for (auto obj1 : analyzer::set_of_vowels)
+			if (it->find(obj1) != string::npos)
+				goto label;
+
+		*it = "А";
+	}
+
+	/*for (auto& obj : *this->list_of_all_lemmatized_text)	//TODO доп безопасность?
+		if (parser::stop_words.find(obj) != parser::stop_words.end())
+			obj = "А";*/
 }
 
 int analyzer::get_k()
