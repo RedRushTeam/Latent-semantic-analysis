@@ -52,7 +52,7 @@ public:
 private:
 	//private methods
 	now_type divider(int size);
-	void SVD_colloc_algorithm(float* arr, size_t rows, bool is_this_SVD_for_terms);
+	void SVD_colloc_algorithm(now_type* arr, size_t rows, bool is_this_SVD_for_terms);
 
 	//for colloc
 	tsl::robin_map<pair<int, int>, float> cosinuses;

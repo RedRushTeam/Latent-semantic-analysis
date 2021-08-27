@@ -22,6 +22,7 @@
 #include <ctime>
 #include <filesystem>
 #include <random>
+#include <execution>
 
 //custom maps include
 #include <robin_map.h>
@@ -78,7 +79,7 @@ using now_type = float;
 class global_var {
 public:
 	static inline int SIZE_OF_PIECE = 500000;
-	static inline int COLLOC_DIST = 3;
+	static inline int COLLOC_DIST = 4;
 	static inline int CUTOFF = 8;
 	static inline int CUTOFF_FR_IN_TEXTS = 8;
 	static inline int CUTOFF_FR_IN_FLUCT = 3;
@@ -86,7 +87,7 @@ public:
 };
 constexpr auto STOP_WORD = 0;
 constexpr auto DELETE_THRESHOLD = 0.065;
-constexpr auto KOEF_FOR_COLLOC_COS_DELETE = 0.9f;
+constexpr float KOEF_FOR_COLLOC_COS_DELETE = 0.9000000000000000000000000000000000000000000000000000f;
 constexpr int FLAGS = LEME_FASTEST;
 constexpr auto SVD_PIECE = 20000;
 

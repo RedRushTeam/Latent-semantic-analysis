@@ -116,7 +116,7 @@
     <UseInteloneMKL>Parallel</UseInteloneMKL>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelLib|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -200,6 +200,8 @@
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>C:\tsl\include;C:\re2\include;C:\local\boost_1_75_0;C:\RGD\SVD MATH\eigen-3.3.8\Eigen;$(IncludePath)</IncludePath>
     <LibraryPath>C:\re2\Rlib;C:\local\boost_1_75_0\lib64-msvc-14.2;$(LibraryPath)</LibraryPath>
+    <CopyLocalProjectReference>false</CopyLocalProjectReference>
+    <CopyCppRuntimeToOutputDir>true</CopyCppRuntimeToOutputDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -342,6 +344,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <FloatingPointModel>Precise</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -395,7 +398,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalOptions>/Zc:__cplusplus /WHOLEARCHIVE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <TranslateIncludes>true</TranslateIncludes>
     </ClCompile>
     <Link>
@@ -406,6 +409,12 @@
       <AdditionalLibraryDirectories>C:\re2\Rlib;C:\RGD\RussianGrammaticalDictionary\lib64;C:\local\boost_1_75_0\lib64-msvc-14.2;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>re2.lib;boost_iostreams-vc142-mt-gd-x64-1_75.lib;lemmatizator.lib;Solarix_Grammar_Engine.lib;ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Lib>
+      <AdditionalOptions>/WHOLEARCHIVE %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="analyzer.cpp" />

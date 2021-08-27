@@ -56,10 +56,10 @@ void math_core::calculate_all()
 	std::cout.flush();
 	cout << endl << "Вычисление максимального размера контейнера...";
 	this->calculate_max_cont_size();
-	int size_for_wichout_rare_words = this->calculate_max_cont_size_without_rare_words();
+	//int size_for_wichout_rare_words = this->calculate_max_cont_size_without_rare_words();
 	int size_for_wichout_rare_words_in_texts = this->calculate_max_cont_size_without_rare_words_and_frequency_in_texts();
 	std::cout.flush();
-	cout << endl << "Максимальный размер словаря, отбросив термы с " << global_var::CUTOFF << " и менее появлениями: " << size_for_wichout_rare_words;
+	//cout << endl << "Максимальный размер словаря, отбросив термы с " << global_var::CUTOFF << " и менее появлениями: " << size_for_wichout_rare_words;
 	cout << endl << "Максимальный размер словаря, отбросив термы с появлениями в " << global_var::CUTOFF_FR_IN_TEXTS << " и менее текстах, а так же, отбросив термы с " << global_var::CUTOFF << " и менее появлениями: " << size_for_wichout_rare_words_in_texts;
 	//cout << endl << "Максимальный размер словаря, отбросив термы с косинусами, ниже " << DELETE_THRESHOLD << " равен: " << size_for_wichout_rare_words_in_texts_SVD;
 
@@ -126,17 +126,27 @@ void math_core::calculate_max_cont_size()
 {
 	analyzer::create_lemmatizer();
 	analyzer::set_number_of_texts(this->vec_of_filepaths->size());
-	#pragma omp parallel 
+
+	/*#pragma omp parallel 
 	{
 		#pragma omp for schedule(static)
 		for (int i = 0; i < this->vec_of_filepaths->size(); ++i) {
 			parser _parser((*this->vec_of_filepaths)[i]);	//tut peredaetsa kopiya
 			auto result_of_parse = _parser.parse();
-			
+
 			analyzer _analyzer(result_of_parse);
 			_analyzer.calculate_counter_of_tokenizer_without_rare_words();
 		}
-	}
+	}*/
+
+	for_each(execution::seq, this->vec_of_filepaths->begin(), this->vec_of_filepaths->end(), [=](fs::path _path) {
+		parser _parser(_path);	//tut peredaetsa kopiya
+		auto result_of_parse = _parser.parse();
+
+		analyzer _analyzer(result_of_parse);
+		_analyzer.calculate_counter_of_tokenizer_without_rare_words();
+	});
+
 }
 
 void math_core::calculate_mat_ozidanie()
@@ -467,30 +477,28 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 	auto blyadovka1 = 1;
 }*/
 
-void math_core::SVD_colloc_algorithm(float* arr, size_t rows, bool is_this_SVD_for_terms)
+void math_core::SVD_colloc_algorithm(now_type* arr, size_t rows, bool is_this_SVD_for_terms)
 {
-	//this->cosinuses.clear();
-
 	size_t m = rows;
 	size_t n = this->vec_of_filepaths->size();
 	size_t lda = n;
 	size_t ldu = m;
 	size_t ldvt = n;
-	float* superb;
+	now_type* superb;
 
 	if (m < n)
-		superb = new float[m - 1];
+		superb = new now_type[m - 1]{};
 	else
-		superb = new float[n - 1];
+		superb = new now_type[n - 1]{};
 
 	int* istat = new int[3];
 
-	float* s = new float[n];
-	float* u = new float[ldu * m];
-	float* vt = new float[ldvt * n];
-	float* a = arr;
+	now_type* s = new now_type[n] {};
+	now_type* u = new now_type[ldu * m]{};
+	now_type* vt = new now_type[ldvt * n]{};
+	now_type* a = arr;
 
-	int res = LAPACKE_sgejsv(LAPACK_ROW_MAJOR, 'C', 'F', 'V', 'N', 'N', 'N', m, n, a, lda, s, u, ldu, vt, ldvt, superb, istat);
+	int res = LAPACKE_sgejsv(LAPACK_ROW_MAJOR, 'C', 'F', 'J', 'N', 'N', 'N', m, n, a, lda, s, u, ldu, vt, ldvt, superb, istat);
 
 	if (res) {
 		cout << endl << "С СВД что-то не так, код ошибки: " << res;
@@ -568,12 +576,15 @@ void math_core::SVD_colloc_algorithm(float* arr, size_t rows, bool is_this_SVD_f
 
 	list<pair<int, int>> list_of_terms_will_be_deleted;
 	if (is_this_SVD_for_terms) {
+		cout << endl << "Число косинусов: " << this->cosinuses.size();
 		for (auto& obj : this->cosinuses)
 			if (obj.second < KOEF_FOR_COLLOC_COS_DELETE && (this->cosinuses.find(obj.first) != this->cosinuses.end()))
 				list_of_terms_will_be_deleted.push_back(obj.first);
 
 		for (auto& obj : list_of_terms_will_be_deleted)
 			this->cosinuses.erase(obj);
+
+		cout << endl << "Число косинусов после удаления: " << this->cosinuses.size();
 	}
 	else {
 		for (auto i = KOEF_FOR_COLLOC_COS_DELETE; i < (1.f - 0.01f); i += 0.01f) {
@@ -621,8 +632,6 @@ void math_core::find_SVD_terms()
 		}
 	}
 
-	auto tf = analyzer::get_tf_matrix();
-
 	for (size_t i = 0; i < this->max_cont_size; ++i) 
 		(*this->idf_matrix)[i] = std::count_if((*this->tf_matrix)[i].begin(), (*this->tf_matrix)[i].end(), [=](now_type obj) {
 			if (obj != 0)
@@ -632,7 +641,8 @@ void math_core::find_SVD_terms()
 		});
 
 	for (size_t i = 0; i < this->idf_matrix->size(); ++i)
-		(*this->idf_matrix)[i] = log2f(this->vec_of_filepaths->size() / ((*this->idf_matrix)[i]));
+		if((*this->idf_matrix)[i] != 0)
+			(*this->idf_matrix)[i] = log2f(this->vec_of_filepaths->size() / ((*this->idf_matrix)[i]));
 
 	for (size_t j = 0; j < this->tf_matrix->begin()->size(); ++j)
 		for (size_t i = 0; i < this->idf_matrix->size(); ++i)
@@ -646,7 +656,7 @@ void math_core::find_SVD_terms()
 
 	for (size_t j = 0; j < this->tf_matrix->size(); ++j)
 		for (size_t i = 0; i < this->tf_matrix->begin()->size(); ++i)
-			tf_like_row[i * this->tf_matrix->size() + j] = (*this->tf_matrix)[j][i];
+			tf_like_row[(size_t)(j * this->tf_matrix->begin()->size() + i)] = (*this->tf_matrix)[j][i];
 
 	for (auto& obj : *this->tf_matrix) {
 		obj.clear();
@@ -723,7 +733,7 @@ void math_core::prepare_tf_matrix_for_SVD()
 
 	for (size_t j = 0; j < this->tf_matrix->size(); ++j)
 		for (size_t i = 0; i < this->tf_matrix->begin()->size(); ++i)
-			tf_like_row[i * this->tf_matrix->size() + j] = (*this->tf_matrix)[j][i];
+			tf_like_row[j * this->tf_matrix->begin()->size() + i] = (*this->tf_matrix)[j][i];
 
 	for (auto& obj : *this->tf_matrix) {
 		vector<now_type> tmp;
