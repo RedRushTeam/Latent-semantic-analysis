@@ -48,6 +48,7 @@ public:
 	shared_ptr<container_class_interface> get_mat_ozidanie() const;
 	shared_ptr<container_class_interface> get_mat_disperse() const;
 	int get_max_cont_size() const;
+	shared_ptr<unordered_set<int>> get_set_for_unique_terms() const;
 
 private:
 	//private methods

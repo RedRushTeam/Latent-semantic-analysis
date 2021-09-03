@@ -1,5 +1,7 @@
 ﻿#include "analyzer.h"
 
+mutex mut;
+
 void analyzer::create_lemmatizer()
 {
 	#pragma omp critical (lemmatizer_download)
@@ -8,9 +10,9 @@ void analyzer::create_lemmatizer()
 		const char* language = "russian";
 
 		if (dict_path == NULL)
-			dict_path = LEMADR;
+			dict_path = global_var::LEMADR.c_str();
 
-		int flags = FLAGS;
+		int flags = global_var::FLAGS;
 
 		cout << endl << "Loading the lemmatizator from: " << dict_path;
 
@@ -215,7 +217,7 @@ int analyzer::get_counter_of_tokenizer_without_rare_words_SVD()
 	list<pair<int, int>> list_of_terms_will_be_deleted;
 
 	for (auto& obj : cosinuses)
-		if (obj.second < DELETE_THRESHOLD && (cosinuses.find(obj.first) != cosinuses.end()))
+		if (obj.second < global_var::DELETE_THRESHOLD && (cosinuses.find(obj.first) != cosinuses.end()))
 				list_of_terms_will_be_deleted.push_back(obj.first);
 
 	for (auto& obj : list_of_terms_will_be_deleted)
@@ -258,13 +260,10 @@ void analyzer::calculate_mat_ozidanie()
 {
 	this->lemmatize_all_words();
 
-	for (auto obj : *this->list_of_all_lemmatized_text)
-		if (parser::stop_words.find(obj) != parser::stop_words.end())
-			cout << endl << "Произошло страшное. Ты обосрался, братишка";
-
 	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
-		#pragma omp critical (maps_into_analyzer)
-		{
+		//#pragma omp critical (maps_into_analyzer)
+		//{
+			mut.lock();
 			for (int i = -global_var::COLLOC_DIST - 1; i <= global_var::COLLOC_DIST + 1; ++i)
 				if (i != 0) {
 					auto now_it = this->move_list_iterator(it, i);
@@ -297,7 +296,8 @@ void analyzer::calculate_mat_ozidanie()
 					else
 						this->_mat_ozidanie->summ_for_concret_colloc(first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, abs(i) - 1, (now_type)1.);	//обращение к критическому ресурсу				
 				}
-		}
+			mut.unlock();
+		//}
 	}
 }
 
@@ -305,19 +305,12 @@ shared_ptr<container_class_interface> analyzer::calculate_mat_disperse()
 {
 	this->lemmatize_all_words();
 
-	for (auto obj : *this->list_of_all_lemmatized_text)
-		if (parser::stop_words.find(obj) != parser::stop_words.end())
-			cout << endl << "Произошло страшное. Ты обосрался, братишка";
-
-	for (auto obj : analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_)
-		if (parser::stop_words.find(obj.first.word) != parser::stop_words.end())
-			cout << endl << "Произошло страшное. Ты обосрался, братишка";
-
 	auto now_text_container = make_shared<piecewise_container_class>(global_var::COLLOC_DIST, this->_mat_ozidanie->get_count_of_collocations(), dynamic_pointer_cast<piecewise_container_class>(this->_mat_ozidanie)->get_downloaded_range());
 
 	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
-		#pragma omp critical (maps_into_analyzer)
-		{
+		//#pragma omp critical (maps_into_analyzer)
+		//{
+		mut.lock();
 			for (int i = -global_var::COLLOC_DIST - 1; i <= global_var::COLLOC_DIST + 1; ++i)
 				if (i != 0) {
 					auto now_it = this->move_list_iterator(it, i);
@@ -353,7 +346,8 @@ shared_ptr<container_class_interface> analyzer::calculate_mat_disperse()
 					else
 						now_text_container->summ_for_concret_colloc(first_index, analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)->second, abs(i) - 1, (now_type)1.);	//обращение к критическому ресурсу				
 				}
-		}
+		//}
+		mut.unlock();
 	}
 
 	//#pragma omp critical (ozidanie)
@@ -371,10 +365,6 @@ shared_ptr<MatrixXf> analyzer::calculate_SVD_matrix_for_concret_text()
 	matrix_for_all_SVD->fill(NULL);
 
 	this->lemmatize_all_words();
-
-	for (auto obj : *this->list_of_all_lemmatized_text)
-		if (parser::stop_words.find(obj) != parser::stop_words.end())
-			cout << endl << "Произошло страшное. Ты обосрался, братишка";
 
 	tsl::robin_map<three_coordinate_structure, int> map_of_tokens_TOKEN_DATA;
 
@@ -459,8 +449,9 @@ void analyzer::calculate_idf_tf_matrix(int number_of_text)
 {
 	this->lemmatize_all_words();
 
-	#pragma omp critical (maps_into_analyzer)
-	{
+	//#pragma omp critical (maps_into_analyzer)
+	//{
+		mut.lock();
 		for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
 			for (int i = -global_var::COLLOC_DIST - 1; i <= global_var::COLLOC_DIST + 1; ++i)
 				if (i != 0) {
@@ -535,8 +526,8 @@ void analyzer::calculate_idf_tf_matrix(int number_of_text)
 			if ((*idf_matrix)[_iter.value()] == 0)
 				(*idf_matrix)[_iter.value()] = 1.;
 		}
-	}
-
+	//}
+	mut.unlock();
 	for (size_t i = 0; i < tf_matrix->size(); ++i)
 		(*tf_matrix)[i][number_of_text] /= this->list_of_all_lemmatized_text->size();	//возможно стоит делить на colloc dist + 1
 }
@@ -545,8 +536,9 @@ void analyzer::calculate_tf_matrix_for_only_terms(int number_of_text)
 {
 	this->lemmatize_all_words();
 
-	#pragma omp critical (maps_into_analyzer)
-	{
+	//#pragma omp critical (maps_into_analyzer)
+	//{
+	mut.lock();
 		for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
 
 			if (*it == string("А"))
@@ -561,7 +553,8 @@ void analyzer::calculate_tf_matrix_for_only_terms(int number_of_text)
 
 			(*tf_matrix)[iter.value()][number_of_text] += 1.0f;
 		}
-	}
+	mut.unlock();
+	//}
 
 	for (size_t i = 0; i < tf_matrix->size(); ++i)
 		(*tf_matrix)[i][number_of_text] /= this->list_of_all_lemmatized_text->size();

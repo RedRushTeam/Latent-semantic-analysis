@@ -63,12 +63,6 @@ void math_core::calculate_all()
 	cout << endl << "ћаксимальный размер словар€, отбросив термы с по€влени€ми в " << global_var::CUTOFF_FR_IN_TEXTS << " и менее текстах, а так же, отбросив термы с " << global_var::CUTOFF << " и менее по€влени€ми: " << size_for_wichout_rare_words_in_texts;
 	//cout << endl << "ћаксимальный размер словар€, отбросив термы с косинусами, ниже " << DELETE_THRESHOLD << " равен: " << size_for_wichout_rare_words_in_texts_SVD;
 
-
-	this->mat_ozidanie = make_shared<piecewise_container_class>(global_var::COLLOC_DIST, this->max_cont_size);
-	analyzer::set_container_mat_ozidanie(this->mat_ozidanie);
-
-	this->mat_disperse = make_shared<piecewise_container_class>(global_var::COLLOC_DIST, this->max_cont_size);
-
 	std::cout.flush();
 	cout << endl << "¬сего вычисление будет проиводитьс€ в " << this->number_of_slices << " этапов: ";
 
@@ -127,19 +121,7 @@ void math_core::calculate_max_cont_size()
 	analyzer::create_lemmatizer();
 	analyzer::set_number_of_texts(this->vec_of_filepaths->size());
 
-	/*#pragma omp parallel 
-	{
-		#pragma omp for schedule(static)
-		for (int i = 0; i < this->vec_of_filepaths->size(); ++i) {
-			parser _parser((*this->vec_of_filepaths)[i]);	//tut peredaetsa kopiya
-			auto result_of_parse = _parser.parse();
-
-			analyzer _analyzer(result_of_parse);
-			_analyzer.calculate_counter_of_tokenizer_without_rare_words();
-		}
-	}*/
-
-	for_each(execution::seq, this->vec_of_filepaths->begin(), this->vec_of_filepaths->end(), [=](fs::path _path) {
+	for_each(execution::seq, this->vec_of_filepaths->begin(), this->vec_of_filepaths->end(), [](fs::path& _path) {
 		parser _parser(_path);	//tut peredaetsa kopiya
 		auto result_of_parse = _parser.parse();
 
@@ -151,40 +133,37 @@ void math_core::calculate_max_cont_size()
 
 void math_core::calculate_mat_ozidanie()
 {
-	#pragma omp parallel 
-	{
-		#pragma omp for schedule(static)
-		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
-			parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
-			auto result_of_parse = _parser.parse();
+	this->mat_ozidanie = make_shared<piecewise_container_class>(global_var::COLLOC_DIST, this->max_cont_size);
+	analyzer::set_container_mat_ozidanie(this->mat_ozidanie);
 
-			analyzer _analyzer(result_of_parse);
-			_analyzer.calculate_mat_ozidanie();
-		}
-	}
+	for_each(execution::par_unseq, this->vec_of_filepaths->begin(), this->vec_of_filepaths->end(), [](fs::path& _path) {
+		parser _parser(_path);	//tut peredaetsa kopiya
+		auto result_of_parse = _parser.parse();
+
+		analyzer _analyzer(result_of_parse);
+		_analyzer.calculate_mat_ozidanie();
+	});
 
 	(*dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())) /= (now_type)this->vec_of_filepaths->size();
 }
 
 void math_core::calculate_mat_disperse()
 {
-	#pragma omp parallel
-	{
-		#pragma omp for schedule(static)
-	
-		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
-			parser _parser((*this->vec_of_filepaths)[j]);	//tut peredaetsa kopiya
-			auto result_of_parse = _parser.parse();
+	this->mat_disperse = make_shared<piecewise_container_class>(global_var::COLLOC_DIST, this->max_cont_size);
 
-			analyzer _analyzer(result_of_parse);
-			auto now_cont = _analyzer.calculate_mat_disperse();
-			now_cont->pow_all(2);
-			#pragma omp critical (disperse)
-			{
-				(*dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)) += now_cont;
-			}
-		}
-	}
+	mutex mu_for_disp_sum;
+	for_each(execution::par_unseq, this->vec_of_filepaths->begin(), this->vec_of_filepaths->end(), [this, &mu_for_disp_sum](fs::path& _path) {
+		parser _parser(_path);	//tut peredaetsa kopiya
+		auto result_of_parse = _parser.parse();
+
+		analyzer _analyzer(result_of_parse);
+		auto now_cont = _analyzer.calculate_mat_disperse();
+		now_cont->pow_all(2);
+
+		mu_for_disp_sum.lock();
+		(*dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)) += now_cont;
+		mu_for_disp_sum.unlock();
+	});
 
 	(*dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)) /= (now_type)this->vec_of_filepaths->size();
 }
@@ -197,7 +176,7 @@ void math_core::find_fluctuations()
 	#pragma omp parallel 
 	{
 		#pragma omp for schedule(static)
-		for (int i = mat_ozid_like_piese->get_downloaded_range().first; i < mat_ozid_like_piese->get_downloaded_range().second; ++i)
+		for (int i = 0; i < this->max_cont_size; ++i)
 			for (int j = 0; j < this->max_cont_size; ++j)
 				for (int k = 0; k <= global_var::COLLOC_DIST; ++k) {
 					bool kond1 = mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) - /*sqrt(*/mat_disperse_like_piese->get_count_of_concret_collocation(i, j, k) * 4/*)*/ > mat_ozid_like_piese->get_count_of_concret_collocation(i, j, k) * (this->vec_of_filepaths->size());
@@ -210,14 +189,11 @@ void math_core::find_fluctuations()
 					}
 				}
 	}
+
 	std::cout.flush();
 	cout << endl << "„исло подозрительных коллокаций: " << set_of_fluct_cooloc.size();
 
 	dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->clear_vec();
-
-	for (auto obj : this->set_of_fluct_cooloc)
-		if (parser::stop_words.find(analyzer::get_word_for_token(obj.first_coord)) != parser::stop_words.end() || (parser::stop_words.find(analyzer::get_word_for_token(obj.second_coord)) != parser::stop_words.end()))
-			cout << endl << "ѕроизошло страшное. “ы обосралс€, братишка";
 }
 
 void math_core::shrink_set_of_fluct_cooloc()
@@ -576,18 +552,18 @@ void math_core::SVD_colloc_algorithm(now_type* arr, size_t rows, bool is_this_SV
 
 	list<pair<int, int>> list_of_terms_will_be_deleted;
 	if (is_this_SVD_for_terms) {
-		cout << endl << "„исло косинусов: " << this->cosinuses.size();
+		//cout << endl << "„исло косинусов: " << this->cosinuses.size();
 		for (auto& obj : this->cosinuses)
-			if (obj.second < KOEF_FOR_COLLOC_COS_DELETE && (this->cosinuses.find(obj.first) != this->cosinuses.end()))
+			if (obj.second < global_var::KOEF_FOR_COLLOC_COS_DELETE && (this->cosinuses.find(obj.first) != this->cosinuses.end()))
 				list_of_terms_will_be_deleted.push_back(obj.first);
 
 		for (auto& obj : list_of_terms_will_be_deleted)
 			this->cosinuses.erase(obj);
 
-		cout << endl << "„исло косинусов после удалени€: " << this->cosinuses.size();
+		//cout << endl << "„исло косинусов после удалени€: " << this->cosinuses.size();
 	}
 	else {
-		for (auto i = KOEF_FOR_COLLOC_COS_DELETE; i < (1.f - 0.01f); i += 0.01f) {
+		for (auto i = global_var::KOEF_FOR_COLLOC_COS_DELETE; i < (1.f - 0.01f); i += 0.01f) {
 			for (auto& obj : this->cosinuses)
 				if (obj.second < i && (this->cosinuses.find(obj.first) != this->cosinuses.end()))
 					list_of_terms_will_be_deleted.push_back(obj.first);
@@ -620,7 +596,7 @@ void math_core::find_SVD_terms()
 
 	analyzer::set_tf_matrix(this->tf_matrix);
 
-	#pragma omp parallel 
+	/*#pragma omp parallel 
 	{
 		#pragma omp for schedule(static)
 		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
@@ -630,7 +606,16 @@ void math_core::find_SVD_terms()
 			analyzer _analyzer(result_of_parse);
 			_analyzer.calculate_tf_matrix_for_only_terms(j);
 		}
-	}
+	}*/
+
+	auto first_it = this->vec_of_filepaths->begin();
+	for_each(execution::par_unseq, boost::counting_iterator<int>(0), boost::counting_iterator<int>(this->vec_of_filepaths->size()), [first_it](auto&& index) {
+		parser _parser(first_it[index]);	//tut peredaetsa kopiya
+		auto result_of_parse = _parser.parse();
+
+		analyzer _analyzer(result_of_parse);
+		_analyzer.calculate_tf_matrix_for_only_terms(index);
+	});
 
 	for (size_t i = 0; i < this->max_cont_size; ++i) 
 		(*this->idf_matrix)[i] = std::count_if((*this->tf_matrix)[i].begin(), (*this->tf_matrix)[i].end(), [=](now_type obj) {
@@ -672,7 +657,7 @@ void math_core::find_SVD_terms()
 
 	tf_like_row.clear();
 
-	cout << endl << " оличество значимых термов после разложени€ tf/idf, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
+	cout << endl << " оличество значимых термов после разложени€ tf/idf, с множителем " << global_var::KOEF_FOR_COLLOC_COS_DELETE << " :" << this->cosinuses.size();
 
 	this->set_for_unique_terms = make_shared<unordered_set<int>>();
 
@@ -681,7 +666,7 @@ void math_core::find_SVD_terms()
 
 	this->cosinuses.clear();
 	std::cout.flush();
-	cout << endl << " оличество значимых термов после разложени€ и свертки tf/idf, с множителем " << KOEF_FOR_COLLOC_COS_DELETE << " :" << this->set_for_unique_terms->size();
+	cout << endl << " оличество значимых термов после разложени€ и свертки tf/idf, с множителем " << global_var::KOEF_FOR_COLLOC_COS_DELETE << " :" << this->set_for_unique_terms->size();
 
 }
 
@@ -701,7 +686,7 @@ void math_core::calculate_tf_idf()
 
 	analyzer::set_tf_matrix(this->tf_matrix);
 
-	#pragma omp parallel 
+	/*#pragma omp parallel 
 	{
 		#pragma omp for schedule(static)
 		for (int j = 0; j < this->vec_of_filepaths->size(); ++j) {
@@ -711,7 +696,16 @@ void math_core::calculate_tf_idf()
 			analyzer _analyzer(result_of_parse);
 			_analyzer.calculate_idf_tf_matrix(j);
 		}
-	}
+	}*/
+
+	auto first_it = this->vec_of_filepaths->begin();
+	for_each(execution::par_unseq, boost::counting_iterator<int>(0), boost::counting_iterator<int>(this->vec_of_filepaths->size()), [first_it](auto&& index) {
+		parser _parser(first_it[index]);	//tut peredaetsa kopiya
+		auto result_of_parse = _parser.parse();
+
+		analyzer _analyzer(result_of_parse);
+		_analyzer.calculate_idf_tf_matrix(index);
+	});
 
 	for (size_t i = 0; i < this->idf_matrix->size(); ++i)
 		(*this->idf_matrix)[i] = log2f(this->vec_of_filepaths->size() / ((*this->idf_matrix)[i] + 1));
@@ -725,6 +719,8 @@ void math_core::prepare_tf_matrix_for_SVD()
 		for (size_t i = 0; i < this->idf_matrix->size(); ++i)
 			(*this->tf_matrix)[i][j] *= (*this->idf_matrix)[i];
 
+	//вывести вот тут
+
 	this->idf_matrix->clear();
 	this->idf_matrix->shrink_to_fit();
 
@@ -733,7 +729,7 @@ void math_core::prepare_tf_matrix_for_SVD()
 
 	for (size_t j = 0; j < this->tf_matrix->size(); ++j)
 		for (size_t i = 0; i < this->tf_matrix->begin()->size(); ++i)
-			tf_like_row[j * this->tf_matrix->begin()->size() + i] = (*this->tf_matrix)[j][i];
+			tf_like_row[(size_t)(j * this->tf_matrix->begin()->size() + i)] = (*this->tf_matrix)[j][i];
 
 	for (auto& obj : *this->tf_matrix) {
 		vector<now_type> tmp;
@@ -827,4 +823,9 @@ shared_ptr<container_class_interface> math_core::get_mat_disperse() const
 int math_core::get_max_cont_size() const
 {
 	return this->max_cont_size;
+}
+
+shared_ptr<unordered_set<int>> math_core::get_set_for_unique_terms() const
+{
+	return this->set_for_unique_terms;
 }

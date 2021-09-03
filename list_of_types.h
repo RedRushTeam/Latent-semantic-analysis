@@ -54,6 +54,8 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/locale.hpp>
 #include <boost/unordered_map.hpp>
+#include <boost/iterator.hpp>
+#include <boost/iterator/counting_iterator.hpp>
 #include <boost/iostreams/code_converter.hpp>
 #include <boost/iostreams/device/mapped_file.hpp>
 #include <boost/numeric/ublas/vector_sparse.hpp>
@@ -79,24 +81,20 @@ using now_type = float;
 class global_var {
 public:
 	static inline int SIZE_OF_PIECE = 500000;
-	static inline int COLLOC_DIST = 4;
+	static inline int COLLOC_DIST = 3;
 	static inline int CUTOFF = 8;
 	static inline int CUTOFF_FR_IN_TEXTS = 8;
 	static inline int CUTOFF_FR_IN_FLUCT = 3;
 	static inline int CUTOFF_FR_COLLOC_IN_TEXTS = 1000;
+	static inline string LEMADR = "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db";
+	//static inline string TEXTS_PATH = "A:\\rasp_puhl1";
+	static inline string TEXTS_PATH = "A:\\rasp_puhl";
+	static inline int STOP_WORD = 0;
+	static inline now_type DELETE_THRESHOLD = 0.065f;
+	static inline now_type KOEF_FOR_COLLOC_COS_DELETE = 0.9f;
+	static inline int FLAGS = LEME_FASTEST;
+	static inline int SVD_PIECE = 20000;
 };
-constexpr auto STOP_WORD = 0;
-constexpr auto DELETE_THRESHOLD = 0.065;
-constexpr float KOEF_FOR_COLLOC_COS_DELETE = 0.9000000000000000000000000000000000000000000000000000f;
-constexpr int FLAGS = LEME_FASTEST;
-constexpr auto SVD_PIECE = 20000;
-
-
-constexpr auto LEMADR = "C:\\RGD\\RussianGrammaticalDictionary\\bin-windows64\\lemmatizer.db";
-//constexpr auto TEXTS_PATH = "A:\\rasp_puhl1";
-constexpr auto TEXTS_PATH = "A:\\rasp_puhl";
-//constexpr auto TEXTS_PATH = "C:\\txts";
-
 
 //my structs
 struct word_and_number_of_appearances_structure {

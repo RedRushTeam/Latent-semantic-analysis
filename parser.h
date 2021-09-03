@@ -4,7 +4,7 @@
 class parser
 {
 public:
-	parser() {}
+	//parser() {}
 	parser(fs::path filename) : _filename(filename) {}
 	static void prepair_stop_words();
 	shared_ptr<list<string>> parse();
@@ -15,7 +15,7 @@ public:
 	~parser() {}
 
 //private:
-	fs::path _filename;
+	/*std::reference_wrapper<*/fs::path/*>*/ _filename;
 	static inline unordered_set<string> stop_words/* = {
 "а-ля",
 "без",
