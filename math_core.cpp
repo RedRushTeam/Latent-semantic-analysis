@@ -173,6 +173,8 @@ void math_core::find_fluctuations()
 	auto mat_ozid_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
 	auto mat_disperse_like_piese = dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse);
 
+	this->set_of_fluct_cooloc = make_shared<tsl::robin_set<three_coordinate_structure>>();
+
 	#pragma omp parallel 
 	{
 		#pragma omp for schedule(static)
@@ -184,14 +186,14 @@ void math_core::find_fluctuations()
 					if (kond1 || kond2){
 						#pragma omp critical (set_of_fluct_cooloc)
 						{
-							this->set_of_fluct_cooloc.insert(three_coordinate_structure{ (int)(mat_ozid_like_piese->get_downloaded_range().first + i), (int)j, (short)k });
+							this->set_of_fluct_cooloc->insert(three_coordinate_structure{ (int)(mat_ozid_like_piese->get_downloaded_range().first + i), (int)j, (short)k });
 						}
 					}
 				}
 	}
 
 	std::cout.flush();
-	cout << endl << "„исло подозрительных коллокаций: " << set_of_fluct_cooloc.size();
+	cout << endl << "„исло подозрительных коллокаций: " << set_of_fluct_cooloc->size();
 
 	dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->clear_vec();
 }
@@ -200,15 +202,15 @@ void math_core::shrink_set_of_fluct_cooloc()
 {
 	tsl::robin_set<three_coordinate_structure> set_for_deleted_colloc;
 
-	for (auto obj : this->set_of_fluct_cooloc)
+	for (auto obj : *this->set_of_fluct_cooloc)
 		if (this->mat_ozidanie->get_count_of_concret_collocation(obj.first_coord, obj.second_coord, obj.k) * this->vec_of_filepaths->size() < global_var::CUTOFF_FR_COLLOC_IN_TEXTS)
 			set_for_deleted_colloc.insert(obj);
 
 	for (auto obj : set_for_deleted_colloc)
-		this->set_of_fluct_cooloc.erase(obj);
+		this->set_of_fluct_cooloc->erase(obj);
 
 	std::cout.flush();
-	cout << endl << "„исло подозрительных коллокаций, число встреч которых превышает " << global_var::CUTOFF_FR_COLLOC_IN_TEXTS << " равно: " << this->set_of_fluct_cooloc.size();
+	cout << endl << "„исло подозрительных коллокаций, число встреч которых превышает " << global_var::CUTOFF_FR_COLLOC_IN_TEXTS << " равно: " << this->set_of_fluct_cooloc->size();
 }
 
 void math_core::shrink_set_of_fluct_cooloc_by_rare()
@@ -217,25 +219,25 @@ void math_core::shrink_set_of_fluct_cooloc_by_rare()
 
 	unordered_set<pair<int, int>> set_for_colloc_without_dist;
 
-	for (auto obj : this->set_of_fluct_cooloc)
+	for (auto obj : *this->set_of_fluct_cooloc)
 		set_for_colloc_without_dist.insert(make_pair(obj.first_coord, obj.second_coord));
 
 	for (auto obj : set_for_colloc_without_dist) {
 		short colloc_dist_counter = 0;
 		for (int i = 0; i <= global_var::COLLOC_DIST; ++i)
-			if (this->set_of_fluct_cooloc.find(three_coordinate_structure{ obj.first, obj.second, (short)i }) != this->set_of_fluct_cooloc.end())
+			if (this->set_of_fluct_cooloc->find(three_coordinate_structure{ obj.first, obj.second, (short)i }) != this->set_of_fluct_cooloc->end())
 				++colloc_dist_counter;
 
 		if (colloc_dist_counter < global_var::CUTOFF_FR_IN_FLUCT)
 			for (int i = 0; i <= global_var::COLLOC_DIST; ++i)
-				if (this->set_of_fluct_cooloc.find(three_coordinate_structure{ obj.first, obj.second, (short)i }) != this->set_of_fluct_cooloc.end())
+				if (this->set_of_fluct_cooloc->find(three_coordinate_structure{ obj.first, obj.second, (short)i }) != this->set_of_fluct_cooloc->end())
 					set_for_deleted_colloc.insert(three_coordinate_structure{ obj.first, obj.second, (short)i });
 	}
 
 	for (auto obj : set_for_deleted_colloc)
-		this->set_of_fluct_cooloc.erase(obj);
+		this->set_of_fluct_cooloc->erase(obj);
 	std::cout.flush();
-	cout << endl << "„исло подозрительных коллокаций, встречающихс€ на рассто€ни€х, более " << global_var::CUTOFF_FR_IN_FLUCT << " равно: " << this->set_of_fluct_cooloc.size();
+	cout << endl << "„исло подозрительных коллокаций, встречающихс€ на рассто€ни€х, более " << global_var::CUTOFF_FR_IN_FLUCT << " равно: " << this->set_of_fluct_cooloc->size();
 }
 
 void math_core::shrink_mat_ozid()
@@ -246,7 +248,7 @@ void math_core::shrink_mat_ozid()
 
 	for (auto obj : *mat_ozid_like_piese->get_vector_ptr()) {
 		auto three = mat_ozid_like_piese->split_three_coordinates_from_one(obj.first);
-		if (this->set_of_fluct_cooloc.find(three) == this->set_of_fluct_cooloc.end())
+		if (this->set_of_fluct_cooloc->find(three) == this->set_of_fluct_cooloc->end())
 			set_for_delete.insert(three);
 	}
 
@@ -321,7 +323,7 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 
 	analyzer::set_helper_map_for_SVD_rows_colloc_numbers(this->helper_map_for_SVD_rows_colloc_numbers);
 
-	this->set_of_fluct_cooloc.clear();
+	this->set_of_fluct_cooloc->clear();
 }
 
 /*void math_core::find_SVD_colloc()
@@ -823,6 +825,11 @@ shared_ptr<container_class_interface> math_core::get_mat_disperse() const
 int math_core::get_max_cont_size() const
 {
 	return this->max_cont_size;
+}
+
+shared_ptr<tsl::robin_set<three_coordinate_structure>> math_core::get_set_of_fluct_cooloc() const
+{
+	return this->set_of_fluct_cooloc;
 }
 
 shared_ptr<unordered_set<int>> math_core::get_set_for_unique_terms() const

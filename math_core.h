@@ -48,6 +48,8 @@ public:
 	shared_ptr<container_class_interface> get_mat_ozidanie() const;
 	shared_ptr<container_class_interface> get_mat_disperse() const;
 	int get_max_cont_size() const;
+
+	shared_ptr<tsl::robin_set<three_coordinate_structure>> get_set_of_fluct_cooloc() const;
 	shared_ptr<unordered_set<int>> get_set_for_unique_terms() const;
 
 private:
@@ -63,7 +65,7 @@ private:
 	shared_ptr<vector<fs::path>> vec_of_filepaths;
 
 	//sets for flukt
-	tsl::robin_set<three_coordinate_structure> set_of_fluct_cooloc;
+	shared_ptr<tsl::robin_set<three_coordinate_structure>> set_of_fluct_cooloc;
 	shared_ptr<tsl::robin_map<size_t, three_coordinate_structure>> helper_map_for_SVD_rows_colloc_numbers;
 
 	//math cont

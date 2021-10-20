@@ -193,6 +193,34 @@
   </DEFECT>
   <DEFECT>
     <SFA>
+      <FILEPATH>C:\local\boost_1_75_0\boost\numeric\conversion\</FILEPATH>
+      <FILENAME>converter_policies.hpp</FILENAME>
+      <LINE>160</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "boost::numeric::range_check_result" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>boost::numeric::def_overflow_handler::()</FUNCTION>
+    <DECORATED>??Rdef_overflow_handler@numeric@boost@@QEAAXW4range_check_result@12@@Z</DECORATED>
+    <FUNCLINE>160</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\local\boost_1_75_0\boost\multiprecision\detail\</FILEPATH>
+      <FILENAME>number_base.hpp</FILENAME>
+      <LINE>154</LINE>
+      <COLUMN>51</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "boost::multiprecision::expression_template_option" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION></FUNCTION>
+    <DECORATED></DECORATED>
+    <FUNCLINE>0</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
       <FILEPATH>C:\re2\include\</FILEPATH>
       <FILENAME>re2.h</FILENAME>
       <LINE>286</LINE>
@@ -235,24 +263,7 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-      <FILENAME>container_class_interface.h</FILENAME>
-      <LINE>7</LINE>
-      <COLUMN>1</COLUMN>
-    </SFA>
-    <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "container_class_interface::count_of_collocations" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
-    <FUNCTION>container_class_interface::{ctor}</FUNCTION>
-    <DECORATED>??0container_class_interface@@QEAA@XZ</DECORATED>
-    <FUNCLINE>7</FUNCLINE>
-    <ADDITIONALINFO>
-      <targetSymbol>container_class_interface::count_of_collocations</targetSymbol>
-    </ADDITIONALINFO>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>container_class_interface.h</FILENAME>
       <LINE>7</LINE>
       <COLUMN>1</COLUMN>
@@ -269,7 +280,24 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>container_class_interface.h</FILENAME>
+      <LINE>7</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "container_class_interface::count_of_collocations" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>container_class_interface::{ctor}</FUNCTION>
+    <DECORATED>??0container_class_interface@@QEAA@XZ</DECORATED>
+    <FUNCLINE>7</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>container_class_interface::count_of_collocations</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.h</FILENAME>
       <LINE>14</LINE>
       <COLUMN>115</COLUMN>
@@ -283,7 +311,7 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.h</FILENAME>
       <LINE>16</LINE>
       <COLUMN>119</COLUMN>
@@ -297,7 +325,7 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.h</FILENAME>
       <LINE>24</LINE>
       <COLUMN>115</COLUMN>
@@ -311,7 +339,7 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.h</FILENAME>
       <LINE>26</LINE>
       <COLUMN>119</COLUMN>
@@ -325,9 +353,9 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>analyzer.cpp</FILENAME>
-      <LINE>5</LINE>
+      <LINE>7</LINE>
       <COLUMN>9</COLUMN>
     </SFA>
     <DEFECTCODE>6993</DEFECTCODE>
@@ -339,33 +367,16 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>list_of_types.h</FILENAME>
-      <LINE>101</LINE>
-      <COLUMN>0</COLUMN>
-    </SFA>
-    <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "word_and_number_of_appearances_structure::number_of_appearances_of_this_word" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
-    <FUNCTION>word_and_number_of_appearances_structure::{ctor}</FUNCTION>
-    <DECORATED>??0word_and_number_of_appearances_structure@@QEAA@XZ</DECORATED>
-    <FUNCLINE>101</FUNCLINE>
-    <ADDITIONALINFO>
-      <targetSymbol>word_and_number_of_appearances_structure::number_of_appearances_of_this_word</targetSymbol>
-    </ADDITIONALINFO>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-      <FILENAME>list_of_types.h</FILENAME>
-      <LINE>101</LINE>
+      <LINE>107</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
     <DESCRIPTION>Переменная "word_and_number_of_appearances_structure::number_of_texts_in_which_term_occurs" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
     <FUNCTION>word_and_number_of_appearances_structure::{ctor}</FUNCTION>
     <DECORATED>??0word_and_number_of_appearances_structure@@QEAA@XZ</DECORATED>
-    <FUNCLINE>101</FUNCLINE>
+    <FUNCLINE>107</FUNCLINE>
     <ADDITIONALINFO>
       <targetSymbol>word_and_number_of_appearances_structure::number_of_texts_in_which_term_occurs</targetSymbol>
     </ADDITIONALINFO>
@@ -373,30 +384,47 @@
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
+      <FILENAME>list_of_types.h</FILENAME>
+      <LINE>107</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "word_and_number_of_appearances_structure::number_of_appearances_of_this_word" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>word_and_number_of_appearances_structure::{ctor}</FUNCTION>
+    <DECORATED>??0word_and_number_of_appearances_structure@@QEAA@XZ</DECORATED>
+    <FUNCLINE>107</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>word_and_number_of_appearances_structure::number_of_appearances_of_this_word</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>analyzer.cpp</FILENAME>
-      <LINE>147</LINE>
+      <LINE>152</LINE>
       <COLUMN>65</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
     <FUNCTION>analyzer::get_counter_of_tokenizer_without_rare_words_SVD</FUNCTION>
     <DECORATED>?get_counter_of_tokenizer_without_rare_words_SVD@analyzer@@SAHXZ</DECORATED>
-    <FUNCLINE>132</FUNCLINE>
+    <FUNCLINE>137</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>analyzer.cpp</FILENAME>
-      <LINE>147</LINE>
+      <LINE>152</LINE>
       <COLUMN>94</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
     <FUNCTION>analyzer::get_counter_of_tokenizer_without_rare_words_SVD</FUNCTION>
     <DECORATED>?get_counter_of_tokenizer_without_rare_words_SVD@analyzer@@SAHXZ</DECORATED>
-    <FUNCLINE>132</FUNCLINE>
+    <FUNCLINE>137</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
   <DEFECT>
@@ -410,20 +438,6 @@
     <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
     <FUNCTION>tsl::detail_robin_hash::robin_hash&lt;std::pair&lt;three_coordinate_structure,int&gt;,tsl::robin_map&lt;three_coordinate_structure,int,std::hash&lt;three_coordinate_structure&gt;,std::equal_to&lt;three_coordinate_structure&gt;,std::allocator&lt;std::pair&lt;three_coordinate_structure,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::KeySelect,tsl::robin_map&lt;three_coordinate_structure,int,std::hash&lt;three_coordinate_structure&gt;,std::equal_to&lt;three_coordinate_structure&gt;,std::allocator&lt;std::pair&lt;three_coordinate_structure,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::ValueSelect,std::hash&lt;three_coordinate_structure&gt;,std::equal_to&lt;three_coordinate_structure&gt;,std::allocator&lt;std::pair&lt;three_coordinate_structure,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::max_load_factor</FUNCTION>
     <DECORATED>?max_load_factor@?$robin_hash@U?$pair@Uthree_coordinate_structure@@H@std@@VKeySelect@?$robin_map@Uthree_coordinate_structure@@HU?$hash@Uthree_coordinate_structure@@@std@@U?$equal_to@Uthree_coordinate_structure@@@3@V?$allocator@U?$pair@Uthree_coordinate_structure@@H@std@@@3@$0A@V?$power_of_two_growth_policy@$01@rh@tsl@@@tsl@@VValueSelect@45@U?$hash@Uthree_coordinate_structure@@@2@U?$equal_to@Uthree_coordinate_structure@@@2@V?$allocator@U?$pair@Uthree_coordinate_structure@@H@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@5@@detail_robin_hash@tsl@@QEAAXM@Z</DECORATED>
-    <FUNCLINE>1072</FUNCLINE>
-    <PATH></PATH>
-  </DEFECT>
-  <DEFECT>
-    <SFA>
-      <FILEPATH>C:\tsl\include\</FILEPATH>
-      <FILENAME>robin_hash.h</FILENAME>
-      <LINE>1075</LINE>
-      <COLUMN>55</COLUMN>
-    </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
-    <FUNCTION>tsl::detail_robin_hash::robin_hash&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt;,tsl::robin_map&lt;word_and_number_of_appearances_structure,int,std::hash&lt;word_and_number_of_appearances_structure&gt;,std::equal_to&lt;word_and_number_of_appearances_structure&gt;,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::KeySelect,tsl::robin_map&lt;word_and_number_of_appearances_structure,int,std::hash&lt;word_and_number_of_appearances_structure&gt;,std::equal_to&lt;word_and_number_of_appearances_structure&gt;,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::ValueSelect,std::hash&lt;word_and_number_of_appearances_structure&gt;,std::equal_to&lt;word_and_number_of_appearances_structure&gt;,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::max_load_factor</FUNCTION>
-    <DECORATED>?max_load_factor@?$robin_hash@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@VKeySelect@?$robin_map@Uword_and_number_of_appearances_structure@@HU?$hash@Uword_and_number_of_appearances_structure@@@std@@U?$equal_to@Uword_and_number_of_appearances_structure@@@3@V?$allocator@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@@3@$0A@V?$power_of_two_growth_policy@$01@rh@tsl@@@tsl@@VValueSelect@45@U?$hash@Uword_and_number_of_appearances_structure@@@2@U?$equal_to@Uword_and_number_of_appearances_structure@@@2@V?$allocator@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@5@@detail_robin_hash@tsl@@QEAAXM@Z</DECORATED>
     <FUNCLINE>1072</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
@@ -450,8 +464,8 @@
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
-    <FUNCTION>tsl::detail_robin_hash::robin_hash&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt;,tsl::robin_map&lt;word_and_number_of_appearances_structure,int,hash_word_and_number_of_appearances_structure,equal_word_and_number_of_appearances_structure,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,1,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::KeySelect,tsl::robin_map&lt;word_and_number_of_appearances_structure,int,hash_word_and_number_of_appearances_structure,equal_word_and_number_of_appearances_structure,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,1,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::ValueSelect,hash_word_and_number_of_appearances_structure,equal_word_and_number_of_appearances_structure,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,1,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::max_load_factor</FUNCTION>
-    <DECORATED>?max_load_factor@?$robin_hash@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@VKeySelect@?$robin_map@Uword_and_number_of_appearances_structure@@HUhash_word_and_number_of_appearances_structure@@Uequal_word_and_number_of_appearances_structure@@V?$allocator@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@@std@@$00V?$power_of_two_growth_policy@$01@rh@tsl@@@tsl@@VValueSelect@45@Uhash_word_and_number_of_appearances_structure@@Uequal_word_and_number_of_appearances_structure@@V?$allocator@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@@2@$00V?$power_of_two_growth_policy@$01@rh@5@@detail_robin_hash@tsl@@QEAAXM@Z</DECORATED>
+    <FUNCTION>tsl::detail_robin_hash::robin_hash&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt;,tsl::robin_map&lt;word_and_number_of_appearances_structure,int,std::hash&lt;word_and_number_of_appearances_structure&gt;,std::equal_to&lt;word_and_number_of_appearances_structure&gt;,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::KeySelect,tsl::robin_map&lt;word_and_number_of_appearances_structure,int,std::hash&lt;word_and_number_of_appearances_structure&gt;,std::equal_to&lt;word_and_number_of_appearances_structure&gt;,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::ValueSelect,std::hash&lt;word_and_number_of_appearances_structure&gt;,std::equal_to&lt;word_and_number_of_appearances_structure&gt;,std::allocator&lt;std::pair&lt;word_and_number_of_appearances_structure,int&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::max_load_factor</FUNCTION>
+    <DECORATED>?max_load_factor@?$robin_hash@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@VKeySelect@?$robin_map@Uword_and_number_of_appearances_structure@@HU?$hash@Uword_and_number_of_appearances_structure@@@std@@U?$equal_to@Uword_and_number_of_appearances_structure@@@3@V?$allocator@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@@3@$0A@V?$power_of_two_growth_policy@$01@rh@tsl@@@tsl@@VValueSelect@45@U?$hash@Uword_and_number_of_appearances_structure@@@2@U?$equal_to@Uword_and_number_of_appearances_structure@@@2@V?$allocator@U?$pair@Uword_and_number_of_appearances_structure@@H@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@5@@detail_robin_hash@tsl@@QEAAXM@Z</DECORATED>
     <FUNCLINE>1072</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
@@ -591,8 +605,8 @@
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
-    <FUNCTION>tsl::detail_robin_hash::robin_hash&lt;std::pair&lt;int,float&gt;,tsl::robin_map&lt;int,float,std::hash&lt;int&gt;,std::equal_to&lt;int&gt;,std::allocator&lt;std::pair&lt;int,float&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::KeySelect,tsl::robin_map&lt;int,float,std::hash&lt;int&gt;,std::equal_to&lt;int&gt;,std::allocator&lt;std::pair&lt;int,float&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::ValueSelect,std::hash&lt;int&gt;,std::equal_to&lt;int&gt;,std::allocator&lt;std::pair&lt;int,float&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::max_load_factor</FUNCTION>
-    <DECORATED>?max_load_factor@?$robin_hash@U?$pair@HM@std@@VKeySelect@?$robin_map@HMU?$hash@H@std@@U?$equal_to@H@2@V?$allocator@U?$pair@HM@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@tsl@@@tsl@@VValueSelect@45@U?$hash@H@2@U?$equal_to@H@2@V?$allocator@U?$pair@HM@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@5@@detail_robin_hash@tsl@@QEAAXM@Z</DECORATED>
+    <FUNCTION>tsl::detail_robin_hash::robin_hash&lt;std::pair&lt;three_coordinate_structure,unsigned __int64&gt;,tsl::robin_map&lt;three_coordinate_structure,unsigned __int64,std::hash&lt;three_coordinate_structure&gt;,std::equal_to&lt;three_coordinate_structure&gt;,std::allocator&lt;std::pair&lt;three_coordinate_structure,unsigned __int64&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::KeySelect,tsl::robin_map&lt;three_coordinate_structure,unsigned __int64,std::hash&lt;three_coordinate_structure&gt;,std::equal_to&lt;three_coordinate_structure&gt;,std::allocator&lt;std::pair&lt;three_coordinate_structure,unsigned __int64&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::ValueSelect,std::hash&lt;three_coordinate_structure&gt;,std::equal_to&lt;three_coordinate_structure&gt;,std::allocator&lt;std::pair&lt;three_coordinate_structure,unsigned __int64&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::max_load_factor</FUNCTION>
+    <DECORATED>?max_load_factor@?$robin_hash@U?$pair@Uthree_coordinate_structure@@_K@std@@VKeySelect@?$robin_map@Uthree_coordinate_structure@@_KU?$hash@Uthree_coordinate_structure@@@std@@U?$equal_to@Uthree_coordinate_structure@@@3@V?$allocator@U?$pair@Uthree_coordinate_structure@@_K@std@@@3@$0A@V?$power_of_two_growth_policy@$01@rh@tsl@@@tsl@@VValueSelect@45@U?$hash@Uthree_coordinate_structure@@@2@U?$equal_to@Uthree_coordinate_structure@@@2@V?$allocator@U?$pair@Uthree_coordinate_structure@@_K@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@5@@detail_robin_hash@tsl@@QEAAXM@Z</DECORATED>
     <FUNCLINE>1072</FUNCLINE>
     <PATH></PATH>
   </DEFECT>
@@ -604,12 +618,43 @@
       <COLUMN>2</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,float&gt;,0&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
-    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,float&gt;,0&gt;::{ctor}</FUNCTION>
-    <DECORATED>??0?$bucket_entry@U?$pair@HM@std@@$0A@@detail_robin_hash@tsl@@QEAA@_N@Z</DECORATED>
+    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;three_coordinate_structure,unsigned __int64&gt;,1&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;three_coordinate_structure,unsigned __int64&gt;,1&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$bucket_entry@U?$pair@Uthree_coordinate_structure@@_K@std@@$00@detail_robin_hash@tsl@@QEAA@_N@Z</DECORATED>
     <FUNCLINE>181</FUNCLINE>
     <ADDITIONALINFO>
-      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,float&gt;,0&gt;::m_value</targetSymbol>
+      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;three_coordinate_structure,unsigned __int64&gt;,1&gt;::m_value</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>1075</LINE>
+      <COLUMN>55</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "*" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "*", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::robin_hash&lt;std::pair&lt;unsigned __int64,float&gt;,tsl::robin_map&lt;unsigned __int64,float,std::hash&lt;unsigned __int64&gt;,std::equal_to&lt;unsigned __int64&gt;,std::allocator&lt;std::pair&lt;unsigned __int64,float&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::KeySelect,tsl::robin_map&lt;unsigned __int64,float,std::hash&lt;unsigned __int64&gt;,std::equal_to&lt;unsigned __int64&gt;,std::allocator&lt;std::pair&lt;unsigned __int64,float&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::ValueSelect,std::hash&lt;unsigned __int64&gt;,std::equal_to&lt;unsigned __int64&gt;,std::allocator&lt;std::pair&lt;unsigned __int64,float&gt; &gt;,0,tsl::rh::power_of_two_growth_policy&lt;2&gt; &gt;::max_load_factor</FUNCTION>
+    <DECORATED>?max_load_factor@?$robin_hash@U?$pair@_KM@std@@VKeySelect@?$robin_map@_KMU?$hash@_K@std@@U?$equal_to@_K@2@V?$allocator@U?$pair@_KM@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@tsl@@@tsl@@VValueSelect@45@U?$hash@_K@2@U?$equal_to@_K@2@V?$allocator@U?$pair@_KM@std@@@2@$0A@V?$power_of_two_growth_policy@$01@rh@5@@detail_robin_hash@tsl@@QEAAXM@Z</DECORATED>
+    <FUNCLINE>1072</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>181</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;unsigned __int64,float&gt;,0&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;unsigned __int64,float&gt;,0&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$bucket_entry@U?$pair@_KM@std@@$0A@@detail_robin_hash@tsl@@QEAA@_N@Z</DECORATED>
+    <FUNCLINE>181</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;unsigned __int64,float&gt;,0&gt;::m_value</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT>
@@ -816,6 +861,23 @@
   </DEFECT>
   <DEFECT>
     <SFA>
+      <FILEPATH>C:\tsl\include\</FILEPATH>
+      <FILENAME>robin_hash.h</FILENAME>
+      <LINE>174</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;three_coordinate_structure,unsigned __int64&gt;,1&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;three_coordinate_structure,unsigned __int64&gt;,1&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$bucket_entry@U?$pair@Uthree_coordinate_structure@@_K@std@@$00@detail_robin_hash@tsl@@QEAA@XZ</DECORATED>
+    <FUNCLINE>174</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;three_coordinate_structure,unsigned __int64&gt;,1&gt;::m_value</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
       <FILEPATH>C:\RGD\SVD MATH\eigen-3.3.8\Eigen\src\QR\</FILEPATH>
       <FILENAME>ColPivHouseholderQR.h</FILENAME>
       <LINE>100</LINE>
@@ -907,12 +969,12 @@
       <COLUMN>2</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,float&gt;,0&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
-    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,float&gt;,0&gt;::{ctor}</FUNCTION>
-    <DECORATED>??0?$bucket_entry@U?$pair@HM@std@@$0A@@detail_robin_hash@tsl@@QEAA@XZ</DECORATED>
+    <DESCRIPTION>Переменная "tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;unsigned __int64,float&gt;,0&gt;::m_value" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;unsigned __int64,float&gt;,0&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$bucket_entry@U?$pair@_KM@std@@$0A@@detail_robin_hash@tsl@@QEAA@XZ</DECORATED>
     <FUNCLINE>174</FUNCLINE>
     <ADDITIONALINFO>
-      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;int,float&gt;,0&gt;::m_value</targetSymbol>
+      <targetSymbol>tsl::detail_robin_hash::bucket_entry&lt;std::pair&lt;unsigned __int64,float&gt;,0&gt;::m_value</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT>

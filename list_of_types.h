@@ -46,6 +46,9 @@
 //LAPACKE for SVD
 #include "mkl_lapacke.h"
 
+//Clustering include
+#include "dataanalysis.h"
+
 //Eigen lib include
 #include <Eigen>
 

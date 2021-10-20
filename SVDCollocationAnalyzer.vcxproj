@@ -282,7 +282,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\tsl\include;C:\re2\include;C:\local\boost_1_75_0\boost;C:\RGD\SVD MATH\eigen-3.3.8\Eigen;C:\RGD\RussianGrammaticalDictionary\include\lem\solarix;C:\RGD\RussianGrammaticalDictionary\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\alglib-3.17.0.cpp.gpl\cpp\src\include;C:\tsl\include;C:\re2\include;C:\local\boost_1_75_0\boost;C:\RGD\SVD MATH\eigen-3.3.8\Eigen;C:\RGD\RussianGrammaticalDictionary\include\lem\solarix;C:\RGD\RussianGrammaticalDictionary\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <OpenMPSupport>true</OpenMPSupport>
       <Optimization>Disabled</Optimization>
@@ -297,8 +297,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\re2\lib;C:\local\boost_1_75_0\lib64-msvc-14.2;C:\RGD\RussianGrammaticalDictionary\lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>re2.lib;boost_iostreams-vc142-mt-gd-x64-1_75.lib;lemmatizator.lib;Solarix_Grammar_Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\alglib-3.17.0.cpp.gpl\cpp\lib\debug;C:\re2\lib;C:\local\boost_1_75_0\lib64-msvc-14.2;C:\RGD\RussianGrammaticalDictionary\lib64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>AlgLibCompile.lib;re2.lib;boost_iostreams-vc142-mt-gd-x64-1_75.lib;lemmatizator.lib;Solarix_Grammar_Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebLib|x64'">
@@ -335,7 +335,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\tsl\include;C:\re2\include;C:\RGD\RussianGrammaticalDictionary\include\lem\solarix;C:\RGD\RussianGrammaticalDictionary\include;C:\local\boost_1_75_0;C:\RGD\SVD MATH\eigen-3.3.8\Eigen;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\alglib-3.17.0.cpp.gpl\cpp\src\include;C:\tsl\include;C:\re2\include;C:\RGD\RussianGrammaticalDictionary\include\lem\solarix;C:\RGD\RussianGrammaticalDictionary\include;C:\local\boost_1_75_0;C:\RGD\SVD MATH\eigen-3.3.8\Eigen;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <OpenMPSupport>true</OpenMPSupport>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -351,8 +351,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\re2\Rlib;C:\RGD\RussianGrammaticalDictionary\lib64;C:\local\boost_1_75_0\lib64-msvc-14.2;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>re2.lib;boost_iostreams-vc142-mt-gd-x64-1_75.lib;lemmatizator.lib;Solarix_Grammar_Engine.lib;ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\alglib-3.17.0.cpp.gpl\cpp\lib\release;C:\re2\Rlib;C:\RGD\RussianGrammaticalDictionary\lib64;C:\local\boost_1_75_0\lib64-msvc-14.2;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>AlgLibCompile.lib;re2.lib;boost_iostreams-vc142-mt-gd-x64-1_75.lib;lemmatizator.lib;Solarix_Grammar_Engine.lib;ntdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRelLib|x64'">

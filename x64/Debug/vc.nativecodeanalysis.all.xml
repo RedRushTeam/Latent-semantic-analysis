@@ -178,6 +178,32 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
+      <FILEPATH>C:\local\boost_1_75_0\boost\numeric\conversion\</FILEPATH>
+      <FILENAME>converter_policies.hpp</FILENAME>
+      <LINE>160</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "boost::numeric::range_check_result" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION>boost::numeric::def_overflow_handler::()</FUNCTION>
+    <DECORATED>??Rdef_overflow_handler@numeric@boost@@QEAAXW4range_check_result@12@@Z</DECORATED>
+    <FUNCLINE>160</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\local\boost_1_75_0\boost\multiprecision\detail\</FILEPATH>
+      <FILENAME>number_base.hpp</FILENAME>
+      <LINE>154</LINE>
+      <COLUMN>51</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Тип перечисления "boost::multiprecision::expression_template_option" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
+    <FUNCTION></FUNCTION>
+    <DECORATED></DECORATED>
+    <FUNCLINE>0</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
       <FILEPATH>C:\re2\include\</FILEPATH>
       <FILENAME>re2.h</FILENAME>
       <LINE>286</LINE>
@@ -217,23 +243,23 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>container_class_interface.h</FILENAME>
       <LINE>7</LINE>
       <COLUMN>1</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "container_class_interface::count_of_collocations" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <DESCRIPTION>Переменная "container_class_interface::k" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
     <FUNCTION>container_class_interface::{ctor}</FUNCTION>
     <DECORATED>??0container_class_interface@@QEAA@XZ</DECORATED>
     <FUNCLINE>7</FUNCLINE>
     <ADDITIONALINFO>
-      <targetSymbol>container_class_interface::count_of_collocations</targetSymbol>
+      <targetSymbol>container_class_interface::k</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.h</FILENAME>
       <LINE>14</LINE>
       <COLUMN>115</COLUMN>
@@ -246,7 +272,7 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.h</FILENAME>
       <LINE>16</LINE>
       <COLUMN>119</COLUMN>
@@ -259,7 +285,7 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.h</FILENAME>
       <LINE>24</LINE>
       <COLUMN>115</COLUMN>
@@ -272,7 +298,7 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.h</FILENAME>
       <LINE>26</LINE>
       <COLUMN>119</COLUMN>
@@ -285,9 +311,9 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>analyzer.cpp</FILENAME>
-      <LINE>5</LINE>
+      <LINE>7</LINE>
       <COLUMN>9</COLUMN>
     </SFA>
     <DEFECTCODE>6993</DEFECTCODE>
@@ -298,45 +324,45 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>list_of_types.h</FILENAME>
-      <LINE>101</LINE>
+      <LINE>107</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
-    <DESCRIPTION>Переменная "word_and_number_of_appearances_structure::number_of_appearances_of_this_word" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <DESCRIPTION>Переменная "word_and_number_of_appearances_structure::number_of_texts_in_which_term_occurs" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
     <FUNCTION>word_and_number_of_appearances_structure::{ctor}</FUNCTION>
     <DECORATED>??0word_and_number_of_appearances_structure@@QEAA@XZ</DECORATED>
-    <FUNCLINE>101</FUNCLINE>
+    <FUNCLINE>107</FUNCLINE>
     <ADDITIONALINFO>
-      <targetSymbol>word_and_number_of_appearances_structure::number_of_appearances_of_this_word</targetSymbol>
+      <targetSymbol>word_and_number_of_appearances_structure::number_of_texts_in_which_term_occurs</targetSymbol>
     </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>analyzer.cpp</FILENAME>
-      <LINE>147</LINE>
+      <LINE>152</LINE>
       <COLUMN>65</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
     <FUNCTION>analyzer::get_counter_of_tokenizer_without_rare_words_SVD</FUNCTION>
     <DECORATED>?get_counter_of_tokenizer_without_rare_words_SVD@analyzer@@SAHXZ</DECORATED>
-    <FUNCLINE>132</FUNCLINE>
+    <FUNCLINE>137</FUNCLINE>
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>analyzer.cpp</FILENAME>
-      <LINE>147</LINE>
+      <LINE>152</LINE>
       <COLUMN>94</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
     <FUNCTION>analyzer::get_counter_of_tokenizer_without_rare_words_SVD</FUNCTION>
     <DECORATED>?get_counter_of_tokenizer_without_rare_words_SVD@analyzer@@SAHXZ</DECORATED>
-    <FUNCLINE>132</FUNCLINE>
+    <FUNCLINE>137</FUNCLINE>
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
@@ -686,7 +712,7 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>math_core.h</FILENAME>
       <LINE>8</LINE>
       <COLUMN>1</COLUMN>
@@ -702,7 +728,7 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>math_core.h</FILENAME>
       <LINE>17</LINE>
       <COLUMN>1</COLUMN>
@@ -718,7 +744,7 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>math_core.cpp</FILENAME>
       <LINE>33</LINE>
       <COLUMN>9</COLUMN>
@@ -731,55 +757,71 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>math_core.cpp</FILENAME>
-      <LINE>305</LINE>
-      <COLUMN>65</COLUMN>
+      <LINE>249</LINE>
+      <COLUMN>17</COLUMN>
     </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
-    <FUNCTION>math_core::SVD_colloc_algorithm</FUNCTION>
-    <DECORATED>?SVD_colloc_algorithm@math_core@@QEAAXPEAM_K@Z</DECORATED>
-    <FUNCLINE>241</FUNCLINE>
+    <DEFECTCODE>26815</DEFECTCODE>
+    <DESCRIPTION>Это висячий указатель, так как он указывает на временный экземпляр, который был уничтожен.</DESCRIPTION>
+    <FUNCTION>math_core::shrink_mat_ozid</FUNCTION>
+    <DECORATED>?shrink_mat_ozid@math_core@@QEAAXXZ</DECORATED>
+    <FUNCLINE>243</FUNCLINE>
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>math_core.cpp</FILENAME>
-      <LINE>305</LINE>
-      <COLUMN>94</COLUMN>
+      <LINE>316</LINE>
+      <COLUMN>17</COLUMN>
     </SFA>
-    <DEFECTCODE>26451</DEFECTCODE>
-    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
-    <FUNCTION>math_core::SVD_colloc_algorithm</FUNCTION>
-    <DECORATED>?SVD_colloc_algorithm@math_core@@QEAAXPEAM_K@Z</DECORATED>
-    <FUNCLINE>241</FUNCLINE>
+    <DEFECTCODE>26815</DEFECTCODE>
+    <DESCRIPTION>Это висячий указатель, так как он указывает на временный экземпляр, который был уничтожен.</DESCRIPTION>
+    <FUNCTION>math_core::calculate_map_of_flukt_cooloc_fuzzy</FUNCTION>
+    <DECORATED>?calculate_map_of_flukt_cooloc_fuzzy@math_core@@QEAAXXZ</DECORATED>
+    <FUNCLINE>302</FUNCLINE>
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>math_core.cpp</FILENAME>
-      <LINE>308</LINE>
+      <LINE>489</LINE>
       <COLUMN>57</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
     <FUNCTION>math_core::SVD_colloc_algorithm</FUNCTION>
-    <DECORATED>?SVD_colloc_algorithm@math_core@@QEAAXPEAM_K@Z</DECORATED>
-    <FUNCLINE>241</FUNCLINE>
+    <DECORATED>?SVD_colloc_algorithm@math_core@@AEAAXPEAM_K_N@Z</DECORATED>
+    <FUNCLINE>458</FUNCLINE>
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>math_core.cpp</FILENAME>
-      <LINE>311</LINE>
-      <COLUMN>81</COLUMN>
+      <LINE>498</LINE>
+      <COLUMN>60</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
     <FUNCTION>math_core::SVD_colloc_algorithm</FUNCTION>
-    <DECORATED>?SVD_colloc_algorithm@math_core@@QEAAXPEAM_K@Z</DECORATED>
-    <FUNCLINE>241</FUNCLINE>
+    <DECORATED>?SVD_colloc_algorithm@math_core@@AEAAXPEAM_K_N@Z</DECORATED>
+    <FUNCLINE>458</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\local\boost_1_75_0\boost\iterator\</FILEPATH>
+      <FILENAME>iterator_adaptor.hpp</FILENAME>
+      <LINE>261</LINE>
+      <COLUMN>6</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Переменная "boost::iterators::iterator_adaptor&lt;boost::iterators::counting_iterator&lt;int,boost::use_default,boost::use_default&gt;,int,int,boost::iterators::random_access_traversal_tag,int const &amp;,__int64&gt;::m_iterator" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
+    <FUNCTION>boost::iterators::iterator_adaptor&lt;boost::iterators::counting_iterator&lt;int,boost::use_default,boost::use_default&gt;,int,int,boost::iterators::random_access_traversal_tag,int const &amp;,__int64&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$iterator_adaptor@V?$counting_iterator@HUuse_default@boost@@U12@@iterators@boost@@HHUrandom_access_traversal_tag@23@AEBH_J@iterators@boost@@QEAA@XZ</DECORATED>
+    <FUNCLINE>261</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>boost::iterators::iterator_adaptor&lt;boost::iterators::counting_iterator&lt;int,boost::use_default,boost::use_default&gt;,int,int,boost::iterators::random_access_traversal_tag,int const &amp;,__int64&gt;::m_iterator</targetSymbol>
+    </ADDITIONALINFO>
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
@@ -791,12 +833,12 @@
     <DEFECTCODE>26812</DEFECTCODE>
     <DESCRIPTION>Тип перечисления "boost::algorithm::token_compress_mode_type" не входит в область. Старайтесь использовать "enum class" вместо "enum" (Enum.3).</DESCRIPTION>
     <FUNCTION>boost::algorithm::split</FUNCTION>
-    <DECORATED>??$split@V?$list@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@AEAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$is_any_ofF@D@detail@algorithm@boost@@@algorithm@boost@@YAAEAV?$list@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@AEAV23@AEAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@U?$is_any_ofF@D@detail@01@W4token_compress_mode_type@01@@Z</DECORATED>
+    <DECORATED>??$split@V?$unordered_set@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@AEAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$is_any_ofF@D@detail@algorithm@boost@@@algorithm@boost@@YAAEAV?$unordered_set@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@AEAV23@AEAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@3@U?$is_any_ofF@D@detail@01@W4token_compress_mode_type@01@@Z</DECORATED>
     <FUNCLINE>148</FUNCLINE>
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.cpp</FILENAME>
       <LINE>67</LINE>
       <COLUMN>18</COLUMN>
@@ -809,7 +851,7 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.cpp</FILENAME>
       <LINE>95</LINE>
       <COLUMN>18</COLUMN>
@@ -822,42 +864,42 @@
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.cpp</FILENAME>
-      <LINE>123</LINE>
+      <LINE>131</LINE>
       <COLUMN>112</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
     <FUNCTION>piecewise_container_class::collect_one_coordinate_from_three</FUNCTION>
     <DECORATED>?collect_one_coordinate_from_three@piecewise_container_class@@QEBA_KHHH@Z</DECORATED>
-    <FUNCLINE>121</FUNCLINE>
+    <FUNCLINE>129</FUNCLINE>
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.cpp</FILENAME>
-      <LINE>123</LINE>
+      <LINE>131</LINE>
       <COLUMN>171</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
     <FUNCTION>piecewise_container_class::collect_one_coordinate_from_three</FUNCTION>
     <DECORATED>?collect_one_coordinate_from_three@piecewise_container_class@@QEBA_KHHH@Z</DECORATED>
-    <FUNCLINE>121</FUNCLINE>
+    <FUNCLINE>129</FUNCLINE>
     <PATH></PATH>
   </DEFECT><DEFECT>
     <SFA>
-      <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+      <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>piecewise_container_class.cpp</FILENAME>
-      <LINE>152</LINE>
+      <LINE>169</LINE>
       <COLUMN>8</COLUMN>
     </SFA>
     <DEFECTCODE>6001</DEFECTCODE>
     <DESCRIPTION>Использование неинициализированной памяти "ret".</DESCRIPTION>
     <FUNCTION>piecewise_container_class::split_three_coordinates_from_one</FUNCTION>
     <DECORATED>?split_three_coordinates_from_one@piecewise_container_class@@QEBA?AUthree_coordinate_structure@@_K@Z</DECORATED>
-    <FUNCLINE>126</FUNCLINE>
+    <FUNCLINE>134</FUNCLINE>
     <PROBABILITY>1</PROBABILITY>
     <RANK>3</RANK>
     <CATEGORY>
@@ -865,136 +907,114 @@
     </CATEGORY>
     <PATH>
       <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
         <FILENAME>piecewise_container_class.cpp</FILENAME>
-        <LINE>128</LINE>
+        <LINE>136</LINE>
         <COLUMN>28</COLUMN>
         <KEYEVENT>
           <ID>1</ID>
-          <KIND>объявление</KIND>
+          <KIND>declaration</KIND>
           <IMPORTANCE>Essential</IMPORTANCE>
           <MESSAGE>Инициализация "ret" не выполнена</MESSAGE>
         </KEYEVENT>
       </SFA>
       <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.cpp</FILENAME>
-        <LINE>129</LINE>
-        <COLUMN>10</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.cpp</FILENAME>
-        <LINE>129</LINE>
-        <COLUMN>19</COLUMN>
-        <KEYEVENT>
-          <ID>2</ID>
-          <KIND>ветвь</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>Войти в этот цикл (предполагается "i&lt;=3")</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.cpp</FILENAME>
-        <LINE>130</LINE>
-        <COLUMN>6</COLUMN>
-        <KEYEVENT>
-          <ID>3</ID>
-          <KIND>ветвь</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>Пропустить эту ветвь (предполагается, что "!((((index-i))%4))" равно false)</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.cpp</FILENAME>
-        <LINE>129</LINE>
-        <COLUMN>25</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.cpp</FILENAME>
-        <LINE>129</LINE>
-        <COLUMN>19</COLUMN>
-        <KEYEVENT>
-          <ID>4</ID>
-          <KIND>ветвь</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>Войти в этот цикл (предполагается "i&lt;=3")</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.cpp</FILENAME>
-        <LINE>130</LINE>
-        <COLUMN>6</COLUMN>
-        <KEYEVENT>
-          <ID>5</ID>
-          <KIND>ветвь</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>Пропустить эту ветвь (предполагается, что "!((((index-i))%4))" равно false)</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.cpp</FILENAME>
-        <LINE>129</LINE>
-        <COLUMN>25</COLUMN>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
-        <FILENAME>piecewise_container_class.cpp</FILENAME>
-        <LINE>129</LINE>
-        <COLUMN>19</COLUMN>
-        <KEYEVENT>
-          <ID>6</ID>
-          <KIND>ветвь</KIND>
-          <IMPORTANCE>Full</IMPORTANCE>
-          <MESSAGE>Продолжить этот цикл (предполагается "i&lt;=3")</MESSAGE>
-        </KEYEVENT>
-      </SFA>
-      <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
         <FILENAME>piecewise_container_class.cpp</FILENAME>
         <LINE>137</LINE>
+        <COLUMN>16</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>137</LINE>
+        <COLUMN>25</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>Пропустить этот цикл (предполагается, что "i&lt;=COLLOC_DIST" равно false)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>152</LINE>
         <COLUMN>8</COLUMN>
       </SFA>
       <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
         <FILENAME>piecewise_container_class.cpp</FILENAME>
-        <LINE>139</LINE>
+        <LINE>154</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>155</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
+        <FILENAME>piecewise_container_class.cpp</FILENAME>
+        <LINE>157</LINE>
         <COLUMN>13</COLUMN>
       </SFA>
       <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
         <FILENAME>piecewise_container_class.cpp</FILENAME>
-        <LINE>139</LINE>
+        <LINE>157</LINE>
         <COLUMN>24</COLUMN>
         <KEYEVENT>
-          <ID>7</ID>
-          <KIND>ветвь</KIND>
+          <ID>3</ID>
+          <KIND>branch</KIND>
           <IMPORTANCE>Full</IMPORTANCE>
           <MESSAGE>Пропустить этот цикл (предполагается, что "&lt;условие ветви&gt;" равно false)</MESSAGE>
         </KEYEVENT>
       </SFA>
       <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
         <FILENAME>piecewise_container_class.cpp</FILENAME>
-        <LINE>152</LINE>
+        <LINE>169</LINE>
         <COLUMN>1</COLUMN>
       </SFA>
       <SFA>
-        <FILEPATH>C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\</FILEPATH>
+        <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
         <FILENAME>piecewise_container_class.cpp</FILENAME>
-        <LINE>152</LINE>
+        <LINE>169</LINE>
         <COLUMN>8</COLUMN>
         <KEYEVENT>
-          <ID>8</ID>
-          <KIND>использование</KIND>
+          <ID>4</ID>
+          <KIND>usage</KIND>
           <IMPORTANCE>Essential</IMPORTANCE>
           <MESSAGE>"ret" используется, но, возможно, не инициализировано</MESSAGE>
         </KEYEVENT>
       </SFA>
     </PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\local\boost_1_75_0\boost\multiprecision\cpp_int\</FILEPATH>
+      <FILENAME>multiply.hpp</FILENAME>
+      <LINE>471</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26450</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: операция "*" переполнение во время компиляции. Используйте более широкий тип для хранения операндов (io.1).</DESCRIPTION>
+    <FUNCTION>boost::multiprecision::backends::eval_multiply</FUNCTION>
+    <DECORATED>??$eval_multiply@$0A@$0A@$00$0A@V?$allocator@K@std@@$0A@$0A@$00$0A@V12@$0A@$0A@$00$0A@V12@@backends@multiprecision@boost@@YAXAEAU?$cpp_int_backend@$0A@$0A@$00$0A@V?$allocator@K@std@@@012@AEBU3012@1@Z</DECORATED>
+    <FUNCLINE>362</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\local\boost_1_75_0\boost\multiprecision\cpp_int\</FILEPATH>
+      <FILENAME>divide.hpp</FILENAME>
+      <LINE>548</LINE>
+      <COLUMN>65</COLUMN>
+    </SFA>
+    <DEFECTCODE>26451</DEFECTCODE>
+    <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
+    <FUNCTION>boost::multiprecision::backends::eval_modulus</FUNCTION>
+    <DECORATED>??$eval_modulus@$0A@$0A@$00$0A@V?$allocator@K@std@@$0A@$0A@$00$0A@V12@@backends@multiprecision@boost@@YAXAEAU?$cpp_int_backend@$0A@$0A@$00$0A@V?$allocator@K@std@@@012@AEBU3012@K@Z</DECORATED>
+    <FUNCLINE>541</FUNCLINE>
+    <PATH></PATH>
   </DEFECT></DEFECTS>
