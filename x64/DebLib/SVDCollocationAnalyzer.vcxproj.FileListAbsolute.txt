@@ -1,0 +1,6 @@
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\DebLib\SVDCollocationAnalyzer.lib.lastcodeanalysissucceeded
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\DebLib\NativeCodeAnalysis.read.1.tlog
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\DebLib\SVDCollocationAnalyzer.lib
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\x64\DebLib\SVDCollocationAnalyzer.lib.lastcodeanalysissucceeded
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\x64\DebLib\NativeCodeAnalysis.read.1.tlog
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\x64\DebLib\SVDCollocationAnalyzer.lib

@@ -785,8 +785,8 @@
     <SFA>
       <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>math_core.cpp</FILENAME>
-      <LINE>489</LINE>
-      <COLUMN>57</COLUMN>
+      <LINE>548</LINE>
+      <COLUMN>58</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>
@@ -798,8 +798,8 @@
     <SFA>
       <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>math_core.cpp</FILENAME>
-      <LINE>498</LINE>
-      <COLUMN>60</COLUMN>
+      <LINE>556</LINE>
+      <COLUMN>61</COLUMN>
     </SFA>
     <DEFECTCODE>26451</DEFECTCODE>
     <DESCRIPTION>Арифметическое переполнение: использование оператора "+" на байтовом значении 4 и приведение результата к байтовому значению 8. Приведите значение к более широкому типу перед вызовом оператора "+", чтобы избежать переполнения (io.2).</DESCRIPTION>

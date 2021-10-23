@@ -1,3 +1,4 @@
 C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\x64\Release\SVDCollocationAnalyzer.exe
 C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Release\SVDCollocationAnalyzer.exe
 C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Release\SVDCollocationAnalyzer.exe
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\x64\Release\SVDCollocationAnalyzer.exe

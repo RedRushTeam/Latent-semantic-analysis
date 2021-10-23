@@ -67,15 +67,6 @@ void math_core::calculate_all()
 	cout << endl << "Всего вычисление будет проиводиться в " << this->number_of_slices << " этапов: ";
 
 	for (int i = 0; i < this->number_of_slices; ++i) {
-		if (i + 1 == this->number_of_slices) {
-			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(i * (global_var::SIZE_OF_PIECE), this->max_cont_size));
-			dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->set_downloaded_range(make_pair(i * (global_var::SIZE_OF_PIECE), this->max_cont_size));
-		}
-		else {
-			dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(i * (global_var::SIZE_OF_PIECE), (i + 1) * (global_var::SIZE_OF_PIECE)));
-			dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->set_downloaded_range(make_pair(i * (global_var::SIZE_OF_PIECE), (i + 1) * (global_var::SIZE_OF_PIECE)));
-		}
-
 		cout << endl << "Стоп-слов в конфигурационном файле: " << parser::stop_words.size();
 
 		cout << endl << "Подготовка и SVD разложение термов...";	//6
@@ -135,6 +126,7 @@ void math_core::calculate_mat_ozidanie()
 {
 	this->mat_ozidanie = make_shared<piecewise_container_class>(global_var::COLLOC_DIST, this->max_cont_size);
 	analyzer::set_container_mat_ozidanie(this->mat_ozidanie);
+	dynamic_pointer_cast<piecewise_container_class>(analyzer::get_container_mat_ozidanie())->set_downloaded_range(make_pair(0 * (global_var::SIZE_OF_PIECE), this->max_cont_size));
 
 	for_each(execution::par_unseq, this->vec_of_filepaths->begin(), this->vec_of_filepaths->end(), [](fs::path& _path) {
 		parser _parser(_path);	//tut peredaetsa kopiya
@@ -150,7 +142,7 @@ void math_core::calculate_mat_ozidanie()
 void math_core::calculate_mat_disperse()
 {
 	this->mat_disperse = make_shared<piecewise_container_class>(global_var::COLLOC_DIST, this->max_cont_size);
-
+	dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->set_downloaded_range(make_pair(0 * (global_var::SIZE_OF_PIECE), this->max_cont_size));
 	mutex mu_for_disp_sum;
 	for_each(execution::par_unseq, this->vec_of_filepaths->begin(), this->vec_of_filepaths->end(), [this, &mu_for_disp_sum](fs::path& _path) {
 		parser _parser(_path);	//tut peredaetsa kopiya
@@ -483,29 +475,101 @@ void math_core::SVD_colloc_algorithm(now_type* arr, size_t rows, bool is_this_SV
 		system("pause");
 	}
 
-	delete[] s;
-
 	shared_ptr<MatrixXf> resized_V_matrix_of_SVD = make_shared<MatrixXf>();
-	resized_V_matrix_of_SVD->resize(global_var::COLLOC_DIST + (int)1, n);
-
-	for (int j = 0; j < n; ++j)
-		for (int i = 0; i <= global_var::COLLOC_DIST; ++i)
-			resized_V_matrix_of_SVD->operator()(i, j) = vt[j * n + i];
-
-	delete[] vt;
-
 	shared_ptr<MatrixXf> resized_U_matrix_of_SVD = make_shared<MatrixXf>();
-	resized_U_matrix_of_SVD->resize(m, global_var::COLLOC_DIST + (int)1);
 
-	int starter = 0;
-	for (int i = 0; i < m; ++i) {
-		for (int j = 0; j <= global_var::COLLOC_DIST; ++j)
-			resized_U_matrix_of_SVD->operator()(i, j) = u[starter + j];
+	if (is_this_SVD_for_terms) {
 
-		starter += n;
+		setlocale(LC_ALL, "en-US");
+
+		string str_for_inp_clustering = "[";
+		for (int i = 0; i < n; ++i)
+			str_for_inp_clustering += "[1," + to_string(s[i]) + "],";
+
+		str_for_inp_clustering.pop_back();
+		str_for_inp_clustering += "]";
+
+		setlocale(LC_ALL, "Russian");
+
+		alglib::clusterizerstate state;
+		alglib::ahcreport rep;
+		alglib::real_2d_array xy = str_for_inp_clustering.c_str();
+		alglib::integer_1d_array cidx;
+		alglib::integer_1d_array cz;
+
+		alglib::clusterizercreate(state);
+		alglib::clusterizersetpoints(state, xy, 2);
+		alglib::clusterizerrunahc(state, rep);
+
+		// with K=1 we have one large cluster C0=[P0,P1,P2,P3,P4,P5]
+		alglib::clusterizergetkclusters(rep, 2, cidx, cz);
+		printf("%s\n", cidx.tostring().c_str()); // EXPECTED: [0,0,1,0,1]
+
+		list<pair<now_type, bool>> first_cluster;
+		list<pair<now_type, bool>> second_cluster;
+
+		for (int i = 0; i < n; ++i)
+		{
+			if (cidx[i] == NULL)
+				first_cluster.push_back(make_pair(xy[i][1], false));
+			else
+				second_cluster.push_back(make_pair(xy[i][1], true));
+		}
+
+		cout << endl << endl;
+		for (auto obj : first_cluster)
+			cout << obj.first << " ";
+
+		cout << endl << endl;
+		for (auto obj : second_cluster)
+			cout << obj.first << " ";
+
+		delete[] s;
+
+		resized_V_matrix_of_SVD->resize(second_cluster.size(), n);
+
+		for (int j = 0; j < n; ++j)
+			for (int i = 0; i < second_cluster.size(); ++i)
+				resized_V_matrix_of_SVD->operator()(i, j) = vt[j * n + i];
+
+		delete[] vt;
+
+		resized_U_matrix_of_SVD->resize(m, second_cluster.size());
+
+		int starter = 0;
+		for (int i = 0; i < m; ++i) {
+			for (int j = 0; j < second_cluster.size(); ++j)
+				resized_U_matrix_of_SVD->operator()(i, j) = u[starter + j];
+
+			starter += n;
+		}
+
+		delete[] u;
 	}
+	else
+	{
+		delete[] s;
 
-	delete[] u;
+		resized_V_matrix_of_SVD->resize(global_var::COLLOC_DIST + (int)1, n);
+
+		for (int j = 0; j < n; ++j)
+			for (int i = 0; i <= global_var::COLLOC_DIST; ++i)
+				resized_V_matrix_of_SVD->operator()(i, j) = vt[j * n + i];
+
+		delete[] vt;
+
+		resized_U_matrix_of_SVD->resize(m, global_var::COLLOC_DIST + (int)1);
+
+		int starter = 0;
+		for (int i = 0; i < m; ++i) {
+			for (int j = 0; j <= global_var::COLLOC_DIST; ++j)
+				resized_U_matrix_of_SVD->operator()(i, j) = u[starter + j];
+
+			starter += n;
+		}
+
+		delete[] u;
+	}
 
 	// начало части с косинусами
 	vector<float> lenghts_colloc_vector;
@@ -763,15 +827,24 @@ void math_core::prepare_tf_matrix_for_SVD()
 	cout << endl << "Сверим размер файла со стоп-словами: " << parser::stop_words.size();
 
 	auto mat_ozid_like_piece = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie);
-	auto shrinked_vec_mat_ozid = dynamic_pointer_cast<piecewise_container_class>(this->mat_ozidanie)->get_vector_ptr();
 
 	unordered_set<pair<int, int>> outputed_coolocs;
 
 	std::ofstream csv_file("norm_shrinked_mat_ozid.csv");
 
 	for (auto obj : *this->colloc_and_terms_after_SVD) {
-		if (obj.second_coord == -1 || (outputed_coolocs.find(make_pair(obj.first_coord, obj.second_coord)) != outputed_coolocs.end()))
+		if ((outputed_coolocs.find(make_pair(obj.first_coord, obj.second_coord)) != outputed_coolocs.end()))
 			continue;
+
+		if (obj.second_coord == -1) {
+			csv_file << analyzer::get_word_for_token(obj.first_coord) << ";";
+			for (int i = 0; i <= global_var::COLLOC_DIST; ++i)
+				csv_file << to_string(this->mat_ozidanie->get_count_of_concret_collocation(obj.first_coord, obj.second_coord, i)) << ";";
+
+			outputed_coolocs.insert(make_pair(obj.first_coord, obj.second_coord));
+			csv_file << "\n";
+			continue;
+		}
 
 		csv_file << analyzer::get_word_for_token(obj.first_coord) << ";" << analyzer::get_word_for_token(obj.second_coord) << ";";
 

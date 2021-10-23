@@ -1,5 +1,4 @@
 C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.exe.lastcodeanalysissucceeded
-C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\NativeCodeAnalysis.read.1.tlog
 A:\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.exe.lastcodeanalysissucceeded
 A:\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\NativeCodeAnalysis.read.1.tlog
 C:\Users\Strelkov\YandexDisk\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.exe.lastcodeanalysissucceeded
@@ -11,3 +10,8 @@ C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyze
 C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.exe.lastcodeanalysissucceeded
 C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\NativeCodeAnalysis.read.1.tlog
 C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.exe
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.exe.lastcodeanalysissucceeded
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\NativeCodeAnalysis.read.1.tlog
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.exe
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\x64\Debug\NativeCodeAnalysis.read.1.tlog
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\x64\Debug\SVDCollocationAnalyzer.exe

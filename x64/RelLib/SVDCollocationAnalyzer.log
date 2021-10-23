@@ -1,0 +1,4 @@
+﻿  main.cpp
+  math_core.cpp
+LINK : warning LNK4044: нераспознанный параметр "/WHOLEARCHIVE"; игнорируется
+  SVDCollocationAnalyzer.vcxproj -> C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\RelLib\SVDCollocationAnalyzer.lib

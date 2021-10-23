@@ -1,4 +1,4 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Platforms\x64\PlatformToolsets\v142\ImportAfter\Intel.Libs.oneMKL.v142.targets(41,5): warning : Could not expand oneMKLOmpLibDir variable. Corresponding version of Intel(R) oneMKL is not installed or the registry information may be incorrect. 
+﻿A:\Programming\MVS\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: промежуточный каталог (x64\Release\) содержит файлы, которые используются совместно с другим проектом (SVDCollocationAnalyzer (2).vcxproj, SVDCollocationAnalyzer (3).vcxproj).  Это может привести к ошибкам очистки и перестроения.
   analyzer.cpp
   container_class_interface.cpp
   list_of_functions.cpp
@@ -7,7 +7,16 @@
   parser.cpp
   piecewise_container_class.cpp
   sparce_container_class.cpp
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(376,150): warning C4838: Преобразование из "int" в "short" требует сужающего преобразования.
-C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\analyzer.cpp(386,155): warning C4838: Преобразование из "int" в "short" требует сужающего преобразования.
-  LINK : указан параметр /LTCG, но не требуется создание кода; удалите /LTCG из командной строки компоновки для повышения производительности компоновщика
-  SVDCollocationAnalyzer.vcxproj -> C:\Users\Dmitry\Documents\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\Release\SVDCollocationAnalyzer.exe
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(409,150): warning C4838: Преобразование из "int" в "short" требует сужающего преобразования.
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(419,155): warning C4838: Преобразование из "int" в "short" требует сужающего преобразования.
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(477,150): warning C4838: Преобразование из "int" в "short" требует сужающего преобразования.
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(493,155): warning C4838: Преобразование из "int" в "short" требует сужающего преобразования.
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(517,57): warning C4838: Преобразование из "double" в "int" требует сужающего преобразования.
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(517,62): warning C4838: Преобразование из "double" в "short" требует сужающего преобразования.
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(613,36): warning C4302: приведение типов: усечение из "const char *" к "char"
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(616,36): warning C4302: приведение типов: усечение из "const char *" к "char"
+  Создание кода
+  Previous IPDB not found, fall back to full compilation.
+  All 1049 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Создание кода завершено
+  SVDCollocationAnalyzer.vcxproj -> C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\x64\Release\SVDCollocationAnalyzer.exe

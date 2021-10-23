@@ -1,0 +1,13 @@
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\RelLib\SVDCollocationAnalyzer.lib
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\RelLib\SVDCollocationAnalyzer.vcxproj.CopyComplete
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\RelLib\concrt140.dll
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\RelLib\msvcp140.dll
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\RelLib\msvcp140_1.dll
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\RelLib\msvcp140_2.dll
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\RelLib\msvcp140_atomic_wait.dll
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\RelLib\msvcp140_codecvt_ids.dll
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\RelLib\vccorlib140.dll
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\RelLib\vcruntime140.dll
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\RelLib\vcruntime140_1.dll
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\RelLib\vcamp140.dll
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\SVDCollocationAnalyzer\x64\RelLib\vcomp140.dll
