@@ -35,6 +35,7 @@ public:
 	void shrink_set_of_fluct_cooloc_by_rare();
 	void shrink_mat_ozid();
 	void calculate_map_of_flukt_cooloc_fuzzy();
+	void calculate_and_out_matrice_frq();
 	//void find_SVD_colloc();
 
 	void calculate_norm_shrinked_mat_ozid();

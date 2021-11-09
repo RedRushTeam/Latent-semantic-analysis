@@ -23,6 +23,7 @@ public:
 	list<string>::iterator move_list_iterator(list<string>::iterator _it, int mover);
 	static string get_word_for_token(int token);
 	void calculate_matrix_only_for_terms(int number_of_text);
+	void out_stats_high_value_terms_collocs(shared_ptr<tsl::robin_set<three_coordinate_structure>> colloc_and_terms_after_SVD, shared_ptr<tsl::robin_map<three_coordinate_structure, size_t>> index_map, int number_of_text);
 	//methods for math calculate
 	void calculate_mat_ozidanie();
 	shared_ptr<container_class_interface> calculate_mat_disperse();
@@ -55,6 +56,8 @@ public:
 	static void set_tf_matrix(shared_ptr<vector<vector<now_type>>> tf_matrix);
 	static float* get_only_terms_mass();
 	static void set_only_terms_mass(float* only_terms_mass);
+	static shared_ptr<vector<vector<now_type>>> get_matrix_for_final_output();
+	static void set_matrix_for_final_output(shared_ptr<vector<vector<now_type>>> matrix_for_final_output);
 
 	//destr
 	~analyzer() {}
@@ -78,6 +81,7 @@ private:
 	static inline shared_ptr<tsl::robin_set<three_coordinate_structure>> colloc_and_terms_after_SVD;
 	static inline shared_ptr<vector<now_type>> idf_matrix;
 	static inline shared_ptr<vector<vector<now_type>>> tf_matrix;
+	static inline shared_ptr<vector<vector<now_type>>> matrix_for_final_output;
 
 	//dictionaries
 	static inline tsl::robin_map<string, int> map_of_tokens_WORD_TOKEN;

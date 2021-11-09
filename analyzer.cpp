@@ -602,6 +602,65 @@ void analyzer::calculate_matrix_only_for_terms(int number_of_text)
 	}
 }
 
+void analyzer::out_stats_high_value_terms_collocs(shared_ptr<tsl::robin_set<three_coordinate_structure>> colloc_and_terms_after_SVD, shared_ptr<tsl::robin_map<three_coordinate_structure, size_t>> index_map, int number_of_text)
+{
+	this->lemmatize_all_words();
+
+	mut.lock();
+	for (auto it = this->list_of_all_lemmatized_text->begin(); it != this->list_of_all_lemmatized_text->end(); ++it) {
+		for (int i = -global_var::COLLOC_DIST - 1; i <= global_var::COLLOC_DIST + 1; ++i)
+			if (i != 0) {
+				auto now_it = this->move_list_iterator(it, i);
+				if (now_it == this->list_of_all_lemmatized_text->end())
+					continue;
+
+				if (*it == string("А"))
+					continue;
+
+				if (*now_it == string("А"))
+					continue;
+
+				word_and_number_of_appearances_structure _key = { *it, 1, 1 };
+				word_and_number_of_appearances_structure __key = { *now_it, 1, 1 };
+
+				int first_index = (*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(_key)).second;
+				int second_index = (*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key)).second;
+
+				if (colloc_and_terms_after_SVD->find(three_coordinate_structure{ first_index, second_index, (short)abs(i) - 1 }) == colloc_and_terms_after_SVD->end())
+					continue;
+
+				if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(__key) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+					continue;
+
+				if (i > 0) {
+					three_coordinate_structure ___key = { first_index, second_index, i - 1 };
+
+					(*matrix_for_final_output)[index_map->find(___key).value()][number_of_text] += 1;
+				}
+				else {
+					three_coordinate_structure ___key = { first_index, second_index, abs(i) - 1 };
+
+					(*matrix_for_final_output)[index_map->find(___key).value()][number_of_text] += 1;
+				}
+			}
+
+		word_and_number_of_appearances_structure key_ = { *it, 1, 1 };
+
+		if (analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(key_) == analyzer::map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.end())
+			continue;
+
+		int first_index = (*this->map_of_tokens_Word_and_number_of_appearances_struct_TOKEN_.find(key_)).second;
+
+		three_coordinate_structure ____key = { first_index, -1, -1 };
+
+		if (colloc_and_terms_after_SVD->find(____key) == colloc_and_terms_after_SVD->end())
+			continue;
+
+		(*matrix_for_final_output)[index_map->find(____key).value()][number_of_text] += 1;
+	}
+	mut.unlock();
+}
+
 void analyzer::lemmatize_all_words()
 {
 	this->list_of_all_lemmatized_text = make_shared<list<string>>();
@@ -794,4 +853,14 @@ float* analyzer::get_only_terms_mass()
 void analyzer::set_only_terms_mass(float* only_terms_mass)
 {
 	analyzer::only_terms_mass = only_terms_mass;
+}
+
+shared_ptr<vector<vector<now_type>>> analyzer::get_matrix_for_final_output()
+{
+	return analyzer::matrix_for_final_output;
+}
+
+void analyzer::set_matrix_for_final_output(shared_ptr<vector<vector<now_type>>> matrix_for_final_output)
+{
+	analyzer::matrix_for_final_output = matrix_for_final_output;
 }

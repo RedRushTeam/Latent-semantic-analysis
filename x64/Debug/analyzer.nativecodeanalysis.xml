@@ -369,14 +369,14 @@
     <SFA>
       <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>list_of_types.h</FILENAME>
-      <LINE>107</LINE>
+      <LINE>109</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
     <DESCRIPTION>Переменная "word_and_number_of_appearances_structure::number_of_texts_in_which_term_occurs" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
     <FUNCTION>word_and_number_of_appearances_structure::{ctor}</FUNCTION>
     <DECORATED>??0word_and_number_of_appearances_structure@@QEAA@XZ</DECORATED>
-    <FUNCLINE>107</FUNCLINE>
+    <FUNCLINE>109</FUNCLINE>
     <ADDITIONALINFO>
       <targetSymbol>word_and_number_of_appearances_structure::number_of_texts_in_which_term_occurs</targetSymbol>
     </ADDITIONALINFO>
@@ -386,14 +386,14 @@
     <SFA>
       <FILEPATH>C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\</FILEPATH>
       <FILENAME>list_of_types.h</FILENAME>
-      <LINE>107</LINE>
+      <LINE>109</LINE>
       <COLUMN>0</COLUMN>
     </SFA>
     <DEFECTCODE>26495</DEFECTCODE>
     <DESCRIPTION>Переменная "word_and_number_of_appearances_structure::number_of_appearances_of_this_word" не инициализирована. Всегда инициализируйте переменную-член (type.6).</DESCRIPTION>
     <FUNCTION>word_and_number_of_appearances_structure::{ctor}</FUNCTION>
     <DECORATED>??0word_and_number_of_appearances_structure@@QEAA@XZ</DECORATED>
-    <FUNCLINE>107</FUNCLINE>
+    <FUNCLINE>109</FUNCLINE>
     <ADDITIONALINFO>
       <targetSymbol>word_and_number_of_appearances_structure::number_of_appearances_of_this_word</targetSymbol>
     </ADDITIONALINFO>

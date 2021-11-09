@@ -84,7 +84,9 @@ using now_type = float;
 class global_var {
 public:
 	static inline int SIZE_OF_PIECE = 500000;
-	static inline int COLLOC_DIST = 3;
+	static inline int COLLOC_DIST = 4;
+	static inline int NUMBER_OF_CLUSTERS = 3;
+	static inline int NUMBER_OF_VALID_CLUSTERS = 2;
 	static inline int CUTOFF = 8;
 	static inline int CUTOFF_FR_IN_TEXTS = 8;
 	static inline int CUTOFF_FR_IN_FLUCT = 3;

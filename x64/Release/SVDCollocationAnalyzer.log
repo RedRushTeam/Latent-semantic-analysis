@@ -1,5 +1,4 @@
-﻿A:\Programming\MVS\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: промежуточный каталог (x64\Release\) содержит файлы, которые используются совместно с другим проектом (SVDCollocationAnalyzer (2).vcxproj, SVDCollocationAnalyzer (3).vcxproj).  Это может привести к ошибкам очистки и перестроения.
-  analyzer.cpp
+﻿  analyzer.cpp
   container_class_interface.cpp
   list_of_functions.cpp
   main.cpp
@@ -13,8 +12,10 @@ C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(477,150): warn
 C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(493,155): warning C4838: Преобразование из "int" в "short" требует сужающего преобразования.
 C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(517,57): warning C4838: Преобразование из "double" в "int" требует сужающего преобразования.
 C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(517,62): warning C4838: Преобразование из "double" в "short" требует сужающего преобразования.
-C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(613,36): warning C4302: приведение типов: усечение из "const char *" к "char"
-C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(616,36): warning C4302: приведение типов: усечение из "const char *" к "char"
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(636,73): warning C4838: Преобразование из "int" в "short" требует сужающего преобразования.
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(641,78): warning C4838: Преобразование из "int" в "short" требует сужающего преобразования.
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(672,36): warning C4302: приведение типов: усечение из "const char *" к "char"
+C:\Users\beerR2600\YandexDisk\SVDCollocationAnalyzer\analyzer.cpp(675,36): warning C4302: приведение типов: усечение из "const char *" к "char"
   Создание кода
   Previous IPDB not found, fall back to full compilation.
   All 1049 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.

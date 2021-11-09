@@ -318,6 +318,65 @@ void math_core::calculate_map_of_flukt_cooloc_fuzzy()
 	this->set_of_fluct_cooloc->clear();
 }
 
+void math_core::calculate_and_out_matrice_frq()
+{
+	auto matrix_for_indexes = make_shared<tsl::robin_map<three_coordinate_structure, size_t>>();
+	shared_ptr<tsl::robin_set<three_coordinate_structure>> colloc_and_terms_after_SVD_with_length = make_shared<tsl::robin_set<three_coordinate_structure>>();
+
+	for (auto obj : *this->colloc_and_terms_after_SVD) {
+		if (obj.second_coord == -1)
+			colloc_and_terms_after_SVD_with_length->insert(obj);
+		else
+			for (int i = 0; i < global_var::COLLOC_DIST + 1; ++i)
+				colloc_and_terms_after_SVD_with_length->insert(three_coordinate_structure{ obj.first_coord, obj.second_coord, (short)i });
+	}
+
+	auto matrix_for_final_output = make_shared<vector<vector<now_type>>>();
+	matrix_for_final_output->resize(colloc_and_terms_after_SVD_with_length->size());
+	for (auto& obj : *matrix_for_final_output)
+		obj.resize(this->vec_of_filepaths->size(), .0f);
+
+	analyzer::set_matrix_for_final_output(matrix_for_final_output);
+
+	int index_ = 0;
+	for (auto obj : *colloc_and_terms_after_SVD_with_length) {
+		matrix_for_indexes->insert(make_pair(obj, index_));
+		++index_;
+	}
+
+	auto first_it = this->vec_of_filepaths->begin();
+	for_each(execution::par_unseq, boost::counting_iterator<int>(0), boost::counting_iterator<int>(this->vec_of_filepaths->size()), [colloc_and_terms_after_SVD_with_length, first_it, matrix_for_indexes](auto&& index) {
+		parser _parser(first_it[index]);	//tut peredaetsa kopiya
+		auto result_of_parse = _parser.parse();
+
+		analyzer _analyzer(result_of_parse);
+		_analyzer.out_stats_high_value_terms_collocs(colloc_and_terms_after_SVD_with_length, matrix_for_indexes, index);
+	});
+
+	tsl::robin_map<size_t, three_coordinate_structure> inv_matrix_for_indexes;
+
+	for (auto obj : *matrix_for_indexes)
+		inv_matrix_for_indexes.insert(make_pair(obj.second, obj.first));
+
+	std::ofstream csv_file_("high_value_colloc_and_terms_about_text_matrices.csv");
+	for (int i = 0; i < matrix_for_final_output->size(); ++i) {
+		auto _it = inv_matrix_for_indexes.find(i);
+		if (_it->second.second_coord != -1)
+			csv_file_ << analyzer::get_word_for_token(_it->second.first_coord) << ";" << analyzer::get_word_for_token(_it->second.second_coord) << ";" << _it->second.k << ";";
+		else
+			csv_file_ << analyzer::get_word_for_token(_it->second.first_coord) << ";" << _it->second.second_coord << ";" << _it->second.k << ";";
+
+		for (int j = 0; j < matrix_for_final_output->begin()->size(); ++j)
+			csv_file_ << (*matrix_for_final_output)[_it.key()][j] << ";";
+
+		csv_file_ << "\n";
+	}
+
+	csv_file_.close();
+
+	//
+}
+
 /*void math_core::find_SVD_colloc()
 {
 	dynamic_pointer_cast<piecewise_container_class>(this->mat_disperse)->clear_vec();
@@ -501,44 +560,68 @@ void math_core::SVD_colloc_algorithm(now_type* arr, size_t rows, bool is_this_SV
 		alglib::clusterizersetpoints(state, xy, 2);
 		alglib::clusterizerrunahc(state, rep);
 
-		// with K=1 we have one large cluster C0=[P0,P1,P2,P3,P4,P5]
-		alglib::clusterizergetkclusters(rep, 2, cidx, cz);
+		alglib::clusterizergetkclusters(rep, global_var::NUMBER_OF_CLUSTERS, cidx, cz);
 		printf("%s\n", cidx.tostring().c_str()); // EXPECTED: [0,0,1,0,1]
 
-		list<pair<now_type, bool>> first_cluster;
-		list<pair<now_type, bool>> second_cluster;
+		vector<list<pair<now_type, bool>>> _cluster;
+		_cluster.resize(global_var::NUMBER_OF_CLUSTERS, list<pair<now_type, bool>>());
 
 		for (int i = 0; i < n; ++i)
-		{
-			if (cidx[i] == NULL)
-				first_cluster.push_back(make_pair(xy[i][1], false));
-			else
-				second_cluster.push_back(make_pair(xy[i][1], true));
-		}
+			_cluster[cidx[i]].push_back(make_pair(xy[i][1], true));
+
+		std::sort(_cluster.begin(), _cluster.end(), [&](list<pair<now_type, bool>>& a, list<pair<now_type, bool>>& b) {
+			float arithmetic_mean_of_a = 0;
+			float arithmetic_mean_of_b = 0;
+
+			for (auto obj : a)
+				arithmetic_mean_of_a += obj.first;
+
+			arithmetic_mean_of_a /= a.size();
+
+			for (auto obj : b)
+				arithmetic_mean_of_b += obj.first;
+
+			arithmetic_mean_of_b /= b.size();
+
+			return arithmetic_mean_of_a >= arithmetic_mean_of_b;
+		});
 
 		cout << endl << endl;
-		for (auto obj : first_cluster)
-			cout << obj.first << " ";
+		for(int i = 0; i < global_var::NUMBER_OF_VALID_CLUSTERS; ++i)
+			for (auto& obj : _cluster[i]) {
+				obj.second = true;
+				cout << obj.first << " ";
+			}
 
 		cout << endl << endl;
-		for (auto obj : second_cluster)
-			cout << obj.first << " ";
+		for (int i = global_var::NUMBER_OF_VALID_CLUSTERS; i < _cluster.size(); ++i)
+			for (auto& obj : _cluster[i]) {
+				obj.second = false;
+				cout << obj.first << " ";
+			}
+
+		int number_for_cut = 0;
+
+		for (auto&& obj : _cluster)
+			for (auto&& obj1 : obj)
+				if (obj1.second)
+					++number_for_cut;
 
 		delete[] s;
 
-		resized_V_matrix_of_SVD->resize(second_cluster.size(), n);
+		resized_V_matrix_of_SVD->resize(number_for_cut, n);
 
 		for (int j = 0; j < n; ++j)
-			for (int i = 0; i < second_cluster.size(); ++i)
+			for (int i = 0; i < number_for_cut; ++i)
 				resized_V_matrix_of_SVD->operator()(i, j) = vt[j * n + i];
 
 		delete[] vt;
 
-		resized_U_matrix_of_SVD->resize(m, second_cluster.size());
+		resized_U_matrix_of_SVD->resize(m, number_for_cut);
 
 		int starter = 0;
 		for (int i = 0; i < m; ++i) {
-			for (int j = 0; j < second_cluster.size(); ++j)
+			for (int j = 0; j < number_for_cut; ++j)
 				resized_U_matrix_of_SVD->operator()(i, j) = u[starter + j];
 
 			starter += n;
@@ -823,6 +906,8 @@ void math_core::prepare_tf_matrix_for_SVD()
 	cout << endl << " оличество значимых термов/коллокаций после разложени€ и свертки tf/idf, с множителем " << 0.99 << " :" << this->colloc_and_terms_after_SVD->size();
 
 	ofstream _fout("high-value terms and collocs.txt");
+
+	this->calculate_and_out_matrice_frq();
 
 	cout << endl << "—верим размер файла со стоп-словами: " << parser::stop_words.size();
 
